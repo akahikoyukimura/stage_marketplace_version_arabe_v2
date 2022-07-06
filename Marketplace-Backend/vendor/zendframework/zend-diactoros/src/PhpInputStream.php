@@ -1,15 +1,13 @@
 <?php
 /**
- * @see       https://github.com/zendframework/zend-diactoros for the canonical source repository
- * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @see       http://github.com/zendframework/zend-diactoros for the canonical source repository
+ * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
  */
 
-declare(strict_types=1);
-
 namespace Zend\Diactoros;
-
-use function stream_get_contents;
 
 /**
  * Caching version of php://input
@@ -28,16 +26,18 @@ class PhpInputStream extends Stream
 
     /**
      * @param  string|resource $stream
+     * @param  string $mode
      */
-    public function __construct($stream = 'php://input')
+    public function __construct($stream = 'php://input', $mode = 'r')
     {
-        parent::__construct($stream, 'r');
+        $mode = 'r';
+        parent::__construct($stream, $mode);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function __toString() : string
+    public function __toString()
     {
         if ($this->reachedEof) {
             return $this->cache;
@@ -50,7 +50,7 @@ class PhpInputStream extends Stream
     /**
      * {@inheritdoc}
      */
-    public function isWritable() : bool
+    public function isWritable()
     {
         return false;
     }
@@ -58,10 +58,10 @@ class PhpInputStream extends Stream
     /**
      * {@inheritdoc}
      */
-    public function read($length) : string
+    public function read($length)
     {
         $content = parent::read($length);
-        if (! $this->reachedEof) {
+        if ($content && ! $this->reachedEof) {
             $this->cache .= $content;
         }
 
@@ -75,7 +75,7 @@ class PhpInputStream extends Stream
     /**
      * {@inheritdoc}
      */
-    public function getContents($maxLength = -1) : string
+    public function getContents($maxLength = -1)
     {
         if ($this->reachedEof) {
             return $this->cache;

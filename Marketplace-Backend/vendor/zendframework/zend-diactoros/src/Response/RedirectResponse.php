@@ -1,23 +1,18 @@
 <?php
 /**
- * @see       https://github.com/zendframework/zend-diactoros for the canonical source repository
- * @copyright Copyright (c) 2015-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @see       http://github.com/zendframework/zend-diactoros for the canonical source repository
+ * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
  */
 
-declare(strict_types=1);
-
 namespace Zend\Diactoros\Response;
 
+use InvalidArgumentException;
 use Psr\Http\Message\UriInterface;
-use Zend\Diactoros\Exception;
 use Zend\Diactoros\Response;
-
-use function get_class;
-use function gettype;
-use function is_object;
-use function is_string;
-use function sprintf;
+use Zend\Diactoros\Stream;
 
 /**
  * Produce a redirect response.
@@ -36,10 +31,10 @@ class RedirectResponse extends Response
      * @param int $status Integer status code for the redirect; 302 by default.
      * @param array $headers Array of headers to use at initialization.
      */
-    public function __construct($uri, int $status = 302, array $headers = [])
+    public function __construct($uri, $status = 302, array $headers = [])
     {
         if (! is_string($uri) && ! $uri instanceof UriInterface) {
-            throw new Exception\InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'Uri provided to %s MUST be a string or Psr\Http\Message\UriInterface instance; received "%s"',
                 __CLASS__,
                 (is_object($uri) ? get_class($uri) : gettype($uri))

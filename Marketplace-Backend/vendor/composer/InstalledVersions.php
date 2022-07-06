@@ -25,12 +25,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.x-dev',
-    'version' => '1.9999999.9999999.9999999-dev',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => 'e140fa36624d6cd7ef408af6906981a9029dbb96',
+    'reference' => '5ceb70deb8e250ddaa7a7e3cbca8a1e696af42e8',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -168,12 +168,13 @@ private static $installed = array (
     ),
     'fzaninotto/faker' => 
     array (
-      'pretty_version' => 'v1.9.2',
-      'version' => '1.9.2.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
+        0 => '1.9.x-dev',
       ),
-      'reference' => '848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
+      'reference' => '5ffe7db6c80f441f150fc88008d64e64af66634b',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -457,12 +458,12 @@ private static $installed = array (
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => '1.x-dev',
-      'version' => '1.9999999.9999999.9999999-dev',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => 'e140fa36624d6cd7ef408af6906981a9029dbb96',
+      'reference' => '5ceb70deb8e250ddaa7a7e3cbca8a1e696af42e8',
     ),
     'laravel/passport' => 
     array (
@@ -484,12 +485,12 @@ private static $installed = array (
     ),
     'lcobucci/jwt' => 
     array (
-      'pretty_version' => '3.4.6',
-      'version' => '3.4.6.0',
+      'pretty_version' => '3.2.5',
+      'version' => '3.2.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3ef8657a78278dfeae7707d51747251db4176240',
+      'reference' => '82be04b4753f8b7693b62852b7eab30f97524f9b',
     ),
     'league/commonmark' => 
     array (
@@ -791,22 +792,6 @@ private static $installed = array (
         0 => '1.0',
       ),
     ),
-    'psr/http-factory' => 
-    array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '12ac7fcd07e5b077433f5f2bee95b3a771bf61be',
-    ),
-    'psr/http-factory-implementation' => 
-    array (
-      'provided' => 
-      array (
-        0 => '1.0',
-      ),
-    ),
     'psr/http-message' => 
     array (
       'pretty_version' => '1.0.1',
@@ -821,6 +806,7 @@ private static $installed = array (
       'provided' => 
       array (
         0 => '1.0',
+        1 => '~1.0.0',
       ),
     ),
     'psr/log' => 
@@ -1020,12 +1006,12 @@ private static $installed = array (
     ),
     'symfony/css-selector' => 
     array (
-      'pretty_version' => 'v6.1.0',
-      'version' => '6.1.0.0',
+      'pretty_version' => 'v6.0.3',
+      'version' => '6.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '05c40f02f621609404b8820ff8bc39acb46e19cf',
+      'reference' => '1955d595c12c111629cc814d3f2a2ff13580508a',
     ),
     'symfony/debug' => 
     array (
@@ -1038,12 +1024,12 @@ private static $installed = array (
     ),
     'symfony/deprecation-contracts' => 
     array (
-      'pretty_version' => 'v3.1.1',
-      'version' => '3.1.1.0',
+      'pretty_version' => 'v3.0.2',
+      'version' => '3.0.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '07f1b9cc2ffee6aaafcf4b710fbc38ff736bd918',
+      'reference' => '26954b3d62a6c5fd0ea8a2a00c0353a14978d05c',
     ),
     'symfony/error-handler' => 
     array (
@@ -1207,12 +1193,12 @@ private static $installed = array (
     ),
     'symfony/psr-http-message-bridge' => 
     array (
-      'pretty_version' => 'v1.3.0',
-      'version' => '1.3.0.0',
+      'pretty_version' => 'v1.0.2',
+      'version' => '1.0.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9d3e80d54d9ae747ad573cad796e8e247df7b796',
+      'reference' => 'c2b757934f2d9681a287e662efbc27c41fe8ef86',
     ),
     'symfony/routing' => 
     array (
@@ -1304,12 +1290,12 @@ private static $installed = array (
     ),
     'zendframework/zend-diactoros' => 
     array (
-      'pretty_version' => '2.2.1',
-      'version' => '2.2.1.0',
+      'pretty_version' => '1.3.3',
+      'version' => '1.3.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'de5847b068362a88684a55b0dbb40d85986cfa52',
+      'reference' => '4d54fde709664562eb63356f0250d527824d05de',
     ),
   ),
 );
