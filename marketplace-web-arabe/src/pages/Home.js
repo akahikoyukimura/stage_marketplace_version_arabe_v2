@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { FormattedMessage, injectIntl, useIntl } from "react-intl";
+
 class Home extends Component {
   constructor() {
     super();
@@ -175,10 +177,14 @@ class Home extends Component {
 
     <!-- Hero Section Begin --> */}
         <div className="section-title">
-          <h2>Catalogue des moutons</h2>
+          <h2>
+            <FormattedMessage id="home_hero_section_title" />
+          </h2>
         </div>
         <div className="section-title">
-          <h3>Annonces à valider</h3>
+          <h3>
+            <FormattedMessage id="home_hero_section_subtitle" />
+          </h3>
         </div>
 
         {/* <!-- Hero Section End -->
@@ -189,28 +195,48 @@ class Home extends Component {
             <div className="row">
               <div className="categories__slider owl-carousel ">
                 {this.state.Annonces.map((Annonces) => (
-                  <a href="#" className="latest-product__item col-lg-6">
+                  <a
+                    href="#"
+                    style={{
+                      direction:
+                        localStorage.getItem("lg") === "ar" ? "rtl" : "ltr",
+                    }}
+                    className="latest-product__item col-lg-6"
+                  >
                     <div className="latest-product__item__pic">
                       <img src={Annonces.image} alt="" />
                     </div>
-                    <div className="latest-product__item__text col-lg-6 ">
+                    <div className="latest-product__item__text col-lg-6">
                       <h6>
-                        <b>Numéro de boucle {Annonces.Nboucle}</b>
+                        <b>
+                          <FormattedMessage id="home_item_id" />{" "}
+                          {Annonces.Nboucle}
+                        </b>
                       </h6>
                       <h6>
-                        <b>Prix</b>
-                        {"         " + Annonces.prix}
+                        <b>
+                          <FormattedMessage id="home_item_price" />
+                        </b>
+                        {"         " +
+                          Intl.NumberFormat("ar").format(Annonces.prix)}
                       </h6>
                       <h6>
-                        <b>Race</b>
+                        <b>
+                          <FormattedMessage id="home_item_race" />
+                        </b>
                         {"         " + Annonces.Race}
                       </h6>
                       <h6>
-                        <b>Poids</b>
+                        <b>
+                          <FormattedMessage id="home_item_poids" />
+                        </b>
                         {"         " + Annonces.poids}
                       </h6>
                       <h6>
-                        <b>Eleveur</b> {Annonces.Eleveur}
+                        <b>
+                          <FormattedMessage id="home_item_eleveur" />
+                        </b>{" "}
+                        {Annonces.Eleveur}
                       </h6>
                       <center>
                         <button className="btn btn-success ">
@@ -236,7 +262,9 @@ class Home extends Component {
             <div className="row">
               <div className="col-lg-12">
                 <div className="section-title">
-                  <h3>Annonces publiées</h3>
+                  <h3>
+                    <FormattedMessage id="annance_publie" />
+                  </h3>
                 </div>
                 {/* <div className="featured__controls"> */}
                 <section className="hero">
@@ -247,19 +275,28 @@ class Home extends Component {
                           <div className="hero__search__form">
                             <form action="#">
                               <div className="hero__search__categories">
-                                éleveur
+                                <FormattedMessage id="annance_publie_eleveur" />
                                 <span className="arrow_carrot-down"></span>
                               </div>
-                              <input
+                              <FormattedMessage
+                                id="annance_publie_placeholder"
+                              >
+                                {(placeholder) => (
+                                  <input
+                                    type="text"
+                                    placeholder={placeholder}
+                                  />
+                                )}
+                              </FormattedMessage>
+                              {/* <input
                                 type="text"
-                                placeholder="What do yo u need?"
-                              />
+                                placeholder={formatMessage({ id: "annance_publie_placeholder" })}
+                              /> */}
                               <button type="submit" className="site-btn">
-                                CHERCHER
+                                <FormattedMessage id="annance_publie_submit" />
                               </button>
                             </form>
                           </div>
-
                         </div>
                       </div>
                     </div>
@@ -352,24 +389,27 @@ class Home extends Component {
                         </li>
                       </ul>
                     </div>
-                    <div className="featured__item__text">
+                    <div style={{
+                      direction:
+                        localStorage.getItem("lg") === "ar" ? "rtl" : "ltr",
+                    }} className="featured__item__text">
                       <h6>
-                        <b>Numéro de boucle {Annonces.Nboucle}</b>
+                        <b><FormattedMessage id="home_item_id" /> {Annonces.Nboucle}</b>
                       </h6>
                       <h6>
-                        <b>Prix</b>
-                        {"         " + Annonces.prix}
+                        <b><FormattedMessage id="home_item_price" /></b>
+                        {"         " + Intl.NumberFormat("ar").format(Annonces.prix)}
                       </h6>
                       <h6>
-                        <b>Race</b>
+                        <b><FormattedMessage id="home_item_race" /></b>
                         {"         " + Annonces.Race}
                       </h6>
                       <h6>
-                        <b>Poids</b>
+                        <b><FormattedMessage id="home_item_poids" /></b>
                         {"         " + Annonces.poids}
                       </h6>
                       <h6>
-                        <b>Eleveur</b> {Annonces.Eleveur}
+                        <b><FormattedMessage id="home_item_eleveur" /></b> {Annonces.Eleveur}
                       </h6>
                     </div>
                   </div>
