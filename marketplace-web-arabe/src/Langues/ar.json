@@ -1,4 +1,5 @@
 {
+  "_comment": "this is home page",
     "home_hero_section_title": "قائمة الأغنام",
     "home_hero_section_subtitle": "الإعلانات التي يتعين التحقق من صحتها",
     "home_item_id": "رقم الحلقة",
@@ -9,5 +10,23 @@
     "annance_publie":"الإعلانات المنشورة",
     "annance_publie_eleveur":"المربي",
     "annance_publie_placeholder":"ماذا تحتاج؟",
-    "annance_publie_submit":"بحث"
+    "annance_publie_submit":"بحث",
+    "_comment2": "this is ach_Header page",
+    "header_a_propos":"معلومات عنا",
+    "header_se_deconnecter":"تسجيل الخروج",
+    "header_se_connecter":"تسجيل الدخول",
+    "header_especes":"انواع الأغنام لدينا",
+    "header_eleveurs":"المربين لدينا",
+    "header_commandes":"طلبياتي",
+    "header_favori":"أشيائى المفضلة",
+    "header_panier":"سلة التسوق الخاصة بي",
+
+    "_comment3": "this is ach_Header page",
+    "add_mouton_title":"إضافة إعلان الأغنام",
+    "add_mouton_sexe":"الجنس",
+    "add_mouton_localisation":"الموقع",
+    "add_mouton_avance":"التسبيق",
+    "add_mouton_ajoute":"إضافة",
+    "add_mouton_image":"اختيار صورة",
+    "add_mouton_description":"وصف"
   }

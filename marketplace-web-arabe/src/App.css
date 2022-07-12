@@ -28,6 +28,20 @@
   color: #61dafb;
 }
 
+.add_mouton_input{
+  direction: rtl;
+  padding-right: 20px;
+}
+
+.add_mouton_choose_image{
+  margin-bottom: 30px;
+  font-size: 16px;
+  padding: 1px 20px;
+  background-color: #efefef;
+  border: 1px solid #8e8e8e;
+  border-radius: 1px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { FormattedMessage, injectIntl, useIntl } from "react-intl";
+import { FormattedMessage} from "react-intl";
 
 class Home extends Component {
   constructor() {

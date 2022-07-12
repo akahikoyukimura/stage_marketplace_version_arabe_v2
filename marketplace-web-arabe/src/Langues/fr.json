@@ -1,4 +1,5 @@
 {
+  "_comment1": "this is home page",
     "home_hero_section_title": "Catalogue des moutons",
     "home_hero_section_subtitle": "Annonces à valider",
     "home_item_id": "Numéro de boucle",
@@ -9,5 +10,24 @@
     "annance_publie":"Annonces publiées",
     "annance_publie_eleveur":"éleveur",
     "annance_publie_placeholder":"What do yo u need?",
-    "annance_publie_submit":"CHERCHER"
+    "annance_publie_submit":"CHERCHER",
+
+    "_comment2": "this is ach_Header page",
+    "header_a_propos":"A propos",
+    "header_se_deconnecter":"Se déconnecter",
+    "header_se_connecter":"Se connecter",
+    "header_especes":"Nos espèces",
+    "header_eleveurs":"Nos éleveurs",
+    "header_commandes":"Mes commandes",
+    "header_favori":"Mes favoris",
+    "header_panier":"Mon panier d'achat",
+
+    "_comment3": "this is ach_Header page",
+    "add_mouton_title":"Ajouter annonce mouton",
+    "add_mouton_sexe":"Sexe",
+    "add_mouton_localisation":"Localisation",
+    "add_mouton_avance":"Avance",
+    "add_mouton_ajoute":"Ajouter",
+    "add_mouton_image":"Choisir une image",
+    "add_mouton_description":"Description"
   }
