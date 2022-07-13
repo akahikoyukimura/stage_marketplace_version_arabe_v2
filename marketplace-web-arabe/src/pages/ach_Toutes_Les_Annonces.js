@@ -4,9 +4,10 @@ import Select from "react-select";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import ReactPaginate from "react-paginate";
-import { GiWeight, GiSheep } from 'react-icons/gi';
-import { FaShapes } from 'react-icons/fa'
-import { HiOutlineBadgeCheck } from 'react-icons/hi';
+import { GiWeight, GiSheep } from "react-icons/gi";
+import { FaShapes } from "react-icons/fa";
+import { HiOutlineBadgeCheck } from "react-icons/hi";
+import { FormattedMessage } from "react-intl";
 class HomeSheeps extends Component {
   constructor() {
     super();
@@ -36,15 +37,14 @@ class HomeSheeps extends Component {
 
       selectedOptionSort: null,
       optionsSort: [
+        { value: "prix", label: <FormattedMessage id="tout_les_annonces_moins_cher_au_plus" /> },
+        { value: "prix_dec", label: <FormattedMessage id="tout_les_annonces_plus_cher_au_moins" /> },
 
-        { value: "prix", label: "Moins cher au plus cher" },
-        { value: "prix_dec", label: "Plus cher au moins cher" },
+        { value: "age", label: <FormattedMessage id="tout_les_annonces_plus_jeune_au_plus_age" /> },
+        { value: "age_dec", label: <FormattedMessage id="tout_les_annonces_plus_age_au_plus_jeune" /> },
 
-        { value: "age", label: "Plus jeune au plus age" },
-        { value: "age_dec", label: "plus age au plus jeune" },
-
-        { value: "poids", label: "Moins lourd au plus lourd" },
-        { value: "poids_dec", label: "Plus lourd au moins lourd" },
+        { value: "poids", label: <FormattedMessage id="tout_les_annonces_moins_lourd_au_plus_lourd" /> },
+        { value: "poids_dec", label: <FormattedMessage id="tout_les_annonces_plus_lourd_aumoins_lourd" /> },
       ],
     };
 
@@ -60,17 +60,22 @@ class HomeSheeps extends Component {
     // this.handleFavoris=this.handleFavoris.bind(this)
   }
   handleChangeEspece = (selectedOptionEspece) => {
-    this.setState({ selectedOptionRace: null, selectedOptionEspece: selectedOptionEspece })
+    this.setState({
+      selectedOptionRace: null,
+      selectedOptionEspece: selectedOptionEspece,
+    });
     let annonce = this.state.AnnoncesN;
-    let c = selectedOptionEspece.value
+    let c = selectedOptionEspece.value;
     let races = [];
 
     let r = [];
-    (this.groupBy(annonce, 'espece')[c]).map((m) => {
+    this.groupBy(annonce, "espece")[c].map((m) => {
       races.push(m.race);
-    })
+    });
     races = [...new Set(races)];
-    races.map((e) => { r.splice(0, 0, { "value": e, "label": e }); });
+    races.map((e) => {
+      r.splice(0, 0, { value: e, label: e });
+    });
 
     this.setState({
       race: r,
@@ -78,12 +83,9 @@ class HomeSheeps extends Component {
       conditions: Object.assign(this.state.conditions, {
         espece: c,
         race: null,
-      })
+      }),
     });
-
   };
-
-
 
   handleChangeRace = (selectedOptionRace) => {
     this.setState({ selectedOptionRace }, () =>
@@ -145,16 +147,22 @@ class HomeSheeps extends Component {
         .then((res) => {
           //espece
           let espece = [];
-          Object.getOwnPropertyNames(this.groupBy(res.data, 'espece')).map((e) => {
-            espece.splice(0, 0, { "value": e, "label": e });
-          });
+          Object.getOwnPropertyNames(this.groupBy(res.data, "espece")).map(
+            (e) => {
+              espece.splice(0, 0, { value: e, label: e });
+            }
+          );
 
           //ville
           let ville = [];
           let villes = [];
-          res.data.map((e) => { villes.push(e.localisation) })
+          res.data.map((e) => {
+            villes.push(e.localisation);
+          });
           villes = [...new Set(villes)];
-          villes.map((e) => { ville.splice(0, 0, { "value": e, "label": e }); });
+          villes.map((e) => {
+            ville.splice(0, 0, { value: e, label: e });
+          });
           this.setState({
             optionsEspece: espece,
             optionsVille: ville,
@@ -163,7 +171,12 @@ class HomeSheeps extends Component {
             loading: false,
           });
           const pageNumbers = [];
-          for (let i = 1; i <= Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage); i++) {
+          for (
+            let i = 1;
+            i <=
+            Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage);
+            i++
+          ) {
             pageNumbers.push(i);
           }
           this.setState({ nombrePages: pageNumbers });
@@ -181,15 +194,18 @@ class HomeSheeps extends Component {
   }
 
   sortData(e) {
-
     const sortProperty = Object.values(e)[0];
     const sorted = this.state.Annonces;
-    if (sortProperty === "prix" || sortProperty === "poids" || sortProperty === "age") {
+    if (
+      sortProperty === "prix" ||
+      sortProperty === "poids" ||
+      sortProperty === "age"
+    ) {
       this.setState({ loading: true }, () => {
         sorted.sort((a, b) => a[sortProperty] - b[sortProperty]);
         this.setState({
           Annonces: sorted,
-          loading: false
+          loading: false,
         });
       });
     } else if (sortProperty === "prix_dec") {
@@ -210,28 +226,22 @@ class HomeSheeps extends Component {
         sorted.sort((a, b) => b[sort_] - a[sort_]);
         this.setState({ Annonces: sorted, loading: false });
       });
-    }
-    else {
+    } else {
       this.setState({ loading: true }, () => {
-        sorted.sort(
-          function (a, b) {
-
-            return new Date(b[sortProperty]) - new Date(a[sortProperty]);
-          });
+        sorted.sort(function (a, b) {
+          return new Date(b[sortProperty]) - new Date(a[sortProperty]);
+        });
         this.setState({ Annonces: sorted, loading: false });
       });
     }
   }
-
 
   handelReinitialiser() {
     this.setState({ loading: true }, () => {
       axios
         .get("http://127.0.0.1:8000/api/Espece", {
           headers: {
-
             "Content-Type": "application/json",
-
           },
           params: {
             statut: "disponible",
@@ -253,8 +263,10 @@ class HomeSheeps extends Component {
             Disabled: true,
             selectedOptionVille: null,
           });
-          var all = document.querySelectorAll('input[name="reference"],input[name="prix_min"],input[name="prix_max"],input[name="poids_min"],input[name="poids_max"]')
-          Array.from(all).map((a) => (a.value = null))
+          var all = document.querySelectorAll(
+            'input[name="reference"],input[name="prix_min"],input[name="prix_max"],input[name="poids_min"],input[name="poids_max"]'
+          );
+          Array.from(all).map((a) => (a.value = null));
 
           const pageNumbers = [];
           for (
@@ -268,7 +280,6 @@ class HomeSheeps extends Component {
           this.setState({ nombrePages: pageNumbers });
         });
     });
-
   }
   handelChercher() {
     this.setState({ loading: true }, () => {
@@ -286,7 +297,12 @@ class HomeSheeps extends Component {
             loading: false,
           });
           const pageNumbers = [];
-          for (let i = 1; i <= Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage); i++) {
+          for (
+            let i = 1;
+            i <=
+            Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage);
+            i++
+          ) {
             pageNumbers.push(i);
           }
           this.setState({ nombrePages: pageNumbers });
@@ -326,7 +342,20 @@ class HomeSheeps extends Component {
   }
 
   render() {
-    var mois = new Array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre");
+    var mois = new Array(
+      "Janvier",
+      "Février",
+      "Mars",
+      "Avril",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Septembre",
+      "Octobre",
+      "Novembre",
+      "Décembre"
+    );
     const indexOfLastAnnonce =
       this.state.currentPage * this.state.annoncesPerPage;
     const indexOfFirstAnnonce = indexOfLastAnnonce - this.state.annoncesPerPage;
@@ -348,142 +377,189 @@ class HomeSheeps extends Component {
           <div className="loader"></div>
         </div> */}
 
-        <section className="">
+        <section
+          style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}
+          className=""
+        >
           <br></br>
 
           <div className="container">
             <div className="row">
               <div className="col-lg-3 col-md-6">
-                <div id="rechercher" className="col-lg-12">
+                <div
+                  style={
+                    localStorage.getItem("lg") == "ar"
+                      ? { direction: "rtl", textAlign: "right" }
+                      : {}
+                  }
+                  id="rechercher"
+                  className="col-lg-12"
+                >
                   <br></br>
                   <br></br>
                   <div className="sidebar__item">
-                    <h4>Rechercher</h4>
+                    <h4>
+                      <FormattedMessage id="tout_les_annonces_rechrcher" />
+                    </h4>
 
                     <h6 id="gras" className="latest-product__item">
-                      Espece
+                      <FormattedMessage id="tout_les_annonces_espece" />
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <Select
-                          value={selectedOptionEspece}
-                          onChange={this.handleChangeEspece}
-                          options={optionsEspece}
-                          placeholder="Espece"
-                          required
-                        // className="Select"
-                        />
+                        <FormattedMessage id="tout_les_annonces_espece">
+                          {(placeholder) => (
+                            <Select
+                              value={selectedOptionEspece}
+                              onChange={this.handleChangeEspece}
+                              options={optionsEspece}
+                              placeholder={placeholder}
+                              required
+                              // className="Select"
+                            />
+                          )}
+                        </FormattedMessage>
+
                         <br></br>
                       </div>
                     </div>
 
                     <h6 id="gras" className="latest-product__item">
-                      Race
+                      <FormattedMessage id="home_item_race" />
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <Select
-                          id="recherchePlace"
-                          isDisabled={this.state.Disabled}
-                          value={selectedOptionRace}
-                          onChange={this.handleChangeRace}
-                          options={this.state.race}
-                          placeholder=" Race"
-                          required
-                        // className="Select"
-                        />
+                        <FormattedMessage id="home_item_race">
+                          {(placeholder) => (
+                            <Select
+                              id="recherchePlace"
+                              isDisabled={this.state.Disabled}
+                              value={selectedOptionRace}
+                              onChange={this.handleChangeRace}
+                              options={this.state.race}
+                              placeholder={placeholder}
+                              required
+                              // className="Select"
+                            />
+                          )}
+                        </FormattedMessage>
+
                         <br></br>
                       </div>
                     </div>
                     <h6 id="gras" className="latest-product__item">
-                      Reference
+                      <FormattedMessage id="tout_les_annonces_reference" />
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <input
-                          id="recherchePlace"
-
-                          type="text"
-                          class="form-control"
-                          placeholder=" Reference de l'annonce"
-                          name="reference"
-                          onChange={this.onChange}
-                        />
+                        <FormattedMessage id="tout_les_annonces_reference_placeholder">
+                          {(placeholder) => (
+                            <input
+                              id="recherchePlace"
+                              type="text"
+                              class="form-control"
+                              placeholder={placeholder}
+                              name="reference"
+                              onChange={this.onChange}
+                            />
+                          )}
+                        </FormattedMessage>
                       </div>
                     </div>
                     <br />
                     <h6 id="gras" className="latest-product__item">
-                      Prix
+                      <FormattedMessage id="home_item_price" />
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <input
-                          id="recherchePlace"
-                          type="text"
-                          class="form-control"
-                          placeholder=" Budget min"
-                          name="prix_min"
-                          onChange={this.onChange}
-                        />
+                        <FormattedMessage id="tout_les_annonces_min_budget">
+                          {(placeholder) => (
+                            <input
+                              id="recherchePlace"
+                              type="text"
+                              class="form-control"
+                              placeholder={placeholder}
+                              name="prix_min"
+                              onChange={this.onChange}
+                            />
+                          )}
+                        </FormattedMessage>
                       </div>
                     </div>
 
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <input
-                          id="recherchePlace"
-                          type="text"
-                          class="form-control"
-                          placeholder=" Budget max"
-                          name="prix_max"
-                          onChange={this.onChange}
-                        />
+                        <FormattedMessage id="tout_les_annonces_max_budget">
+                          {(placeholder) => (
+                            <input
+                              id="recherchePlace"
+                              type="text"
+                              class="form-control"
+                              placeholder={placeholder}
+                              name="prix_max"
+                              onChange={this.onChange}
+                            />
+                          )}
+                        </FormattedMessage>
                       </div>
                     </div>
                     <br></br>
 
                     <h6 id="gras" className="latest-product__item">
-                      Poids Environ
+                      <FormattedMessage id="tout_les_annonces_poids" />
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <input
-                          id="recherchePlace"
-                          type="text"
-                          class="form-control"
-                          placeholder=" Poids min"
-                          name="poids_min"
-                          onChange={this.onChange}
-                        />
+                        <FormattedMessage id="tout_les_annonces_poids_min">
+                          {(placeholder) => (
+                            <input
+                              id="recherchePlace"
+                              type="text"
+                              class="form-control"
+                              placeholder={placeholder}
+                              name="poids_min"
+                              onChange={this.onChange}
+                            />
+                          )}
+                        </FormattedMessage>
                       </div>
                     </div>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <input
-                          id="recherchePlace"
-                          type="text"
-                          class="form-control"
-                          placeholder=" Poids max"
-                          name="poids_max"
-                          onChange={this.onChange}
-                        />
+                        <FormattedMessage id="tout_les_annonces_poids_max">
+                          {(placeholder) => (
+                            <input
+                              id="recherchePlace"
+                              type="text"
+                              class="form-control"
+                              placeholder={placeholder}
+                              name="poids_max"
+                              onChange={this.onChange}
+                            />
+                          )}
+                        </FormattedMessage>
                       </div>
                     </div>
                     <br></br>
 
                     <h6 id="gras" className="latest-product__item">
-                      Ville
+                      <FormattedMessage id="tout_les_annonces_ville" />
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <Select
-                          value={selectedOptionVille}
-                          onChange={this.handleChangeVille}
-                          options={optionsVille}
-                          placeholder=" Ville"
+                        <FormattedMessage id="tout_les_annonces_ville">
+                          {(placeholder) => (
+                            <Select
+                              value={selectedOptionVille}
+                              onChange={this.handleChangeVille}
+                              options={optionsVille}
+                              placeholder={placeholder}
 
-                        // className="Select"
-                        />
+                              // className="Select"
+                            />
+                          )}
+                        </FormattedMessage>
+
                         <br></br>
                         <br></br>
                       </div>
@@ -494,21 +570,20 @@ class HomeSheeps extends Component {
                         <button
                           id="roundB"
                           className="newBtn site-btn"
-                          onClick={this.handelChercher} >
-                          <i className="fa fa-search "></i>
-
-                          {" "}
-                          Rechercher{" "}
+                          onClick={this.handelChercher}
+                        >
+                          <i className="fa fa-search "></i>{" "}
+                          <FormattedMessage id="tout_les_annonces_rechrcher" />{" "}
                         </button>
                         <br></br>
                         <br></br>
                         <button
                           id="roundB"
                           className="newBtn site-btn"
-                          onClick={this.handelReinitialiser} >
-                          <i className="fa fa-refresh"></i>
-                          {" "}
-                          Reinitialiser{" "}
+                          onClick={this.handelReinitialiser}
+                        >
+                          <i className="fa fa-refresh"></i>{" "}
+                          <FormattedMessage id="tout_les_annonces_reinilialiser" />{" "}
                         </button>
                         <br></br>
                         <br></br>
@@ -533,18 +608,23 @@ class HomeSheeps extends Component {
                 </div> 
                 Fin Text Marketing */}
 
-
-                <div className="filter__item">
+                <div style={localStorage.getItem("lg")=="ar"?{"textAlignLast":"right"}:{}} className="filter__item">
                   <div>
                     <div id="filterPlace" className="col-lg-5 col-md-5 fa ">
-                      <Select
-                        id="filterPlace"
-                        value={this.state.selectedOptionSort}
-                        onChange={this.sortData}
-                        options={optionsSort}
-                        placeholder="&#xf161; Trier par"
-
-                      />
+                      <FormattedMessage
+                        id="tout_les_annonces_trier"
+                        values={{ icon: <>&#xf161;</> }}
+                      >
+                        {(placeholder) => (
+                          <Select
+                            id="filterPlace"
+                            value={this.state.selectedOptionSort}
+                            onChange={this.sortData}
+                            options={optionsSort}
+                            placeholder={placeholder}
+                          />
+                        )}
+                      </FormattedMessage>
                     </div>
                   </div>
 
@@ -557,7 +637,7 @@ class HomeSheeps extends Component {
                             {" "}
                             {this.state.Annonces.length}
                           </span>{" "}
-                          Annonces disponibles à vendre{" "}
+                          <FormattedMessage id="tout_les_annonces_disponible" />{" "}
                         </h4>
                       </div>
                     </div>
@@ -585,30 +665,35 @@ class HomeSheeps extends Component {
                     </div>
                   ) : (
                     <div>
-                      {this.state.Annonces.length === 0 ? <div className="text-center my-5">
-                        <p style={{ color: "#fba502" }}>
+                      {this.state.Annonces.length === 0 ? (
+                        <div className="text-center my-5">
+                          <p style={{ color: "#fba502" }}>
+                            <i
+                              class="fa fa-frown-o fa-5x"
+                              aria-hidden="true"
+                            ></i>
+                          </p>
 
-                          <i class="fa fa-frown-o fa-5x" aria-hidden="true"></i>
-                        </p>
-
-                        <h3 style={{ color: "#28a745" }}>Pas d'annonce disponible à vendre !</h3>
-                      </div> : <div className="row">
-                        {currentAnnonces.map((Annonces) => (
-                          <div className="col-lg-4  col-sm-6">
-
-                            <div id="anonce" class="product__item">
-                              <div
-                                class="product__item__pic set-bg"
-                                data-setbg={Annonces.images}
-                              >
-
-                                <img
-                                  src={Annonces.image_face}
+                          <h3 style={{ color: "#28a745" }}>
+                            <FormattedMessage id="tout_les_annonces_pas_disponible" />
+                          </h3>
+                        </div>
+                      ) : (
+                        <div className="row">
+                          {currentAnnonces.map((Annonces) => (
+                            <div className="col-lg-4  col-sm-6">
+                              <div id="anonce" class="product__item">
+                                <div
                                   class="product__item__pic set-bg"
-                                />
+                                  data-setbg={Annonces.images}
+                                >
+                                  <img
+                                    src={Annonces.image_face}
+                                    class="product__item__pic set-bg"
+                                  />
 
-                                <ul class="product__item__pic__hover">
-                                  {/* <li>
+                                  <ul class="product__item__pic__hover">
+                                    {/* <li>
                               <a
                                 id={Annonces._id}
                                 onClick={(e) =>
@@ -618,63 +703,94 @@ class HomeSheeps extends Component {
                                 <i className="fa fa-heart"></i>
                               </a>
                             </li> */}
-                                  <li>
-                                    <Link to={`/DetailsMouton/${Annonces._id.$oid}`}>
-                                      <a href="#">
-                                        <i class="fa fa-eye"></i>
-                                      </a>
-                                    </Link>
-                                  </li>
-                                </ul>
-                              </div>
-                              {Annonces.anoc ?
-                                <h1 style={{ borderRadius: "0% 0% 0% 40%", fontSize: "14px" }} class=" badge badge-success py-1 w-100  ">
-                                  <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                  <span>Labélisé ANOC</span>  </h1>
-                                :
-                                <span className="badge pt-3 w-100  mt-1  ">{"  "}</span>}
+                                    <li>
+                                      <Link
+                                        to={`/DetailsMouton/${Annonces._id.$oid}`}
+                                      >
+                                        <a href="#">
+                                          <i class="fa fa-eye"></i>
+                                        </a>
+                                      </Link>
+                                    </li>
+                                  </ul>
+                                </div>
+                                {Annonces.anoc ? (
+                                  <h1
+                                    style={{
+                                      borderRadius: "0% 0% 0% 40%",
+                                      fontSize: "14px",
+                                    }}
+                                    class=" badge badge-success py-1 w-100  "
+                                  >
+                                    <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
+                                    <span>Labélisé ANOC</span>{" "}
+                                  </h1>
+                                ) : (
+                                  <span className="badge pt-3 w-100  mt-1  ">
+                                    {"  "}
+                                  </span>
+                                )}
 
-                              <div className="product__item__text p-2 text-justify">
+                                <div className="product__item__text p-2 text-justify">
+                                  <h6
+                                    className=" nbrm"
+                                    style={{ color: "black", fontSize: "18px" }}
+                                  >
+                                    <img
+                                      style={{
+                                        width: "18px",
+                                        height: "20px",
+                                        marginBottom: "5px",
+                                      }}
+                                      data-imgbigurl="Images/sheep-head.png"
+                                      src="Images/sheep-head.png"
+                                      alt=""
+                                    />
+                                    {" " + Annonces.espece}
+                                    <span className="float-right">
+                                      <FaShapes />
+                                      {" " + Annonces.race}
+                                    </span>{" "}
+                                  </h6>
 
-                                <h6 className=" nbrm" style={{ color: "black", fontSize: "18px" }}>
+                                  <h6>
+                                    <img
+                                      style={{
+                                        width: "18px",
+                                        height: "18px",
+                                        marginRight: "5px",
+                                      }}
+                                      src="./Images/age.png"
+                                    />
 
-                                  <img style={{ width: "18px", height: "20px", marginBottom: "5px" }}
-                                    data-imgbigurl="Images/sheep-head.png"
-                                    src="Images/sheep-head.png"
-                                    alt=""
-                                  />{" " + Annonces.espece}
+                                    {Annonces.age + " mois"}
 
-                                  <span className="float-right">
-                                    <FaShapes />{" " + Annonces.race}
-                                  </span> </h6>
+                                    <span className="float-right ">
+                                      <GiWeight className=" mr-1 fa-lg " />
+                                      {Annonces.poids + " Kg"}
+                                    </span>
+                                  </h6>
 
-
-                                <h6>
-                                  <img
-                                    style={{ width: "18px", height: "18px", marginRight: "5px" }}
-                                    src="./Images/age.png" />
-
-                                  {Annonces.age + " mois"}
-
-                                  <span className="float-right ">
-                                    <GiWeight className=" mr-1 fa-lg " />
-                                    {Annonces.poids + " Kg"}</span></h6>
-
-                                <h6 className=" nbrm" style={{ color: "black", fontSize: "18px" }}>
-                                  <i class="fa fa-map-marker"></i> {Annonces.localisation}
-                                </h6>
-                                <h5 style={{color:"rgb(187, 33, 36)"}} className="  mt-4">
-                                  <i class="fa fa-usd" aria-hidden="true"></i>
-                                  {" "}
-                                  {Annonces.prix + "  Dhs"}
-                                </h5>
+                                  <h6
+                                    className=" nbrm"
+                                    style={{ color: "black", fontSize: "18px" }}
+                                  >
+                                    <i class="fa fa-map-marker"></i>{" "}
+                                    {Annonces.localisation}
+                                  </h6>
+                                  <h5
+                                    style={{ color: "rgb(187, 33, 36)" }}
+                                    className="  mt-4"
+                                  >
+                                    <i class="fa fa-usd" aria-hidden="true"></i>{" "}
+                                    {Annonces.prix + "  Dhs"}
+                                  </h5>
+                                </div>
                               </div>
                             </div>
-
-                          </div>
-                        ))}
-                      </div>
-                      }
+                          ))}
+                        </div>
+                      )}
 
                       <div className="center-div">
                         <nav className="row">
@@ -700,7 +816,6 @@ class HomeSheeps extends Component {
                   )}
                   {/* <!-- Sheeps Grid Section End --> */}
                 </div>
-
               </div>
             </div>
           </div>
