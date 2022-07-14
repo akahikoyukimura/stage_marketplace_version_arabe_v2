@@ -75,5 +75,16 @@
     "favoris_title":"أشيائى المفضلة",
     "favoris_vide":"قائمة الاشياء المفضلة فارغة!",
     "favoris_ajoute_au_panier":"أضف إلى السلة",
-    "favoris_ajoute_au_panier_succes":"تمت الإضافة إلى السلة"
+    "favoris_ajoute_au_panier_succes":"تمت الإضافة إلى السلة",
+
+    "_comment7":"this is ach_commandes_par_statut",
+    "cmd_statut_dernier_delai":"آخر أجل :",
+    "cmd_statut_comment_utiliser":"كيف تستخدم هذا القسم؟",
+    "cmd_statut_compliments_a_payer":"المبلغ الواجب دفعه",
+    "cmd_statut_annule":"الطلبات الملغاة",
+    "cmd_statut_avances":"التسبيق الواجب دفعه",
+    "cmd_statut_produit_reserve":"منتج محجوز",
+    "cmd_statut_reste_a_payer":"الباقي للدفع",
+    "cmd_statut_date_livraison":"تاريخ التسليم :",
+    "cmd_statut_produit_a_livrer":"المنتج المراد تسليمه"
   }

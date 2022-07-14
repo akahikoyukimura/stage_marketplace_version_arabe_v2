@@ -76,6 +76,17 @@
     "favoris_title":"Mes favoris",
     "favoris_vide":"Liste des favoris vide !",
     "favoris_ajoute_au_panier":"ajouter au Panier",
-    "favoris_ajoute_au_panier_succes":"Ajouté dans Pannier"
+    "favoris_ajoute_au_panier_succes":"Ajouté dans Pannier",
+
+    "_comment7":"this is ach_commandes_par_statut",
+    "cmd_statut_dernier_delai":"Dernier delai :",
+    "cmd_statut_comment_utiliser":"Comment utiliser cette rubrique ?",
+    "cmd_statut_compliments_a_payer":"Compléments à payer",
+    "cmd_statut_annule":"Commandes annulées",
+    "cmd_statut_avances":"Avances a payer",
+    "cmd_statut_produit_reserve":"Produit réservé",
+    "cmd_statut_reste_a_payer":"Reste à payer",
+    "cmd_statut_date_livraison":"Date de livraison :",
+    "cmd_statut_produit_a_livrer":"Produit à livrer"
 
   }

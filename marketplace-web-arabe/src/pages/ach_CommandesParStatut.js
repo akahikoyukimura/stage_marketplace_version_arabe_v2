@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
- 
+import { FormattedMessage } from "react-intl";
+
+const intl = JSON.parse(localStorage.getItem("intl"));
 class CommandesParStatut extends Component {
   constructor(props) {
     super(props);
@@ -118,7 +120,7 @@ class CommandesParStatut extends Component {
         ) : (
           <center>
             <div>
-              <section className="featured spad">
+              <section style={localStorage.getItem("lg")=="ar"?{"direction":"rtl"}:{}} className="featured spad">
                 <div className="container">
                   {/*<!-- Categorie Menus Grid Section Begin --> */}
                   <div className="row featured__filter">
@@ -143,7 +145,7 @@ class CommandesParStatut extends Component {
                           >
                              {cmdComplement > 0 ?
                               <span  style={{color:"#bb2124",position:"relative",right:"31%"}}
-                               className="  text-left ">Dernier delai : {this.state.deadline[2].substr(6, 4)+"/"+this.state.deadline[2].substr(3, 2)+"/"+this.state.deadline[2].substr(0, 2)}</span>
+                               className="  text-left "><FormattedMessage id="cmd_statut_dernier_delai"/> {this.state.deadline[2].substr(6, 4)+"/"+this.state.deadline[2].substr(3, 2)+"/"+this.state.deadline[2].substr(0, 2)}</span>
                               : null}
                             <center>
                               <a href="">
@@ -155,7 +157,7 @@ class CommandesParStatut extends Component {
                                   height="95px"
                                 />
                                 <h4 style={{ color: "white" }}>
-                                  <br></br>{cmdComplement == 0 ? "Comment utiliser cette rubrique ?" : "Compléments à payer "}
+                                  <br></br>{cmdComplement == 0 ? <FormattedMessage id="cmd_statut_comment_utiliser"/> : <FormattedMessage id="cmd_statut_compliments_a_payer"/>}
                                 </h4>
                                 <br></br>
                                 {cmdComplement != 0 ?
@@ -206,7 +208,7 @@ class CommandesParStatut extends Component {
                                 <br></br>
                                 <br></br>
                                 <h4 style={{ color: "white" }}>
-                                  Commandes annulées{" "}
+                                <FormattedMessage id="cmd_statut_annule"/>{" "}
                                 </h4>
                                 <br></br>
                                 <h2 style={{ color: "white" }}>
@@ -246,7 +248,7 @@ class CommandesParStatut extends Component {
                             {cmdAvancePayer > 0 ?
                               <span
                               style={{color:"#bb2124",position:"relative",right:"31%"}}
-                               className="  text-left">Dernier delai : {this.state.deadline[0].substr(6, 4)+"/"+this.state.deadline[0].substr(3, 2)+"/"+this.state.deadline[0].substr(0, 2)}</span>
+                               className="  text-left"><FormattedMessage id="cmd_statut_dernier_delai"/> {this.state.deadline[0].substr(6, 4)+"/"+this.state.deadline[0].substr(3, 2)+"/"+this.state.deadline[0].substr(0, 2)}</span>
                               : null}
 
                             <center>
@@ -259,7 +261,7 @@ class CommandesParStatut extends Component {
                                 />
                                 <br></br><br></br>
                                 <h4 style={{ color: "white" }}>
-                                  Avances a payer
+                                  <FormattedMessage id="cmd_statut_avances"/>
                               </h4>
                                 <br></br>
 
@@ -307,7 +309,7 @@ class CommandesParStatut extends Component {
                                 <br></br>
                                 <br></br>
                                 <h4 style={{ color: "white" }}>
-                                  Produit réservé
+                                <FormattedMessage id="cmd_statut_produit_reserve"/>
                               </h4>
                                 <br></br>
                                 <h2 style={{ color: "white" }}>
@@ -344,7 +346,7 @@ class CommandesParStatut extends Component {
                            {cmdRestePayer > 0 ?
                               <span
                               style={{color:"#bb2124",position:"relative",right:"31%"}}
-                               className="  text-left  ">Dernier delai : {this.state.deadline[1].substr(6, 4)+"/"+this.state.deadline[1].substr(3, 2)+"/"+this.state.deadline[1].substr(0, 2)}</span>
+                               className="  text-left  "><FormattedMessage id="cmd_statut_dernier_delai"/> {this.state.deadline[1].substr(6, 4)+"/"+this.state.deadline[1].substr(3, 2)+"/"+this.state.deadline[1].substr(0, 2)}</span>
                               : null}
                             <center>
                               <a href="">
@@ -356,7 +358,7 @@ class CommandesParStatut extends Component {
                                 />
                                 <br></br><br></br>
                                 <h4 style={{ color: "white" }}>
-                                  Reste à payer
+                                <FormattedMessage id="cmd_statut_reste_a_payer"/>
                               </h4>
                                 <br></br>
                                 <h2 style={{ color: "white" }}>
@@ -392,7 +394,7 @@ class CommandesParStatut extends Component {
                             {cmdLivrer > 0 &&this.state.delivery?
                               <span
                               style={{color:"#bb2124",position:"relative",right:"28%"}}
-                               className="   text-left  ">Date de livraison : {this.state.delivery.replace(/-/g,"/")}</span>
+                               className="   text-left  "><FormattedMessage id="cmd_statut_date_livraison"/> {this.state.delivery.replace(/-/g,"/")}</span>
                               : null}
 
                             <center>
@@ -406,7 +408,7 @@ class CommandesParStatut extends Component {
 
                                 <br></br><br></br>
                                 <h4 style={{ color: "white" }}>
-                                  Produit à livrer
+                                <FormattedMessage id="cmd_statut_produit_a_livrer"/>
                               </h4>
                                 <br></br>
 
