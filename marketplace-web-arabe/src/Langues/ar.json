@@ -69,5 +69,11 @@
     "panier_delete_oui":"! نعم",
     "panier_delete_non":"! لا",
     "panier_delete_succes":"تم الحذف بنجاح",
-    "panier_delete_failed":"! لم يتم حذف الإعلان"
+    "panier_delete_failed":"! لم يتم حذف الإعلان",
+
+    "_comment6": "this is ach_favoris page",
+    "favoris_title":"أشيائى المفضلة",
+    "favoris_vide":"قائمة الاشياء المفضلة فارغة!",
+    "favoris_ajoute_au_panier":"أضف إلى السلة",
+    "favoris_ajoute_au_panier_succes":"تمت الإضافة إلى السلة"
   }

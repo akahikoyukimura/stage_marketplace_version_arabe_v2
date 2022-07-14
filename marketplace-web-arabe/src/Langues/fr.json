@@ -70,6 +70,12 @@
     "panier_delete_oui":"Oui !",
     "panier_delete_non":"Non !",
     "panier_delete_succes":"Supprimé avec succès",
-    "panier_delete_failed":"Annonce non supprimée ! "
+    "panier_delete_failed":"Annonce non supprimée ! ",
+
+    "_comment6": "this is ach_favoris page",
+    "favoris_title":"Mes favoris",
+    "favoris_vide":"Liste des favoris vide !",
+    "favoris_ajoute_au_panier":"ajouter au Panier",
+    "favoris_ajoute_au_panier_succes":"Ajouté dans Pannier"
 
   }
