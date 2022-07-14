@@ -8,8 +8,12 @@ import Loader from "react-loader-spinner";
 import { FaShapes } from 'react-icons/fa'
 
 import { GiWeight } from 'react-icons/gi';
+import { FormattedMessage } from "react-intl";
+
+const intl=JSON.parse(localStorage.getItem('intl'))
 class Commandes extends Component {
   constructor() {
+    
     super();
     // let redirect = false;
     this.state = {
@@ -153,14 +157,14 @@ class Commandes extends Component {
         },
         buttonsStyling: false,
       });
-
+      
       swalWithBootstrapButtons.fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous supprimer cette annonce !",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.panier_delete_message,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui !  ",
-        cancelButtonText: "  Non !  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
@@ -210,7 +214,7 @@ class Commandes extends Component {
 
             });
           Swal.fire({
-            title: "Supprimé avec succès ",
+            title: intl.messages.panier_delete_succes,
             icon: "success",
             width: 400,
             heightAuto: false,
@@ -235,7 +239,7 @@ class Commandes extends Component {
           result.dismiss === Swal.DismissReason.cancel
         ) {
           Swal.fire({
-            title: "Annonce non supprimée ! ",
+            title: intl.messages.panier_delete_failed,
             icon: "error",
             width: 400,
             heightAuto: false,
@@ -265,13 +269,21 @@ class Commandes extends Component {
     if (fav.length === 1 || fav.length === 0) {
       titre = (
         <h6>
-          <span>{fav.length}</span>  Annonce{" "}
+          <span>{fav.length}</span>  <FormattedMessage values={{ count: fav.length }} id="panier_nbr_annonces" />{" "}
         </h6>
       );
-    } else {
+    } 
+    else if (fav.length === 2) {
       titre = (
         <h6>
-          <span>{fav.length}</span>  Annonces{" "}
+          <FormattedMessage values={{ count: fav.length }} id="panier_nbr_annonces" />{" "}
+        </h6>
+      );
+    }
+    else {
+      titre = (
+        <h6>
+          <span>{fav.length}</span>  <FormattedMessage values={{ count: fav.length }} id="panier_nbr_annonces" />{" "}
         </h6>
       );
     }
@@ -282,11 +294,11 @@ class Commandes extends Component {
            <div className="loader"></div>
         </div>  */}
 
-        <section className="">
+        <section style={localStorage.getItem("lg")=='ar'?{"direction":"rtl"}:{}} className="">
           <div className="container">
             <br></br>
-            <h3 class="latest-product__item">
-              Mon Panier <i class="fa fa-shopping-cart"></i>
+            <h3 style={localStorage.getItem("lg")=='ar'?{"textAlign":"justify"}:{}} class="latest-product__item">
+              <FormattedMessage id="panier_title" /> <i class="fa fa-shopping-cart"></i>
             </h3>
 
 
@@ -294,11 +306,11 @@ class Commandes extends Component {
 
               <div className="col-lg-12 col-md-7">
                 {/*<!-- Sheeps Grid Section Begin --> */}
-                <div className="filter__found text-left">
+                <div style={localStorage.getItem("lg")=='ar'?{"textAlignLast":"right"}:{}} className="filter__found text-left">
                   <h6>
                     <span>{titre}</span>
                   </h6>
-                </div>
+                </div>     
                 <div>
                   {loading ? (
                     <div
@@ -326,11 +338,11 @@ class Commandes extends Component {
                           <i class="fa fa-frown-o fa-5x" aria-hidden="true"></i>
                         </p>
 
-                          <h3 style={{color:"#28a745"}}>Liste de panier vide !</h3> 
+                          <h3 style={{color:"#28a745"}}><FormattedMessage id="panier_vide" /></h3> 
                       </div>:this.state.panier.slice(this.state.currentPage * 2 - 2, this.state.currentPage * 2)
                           .map((p) => <div class="row border mb-2">
                             <div className=" col-lg-12 col-md-12 col-sm-12 mt-3">
-                              <b className="text-dark">Cooperative : </b><b className="text-primary">{p.nom}</b>
+                              <b className="text-dark"><FormattedMessage id="panier_cooperative" /> : </b><b className="text-primary">{p.nom}</b>
                               <Link
                                 to={{
                                   pathname: "/Commander",
@@ -341,7 +353,7 @@ class Commandes extends Component {
                                 }}
                               >
                                 <b className="text-danger float-right">
-                                  {p.prix} Dhs {" "} <button
+                                  {p.prix} <FormattedMessage id="panier_currency" /> {" "} <button
                                     id={p.id_espaces}
                                     className=" rounded text-white bg-success py-1 px-2 ml-3  "
                                     style={{ fontSize: "16px", border: "none" }}
@@ -350,7 +362,7 @@ class Commandes extends Component {
                                   //  }
                                   // }
                                   >
-                                    {""} Commande globale</button>
+                                    {""} <FormattedMessage id="panier_cmd_globale" /></button>
                                 </b></Link>
                             </div>
 
@@ -397,7 +409,7 @@ class Commandes extends Component {
                                   {Annonces.anoc ?
                                     <h1 style={{ borderRadius: "0% 0% 0% 40%", fontSize: "14px" }} class=" badge badge-success pt-2 w-100  ">
                                       <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                      <span>Labélisé ANOC</span>  </h1>
+                                      <span> <FormattedMessage id="panier_Labelise"/></span>  </h1>
                                     :
                                     <span className="badge pt-3 w-100 mb-2    ">{" "}</span>
                                   }
@@ -423,11 +435,12 @@ class Commandes extends Component {
                                         style={{ width: "18px", height: "18px", marginRight: "5px" }}
                                         src="./Images/age.png" />
 
-                                      {Annonces.age + " mois"}
+{" "}<FormattedMessage id="panier_mouton_age_mois" values={{ age:Annonces.age }}/>
 
                                       <span className="float-right ">
                                         <GiWeight className=" mr-1 fa-lg " />
-                                        {Annonces.poids + " Kg"}</span></h6>
+                                        {" "}<FormattedMessage id="panier_mouton_poids_kg" values={{ poids:Annonces.poids }}/>
+                                        </span></h6>
 
                                     <h6 className=" nbrm" style={{ color: "black", fontSize: "18px" }}>
                                       <i class="fa fa-map-marker"></i> {Annonces.region}
@@ -437,7 +450,7 @@ class Commandes extends Component {
                                     <h5 id="mad">
                                       <i class="fa fa-usd" aria-hidden="true"></i>
 
-                                      {"         " + Annonces.prix + "  Dhs"}
+                                      {" "}<FormattedMessage id="panier_mouton_currency" values={{ prix:Annonces.prix }}/>
                                     </h5>
                                     {Annonces.statut === "disponible" ?
                                       <Link
@@ -457,7 +470,7 @@ class Commandes extends Component {
                                       //  }
                                       // }
                                       >
-                                          {""} Commander
+                                          {""} <FormattedMessage id="panier_commander"/>
                                     </button></Link> : null}
 
                                   </div>
