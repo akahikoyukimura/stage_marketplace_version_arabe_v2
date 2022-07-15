@@ -87,6 +87,18 @@
     "cmd_statut_produit_reserve":"Produit réservé",
     "cmd_statut_reste_a_payer":"Reste à payer",
     "cmd_statut_date_livraison":"Date de livraison :",
-    "cmd_statut_produit_a_livrer":"Produit à livrer"
+    "cmd_statut_produit_a_livrer":"Produit à livrer",
+
+    "_comment8":"this is ach_commandes page",
+    "cmd_title":"Mes commandes",
+    "comd_annule":"annulées",
+    "cmd_annule_message":"Liste des commandes annulées pour des raisons de non-conformité aux conditions générales de vente (délai de paiement dépassé, reçu non conforme, montant non reçu), ou bien suite à votre souhait d'annulation directe. Chacune de vos commandes sera conservée, à titre informatif, pendant 5 jours à la suite du processus d'annulation. Passé ce délai, elle sera définitivement supprimée de cette liste. Il vous est aussi possible de les supprimer avant.",
+    "cmd_avance":"Avance à payer",
+    "cmd_produit_reserve":"Produit(s) réservé(s)",
+    "cmd_produit_reserve_message":"Liste des commandes dont les ordres de virement des avances sont en phase de validation. Elles seront affectées à la rubrique \"Reste à payer\" suite à leur validation. ",
+    "cmd_pret_a_livrer":"Prêt à livrer",
+    "cmd_pret_a_livre":"Liste des commandes dont les ordres de virement des restes à payer sont en phase de validation. Vous serez contactés pour la livraison suite à leur validation. ",
+    "cmd_compliments_a_payer":"Compléments à payer",
+    "cmd_reste_a_payer":"Reste à payer"
 
   }
