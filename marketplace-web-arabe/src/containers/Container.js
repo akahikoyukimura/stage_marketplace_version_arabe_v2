@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 
 import Header from "../pages/ach_Header";
@@ -40,14 +40,14 @@ import commandesParStatut from '../pages/ach_CommandesParStatut'
 import Commander1 from "../pages/step1";
 import Commander2 from "../pages/step2";
 import Commander3 from "../pages/step3";
-
+import { IntlProvider } from "react-intl";
 
 class Container extends Component {
-
     render() {
         return (
-          <div>
-            <Header />
+          <>
+          
+            <Header/>
             <BrowserRouter>
               <Route exact path="/Annonces" component={Home} />
               {/*<Route exact path="/Commandes" component={HomeCommande} />*/}
@@ -116,7 +116,7 @@ class Container extends Component {
               {/* DetailsCommande */}
             </BrowserRouter>
             <Footer />
-          </div>
+          </>
         );
     }
 }

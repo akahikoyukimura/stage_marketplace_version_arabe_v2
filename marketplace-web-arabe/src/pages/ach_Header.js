@@ -1,12 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import axios from "axios";
 import { GiSheep } from 'react-icons/gi';
 import { MdAssignment } from 'react-icons/md'
 import { AiFillHeart, AiOutlineSearch } from 'react-icons/ai'
 import { FaShoppingCart, FaUserAlt, FaUniversity } from 'react-icons/fa'
 import Swal from "sweetalert2";
+import {Context} from "../Components/Wrapper";
+
+const languages = [
+  { name: "العربية" },
+  { name: "Français" },
+];
 
 class Header extends Component {
+
+  static contextType = Context
+  
   constructor() {
     super();
     // let redirect = false;
@@ -17,14 +26,16 @@ class Header extends Component {
       colorMenuAc: "#28a745",
       colors: [],
 
-
     };
+    
     // this.HandelLogout = this.HandelLogout.bind(this);
     this.logout = this.logout.bind(this);
 
   }
 
   componentDidMount() {
+    const l = this.context
+    console.log(l);
     function appendLeadingZeroes(n) {
       if (n <= 9) {
         return "0" + n;
@@ -179,7 +190,6 @@ class Header extends Component {
   }
 
 
-
   render() {
     /** active menu item */
     var { colors } = this.state;
@@ -246,19 +256,28 @@ class Header extends Component {
                           <img src="/Images/youtube.png"/>
                       </a>
                     </div>
-               { /*    <div className="header__top__right__language " style={{ marginRight: "26px" }}>
+                   <div className="header__top__right__language " style={{ marginRight: "26px" }}>
                       <i className="fa fa-globe mr-2" aria-hidden="true">{" "}</i>
-                      <div> Français</div>
+                      <div>{localStorage.getItem("lg")}</div>
                       <span className="arrow_carrot-down"></span>
                       <ul>
                         <li>
-                          <a href="#">Français</a>
+                          <a onClick={() => {
+localStorage.setItem('lg', "fr");
+window.location.reload(false);
+          }
+          }>Français</a>
                         </li>
                         <li>
-                          <a href="#"> العربية</a>
+                          <a onClick={() => {
+localStorage.setItem('lg', "ar");
+window.location.reload(false);
+          }}> العربية</a>
                         </li>
                       </ul>
-    </div>*/}
+
+                      
+    </div>
                     {this.state.isLoged ? (
                       <div className="header__top__right__language mr-0">
                         <div>
