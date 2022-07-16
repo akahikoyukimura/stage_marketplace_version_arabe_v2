@@ -8,7 +8,11 @@ import Container from "./containers/Container"
 import login from './pages/auth/Login' 
 import register from './pages/auth/SignUp'
 import { BrowserRouter, Route } from "react-router-dom";
+import { useIntl } from "react-intl";
+
 function App() {
+  const intl = useIntl();
+  localStorage.setItem('intl',JSON.stringify(intl));
   return (
     <div>
       {/* <Header /> */}

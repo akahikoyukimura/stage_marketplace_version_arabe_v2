@@ -40,7 +40,6 @@ import commandesParStatut from '../pages/ach_CommandesParStatut'
 import Commander1 from "../pages/step1";
 import Commander2 from "../pages/step2";
 import Commander3 from "../pages/step3";
-import { IntlProvider } from "react-intl";
 
 class Container extends Component {
     render() {

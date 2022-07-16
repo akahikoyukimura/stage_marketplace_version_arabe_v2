@@ -1,21 +1,16 @@
 import React, { Component, useContext } from "react";
 import axios from "axios";
-import { GiSheep } from 'react-icons/gi';
-import { MdAssignment } from 'react-icons/md'
-import { AiFillHeart, AiOutlineSearch } from 'react-icons/ai'
-import { FaShoppingCart, FaUserAlt, FaUniversity } from 'react-icons/fa'
+import { GiSheep } from "react-icons/gi";
+import { MdAssignment } from "react-icons/md";
+import { AiFillHeart, AiOutlineSearch } from "react-icons/ai";
+import { FaShoppingCart, FaUserAlt, FaUniversity } from "react-icons/fa";
 import Swal from "sweetalert2";
-import {Context} from "../Components/Wrapper";
-
-const languages = [
-  { name: "العربية" },
-  { name: "Français" },
-];
+import { Context } from "../Components/Wrapper";
+import { FormattedMessage } from "react-intl";
 
 class Header extends Component {
+  static contextType = Context;
 
-  static contextType = Context
-  
   constructor() {
     super();
     // let redirect = false;
@@ -25,17 +20,13 @@ class Header extends Component {
       connectedUserEmail: "",
       colorMenuAc: "#28a745",
       colors: [],
-
     };
-    
+
     // this.HandelLogout = this.HandelLogout.bind(this);
     this.logout = this.logout.bind(this);
-
   }
 
   componentDidMount() {
-    const l = this.context
-    console.log(l);
     function appendLeadingZeroes(n) {
       if (n <= 9) {
         return "0" + n;
@@ -57,23 +48,25 @@ class Header extends Component {
       ":" +
       appendLeadingZeroes(current_datetime.getSeconds());
 
-
     const expiredTimeToken = localStorage.getItem("expiredTimeToken");
     const token = localStorage.getItem("usertoken");
     const myToken = `Bearer ` + localStorage.getItem("myToken");
 
     if (token && expiredTimeToken > formatted_date) {
-       if(window.location.pathname=="/Commandes" && window.sessionStorage.getItem("ids") && window.sessionStorage.getItem("ids").length>0 ){ 
-         Swal.fire({
+      if (
+        window.location.pathname == "/Commandes" &&
+        window.sessionStorage.getItem("ids") &&
+        window.sessionStorage.getItem("ids").length > 0
+      ) {
+        Swal.fire({
           title: "Changement annuler ",
           icon: "error",
           width: 400,
           heightAuto: false,
           timer: 1500,
           showConfirmButton: false,
-    
-        })
-         window.sessionStorage.setItem("ids",[])
+        });
+        window.sessionStorage.setItem("ids", []);
       }
       this.setState({ isLoged: true });
       axios
@@ -85,8 +78,11 @@ class Header extends Component {
         })
 
         .then((res) => {
-          this.setState({ connectedUser: res.data.nom.toUpperCase() + " " + res.data.prenom, connectedUserEmail: res.data.email });
-        })
+          this.setState({
+            connectedUser: res.data.nom.toUpperCase() + " " + res.data.prenom,
+            connectedUserEmail: res.data.email,
+          });
+        });
       // this.props.history.push("/login");
 
       //Ce bout de code permet de vérifier les commandes avec un deadline dépassé et les annuler
@@ -108,22 +104,24 @@ class Header extends Component {
           for (let i = 0; i < res.data.length; i++) {
             var statutCmd = res.data[i].statut;
             var deadline = res.data[i].deadline;
-            var dd = new Date(deadline.substr(6, 4),
-              (deadline.substr(3, 2) - 1), deadline.substr(0, 2),
-              deadline.substr(12, 2), deadline.substr(15, 2),
-              deadline.substr(18, 2));
+            var dd = new Date(
+              deadline.substr(6, 4),
+              deadline.substr(3, 2) - 1,
+              deadline.substr(0, 2),
+              deadline.substr(12, 2),
+              deadline.substr(15, 2),
+              deadline.substr(18, 2)
+            );
             if (
-              now.getTime() >= dd.getTime() && (
-                statutCmd === "en attente de paiement avance" ||
+              now.getTime() >= dd.getTime() &&
+              (statutCmd === "en attente de paiement avance" ||
                 statutCmd === "en attente de paiement du reste" ||
                 statutCmd === "en attente de validation complément" ||
-                statutCmd === "reçu avance refusé"|| 
+                statutCmd === "reçu avance refusé" ||
                 statutCmd === "reçu reste refusé" ||
-                 (
-                  res.data[i].ancien_statut === " avarié_changement" && (
-                    statutCmd === "en attente de paiement avance" ||
-                    statutCmd === "en attente de paiement du reste")
-                ))
+                (res.data[i].ancien_statut === " avarié_changement" &&
+                  (statutCmd === "en attente de paiement avance" ||
+                    statutCmd === "en attente de paiement du reste")))
             ) {
               axios
                 .put(
@@ -140,7 +138,6 @@ class Header extends Component {
                   }
                 )
                 .then(() => {
-
                   const to = this.state.connectedUserEmail;
                   const content =
                     "Votre commande a été annulée automatiquement car vous avez dépassé le deadline prévu pour l'importation de votre reçu de paiement.";
@@ -148,11 +145,11 @@ class Header extends Component {
                     "Votre commande a été annulée (dépassement du deadline)";
                   axios.post(
                     "http://127.0.0.1:8000/api/sendmail/" +
-                    to +
-                    "/" +
-                    content +
-                    "/" +
-                    subject,
+                      to +
+                      "/" +
+                      content +
+                      "/" +
+                      subject,
                     {
                       headers: {
                         Accept: "application/json",
@@ -185,15 +182,14 @@ class Header extends Component {
         localStorage.removeItem("commandes");
         localStorage.removeItem("ids");
         localStorage.removeItem("reponses");
-       }
+      }
     );
   }
-
 
   render() {
     /** active menu item */
     var { colors } = this.state;
-     const CSS = ` .header__menu ul li:hover>a {color:black !important; text-decoration: underline; background-color: transparent !important;} .humberger__menu__wrapper .slicknav_nav a {color:black}	.humberger__menu__wrapper .slicknav_nav a:hover  {text-decoration: underline; color:black}`
+    const CSS = ` .header__menu ul li:hover>a {color:black !important; text-decoration: underline; background-color: transparent !important;} .humberger__menu__wrapper .slicknav_nav a {color:black}	.humberger__menu__wrapper .slicknav_nav a:hover  {text-decoration: underline; color:black}`;
     switch (window.location.pathname) {
       case "/":
         colors[0] = this.state.colorMenuAc;
@@ -219,7 +215,6 @@ class Header extends Component {
       case "/Apropos":
         colors[6] = this.state.colorMenuAc;
         break;
-
     }
     /** */
     return (
@@ -233,9 +228,12 @@ class Header extends Component {
                 <div className="col-lg-6 col-md-6">
                   <div className="header__top__left">
                     <ul>
-                     
                       <li>
-                        <a style={{ color: colors[6] }} href="./Apropos">  <AiOutlineSearch className=" fa-lg " /> A propos</a>
+                        <a style={{ color: colors[6] }} href="./Apropos">
+                          {" "}
+                          <AiOutlineSearch className=" fa-lg " />{" "}
+                          <FormattedMessage id="header_a_propos" />
+                        </a>
                       </li>
                     </ul>
                   </div>
@@ -243,63 +241,115 @@ class Header extends Component {
                 <div className="col-lg-6 col-md-6">
                   <div className="header__top__right">
                     <div className="header__top__right__social">
-                      <a style={{height:"30px",width:"30px"}} href="https://www.facebook.com/Association.nationale.ovine.et.caprine/">
-                          <img src="/Images/facebook.png"/>
+                      <a
+                        style={{ height: "30px", width: "30px" }}
+                        href="https://www.facebook.com/Association.nationale.ovine.et.caprine/"
+                      >
+                        <img src="/Images/facebook.png" />
                       </a>
-                      <a style={{height:"30px",width:"30px"}} href="http://www.anoc.ma/">
-                         <img src="/Images/site.png"/>
+                      <a
+                        style={{ height: "30px", width: "30px" }}
+                        href="http://www.anoc.ma/"
+                      >
+                        <img src="/Images/site.png" />
                       </a>
-                      <a style={{height:"30px",width:"30px"}}
+                      <a
+                        style={{ height: "30px", width: "30px" }}
                         id="youtube"
                         href="https://www.youtube.com/channel/UCzX4064MubkoUVL1ecFDGpQ"
                       >
-                          <img src="/Images/youtube.png"/>
+                        <img src="/Images/youtube.png" />
                       </a>
                     </div>
-                   <div className="header__top__right__language " style={{ marginRight: "26px" }}>
-                      <i className="fa fa-globe mr-2" aria-hidden="true">{" "}</i>
-                      <div>{localStorage.getItem("lg")}</div>
+                    <div
+                      className="header__top__right__language "
+                      style={{ marginRight: "26px" }}
+                    >
+                      <i className="fa fa-globe mr-2" aria-hidden="true">
+                        {" "}
+                      </i>
+                      <div>
+                        {localStorage.getItem("lg") == "ar"
+                          ? "العربية"
+                          : "Français"}
+                      </div>
                       <span className="arrow_carrot-down"></span>
                       <ul>
                         <li>
-                          <a onClick={() => {
-localStorage.setItem('lg', "fr");
-window.location.reload(false);
-          }
-          }>Français</a>
+                          <a
+                            onClick={() => {
+                              localStorage.setItem("lg", "fr");
+                              window.location.reload(false);
+                            }}
+                          >
+                            Français
+                          </a>
                         </li>
                         <li>
-                          <a onClick={() => {
-localStorage.setItem('lg', "ar");
-window.location.reload(false);
-          }}> العربية</a>
+                          <a
+                            onClick={() => {
+                              localStorage.setItem("lg", "ar");
+                              window.location.reload(false);
+                            }}
+                          >
+                            {" "}
+                            العربية
+                          </a>
                         </li>
                       </ul>
-
-                      
-    </div>
+                    </div>
                     {this.state.isLoged ? (
                       <div className="header__top__right__language mr-0">
                         <div>
-                          <h6 style={{ color: "#009141", fontFamily: "inherit", fontSize: "0.924rem" }}><i className="fa fa-user-circle" /><b>{" " + this.state.connectedUser}</b></h6>
+                          <h6
+                            style={{
+                              color: "#009141",
+                              fontFamily: "inherit",
+                              fontSize: "0.924rem",
+                            }}
+                          >
+                            <i className="fa fa-user-circle" />
+                            <b>{" " + this.state.connectedUser}</b>
+                          </h6>
                         </div>
-                      </div>) : null}
-                    <div className="header__top__right__auth ml-4 " >
+                      </div>
+                    ) : null}
+                    <div className="header__top__right__auth ml-4 ">
                       {this.state.isLoged ? (
-
                         <div>
-
                           {" "}
-                          <a style={{ fontFamily: "inherit", fontSize: "0.924rem" }} href="/login" onClick={this.logout} >
-                            <i className="fa fa-sign-out"><b>Se déconnecter</b> </i>
+                          <a
+                            style={{
+                              fontFamily: "inherit",
+                              fontSize: "0.924rem",
+                            }}
+                            href="/login"
+                            onClick={this.logout}
+                          >
+                            <i className="fa fa-sign-out">
+                              <b>
+                                <FormattedMessage id="header_se_deconnecter" />
+                              </b>{" "}
+                            </i>
                           </a>
                         </div>
                       ) : null}
                       {!this.state.isLoged ? (
                         <div>
                           {" "}
-                          <a style={{ fontFamily: "inherit", fontSize: "0.924rem" }} href="/login">
-                            <i className="fa fa-sign-in"> <b> Se connecter</b> </i>
+                          <a
+                            style={{
+                              fontFamily: "inherit",
+                              fontSize: "0.924rem",
+                            }}
+                            href="/login"
+                          >
+                            <i className="fa fa-sign-in">
+                              {" "}
+                              <b>
+                                <FormattedMessage id="header_se_connecter" />
+                              </b>{" "}
+                            </i>
                           </a>
                         </div>
                       ) : null}
@@ -315,7 +365,11 @@ window.location.reload(false);
               <div className="col-lg-2">
                 <div className="header__logo">
                   <a href="./">
-                    <img style={{height:"115px"}} src="/Images/myanoc.jpg" alt="" />
+                    <img
+                      style={{ height: "115px" }}
+                      src="/Images/myanoc.jpg"
+                      alt=""
+                    />
                   </a>
                 </div>
               </div>
@@ -323,37 +377,56 @@ window.location.reload(false);
                 <nav className="header__menu">
                   <ul>
                     <li className="header__menu__dropdown">
-                      <a style={{ color: colors[0] }} href="./"><GiSheep className=" mr-1 fa-lg " />Nos espèces</a>
-
+                      <a style={{ color: colors[0] }} href="./">
+                        <GiSheep className=" mr-1 fa-lg " />
+                        <FormattedMessage id="header_especes" />
+                      </a>
                     </li>
                     <li>
-
-                      <a style={{ color: colors[1] }} href="./AnnoncesParEleveurs" className="Header"  >
-
-                        <FaUserAlt className="  mb-1 " />  Nos éleveurs</a>
+                      <a
+                        style={{ color: colors[1] }}
+                        href="./AnnoncesParEleveurs"
+                        className="Header"
+                      >
+                        <FaUserAlt className="  mb-1 " />
+                        <FormattedMessage id="header_eleveurs" />
+                      </a>
                     </li>
                     {this.state.isLoged ? (
                       <span>
                         <li>
-                          <a style={{ color: colors[2] }} className="Header" href="./commandesParStatut">
-                            <MdAssignment className="  fa-lg " /> Mes commandes</a>
+                          <a
+                            style={{ color: colors[2] }}
+                            className="Header"
+                            href="./commandesParStatut"
+                          >
+                            <MdAssignment className="  fa-lg " />
+                            <FormattedMessage id="header_commandes" />
+                          </a>
                         </li>
                         <span className="form-inline my-2 my-lg-0">
                           <li>
-                            <a style={{ color: colors[3] }} className="Header" href="./Favoris">
-                              <AiFillHeart className=" fa-lg " />  Mes favoris
-
+                            <a
+                              style={{ color: colors[3] }}
+                              className="Header"
+                              href="./Favoris"
+                            >
+                              <AiFillHeart className=" fa-lg " />
+                              <FormattedMessage id="header_favori" />
                             </a>
                           </li>
 
                           <li>
-                            <a className="Header" style={{ color: colors[4] }} href="./panier">
-
-                              <FaShoppingCart className="fa-sm mb-1 " /> Mon panier d'achat
+                            <a
+                              className="Header"
+                              style={{ color: colors[4] }}
+                              href="./panier"
+                            >
+                              <FaShoppingCart className="fa-sm mb-1 " />
+                              <FormattedMessage id="header_panier" />
                             </a>
                           </li>
                         </span>
-
                       </span>
                     ) : null}
                   </ul>
@@ -375,14 +448,23 @@ window.location.reload(false);
             </a>
           </div>
           <div className="header__top__right__social">
-            <a style={{height:"30px",width:"30px"}} href="https://www.facebook.com/Association.nationale.ovine.et.caprine/">
-               <img src="/Images/facebook.png"/>
+            <a
+              style={{ height: "30px", width: "30px" }}
+              href="https://www.facebook.com/Association.nationale.ovine.et.caprine/"
+            >
+              <img src="/Images/facebook.png" />
             </a>
-            <a style={{height:"30px",width:"30px"}} href="http://www.anoc.ma/">
-                <img src="/Images/site.png"/>
+            <a
+              style={{ height: "30px", width: "30px" }}
+              href="http://www.anoc.ma/"
+            >
+              <img src="/Images/site.png" />
             </a>
-            <a style={{height:"30px",width:"30px"}} href="https://www.youtube.com/channel/UCzX4064MubkoUVL1ecFDGpQ">
-               <img src="/Images/youtube.png"/>
+            <a
+              style={{ height: "30px", width: "30px" }}
+              href="https://www.youtube.com/channel/UCzX4064MubkoUVL1ecFDGpQ"
+            >
+              <img src="/Images/youtube.png" />
             </a>
           </div>
           <div className="humberger__menu__widget">
@@ -390,11 +472,15 @@ window.location.reload(false);
               {this.state.isLoged ? (
                 <div className="header__top__right__language ">
                   <div>
-                    <h6 style={{ color: "#009141" }}><i className="fa fa-user-circle" /> {this.state.connectedUser}</h6>
+                    <h6 style={{ color: "#009141" }}>
+                      <i className="fa fa-user-circle" />{" "}
+                      {this.state.connectedUser}
+                    </h6>
                   </div>
-                </div>) : null}
+                </div>
+              ) : null}
               <br></br>
-            {/*}  <i className="fa fa-globe" aria-hidden="true"></i>      <div>Français</div>
+              {/*}  <i className="fa fa-globe" aria-hidden="true"></i>      <div>Français</div>
               <span className="arrow_carrot-down"></span>
               <ul>
                 <li>
@@ -407,12 +493,12 @@ window.location.reload(false);
             </div>
             <div className="header__top__right__auth">
               {this.state.isLoged ? (
-
                 <div>
-
                   {" "}
                   <a href="/login" onClick={this.logout}>
-                    <i className="fa fa-sign-out"> Se déconnecter</i>
+                    <i className="fa fa-sign-out">
+                      <FormattedMessage id="header_se_deconnecter" />
+                    </i>
                   </a>
                 </div>
               ) : null}
@@ -420,7 +506,10 @@ window.location.reload(false);
                 <div>
                   {" "}
                   <a href="/login">
-                    <i className="fa fa-sign-in"> Se connecter</i>
+                    <i className="fa fa-sign-in">
+                      {" "}
+                      <FormattedMessage id="header_se_connecter" />
+                    </i>
                   </a>
                 </div>
               ) : null}
@@ -429,32 +518,75 @@ window.location.reload(false);
           <nav className="humberger__menu__nav mobile-menu">
             <ul>
               <li className="active">
-                <a className="Header" href="./ToutesLesAnnonces" style={{ color: colors[0] }}> <GiSheep className=" mr-1 fa-lg " /> Nos Espèces </a>
+                <a
+                  className="Header"
+                  href="./ToutesLesAnnonces"
+                  style={{ color: colors[0] }}
+                >
+                  {" "}
+                  <GiSheep className=" mr-1 fa-lg " />{" "}
+                  <FormattedMessage id="header_especes" />{" "}
+                </a>
               </li>
-              <li  >
-                <a className="Header" style={{ color: colors[1] }} href="./AnnoncesParEleveurs">  <FaUserAlt className="  mb-1 " />  Nos éleveurs</a>
+              <li>
+                <a
+                  className="Header"
+                  style={{ color: colors[1] }}
+                  href="./AnnoncesParEleveurs"
+                >
+                  {" "}
+                  <FaUserAlt className="  mb-1 " />{" "}
+                  <FormattedMessage id="header_eleveurs" />
+                </a>
               </li>
               {this.state.isLoged ? (
                 <span>
                   <li>
-                    <a className="Header" href="./Favoris" style={{ color: colors[3] }}>      <AiFillHeart className=" fa-lg " /> Mes favoris</a>
+                    <a
+                      className="Header"
+                      href="./Favoris"
+                      style={{ color: colors[3] }}
+                    >
+                      {" "}
+                      <AiFillHeart className=" fa-lg " />{" "}
+                      <FormattedMessage id="header_favori" />
+                    </a>
                   </li>
-                  <li >
-                    <a className="Header" href="./panier" style={{ color: colors[4] }}  >  <FaShoppingCart className="fa-sm mb-1 " /> Mon panier d'achat</a>
+                  <li>
+                    <a
+                      className="Header"
+                      href="./panier"
+                      style={{ color: colors[4] }}
+                    >
+                      {" "}
+                      <FaShoppingCart className="fa-sm mb-1 " />{" "}
+                      <FormattedMessage id="header_panier" />
+                    </a>
                   </li>
-                  <li >
-                    <a className="Header" href="./commandesParStatut" style={{ color: colors[2] }}  >  <MdAssignment className="  fa-lg " /> Mes commandes</a>
+                  <li>
+                    <a
+                      className="Header"
+                      href="./commandesParStatut"
+                      style={{ color: colors[2] }}
+                    >
+                      {" "}
+                      <MdAssignment className="  fa-lg " />{" "}
+                      <FormattedMessage id="header_commandes" />
+                    </a>
                   </li>
                 </span>
               ) : null}
-         
+
               <li>
-                <a style={{ color: colors[6] }} href="./Apropos"> <AiOutlineSearch className=" fa-lg " /> A propos de nous</a>
+                <a style={{ color: colors[6] }} href="./Apropos">
+                  {" "}
+                  <AiOutlineSearch className=" fa-lg " />{" "}
+                  <FormattedMessage id="header_a_propos" />
+                </a>
               </li>
             </ul>
           </nav>
           <div id="mobile-menu-wrap"></div>
-    
         </div>
         {/* <!-- Humberger End -->*/}
       </div>

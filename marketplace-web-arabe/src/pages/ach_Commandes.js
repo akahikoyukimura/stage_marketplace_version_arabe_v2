@@ -7,6 +7,9 @@ import Loader from "react-loader-spinner";
 import Select from "react-select";
 
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+
+const intl = JSON.parse(localStorage.getItem("intl"));
 class Commandes extends Component {
   constructor() {
     super();
@@ -587,26 +590,26 @@ class Commandes extends Component {
 
     switch (this.props.location.state.id) {
       case 'commande annulée (deadline dépassé)#reçu avance refusé#reçu reste refusé#reçu complément refusé#avarié#rejetée#annulée manuellement#remboursement#avarié_changement#avarié_remboursement#avarié_annulé':
-        titre = "annulées";
-        message = "Liste des commandes annulées pour des raisons de non-conformité aux conditions générales de vente (délai de paiement dépassé, reçu non conforme, montant non reçu), ou bien suite à votre souhait d'annulation directe. Chacune de vos commandes sera conservée, à titre informatif, pendant 5 jours à la suite du processus d'annulation. Passé ce délai, elle sera définitivement supprimée de cette liste. Il vous est aussi possible de les supprimer avant.";
+        titre = intl.messages.comd_annule;
+        message = intl.messages.cmd_annule_message;
         break;
       case 'en attente de paiement avance':
-        titre = "Avance à payer ";
+        titre = intl.messages.cmd_avance;
         break;
       case 'en attente de validation avance':
-        titre = "Produit(s) réservé(s) ";
-        message = "Liste des commandes dont les ordres de virement des avances sont en phase de validation. Elles seront affectées à la rubrique \"Reste à payer\" suite à leur validation. ";
+        titre = intl.messages.cmd_produit_reserve;
+        message = intl.messages.cmd_produit_reserve_message;
 
         break;
       case 'en attente de paiement du reste':
-        titre = "Reste à payer ";
+        titre = intl.messages.cmd_reste_a_payer;
         break;
       case 'validé#en attente de validation reste#en attente de validation du complément':
-        titre = "Prêt à livrer";
-        message = "Liste des commandes dont les ordres de virement des restes à payer sont en phase de validation. Vous serez contactés pour la livraison suite à leur validation. ";
+        titre = intl.messages.cmd_pret_a_livrer;
+        message = intl.messages.cmd_pret_a_livre;
         break;
       case 'en attente de paiement du complément':
-        titre = "Complément à payer ";
+        titre = intl.messages.cmd_compliments_a_payer;
         break;
 
     }
@@ -627,7 +630,7 @@ class Commandes extends Component {
     const currentAnnonces = AnnonceAll.concat(AnnonceA).slice(indexOfFirstAnnonce, indexOfLastAnnonce);
     return (
       <div>
-        <section className="">
+        <section style={localStorage.getItem('lg')=='ar'?{"direction":"rtl","textAlign":"right"}:{}} className="">
           {loading ? (
             <div
               style={{
@@ -655,7 +658,7 @@ class Commandes extends Component {
 
               <br></br>
 
-              <h4 className="latest-product__item">  Mes commandes  </h4>
+              <h4 className="latest-product__item">  <FormattedMessage id="cmd_title"/>  </h4>
               <br></br>
               <br></br>
               <div>
@@ -668,19 +671,24 @@ class Commandes extends Component {
 
                   </span>{" "}</h5>
                 {message !== null ? <p className="message  ">{message}</p> : null}
-
-
               </div>
               <div>
                 <div id="filterPlace" className="col-lg-5 col-md-5 fa mt-4 ">
-                  <Select
-                    id="filterPlace"
-                    value={this.state.selectedOptionSort}
-                    onChange={this.sortData}
-                    options={optionsSort}
-                    placeholder="&#xf161; Trier par"
-
-                  />
+                <FormattedMessage
+                        id="tout_les_annonces_trier"
+                        values={{ icon: <>&#xf161;</> }}
+                      >
+                        {(placeholder) => (
+                          <Select
+                          id="filterPlace"
+                          value={this.state.selectedOptionSort}
+                          onChange={this.sortData}
+                          options={optionsSort}
+                          placeholder={placeholder}
+      
+                        />
+                        )}
+                      </FormattedMessage>
                 </div>
               </div>
               <br></br>
@@ -803,7 +811,6 @@ class Commandes extends Component {
                                   alt="sheep-head"
                                   data-imgbigurl="Images/sheep-head.png"
                                   src="Images/sheep-head.png"
-                                  alt=""
                                 />
                                 <h6 id="gras">   {Annonces.espece[0].espece + " : "}<span style={{ color: "black", fontWeight: "normal" }}>{" " + Annonces.espece[0].race} </span></h6>
                               </div>
