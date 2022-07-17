@@ -99,6 +99,27 @@
     "cmd_pret_a_livrer":"Prêt à livrer",
     "cmd_pret_a_livre":"Liste des commandes dont les ordres de virement des restes à payer sont en phase de validation. Vous serez contactés pour la livraison suite à leur validation. ",
     "cmd_compliments_a_payer":"Compléments à payer",
-    "cmd_reste_a_payer":"Reste à payer"
+    "cmd_reste_a_payer":"Reste à payer",
 
+    "_comment9":"la page des eleveurs",
+    "eleveurs_rechercher":"Rechercher",
+    "eleveurs_espece":"Espèce",
+    "eleveurs_race":"Race",
+    "eleveurs_region":"Region",
+    "eleveurs_ville":"Ville",
+    "eleveurs_reinitialiser":"Reinitialiser",
+    "eleveurs_nos_eleveurs":"Nos eleveurs",
+    "eleveurs_pas_eleveur":"Pas d'eleveur !",
+    "eleveurs_trie":"{icon} Trie par le nombre d'etoiles",
+    "eleveurs_etoile":"Etoile",
+
+
+
+    "_comment10":"A propos",
+    "Apropos_text":"L’ANOC (Association Nationale Ovine et Caprine) est une association à but non lucratif qui a pour mission principale l’amélioration du revenu de l’éleveur ovin et caprin ainsi que la valorisation de son métier, notamment dans des conditions assez difficiles du milieu rural. Ainsi que la contribution au développement économique et rural par le développement de l’élevage des petits ruminants et la promotion de ses produits.",
+    "Apropos_nous":"Qui sommes nous?",
+    "Apropos_objectifs":"Nos objectifs ?",
+
+    "_comment11":"Footer",
+    "Footer_suivez":"SUIVEZ NOUS"
   }

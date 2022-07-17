@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FormattedMessage } from 'react-intl'
 
 class Footer extends Component {
   render() {
@@ -10,7 +11,9 @@ class Footer extends Component {
               <div className="col-lg-12">
                 <div className="footer__widget">
                   <div className="footer__widget__social ">
-                    <h6> SUIVEZ NOUS {"  "} </h6>
+                    <h6> 
+                      <FormattedMessage id="Footer_suivez"></FormattedMessage>{"  "} 
+                    </h6>
                     <a style={{height:"max-content"}} href="https://www.facebook.com/Association.nationale.ovine.et.caprine/">
                       <img src="/Images/facebook.png"/>
                     </a>

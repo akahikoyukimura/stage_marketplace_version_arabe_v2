@@ -6,6 +6,7 @@ import Loader from "react-loader-spinner";
 import { HiOutlineBadgeCheck } from 'react-icons/hi';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import {FormattedMessage} from 'react-intl'
 
 class AllOffers extends Component {
   constructor() {
@@ -37,8 +38,8 @@ class AllOffers extends Component {
 
       selectedOptionSort: null,
       optionsSort: [
-        { value: "rating", label: (<> <i className="fa fa-star-o text-warning fa-sm"></i>  Etoile [5 <i className="fa fa-long-arrow-right  "></i> 1] </>) },
-        { value: "rating_dec", label: (<> <i className="fa fa-star-o fa-sm" style={{ color: "#ebebeb" }}></i>  Etoile [1 <i className="fa fa-long-arrow-right  "> 5]</i> </>) },
+        { value: "rating", label: (<> <i className="fa fa-star-o text-warning fa-sm"></i>  <FormattedMessage id="eleveurs_etoile"></FormattedMessage>[5 <i className="fa fa-long-arrow-right  "></i> 1] </>) },
+        { value: "rating_dec", label: (<> <i className="fa fa-star-o text-warning fa-sm" style={{ color: "#ebebeb" }}></i>  <FormattedMessage id="eleveurs_etoile"></FormattedMessage> [1 <i className="fa fa-long-arrow-right  "></i>5] </>) },
       ],
     };
 
@@ -396,79 +397,113 @@ class AllOffers extends Component {
     const { optionsSort } = this.state;
     return (
       <div>
-        <section className="">
+        <section
+          style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}
+          className=""
+        >
           <br></br>
           <div className="container">
             <div className="row">
               <div className="col-lg-3 col-md-6">
-                <div id="rechercher" className="col-lg-12">
+                <div 
+                  style={
+                    localStorage.getItem("lg") == "ar"
+                      ? { direction: "rtl", textAlign: "right" }
+                      : {}
+                  }
+                   id="rechercher" className="col-lg-12">
                   <br></br>
                   <br></br>
                   <div className="sidebar__item">
-                    <h4>Rechercher</h4>
+                    <h4>
+                      <FormattedMessage id="eleveurs_rechercher">
+                      </FormattedMessage>
+                    </h4>
 
                     <h6 id="gras" className="latest-product__item">
-                      Espece
+                      <FormattedMessage id="eleveurs_espece">
+                      </FormattedMessage>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-
-                        <Select
-                          value={selectedOptionEspece}
-                          onChange={this.handleChangeEspece}
-                          options={optionsEspece}
-                          placeholder="Espece"
-                          required
-                        />
+                        <FormattedMessage id="eleveurs_espece">
+                          {(placeholder) => (
+                            <Select
+                            value={selectedOptionEspece}
+                            onChange={this.handleChangeEspece}
+                            options={optionsEspece}
+                            placeholder={placeholder}
+                            required
+                          />
+                          )}
+                        
+                        </FormattedMessage>
                         <br></br>
                       </div>
                     </div>
 
                     <h6 id="gras" className="latest-product__item">
-                      Race
+                      <FormattedMessage id="eleveurs_race"></FormattedMessage>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <Select
-                          id="recherchePlace"
-                          isDisabled={this.state.Disabled}
-                          value={selectedOptionRace}
-                          onChange={this.handleChangeRace}
-                          options={this.state.race}
-                          placeholder=" Race"
-                          required
-                        />
+                        <FormattedMessage id="eleveurs_race">
+                          {(placeholder) =>(
+                            <Select
+                            id="recherchePlace"
+                            isDisabled={this.state.Disabled}
+                            value={selectedOptionRace}
+                            onChange={this.handleChangeRace}
+                            options={this.state.race}
+                            placeholder={placeholder}
+                            required
+                          />
+                          )}
+                        
+                        </FormattedMessage>
 
                       </div>
                     </div>
                     <br></br>
                     <h6 id="gras" className="latest-product__item">
-                      Region
+                    <FormattedMessage id="eleveurs_region"></FormattedMessage>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <Select
-                          value={selectedOptionRegions}
-                          onChange={this.handleChangeRegion}
-                          options={optionsRegions}
-                          placeholder=" Region"
-                        />
+                        <FormattedMessage id="eleveurs_region">
+                          {(placeholder) => (
+                            <Select
+                              value={selectedOptionRegions}
+                              onChange={this.handleChangeRegion}
+                              options={optionsRegions}
+                              placeholder={placeholder}
+                              required
+                              // className="Select"
+                            />
+                          )}
+                          </FormattedMessage>
+                        
                         <br></br>
                       </div>
                     </div>
 
                     <h6 id="gras" className="latest-product__item">
-                      Ville
+                    <FormattedMessage id="eleveurs_ville"></FormattedMessage>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <Select
-                          value={selectedOptionVille}
-                          onChange={this.handleChangeVille}
-                          options={optionsVille}
-                          placeholder=" Ville"
-
-                        />
+                        <FormattedMessage id="eleveurs_ville">
+                            {(placeholder) => (
+                              <Select
+                              value={selectedOptionVille}
+                              onChange={this.handleChangeVille}
+                              options={optionsVille}
+                              placeholder={placeholder}
+    
+                            />
+                            )}
+                        
+                        </FormattedMessage>
                         <br></br>
                         <br></br>
                       </div>
@@ -481,7 +516,7 @@ class AllOffers extends Component {
                           onClick={this.handelChercher} >
                           <i className="fa fa-search "></i>
                           {" "}
-                          Rechercher{" "}
+                          <FormattedMessage id="eleveurs_rechercher"></FormattedMessage>{" "}
                         </button>
                         <br></br>
                         <br></br>
@@ -491,7 +526,7 @@ class AllOffers extends Component {
                           onClick={this.handelReinitialiser} >
                           <i className="fa fa-refresh"></i>
                           {" "}
-                          Reinitialiser{" "}
+                          <FormattedMessage id="eleveurs_reinitialiser"></FormattedMessage>{" "}
                         </button>
                         <br></br>
                         <br></br>
@@ -507,16 +542,22 @@ class AllOffers extends Component {
                   <p>Insert text here</p>
                 </div> 
                 Fin Text Marketing */}
-                <div className="filter__item">
+                <div style={localStorage.getItem("lg")=="ar"?{"textAlignLast":"right"}:{}} className="filter__item">
                   <div>
                     <div id="filterPlace" className="col-lg-5 col-md-5 fa ">
-                      <Select
+                      <FormattedMessage 
+                      id="eleveurs_trie"
+                      values={{ icon: <>&#xf161;</> }}>
+                        {(placeholder) => (
+                          <Select
                         id="filterPlace"
                         value={this.state.selectedOptionSort}
                         onChange={this.sortData}
                         options={optionsSort}
-                        placeholder="&#xf161;  Trie par le nombre d'etoiles"
+                        placeholder={placeholder}
                       />
+                        )}
+                      </FormattedMessage>
                     </div>
                   </div>
 
@@ -524,7 +565,7 @@ class AllOffers extends Component {
                   <div className="row">
                     <div className="col-lg-12 col-md-12">
                       <div className="filter__found text-left">
-                        <h4>    Nos eleveurs{" : "}<span id="nbEspece">
+                        <h4>    <FormattedMessage id="eleveurs_nos_eleveurs"></FormattedMessage>{" : "}<span id="nbEspece">
                           {" "}
                           {elv.length}
                         </span>{" "} </h4>
@@ -559,7 +600,7 @@ class AllOffers extends Component {
                           <i class="fa fa-frown-o fa-5x" aria-hidden="true"></i>
                         </p>
 
-                        <h3 style={{ color: "#28a745" }}>Pas d'eleveur !</h3>
+                        <h3 style={{ color: "#28a745" }}><FormattedMessage id="eleveurs_pas_eleveur"></FormattedMessage></h3>
                       </div> : <div className="row">
                         {currentEleveurs.map((Eleveurs) => (
                           <div className="col-lg-4  col-sm-6">

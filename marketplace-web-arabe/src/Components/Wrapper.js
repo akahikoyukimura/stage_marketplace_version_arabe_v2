@@ -5,9 +5,6 @@ import Francais from '../Langues/fr.json'
 
 export const Context = React.createContext();
 
-<<<<<<< HEAD
-const local = navigator.language;
-=======
 let local="";
 if (localStorage.getItem("lg")) {
     local = localStorage.getItem("lg");
@@ -15,7 +12,6 @@ if (localStorage.getItem("lg")) {
     local="fr"
 }
 
->>>>>>> origin/v1
 
 let lang;
 if(local === "fr"){
@@ -51,8 +47,4 @@ export const Wrapper = (props) => {
   )
 }
 
-<<<<<<< HEAD
 export default Wrapper;
-=======
-export default Wrapper;
->>>>>>> origin/v1
