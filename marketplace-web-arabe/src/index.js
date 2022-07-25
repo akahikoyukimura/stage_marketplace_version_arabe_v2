@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import Wrapper from './Components/Wrapper.js';
 
 ReactDOM.render(
   <React.StrictMode>
+    <Wrapper>
     <App />
+  </Wrapper>
   </React.StrictMode>,
   document.getElementById("root")
 );

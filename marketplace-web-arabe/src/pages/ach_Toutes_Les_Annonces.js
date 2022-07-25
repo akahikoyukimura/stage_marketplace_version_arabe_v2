@@ -17,6 +17,7 @@ import "reactjs-popup/dist/index.css";
 
 import styled, { keyframes } from "styled-components";
 import { bounce } from "react-animations";
+import { FormattedMessage } from "react-intl";
 
 require("bootstrap-less/bootstrap/bootstrap.less");
 const Bounce = styled.div`
@@ -582,7 +583,7 @@ class HomeSheeps extends Component {
     }, 4000);
 
     return (
-      <div>
+      <div style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
         <section className="search-header">
           {/*           <div>
             <button type="button" className="button" onClick={() => {this.setState({open:true})}}>
