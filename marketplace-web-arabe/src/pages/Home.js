@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {FormattedMessage} from 'react-intl'
-
 class Home extends Component {
   constructor() {
     super();
@@ -359,20 +357,11 @@ class Home extends Component {
                         <b>Numéro de boucle {Annonces.Nboucle}</b>
                       </h6>
                       <h6>
-                        <b>
-                          <FormattedMessage
-                            id="prix"
-                            defaultMessage="Prix"
-                          />
-                        </b>
+                        <b>Prix</b>
                         {"         " + Annonces.prix}
                       </h6>
                       <h6>
-                        <b>
-                        <FormattedMessage
-                            id="race"
-                            defaultMessage="Race"
-                          /></b>
+                        <b>Race</b>
                         {"         " + Annonces.Race}
                       </h6>
                       <h6>

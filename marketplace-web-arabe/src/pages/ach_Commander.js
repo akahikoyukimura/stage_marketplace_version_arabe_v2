@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import MultiStep from "../react-multistep";
-import Commander1 from './step1'
+import Commander1 from "./step1";
 import Commander2 from "./step2";
 import Commander3 from "./step3";
 
-
 import axios from "axios";
-import Select from "react-select";
+//import Select from "react-select";
 import Swal from "sweetalert2";
 
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 class Commander extends Component {
   constructor(props) {
     super(props);
@@ -50,6 +49,7 @@ class Commander extends Component {
       selectedOptionPoint: "",
       optionsPoint: [],
       redirect: false,
+      technicien: {},
     };
     this.onPaiementChanged = this.onPaiementChanged.bind(this);
     this.onChangecheck = this.onChangecheck.bind(this);
@@ -64,146 +64,251 @@ class Commander extends Component {
     this.validation = this.validation.bind(this);
     this.valide = this.valide.bind(this);
   }
-  valide(){ 
-      if(this.validation()[0] ){return this.validation()[0]}
-      else {
-        const swalWithBootstrapButtons = Swal.mixin({
-          customClass: {
-            confirmButton: "ml-2 btn btn-success",
-            cancelButton: " btn btn-danger",
-          },
-          buttonsStyling: false,
-        }); 
-         swalWithBootstrapButtons.fire(
-          'Rappel !',
-          'Vous n\'avez pas fini de remplir cette etape',
-          'error'
-        )
-        return false ;}  
-   }
+  valide() {
+    if (this.validation()[0]) {
+      return this.validation()[0];
+    } else {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "ml-2 btn btn-success",
+          cancelButton: " btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
+      swalWithBootstrapButtons.fire(
+        "Rappel !",
+        "Vous n'avez pas fini de remplir cette etape",
+        "error"
+      );
+      return false;
+    }
+  }
   validation() {
     let ids = [];
-    if (!Array.isArray(this.props.location.state.id)) { ids.push(this.props.location.state.id) }
-    else { ids = this.props.location.state.id }
+    if (!Array.isArray(this.props.location.state.id)) {
+      ids.push(this.props.location.state.id);
+    } else {
+      ids = this.props.location.state.id;
+    }
     let valide = [];
     valide[0] = false;
     let transport = 0;
     if (this.state.check1) {
-      if (((this.state.date  ===  null && this.state.occasion  ===  "aid") ||
-        (this.state.date   !==   null && this.state.occasion   !==   "aid"))) {
-        valide[0] = true
-        transport = 0
+      if (
+        (this.state.date === null && this.state.occasion === "aid") ||
+        (this.state.date !== null && this.state.occasion !== "aid")
+      ) {
+        valide[0] = true;
+        transport = 0;
       }
     }
-    if (this.state.check2) { }
+    if (this.state.check2) {
+    }
     if (this.state.check3) {
-      if (this.state.date   !==   null && this.state.selectedOptionVille   !==   "" && this.state.adresse   !==   "") {
-        valide[0] = true
-        transport = this.state.livraison.find((f) => f.ville_livraison  ===  this.state.selectedOptionVille.value).prix_VIP
-
+      if (
+        this.state.date !== null &&
+        this.state.selectedOptionVille !== "" &&
+        this.state.adresse !== ""
+      ) {
+        valide[0] = true;
+        transport = this.state.livraison.find(
+          (f) => f.ville_livraison === this.state.selectedOptionVille.value
+        ).prix_VIP;
       }
     }
     if (this.state.check4) {
-      if (this.state.selectedOptionVille  !==  "" && this.state.adresse  !==  "") {
-        valide[0] = true
-        transport = this.state.livraison.find((f) => f.ville_livraison  ===  this.state.selectedOptionVille.value).prix_VIP
-
+      if (this.state.selectedOptionVille !== "" && this.state.adresse !== "") {
+        valide[0] = true;
+        transport = this.state.livraison.find(
+          (f) => f.ville_livraison === this.state.selectedOptionVille.value
+        ).prix_VIP;
       }
-
     }
     if (this.state.check5) {
-      if (this.state.standard  ===  "point_relais" && this.state.selectedOptionVille  !==  "" && this.state.selectedOptionPoint  !==  "") {
-        valide[0] = true
-        transport = (this.state.livraison.find((f) => f.ville_livraison  ===  this.state.selectedOptionVille.value).prix_transport_relais
-          - (-this.state.livraison.find((f) => f.ville_livraison  ===  this.state.selectedOptionVille.value).marge_risque)) * ids.length
-
-
+      if (
+        this.state.standard === "point_relais" &&
+        this.state.selectedOptionVille !== "" &&
+        this.state.selectedOptionPoint !== ""
+      ) {
+        valide[0] = true;
+        transport =
+          (this.state.livraison.find(
+            (f) => f.ville_livraison === this.state.selectedOptionVille.value
+          ).prix_transport_relais -
+            -this.state.livraison.find(
+              (f) => f.ville_livraison === this.state.selectedOptionVille.value
+            ).marge_risque) *
+          ids.length;
       }
-      if (this.state.standard  ===  "domicile" && this.state.selectedOptionVille  !==  "" && this.state.adresse  !==  "") {
-        valide[0] = true
-        transport = (this.state.livraison.find((f) => f.ville_livraison  ===  this.state.selectedOptionVille.value).prix_transport_domicile
-          - (-this.state.livraison.find((f) => f.ville_livraison  ===  this.state.selectedOptionVille.value).marge_risque)) * ids.length
-
+      if (
+        this.state.standard === "domicile" &&
+        this.state.selectedOptionVille !== "" &&
+        this.state.adresse !== ""
+      ) {
+        valide[0] = true;
+        transport =
+          (this.state.livraison.find(
+            (f) => f.ville_livraison === this.state.selectedOptionVille.value
+          ).prix_transport_domicile -
+            -this.state.livraison.find(
+              (f) => f.ville_livraison === this.state.selectedOptionVille.value
+            ).marge_risque) *
+          ids.length;
       }
     }
 
     valide[1] = transport;
     return valide;
   }
-  handleChange1(e) { this.setState({ checked: false, check1: !this.state.check1, check2: false, check3: false, check4: false, check5: false, selectedOptionPoint: "", selectedOptionVille: "" }); }
-  handleChange2(e) { this.setState({ checked: false, check1: false, check2: !this.state.check2, check3: false, check4: false, check5: false, adresse: "", selectedOptionVille: "" }) }
-  handleChange3(e) { this.setState({ checked: false, check1: false, check2: false, check3: !this.state.check3, check4: false, check5: false, selectedOptionPoint: "", selectedOptionVille: "" }) }
-  handleChange4(e) { this.setState({ checked: false, check1: false, check2: false, check3: false, check4: !this.state.check4, check5: false, selectedOptionPoint: "", selectedOptionVille: "" }) }
-  handleChange5(e) { this.setState({ checked: false, check1: false, check2: false, check3: false, check4: false, check5: !this.state.check5, selectedOptionPoint: "", selectedOptionVille: "" }) }
+  handleChange1(e) {
+    this.setState({
+      checked: false,
+      check1: !this.state.check1,
+      check2: false,
+      check3: false,
+      check4: false,
+      check5: false,
+      selectedOptionPoint: "",
+      selectedOptionVille: "",
+    });
+  }
+  handleChange2(e) {
+    this.setState({
+      checked: false,
+      check1: false,
+      check2: !this.state.check2,
+      check3: false,
+      check4: false,
+      check5: false,
+      adresse: "",
+      selectedOptionVille: "",
+    });
+  }
+  handleChange3(e) {
+    this.setState({
+      checked: false,
+      check1: false,
+      check2: false,
+      check3: !this.state.check3,
+      check4: false,
+      check5: false,
+      selectedOptionPoint: "",
+      selectedOptionVille: "",
+    });
+  }
+  handleChange4(e) {
+    this.setState({
+      checked: false,
+      check1: false,
+      check2: false,
+      check3: false,
+      check4: !this.state.check4,
+      check5: false,
+      selectedOptionPoint: "",
+      selectedOptionVille: "",
+    });
+  }
+  handleChange5(e) {
+    this.setState({
+      checked: false,
+      check1: false,
+      check2: false,
+      check3: false,
+      check4: false,
+      check5: !this.state.check5,
+      selectedOptionPoint: "",
+      selectedOptionVille: "",
+    });
+  }
 
   handleChangeVille = (selectedOptionVille) => {
-
     this.setState({ selectedOptionVille }, () =>
       this.setState({
         checked: false,
         vide: false,
         adresse: "",
       })
-
     );
 
-
     this.setState({
-      entrée_ville: this.state.livraison.find((f) => f.ville_livraison  ===  selectedOptionVille.value).entrée_ville,
-      optionsPoint:
-        [{
-          "value": this.state.livraison.find((f) => f.ville_livraison  ===  selectedOptionVille.value).point_relais,
-          "label": this.state.livraison.find((f) => f.ville_livraison  ===  selectedOptionVille.value).point_relais
-        }],
-    })
-    if (this.state.livraison.find((f) => f.ville_livraison  ===  selectedOptionVille.value).entrée_ville) {
-      this.setState({ selectedOptionPoint: { "value": "L'entrée de la ville", "label": "L'entrée de la ville" } }, () => {
-      })
-    }
-    else {
-      this.setState({ selectedOptionPoint: "" }, () => { })
-
+      entrée_ville: this.state.livraison.find(
+        (f) => f.ville_livraison === selectedOptionVille.value
+      ).entrée_ville,
+      optionsPoint: [
+        {
+          value: this.state.livraison.find(
+            (f) => f.ville_livraison === selectedOptionVille.value
+          ).point_relais,
+          label: this.state.livraison.find(
+            (f) => f.ville_livraison === selectedOptionVille.value
+          ).point_relais,
+        },
+      ],
+    });
+    if (
+      this.state.livraison.find(
+        (f) => f.ville_livraison === selectedOptionVille.value
+      ).entrée_ville
+    ) {
+      this.setState(
+        {
+          selectedOptionPoint: {
+            value: "L'entrée de la ville",
+            label: "L'entrée de la ville",
+          },
+        },
+        () => {}
+      );
+    } else {
+      this.setState({ selectedOptionPoint: "" }, () => {});
     }
   };
 
   handleChangePoint = (selectedOptionPoint) => {
     this.setState({ selectedOptionPoint }, () =>
-
       this.setState({
         checked: false,
       })
-
     );
   };
   onChangecheck(e) {
     let type = "standard";
-    if (this.state.checked  ===  true) {
+    if (this.state.checked === true) {
       this.setState({ checked: false });
-    }
-    else {
+    } else {
       this.setState({ checked: true });
-
     }
-    if (this.state.check4 || this.state.check3) { type = "vip" }
-
+    if (this.state.check4 || this.state.check3) {
+      type = "vip";
+    }
 
     this.setState({
       Commande: {
-
         // localisation: e.target.value,
-        point_relais: this.state.check1 ? "Récupérer à la coopérative" : this.state.check5 === true && this.state.standard  ===  "point_relais"?this.state.entrée_ville  ===  true?"entrée de la ville":this.state.selectedOptionPoint.value:"",
-        ville_livraison: this.state.check1 ? "Récupérer à la coopérative" : this.state.selectedOptionVille.value,
+        point_relais: this.state.check1
+          ? "Récupérer à la coopérative"
+          : this.state.check5 === true && this.state.standard === "point_relais"
+          ? this.state.entrée_ville === true
+            ? "entrée de la ville"
+            : this.state.selectedOptionPoint.value
+          : "",
+        ville_livraison: this.state.check1
+          ? "Récupérer à la coopérative"
+          : this.state.selectedOptionVille.value,
         especes: this.state.especes,
 
         id_cooperative: this.state.id_cooperative,
         reference: null,
         id_consommateur: localStorage.getItem("usertoken"),
-        statut: "en attente de paiement avance",
+        statut:
+          this.state.paiement == "cash"
+            ? "en attente de paiement cash"
+            : "en attente de paiement avance",
         ancien_statut: "",
         deadline: this.state.deadline,
         avance: this.state.avance,
-        prix_total: this.state.prix - (-this.validation()[1]),
-        reste: this.state.prix - (-this.validation()[1]) - this.state.avance,
+        prix_total: this.state.prix - -this.validation()[1],
+        reste: this.state.prix - -this.validation()[1] - this.state.avance,
 
         reçu_avance: "",
         feedback_avance: "",
@@ -237,29 +342,29 @@ class Commander extends Component {
         justification_rejet: null,
 
         rating: null,
-        isDeliveredTo_Home: this.state.check3||this.state.check4||(this.state.check5&&this.state.standard  ===  "domicile"),
+        isDeliveredTo_Home:
+          this.state.check3 ||
+          this.state.check4 ||
+          (this.state.check5 && this.state.standard === "domicile"),
         adresse_domicile: this.state.adresse,
-        isDeliveredTo_PointRelais: this.state.check2||(this.state.check5&&this.state.standard  ===  "point_relais"),
+        isDeliveredTo_PointRelais:
+          this.state.check2 ||
+          (this.state.check5 && this.state.standard === "point_relais"),
         isTakenFrom_Cooperative: this.state.check1,
-        id_animateur:this.props.location.state.cooperative.id_animateur,
+        id_animateur: this.props.location.state.cooperative.id_animateur,
       },
       vide: false,
-    })
-
-
+    });
   }
   sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
-  }
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
 
   onPaiementChanged(e) {
     this.setState({ [e.target.name]: e.target.value }, () => {
       this.setState({ loading: false, checked: false });
     });
-
-
   }
-
 
   componentDidMount() {
     const idm = this.props.location.state.id;
@@ -295,83 +400,123 @@ class Commander extends Component {
     } else {
       let p = [];
       let ids = [];
-      if (!Array.isArray(idm)) { ids.push(idm) }
-      else { ids = idm }
+      if (!Array.isArray(idm)) {
+        ids.push(idm);
+      } else {
+        ids = idm;
+      }
 
       let d = "";
-      if (this.state.cooperative.occasion   !==   "aid") {
+      if (this.state.cooperative.occasion !== "aid") {
         d = new Date(
-          new Date().getTime()
-          - (-3600 * (this.state.cooperative.parametres.delais_paiement.delai_reste - (-this.state.cooperative.parametres.delais_paiement.delai_avance) - (-this.state.cooperative.parametres.delais_paiement.bonus)) * 1000)
-          - ((new Date()).getTimezoneOffset() * 60 * 1000)).toISOString()
-        this.setState({ date_min: d.substr(0, 10) }, () => { })
+          new Date().getTime() -
+            -3600 *
+              (this.state.cooperative.parametres.delais_paiement.delai_reste -
+                -this.state.cooperative.parametres.delais_paiement
+                  .delai_avance -
+                -this.state.cooperative.parametres.delais_paiement.bonus) *
+              1000 -
+            new Date().getTimezoneOffset() * 60 * 1000
+        ).toISOString();
+        this.setState({ date_min: d.substr(0, 10) }, () => {});
       }
-      this.setState({
-        livraison: this.state.cooperative.livraison,
-        occasion: this.state.cooperative.occasion,
+      this.setState(
+        {
+          livraison: this.state.cooperative.livraison,
+          occasion: this.state.cooperative.occasion,
 
-        deadline: new Date(new Date().getTime()
-          - (-3600 * (this.state.cooperative.parametres.delais_paiement.delai_avance) * 1000)
-          - ((new Date()).getTimezoneOffset() * 60 * 1000)).toLocaleString(),
-
-      }, () => {
-        this.state.cooperative.livraison.map((l) => (
-          this.state.optionsVille.splice(0, 0, { "value": l.ville_livraison, "label": l.ville_livraison })
-        ))
-
-
-
-        ids.map((i) => (
-          axios
-            .get("http://127.0.0.1:8000/api/Espece/" + i, {
-              headers: {
-                // "x-access-token": token, // the token is a variable which holds the token
-                Authorization: myToken,
-              },
+          deadline: new Date(
+            new Date().getTime() -
+              -3600 *
+                this.state.cooperative.parametres.delais_paiement.delai_avance *
+                1000 -
+              new Date().getTimezoneOffset() * 60 * 1000
+          ).toLocaleString(),
+        },
+        () => {
+          this.state.cooperative.livraison.map((l) =>
+            this.state.optionsVille.splice(0, 0, {
+              value: l.ville_livraison,
+              label: l.ville_livraison,
             })
-            .then((res) => {
-              this.setState({
-                Espece: res.data.objet,
-                eleveur: res.data.Eleveur,
-                id_cooperative: res.data.objet.id_cooperative,
-                prix: this.state.prix - (-res.data.objet.prix),
-                avance: this.state.avance - (-res.data.objet.avance),
+          );
 
-                // image: res.data.objet.image_profile,
-              }, () => {
-                p.splice(0, 0, {
-                  "id_espece": res.data.objet._id,
-                  "id_eleveur": res.data.Eleveur[0]._id,
-                  "motif_annulation": null,
-                  "produits_changement": [],
-                  "choix_client": "",
+          ids.map((i) =>
+            axios
+              .get("http://127.0.0.1:8000/api/Espece/" + i, {
+                headers: {
+                  // "x-access-token": token, // the token is a variable which holds the token
+                  Authorization: myToken,
+                },
+              })
+              .then((res) => {
+                this.setState(
+                  {
+                    Espece: res.data.objet,
+                    eleveur: res.data.Eleveur,
+                    id_cooperative: res.data.objet.id_cooperative,
+                    prix: this.state.prix - -res.data.objet.prix,
+                    avance: this.state.avance - -res.data.objet.avance,
 
-                })
-                this.setState({ especes: p }, () => { })
-              });
-            }
-
-            )))
-
-
-      })
-
-
-
-
-
-
-
+                    // image: res.data.objet.image_profile,
+                  },
+                  () => {
+                    p.splice(0, 0, {
+                      id_espece: res.data.objet._id,
+                      id_eleveur: res.data.Eleveur[0]._id,
+                      motif_annulation: null,
+                      produits_changement: [],
+                      choix_client: "",
+                    });
+                    this.setState({ especes: p }, () => {});
+                  }
+                );
+                /* get id cooperative and use it to get technicien data*/
+                axios
+                  .get(
+                    "http://127.0.0.1:8000/api/cooperative/" +
+                      this.state.id_cooperative,
+                    {
+                      headers: {
+                        // "x-access-token": token, // the token is a variable which holds the token
+                        Authorization: myToken,
+                      },
+                    }
+                  )
+                  .then((res) => {
+                    axios
+                      .get(
+                        "http://127.0.0.1:8000/api/technicien/" +
+                          res.data.techniciens[0].id_technicien,
+                        {
+                          headers: {
+                            // "x-access-token": token, // the token is a variable which holds the token
+                            Authorization: myToken,
+                          },
+                        }
+                      )
+                      .then((res) => {
+                        this.setState({
+                          technicien: res.data,
+                        });
+                      });
+                  });
+              })
+          );
+        }
+      );
     }
   }
 
-  render() {console.log("f")
-    console.log(this.state.cooperative)
-     const steps = [
+  render() {
+    //console.log(this.state);
+    const steps = [
       {
         name: "Etape",
         component: (
-          <Commander1 location={this.props.location} data={this.state}
+          <Commander1
+            location={this.props.location}
+            data={this.state}
             handleChange1={this.handleChange1}
             handleChange2={this.handleChange2}
             handleChange3={this.handleChange3}
@@ -379,7 +524,8 @@ class Commander extends Component {
             handleChange5={this.handleChange5}
             onPaiementChanged={this.onPaiementChanged}
             handleChangeVille={this.handleChangeVille}
-            handleChangePoint={this.handleChangePoint} />
+            handleChangePoint={this.handleChangePoint}
+          />
         ),
       },
       {
@@ -389,24 +535,28 @@ class Commander extends Component {
             location={this.props.location}
             data={this.state}
             validation={this.validation}
-
           />
         ),
       },
       {
         name: "Etape",
         component: (
-          <Commander3 location={this.props.location} data={this.state} onChangecheck={this.onChangecheck}
+          <Commander3
+            location={this.props.location}
+            data={this.state}
+            onChangecheck={this.onChangecheck}
             onPaiementChanged={this.onPaiementChanged}
             validation={this.validation}
+            techBank={this.state.technicien.agence_bancaire}
+            occasion={this.state.cooperative.occasion}
+            payementRapide={this.state.cooperative.paiement_rapide}
           />
         ),
       },
     ];
-
     const prevStyle = {
-      background: "#7fad39",
-      "border-width": "2px",
+      background: "#4cb050",
+      "border-width": "0px",
       display: "inline-block",
       "font-size": "14px",
       size: "25px 54px",
@@ -421,11 +571,11 @@ class Commander extends Component {
     const nextStyle = {
       position: "absolute",
       right: "7.3%",
-      background: "#7fad39",
-      "border-width": "2px",
+      background: "#4cb050",
+      "border-width": "0px",
       display: "inline-block",
       "font-size": "14px",
-      size: "25px 54px",
+      size: "250px 54px",
       padding: "10px 28px 10px",
       color: "#ffffff",
       "text-transform": "uppercase",
@@ -434,15 +584,14 @@ class Commander extends Component {
       "border-radius": "5px",
     };
 
-    const stepStyle = { background: "#7fad39" };
-
-    /*const { selectedOptionVille } = this.state;
-    const { optionsVille } = this.state;*/
     return (
       <div>
-        <div class="container">
+        <div
+          className="container"
+          style={{ display: "block", marginLeft: "auto", marginRight: "auto" }}
+        >
           <br></br>
-          <h3>Commander votre bête  </h3>
+          <h3>Commander votre bête </h3>
 
           <MultiStep
             showNavigation={true}
@@ -451,7 +600,6 @@ class Commander extends Component {
             nextStyle={nextStyle}
             data={this.state}
             valide={this.valide}
-
           />
         </div>
         <br></br>

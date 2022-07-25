@@ -1,16 +1,17 @@
-import React, { Component, useContext } from "react";
+import React, { Component } from "react";
 import axios from "axios";
 import { GiSheep } from "react-icons/gi";
 import { MdAssignment } from "react-icons/md";
 import { AiFillHeart, AiOutlineSearch } from "react-icons/ai";
-import { FaShoppingCart, FaUserAlt, FaUniversity } from "react-icons/fa";
+import {
+  FaShoppingCart,
+  FaUserAlt,
+  FaUniversity,
+  FaSearch,
+} from "react-icons/fa";
 import Swal from "sweetalert2";
-import { Context } from "../Components/Wrapper";
-import { FormattedMessage } from "react-intl";
 
 class Header extends Component {
-  static contextType = Context;
-
   constructor() {
     super();
     // let redirect = false;
@@ -20,8 +21,8 @@ class Header extends Component {
       connectedUserEmail: "",
       colorMenuAc: "#28a745",
       colors: [],
+      commandes: null,
     };
-
     // this.HandelLogout = this.HandelLogout.bind(this);
     this.logout = this.logout.bind(this);
   }
@@ -83,6 +84,29 @@ class Header extends Component {
             connectedUserEmail: res.data.email,
           });
         });
+
+      // get panier length
+      axios
+        .get(
+          "http://127.0.0.1:8000/api/consommateur/" +
+            token +
+            "/panier?statut=disponible",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              // "Authorization": Mytoken,
+            },
+          }
+        )
+
+        .then((res) => {
+          this.setState({
+            commandes: res.data.filter(
+              (Paniers) => Paniers.statut === "disponible"
+            ).length,
+          });
+          console.log(this.state.commandes);
+        });
       // this.props.history.push("/login");
 
       //Ce bout de code permet de vérifier les commandes avec un deadline dépassé et les annuler
@@ -100,7 +124,7 @@ class Header extends Component {
           }
         )
         .then((res) => {
-          var resultat = res;
+          var resultat = res.data;
           for (let i = 0; i < res.data.length; i++) {
             var statutCmd = res.data[i].statut;
             var deadline = res.data[i].deadline;
@@ -218,103 +242,70 @@ class Header extends Component {
     }
     /** */
     return (
-      <div>
+      <>
         <style>{CSS}</style>
         <header className="header">
           {/* Comment goes here */}
           <div className="header__top">
-            <div className="container">
+            <div
+              className="container"
+              style={{ paddingLeft: "0px", paddingRight: "0px" }}
+            >
               <div className="row">
                 <div className="col-lg-6 col-md-6">
                   <div className="header__top__left">
-                    <ul>
-                      <li>
-                        <a style={{ color: colors[6] }} href="./Apropos">
-                          {" "}
-                          <AiOutlineSearch className=" fa-lg " />{" "}
-                          <FormattedMessage id="header_a_propos" />
-                        </a>
-                      </li>
-                    </ul>
+                    <div className="header__logo">
+                      <a href="./">
+                        <img
+                          style={{ height: "70px" }}
+                          src="/Images/myanoc.jpg"
+                          alt=""
+                        />
+                        <img
+                          style={{ height: "40px" }}
+                          src={require("./Images/logo-text.png")}
+                          alt=""
+                        />
+                      </a>
+                    </div>
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6">
                   <div className="header__top__right">
-                    <div className="header__top__right__social">
-                      <a
-                        style={{ height: "30px", width: "30px" }}
-                        href="https://www.facebook.com/Association.nationale.ovine.et.caprine/"
-                      >
-                        <img src="/Images/facebook.png" />
-                      </a>
-                      <a
-                        style={{ height: "30px", width: "30px" }}
-                        href="http://www.anoc.ma/"
-                      >
-                        <img src="/Images/site.png" />
-                      </a>
-                      <a
-                        style={{ height: "30px", width: "30px" }}
-                        id="youtube"
-                        href="https://www.youtube.com/channel/UCzX4064MubkoUVL1ecFDGpQ"
-                      >
-                        <img src="/Images/youtube.png" />
-                      </a>
-                    </div>
-                    <div
-                      className="header__top__right__language "
-                      style={{ marginRight: "26px" }}
-                    >
-                      <i className="fa fa-globe mr-2" aria-hidden="true">
-                        {" "}
-                      </i>
-                      <div>
-                        {localStorage.getItem("lg") == "ar"
-                          ? "العربية"
-                          : "Français"}
+                    <div className="header__top__right__button item">
+                      <div className="rulesButton">
+                        <i className="fa fa-gavel" aria-hidden="true"></i>
+                        <a
+                          href="./Regles"
+                          style={{
+                            textDecoration: "none",
+                            color: "white",
+                            fontSize: "1rem",
+                          }}
+                        >
+                          {" "}
+                          Règles de vente et d'achat
+                        </a>
                       </div>
-                      <span className="arrow_carrot-down"></span>
-                      <ul>
-                        <li>
-                          <a
-                            onClick={() => {
-                              localStorage.setItem("lg", "fr");
-                              window.location.reload(false);
-                            }}
-                          >
-                            Français
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            onClick={() => {
-                              localStorage.setItem("lg", "ar");
-                              window.location.reload(false);
-                            }}
-                          >
-                            {" "}
-                            العربية
-                          </a>
-                        </li>
-                      </ul>
                     </div>
                     {this.state.isLoged ? (
-                      <div className="header__top__right__language mr-0">
+                      <div className="header__top__right__auth  item">
                         <div>
-                          <h6
+                          <a
                             style={{
                               color: "#009141",
                               fontFamily: "inherit",
                               fontSize: "0.924rem",
                             }}
+                            href="/Compte"
                           >
                             <i className="fa fa-user-circle" />
                             <b>{" " + this.state.connectedUser}</b>
-                          </h6>
+                          </a>
                         </div>
                       </div>
                     ) : null}
-                    <div className="header__top__right__auth ml-4 ">
+                    <div className="header__top__right__auth  item">
                       {this.state.isLoged ? (
                         <div>
                           {" "}
@@ -327,9 +318,7 @@ class Header extends Component {
                             onClick={this.logout}
                           >
                             <i className="fa fa-sign-out">
-                              <b>
-                                <FormattedMessage id="header_se_deconnecter" />
-                              </b>{" "}
+                              <b>Se déconnecter</b>{" "}
                             </i>
                           </a>
                         </div>
@@ -346,85 +335,133 @@ class Header extends Component {
                           >
                             <i className="fa fa-sign-in">
                               {" "}
-                              <b>
-                                <FormattedMessage id="header_se_connecter" />
-                              </b>{" "}
+                              <b> Se connecter</b>{" "}
                             </i>
                           </a>
                         </div>
                       ) : null}
                     </div>
+
+                    {/* {
+                      <div className="header__top__right__language item ">
+                        <i className="fa fa-globe mr-2" aria-hidden="true">
+                          {" "}
+                        </i>
+                        <div> Français</div>
+                        <span className="arrow_carrot-down"></span>
+                        <ul>
+                          <li>
+                            <a href="#">Français</a>
+                          </li>
+                          <li>
+                            <a href="#"> العربية</a>
+                          </li>
+                        </ul>
+                      </div>
+                    } */}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-2">
-                <div className="header__logo">
-                  <a href="./">
-                    <img
-                      style={{ height: "115px" }}
-                      src="/Images/myanoc.jpg"
-                      alt=""
-                    />
-                  </a>
-                </div>
-              </div>
-              <div className="col-lg-10">
+        </header>
+        {/* <!-- Humberger Begin --> */}
+        <header className="header sticky_header">
+          <div style={{ paddingLeft: "0px", paddingRight: "0px" }}>
+            <div>
+              <div
+                className="col"
+                style={{
+                  paddingLeft: "0px",
+                  paddingRight: "0px",
+                  position: "sticky",
+                  top: 0,
+                }}
+              >
                 <nav className="header__menu">
                   <ul>
-                    <li className="header__menu__dropdown">
-                      <a style={{ color: colors[0] }} href="./">
-                        <GiSheep className=" mr-1 fa-lg " />
-                        <FormattedMessage id="header_especes" />
-                      </a>
+                    <li className="">
+                      <div>
+                        {" "}
+                        <a style={{ color: colors[0] }} href="./">
+                          <GiSheep className=" mr-1 fa-lg " />
+                          Nos espèces
+                        </a>
+                      </div>
                     </li>
-                    <li>
-                      <a
-                        style={{ color: colors[1] }}
-                        href="./AnnoncesParEleveurs"
-                        className="Header"
-                      >
-                        <FaUserAlt className="  mb-1 " />
-                        <FormattedMessage id="header_eleveurs" />
-                      </a>
+                    <li className="">
+                      <div>
+                        {" "}
+                        <a
+                          style={{ color: colors[1] }}
+                          href="./AnnoncesParEleveurs"
+                          className="Header"
+                        >
+                          <FaUserAlt className="  mb-1 " /> Nos éleveurs
+                        </a>
+                      </div>
                     </li>
                     {this.state.isLoged ? (
                       <span>
                         <li>
-                          <a
-                            style={{ color: colors[2] }}
-                            className="Header"
-                            href="./commandesParStatut"
-                          >
-                            <MdAssignment className="  fa-lg " />
-                            <FormattedMessage id="header_commandes" />
-                          </a>
+                          <div>
+                            {" "}
+                            <a
+                              style={{ color: colors[2] }}
+                              className="Header"
+                              href="./commandesParStatut"
+                            >
+                              <MdAssignment className="  fa-lg " /> Mes
+                              commandes
+                            </a>
+                          </div>
                         </li>
                         <span className="form-inline my-2 my-lg-0">
                           <li>
-                            <a
-                              style={{ color: colors[3] }}
-                              className="Header"
-                              href="./Favoris"
-                            >
-                              <AiFillHeart className=" fa-lg " />
-                              <FormattedMessage id="header_favori" />
-                            </a>
+                            <div>
+                              {" "}
+                              <a
+                                style={{ color: colors[3] }}
+                                className="Header"
+                                href="./Favoris"
+                              >
+                                <AiFillHeart className=" fa-lg " /> Mes favoris
+                              </a>
+                            </div>
                           </li>
 
                           <li>
-                            <a
-                              className="Header"
-                              style={{ color: colors[4] }}
-                              href="./panier"
-                            >
-                              <FaShoppingCart className="fa-sm mb-1 " />
-                              <FormattedMessage id="header_panier" />
-                            </a>
+                            <div>
+                              {" "}
+                              <a
+                                className="Header"
+                                style={{ color: colors[4] }}
+                                href="./panier"
+                              >
+                                <FaShoppingCart className="fa-sm mb-1 " /> Mon
+                                panier d'achat
+                                {this.state.commandes > 0 ? (
+                                  <span
+                                    style={{
+                                      width: "23px",
+                                      height: "23px",
+                                      borderRadius: "50%",
+                                      background: "#fe6927",
+                                      color: "white",
+                                      fontWeight: "bold",
+                                      position: "absolute",
+                                      zIndex: "10",
+                                      marginLeft: "0.5em",
+                                      top: "auto",
+                                      bottom: "auto",
+                                      paddingTop: "initial",
+                                    }}
+                                  >
+                                    {this.state.commandes}
+                                  </span>
+                                ) : null}
+                              </a>
+                            </div>
                           </li>
                         </span>
                       </span>
@@ -439,7 +476,6 @@ class Header extends Component {
             </div>
           </div>
         </header>
-        {/* <!-- Humberger Begin --> */}
         <div className="humberger__menu__overlay"></div>
         <div className="humberger__menu__wrapper">
           <div className="humberger__menu__logo">
@@ -447,40 +483,20 @@ class Header extends Component {
               <img src="/Images/myanoc.jpg" alt="" />
             </a>
           </div>
-          <div className="header__top__right__social">
-            <a
-              style={{ height: "30px", width: "30px" }}
-              href="https://www.facebook.com/Association.nationale.ovine.et.caprine/"
-            >
-              <img src="/Images/facebook.png" />
-            </a>
-            <a
-              style={{ height: "30px", width: "30px" }}
-              href="http://www.anoc.ma/"
-            >
-              <img src="/Images/site.png" />
-            </a>
-            <a
-              style={{ height: "30px", width: "30px" }}
-              href="https://www.youtube.com/channel/UCzX4064MubkoUVL1ecFDGpQ"
-            >
-              <img src="/Images/youtube.png" />
-            </a>
-          </div>
+
           <div className="humberger__menu__widget">
-            <div className="header__top__right__language">
-              {this.state.isLoged ? (
-                <div className="header__top__right__language ">
-                  <div>
-                    <h6 style={{ color: "#009141" }}>
-                      <i className="fa fa-user-circle" />{" "}
-                      {this.state.connectedUser}
-                    </h6>
-                  </div>
+            {this.state.isLoged ? (
+              <div className="header__top__right__language ">
+                <div>
+                  <h6 style={{ color: "#009141" }}>
+                    <i className="fa fa-user-circle" />{" "}
+                    {this.state.connectedUser}
+                  </h6>
                 </div>
-              ) : null}
-              <br></br>
-              {/*}  <i className="fa fa-globe" aria-hidden="true"></i>      <div>Français</div>
+              </div>
+            ) : null}
+            <br></br>
+            {/*}  <i className="fa fa-globe" aria-hidden="true"></i>      <div>Français</div>
               <span className="arrow_carrot-down"></span>
               <ul>
                 <li>
@@ -490,30 +506,6 @@ class Header extends Component {
                   <a href="#">العربية</a>
                 </li>
               </ul>*/}
-            </div>
-            <div className="header__top__right__auth">
-              {this.state.isLoged ? (
-                <div>
-                  {" "}
-                  <a href="/login" onClick={this.logout}>
-                    <i className="fa fa-sign-out">
-                      <FormattedMessage id="header_se_deconnecter" />
-                    </i>
-                  </a>
-                </div>
-              ) : null}
-              {!this.state.isLoged ? (
-                <div>
-                  {" "}
-                  <a href="/login">
-                    <i className="fa fa-sign-in">
-                      {" "}
-                      <FormattedMessage id="header_se_connecter" />
-                    </i>
-                  </a>
-                </div>
-              ) : null}
-            </div>
           </div>
           <nav className="humberger__menu__nav mobile-menu">
             <ul>
@@ -524,8 +516,16 @@ class Header extends Component {
                   style={{ color: colors[0] }}
                 >
                   {" "}
-                  <GiSheep className=" mr-1 fa-lg " />{" "}
-                  <FormattedMessage id="header_especes" />{" "}
+                  <div style={{ display: "flex" }}>
+                    <div style={{ width: "15%" }}>
+                      {" "}
+                      <GiSheep
+                        className=" mr-1 fa-lg "
+                        style={{ width: "1em" }}
+                      />{" "}
+                    </div>
+                    <div>Nos Espèces </div>
+                  </div>
                 </a>
               </li>
               <li>
@@ -535,8 +535,18 @@ class Header extends Component {
                   href="./AnnoncesParEleveurs"
                 >
                   {" "}
-                  <FaUserAlt className="  mb-1 " />{" "}
-                  <FormattedMessage id="header_eleveurs" />
+                  <div
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    {" "}
+                    <div style={{ width: "15%" }}>
+                      {" "}
+                      <FaUserAlt className="  mb-1 " />{" "}
+                    </div>
+                    <div>Nos éleveurs</div>
+                  </div>
                 </a>
               </li>
               {this.state.isLoged ? (
@@ -548,8 +558,13 @@ class Header extends Component {
                       style={{ color: colors[3] }}
                     >
                       {" "}
-                      <AiFillHeart className=" fa-lg " />{" "}
-                      <FormattedMessage id="header_favori" />
+                      <div style={{ display: "flex" }}>
+                        <div style={{ width: "15%" }}>
+                          {" "}
+                          <AiFillHeart className=" fa-lg " />
+                        </div>
+                        <div> Mes favoris</div>
+                      </div>
                     </a>
                   </li>
                   <li>
@@ -559,8 +574,13 @@ class Header extends Component {
                       style={{ color: colors[4] }}
                     >
                       {" "}
-                      <FaShoppingCart className="fa-sm mb-1 " />{" "}
-                      <FormattedMessage id="header_panier" />
+                      <div style={{ display: "flex" }}>
+                        <div style={{ width: "15%" }}>
+                          {" "}
+                          <FaShoppingCart className="fa-sm mb-1 " />
+                        </div>
+                        <div> Mon panier d'achat</div>
+                      </div>{" "}
                     </a>
                   </li>
                   <li>
@@ -569,9 +589,13 @@ class Header extends Component {
                       href="./commandesParStatut"
                       style={{ color: colors[2] }}
                     >
-                      {" "}
-                      <MdAssignment className="  fa-lg " />{" "}
-                      <FormattedMessage id="header_commandes" />
+                      <div style={{ display: "flex" }}>
+                        <div style={{ width: "15%" }}>
+                          {" "}
+                          <MdAssignment className="  fa-lg " />
+                        </div>
+                        <div> Mes commandes</div>
+                      </div>{" "}
                     </a>
                   </li>
                 </span>
@@ -580,16 +604,40 @@ class Header extends Component {
               <li>
                 <a style={{ color: colors[6] }} href="./Apropos">
                   {" "}
-                  <AiOutlineSearch className=" fa-lg " />{" "}
-                  <FormattedMessage id="header_a_propos" />
+                  <div style={{ display: "flex" }}>
+                    <div style={{ width: "15%", paddingLeft: "3px" }}>
+                      {" "}
+                      <FaSearch className=" fa-sm  " />
+                    </div>
+                    <div> A propos de nous</div>
+                  </div>{" "}
                 </a>
               </li>
             </ul>
           </nav>
+
           <div id="mobile-menu-wrap"></div>
+          <div className="header__top__right__auth">
+            {this.state.isLoged ? (
+              <div>
+                {" "}
+                <a href="/login" onClick={this.logout}>
+                  <i className="fa fa-sign-out"> Se déconnecter</i>
+                </a>
+              </div>
+            ) : null}
+            {!this.state.isLoged ? (
+              <div>
+                {" "}
+                <a href="/login">
+                  <i className="fa fa-sign-in"> Se connecter</i>
+                </a>
+              </div>
+            ) : null}
+          </div>
         </div>
         {/* <!-- Humberger End -->*/}
-      </div>
+      </>
     );
   }
 }

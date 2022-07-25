@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import YouTube from "react-youtube";
 import axios from "axios";
-import { FormattedMessage } from "react-intl";
 
 class Apropos extends Component {
   render() {
@@ -12,16 +11,22 @@ class Apropos extends Component {
     return (
       <section className="product spad">
         <div id="apropos" className="container">
-          <div class="col-lg-12 col-md-6">
-            <h2 id="aproposh"><FormattedMessage id="Apropos_nous"></FormattedMessage></h2> <br></br>
+          <div className="col-lg-12 col-md-6">
+            <h2 id="aproposh">Qui sommes nous ?</h2> <br></br>
             <h5 id="apropo1">
-                <FormattedMessage id="Apropos_text"></FormattedMessage>
+              L’ANOC (Association Nationale Ovine et Caprine) est une
+              association à but non lucratif qui a pour mission principale
+              l’amélioration du revenu de l’éleveur ovin et caprin ainsi que la
+              valorisation de son métier, notamment dans des conditions assez
+              difficiles du milieu rural. Ainsi que la contribution au
+              développement économique et rural par le développement de
+              l’élevage des petits ruminants et la promotion de ses produits.
             </h5>
             <br></br>
             <br></br>
-            <h2 id="aproposh"><FormattedMessage id="Apropos_objectifs"></FormattedMessage></h2> <br></br>
+            <h2 id="aproposh">Nos objectifs ?</h2> <br></br>
             <main>
-              <ol class="gradient-list">
+              <ol className="gradient-list">
                 <li>
                   Développer l’élevage ovin caprin et préserver le patrimoine
                   animal national ;

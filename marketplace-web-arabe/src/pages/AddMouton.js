@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
 
 class AddMouton extends Component {
   render() {
@@ -10,176 +9,46 @@ class AddMouton extends Component {
             <div className="row">
               <div className="col-lg-12">
                 <div className="contact__form__title">
-                  <h2>
-                    <FormattedMessage id="add_mouton_title" />
-                  </h2>
+                  <h2>Ajouter annonce mouton</h2>
                 </div>
               </div>
             </div>
             <form action="#">
               <div className="row">
                 <div className="col-lg-6 col-md-6">
-                  <FormattedMessage id="home_item_id">
-                    {(placeholder) => (
-                      <input
-                        className={
-                          localStorage.getItem("lg") == "ar"
-                            ? "add_mouton_input"
-                            : ""
-                        }
-                        type="text"
-                        placeholder={placeholder}
-                      />
-                    )}
-                  </FormattedMessage>
+                  <input type="text" placeholder="Numéro de boucle" />
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <FormattedMessage id="home_item_race">
-                    {(placeholder) => (
-                      <input
-                        className={
-                          localStorage.getItem("lg") == "ar"
-                            ? "add_mouton_input"
-                            : ""
-                        }
-                        type="text"
-                        placeholder={placeholder}
-                      />
-                    )}
-                  </FormattedMessage>
+                  <input type="text" placeholder="Race" />
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <FormattedMessage id="add_mouton_sexe">
-                    {(placeholder) => (
-                      <input
-                        className={
-                          localStorage.getItem("lg") == "ar"
-                            ? "add_mouton_input"
-                            : ""
-                        }
-                        type="text"
-                        placeholder={placeholder}
-                      />
-                    )}
-                  </FormattedMessage>
+                  <input type="text" placeholder="Sexe" />
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <FormattedMessage id="home_item_poids">
-                    {(placeholder) => (
-                      <input
-                        className={
-                          localStorage.getItem("lg") == "ar"
-                            ? "add_mouton_input"
-                            : ""
-                        }
-                        type="text"
-                        placeholder={placeholder}
-                      />
-                    )}
-                  </FormattedMessage>
-                  {/* <input type="text" placeholder="Poids" /> */}
+                  <input type="text" placeholder="Poids" />
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <FormattedMessage id="add_mouton_localisation">
-                    {(placeholder) => (
-                      <input
-                        className={
-                          localStorage.getItem("lg") == "ar"
-                            ? "add_mouton_input"
-                            : ""
-                        }
-                        type="text"
-                        placeholder={placeholder}
-                      />
-                    )}
-                  </FormattedMessage>
-                  {/* <input type="text" placeholder="Localisation" /> */}
+                  <input type="text" placeholder="Localisation" />
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <FormattedMessage id="home_item_price">
-                    {(placeholder) => (
-                      <input
-                        className={
-                          localStorage.getItem("lg") == "ar"
-                            ? "add_mouton_input"
-                            : ""
-                        }
-                        type="text"
-                        placeholder={placeholder}
-                      />
-                    )}
-                  </FormattedMessage>
-                  {/* <input type="text" placeholder="Prix" /> */}
+                  <input type="text" placeholder="Prix" />
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <FormattedMessage id="home_item_eleveur">
-                    {(placeholder) => (
-                      <input
-                        className={
-                          localStorage.getItem("lg") == "ar"
-                            ? "add_mouton_input"
-                            : ""
-                        }
-                        type="text"
-                        placeholder={placeholder}
-                      />
-                    )}
-                  </FormattedMessage>
-                  {/* <input type="text" placeholder="Eleveur" /> */}
+                  <input type="text" placeholder="Eleveur" />
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <FormattedMessage id="add_mouton_avance">
-                    {(placeholder) => (
-                      <input
-                        className={
-                          localStorage.getItem("lg") == "ar"
-                            ? "add_mouton_input"
-                            : ""
-                        }
-                        type="text"
-                        placeholder={placeholder}
-                      />
-                    )}
-                  </FormattedMessage>
-                  {/* <input type="text" placeholder="Avance" /> */}
+                  <input type="text" placeholder="Avance" />
                 </div>
-                <div
-                  className="col-lg-12 "
-                  style={
-                    localStorage.getItem("lg") == "ar"
-                      ? { display: "flex", justifyContent: "end" }
-                      : { display: "flex", justifyContent: "unset" }
-                  }
-                >
-                  <label for="files" className="btn add_mouton_choose_image">
-                    <FormattedMessage id="add_mouton_image" />
-                  </label>
-                  <input
-                    id="files"
-                    style={{ display: "none" }}
-                    type="file"
-                    placeholder="Images"
-                  />
+                <div className="col-lg-12 ">
+                  <input type="file" placeholder="Images" />
                 </div>
                 <div className="col-lg-12 text-center">
-                  <FormattedMessage id="add_mouton_description">
-                    {(placeholder) => (
-                      <textarea
-                        className={
-                          localStorage.getItem("lg") == "ar"
-                            ? "add_mouton_input"
-                            : ""
-                        }
-                        placeholder={placeholder}
-                      ></textarea>
-                    )}
-                  </FormattedMessage>
-                  {/* <textarea
+                  <textarea
                     placeholder="Description
 "
-                  ></textarea> */}
+                  ></textarea>
                   <button type="submit" className="site-btn">
-                    <FormattedMessage id="add_mouton_ajoute" />
+                    Ajouter
                   </button>
                 </div>
               </div>

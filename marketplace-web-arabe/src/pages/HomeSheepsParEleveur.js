@@ -3,19 +3,29 @@ import axios from "axios";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import { GiWeight, GiSheep } from 'react-icons/gi';
-import { HiOutlineBadgeCheck } from 'react-icons/hi';
-import ReactPaginate from "react-paginate";
-import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
-import { FaShapes } from 'react-icons/fa';
-import { Badge, Modal, Button } from 'react-bootstrap'
+import { GiWeight} from "react-icons/gi";
+import { IoMdMale } from "react-icons/io";
+import { FaShapes } from "react-icons/fa";
+import { MdCake } from "react-icons/md";
+import { HiOutlineBadgeCheck } from "react-icons/hi";
+import Rating from "@material-ui/lab/Rating";
+import Box from "@material-ui/core/Box";
+import { Modal } from "react-bootstrap";
+import Pagination from "react-js-pagination";
+import RangeSlider from "react-bootstrap-range-slider";
 
 class HomeSheepsParEleveur extends Component {
   constructor() {
     super();
     // let redirect = false;
     this.state = {
+      valueprice: null,
+      valuepoids: null,
+      poids_max: null,
+      poids_min: null,
+      prix_max: 10000,
+      prix_min: 1,
+
       Annonces: [],
       AnnoncesN: [],
       loading: true,
@@ -26,6 +36,7 @@ class HomeSheepsParEleveur extends Component {
       currentPage: 1,
       annoncesPerPage: 6,
       selectedOptionRace: null,
+      selectedOptionStatut: "",
       Eleveur: {},
       selectedOptionEspece: null,
       optionsEspece: [],
@@ -38,7 +49,6 @@ class HomeSheepsParEleveur extends Component {
       redirect: false,
       selectedOptionSort: null,
       optionsSort: [
-
         { value: "prix", label: "Moins cher au plus cher" },
         { value: "prix_dec", label: "Plus cher au moins cher" },
 
@@ -49,7 +59,10 @@ class HomeSheepsParEleveur extends Component {
         { value: "poids_dec", label: "Plus lourd au moins lourd" },
       ],
       showSearchModal: false,
-
+      statut: [
+        { value: "vendu", label: "Vendu" },
+        { value: "disponible", label: "Disponible" },
+      ],
     };
     this.onChange = this.onChange.bind(this);
     this.handelChercher = this.handelChercher.bind(this);
@@ -61,22 +74,27 @@ class HomeSheepsParEleveur extends Component {
   }
   showSearch = () => {
     this.setState({
-      showSearchModal: !this.state.showSearchModal
-    })
-  }
+      showSearchModal: !this.state.showSearchModal,
+    });
+  };
   handleChangeEspece = (selectedOptionEspece) => {
-    this.setState({ selectedOptionRace: null, selectedOptionEspece: selectedOptionEspece })
+    this.setState({
+      selectedOptionRace: null,
+      selectedOptionEspece: selectedOptionEspece,
+    });
     let annonce = this.state.AnnoncesN;
-    let c = selectedOptionEspece.value
+    let c = selectedOptionEspece.value;
     let races = [];
 
     let r = [];
-    (this.groupBy(annonce, 'espece')[c]).map((m) => {
+    this.groupBy(annonce, "espece")[c].map((m) => {
       races.push(m.race);
-    })
+    });
 
     races = [...new Set(races)];
-    races.map((e) => { r.splice(0, 0, { "value": e, "label": e }); });
+    races.map((e) => {
+      r.splice(0, 0, { value: e, label: e });
+    });
     this.setState({
       race: r,
 
@@ -84,17 +102,24 @@ class HomeSheepsParEleveur extends Component {
       conditions: Object.assign(this.state.conditions, {
         espece: c,
         race: null,
-      })
+      }),
     });
-
   };
-
 
   handleChangeRace = (selectedOptionRace) => {
     this.setState({ selectedOptionRace }, () =>
       this.setState({
         conditions: Object.assign(this.state.conditions, {
           race: this.state.selectedOptionRace.value,
+        }),
+      })
+    );
+  };
+  handleChangeStatut = (Statut) => {
+    this.setState({ Statut }, () =>
+      this.setState({
+        conditions: Object.assign(this.state.conditions, {
+          statut: this.state.Statut.value,
         }),
       })
     );
@@ -122,9 +147,7 @@ class HomeSheepsParEleveur extends Component {
       axios
         .get("http://127.0.0.1:8000/api/Espece", {
           headers: {
-
             "Content-Type": "application/json",
-
           },
           params: {
             order_by: "espece",
@@ -133,7 +156,9 @@ class HomeSheepsParEleveur extends Component {
         })
         .then((res) => {
           this.setState({
-            Annonces: res.data.filter((data) => data.id_eleveur === this.state.Eleveur._id).filter((f) => f.statut !== "produit avarié"),
+            Annonces: res.data
+              .filter((data) => data.id_eleveur === this.state.Eleveur._id)
+              .filter((f) => f.statut !== "produit avarié"),
             loading: false,
             conditions: {
               order_by: "espece",
@@ -144,18 +169,23 @@ class HomeSheepsParEleveur extends Component {
             Disabled: true,
             selectedOptionVille: null,
           });
-          var all = document.querySelectorAll('input[name="reference"],input[name="prix_min"],input[name="prix_max"],input[name="poids_min"],input[name="poids_max"]')
-          Array.from(all).map((a) => (a.value = null))
+          var all = document.querySelectorAll(
+            'input[name="reference"],input[name="prix_min"],input[name="prix_max"],input[name="poids_min"],input[name="poids_max"]'
+          );
+          Array.from(all).map((a) => (a.value = null));
 
           const pageNumbers = [];
-          for (let i = 1; i <= Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage); i++
+          for (
+            let i = 1;
+            i <=
+            Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage);
+            i++
           ) {
             pageNumbers.push(i);
           }
-          this.setState({ nombrePages: pageNumbers,showSearchModal:false  });
+          this.setState({ nombrePages: pageNumbers, showSearchModal: false });
         });
     });
-
   }
 
   groupBy(objectArray, property) {
@@ -190,7 +220,6 @@ class HomeSheepsParEleveur extends Component {
       ":" +
       appendLeadingZeroes(current_datetime.getSeconds());
 
-
     const expiredTimeToken = localStorage.getItem("expiredTimeToken");
     const token = localStorage.getItem("usertoken");
     const myToken = `Bearer ` + localStorage.getItem("myToken");
@@ -200,80 +229,146 @@ class HomeSheepsParEleveur extends Component {
     // } else {
     this.setState({ loading: true }, () => {
       axios
-        .get("http://127.0.0.1:8000/api/eleveur/" + this.props.match.params.id, {
-          headers: {
-            // "x-access-token": token, // the token is a variable which holds the token
-          },
-
-        })
+        .get(
+          "http://127.0.0.1:8000/api/eleveur/" + this.props.match.params.id,
+          {
+            headers: {
+              // "x-access-token": token, // the token is a variable which holds the token
+            },
+          }
+        )
         .then((res) => {
+          this.setState(
+            {
+              Eleveur: res.data,
+            },
+            () => {
+              console.log(this.state.Eleveur);
 
-          this.setState({
-            Eleveur: res.data
+              axios
+                .get("http://127.0.0.1:8000/api/Espece", {
+                  headers: {
+                    // "x-access-token": token, // the token is a variable which holds the token
+                  },
+                  params: {
+                    id_eleveur: this.state.Eleveur._id,
+                    order_by: "race",
+                    order_mode: "asc",
+                  },
+                })
+                .then((res) => {
+                  //espece
+                  let espece = [];
+                  Object.getOwnPropertyNames(
+                    this.groupBy(
+                      res.data.filter((f) => f.statut !== "produit avarié"),
+                      "espece"
+                    )
+                  ).map((e) => {
+                    espece.splice(0, 0, { value: e, label: e });
+                  });
 
-          }, () => {
-            console.log(this.state.Eleveur)
+                  let ville = [];
+                  let minP = 100000;
+                  let maxP = 1;
+                  let minW = 100000;
+                  let maxW = 1;
 
-            axios
-              .get("http://127.0.0.1:8000/api/Espece", {
-                headers: {
-                  // "x-access-token": token, // the token is a variable which holds the token
-                },
-                params: {
-                  id_eleveur: this.state.Eleveur._id,
-                  order_by: "race",
-                  order_mode: "asc",
-                },
-              })
-              .then((res) => {
-                //espece
-                let espece = [];
-                Object.getOwnPropertyNames(this.groupBy(res.data.filter((f) => f.statut !== "produit avarié"), 'espece')).map((e) => {
-                  espece.splice(0, 0, { "value": e, "label": e });
+                  res.data.map((e) => {
+                    if (e.prix > maxP) {
+                      maxP = e.prix;
+                    }
+                    if (e.prix < minP) {
+                      minP = e.prix;
+                    }
+                    if (e.poids > maxW) {
+                      maxW = e.poids;
+                    }
+                    if (e.poids < minW) {
+                      minW = e.poids;
+                    }
+                    ville.splice(0, 0, {
+                      value: e.localisation,
+                      label: e.localisation,
+                    });
+                  });
+                  this.setState({
+                    prix_max: maxP,
+                    prix_min: minP,
+                    poids_min: minW,
+                    poids_max: maxW,
+                  });
+                  ville = Array.from(new Set(ville.map((s) => s.value))).map(
+                    (value) => {
+                      return {
+                        value: value,
+                        label: ville.find((s) => s.value === value).label,
+                      };
+                    }
+                  );
+                  this.setState({
+                    optionsEspece: espece,
+                    AnnoncesN: res.data.filter(
+                      (f) => f.statut !== "produit avarié"
+                    ),
+                    Annonces: res.data.filter(
+                      (f) => f.statut !== "produit avarié"
+                    ),
+                    loading: false,
+                    optionsVille: [...new Set(ville)],
+                  });
+                  const pageNumbers = [];
+                  for (
+                    let i = 1;
+                    i <=
+                    Math.ceil(
+                      this.state.Annonces.length / this.state.annoncesPerPage
+                    );
+                    i++
+                  ) {
+                    pageNumbers.push(i);
+                  }
+                  this.setState({ nombrePages: pageNumbers });
                 });
-
-                let ville = [];
-                res.data.map((e) => {
-                  ville.splice(0, 0, { "value": e.localisation, "label": e.localisation });
-                });
-                ville = Array.from(new Set(ville.map(s => s.value))).map(value => {
-                  return { value: value, label: ville.find(s => s.value === value).label }
-                });
-                this.setState({
-                  optionsEspece: espece,
-                  AnnoncesN: res.data.filter((f) => f.statut !== "produit avarié"),
-                  Annonces: res.data.filter((f) => f.statut !== "produit avarié"),
-                  loading: false,
-                  optionsVille: [...new Set(ville)]
-
-                });
-                const pageNumbers = [];
-                for (let i = 1; i <= Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage); i++
-                ) {
-                  pageNumbers.push(i);
-                }
-                this.setState({ nombrePages: pageNumbers });
-              });
-
-          });
-
+            }
+          );
         });
-
-
     });
+    // axios
+    //   .get("http://127.0.0.1:8000/api/EspecesMinMax", {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     params: this.state.conditions,
+    //   })
+    //   .then((res) => {
+    //     this.setState({
+    //       prix_max: res.data.all.prix_max,
+    //       prix_min: res.data.all.prix_min,
+    //       poids_min: res.data.all.poids_min,
+    //       poids_max: res.data.all.poids_max,
+    //     });
+    //   });
+
     //}
   }
 
   sortData(e) {
-
     const sortProperty = Object.values(e)[0];
     const sorted = this.state.Annonces;
-    if (sortProperty === "prix" || sortProperty === "poids" || sortProperty === "age") {
+    this.setState({
+      selectedOptionSort: Object.values(e)[1],
+    });
+    if (
+      sortProperty === "prix" ||
+      sortProperty === "poids" ||
+      sortProperty === "age"
+    ) {
       this.setState({ loading: true }, () => {
         sorted.sort((a, b) => a[sortProperty] - b[sortProperty]);
         this.setState({
           Annonces: sorted,
-          loading: false
+          loading: false,
         });
       });
     } else if (sortProperty === "prix_dec") {
@@ -294,14 +389,11 @@ class HomeSheepsParEleveur extends Component {
         sorted.sort((a, b) => b[sort_] - a[sort_]);
         this.setState({ Annonces: sorted, loading: false });
       });
-    }
-    else {
+    } else {
       this.setState({ loading: true }, () => {
-        sorted.sort(
-          function (a, b) {
-
-            return new Date(b[sortProperty]) - new Date(a[sortProperty]);
-          });
+        sorted.sort(function (a, b) {
+          return new Date(b[sortProperty]) - new Date(a[sortProperty]);
+        });
         this.setState({ Annonces: sorted, loading: false });
       });
     }
@@ -310,7 +402,6 @@ class HomeSheepsParEleveur extends Component {
   paginate(pageNumber) {
     this.setState({ currentPage: pageNumber });
   }
-
 
   onChange(e) {
     const n = e.target.name,
@@ -322,6 +413,7 @@ class HomeSheepsParEleveur extends Component {
   }
 
   handelChercher() {
+    console.log(this.state.conditions);
     this.setState({ loading: true }, () => {
       axios
         .get("http://127.0.0.1:8000/api/Espece", {
@@ -334,15 +426,21 @@ class HomeSheepsParEleveur extends Component {
         })
         .then((res) => {
           this.setState({
-            Annonces: res.data.filter((data) => data.id_eleveur === this.state.Eleveur._id).filter((f) => f.statut !== "produit avarié"),
+            Annonces: res.data
+              .filter((data) => data.id_eleveur === this.state.Eleveur._id)
+              .filter((f) => f.statut !== "produit avarié"),
             loading: false,
           });
           const pageNumbers = [];
-          for (let i = 1; i <= Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage); i++
+          for (
+            let i = 1;
+            i <=
+            Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage);
+            i++
           ) {
             pageNumbers.push(i);
           }
-          this.setState({ nombrePages: pageNumbers,showSearchModal:false });
+          this.setState({ nombrePages: pageNumbers, showSearchModal: false });
         });
     });
   }
@@ -357,75 +455,275 @@ class HomeSheepsParEleveur extends Component {
     const indexOfLastAnnonce =
       this.state.currentPage * this.state.annoncesPerPage;
     const indexOfFirstAnnonce = indexOfLastAnnonce - this.state.annoncesPerPage;
-    const currentAnnonces = this.state.Annonces.slice(indexOfFirstAnnonce, indexOfLastAnnonce);
+    const currentAnnonces = this.state.Annonces.slice(
+      indexOfFirstAnnonce,
+      indexOfLastAnnonce
+    );
     const { selectedOptionEspece } = this.state;
     const { optionsEspece } = this.state;
     const { selectedOptionRace } = this.state;
-    const { optionsRace } = this.state;
     const { selectedOptionVille } = this.state;
     const { optionsVille } = this.state;
     const { optionsSort } = this.state;
     const { loading } = this.state;
-    var reserv = this.state.Annonces.filter(
-      (Annonces) => Annonces.statut === "réservé"
-    );
+    const { valueprice } = this.state;
+    const { valuepoids } = this.state;
+
+    const { poids_max } = this.state;
+    const { poids_min } = this.state;
+
+    const { prix_max } = this.state;
+    const { prix_min } = this.state;
     var dispo = this.state.Annonces.filter(
       (Annonces) => Annonces.statut === "disponible"
     );
     var vendu = this.state.Annonces.filter(
-      (Annonces) => Annonces.statut === "vendu"
+      (Annonces) => Annonces.statut === "vendu" || Annonces.statut === "réservé"
     );
 
     return (
       <div>
-        
         {/**modal de recherche */}
+        <section className="search-header">
+          <div
+            style={{
+              backgroundImage:
+                'url("https://i.ibb.co/88zvScY/secondsectionespece.jpg")',
+              backgroundSize: "cover",
+              height: "100%",
+            }}
+          >
+            <div className="searchheader">
+              <div
+                className="col-lg-1 col-md-3"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              ></div>
+              <div
+                className="col-lg-1 col-md-3"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
+                <Select
+                  value={selectedOptionEspece}
+                  onChange={this.handleChangeEspece}
+                  options={optionsEspece}
+                  placeholder="Espece"
+                  required
+                />
+              </div>
+
+              {/* <div
+                className="col-lg-1 col-md-3"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
+                <Select
+                  value={selectedOptionVille}
+                  onChange={this.handleChangeVille}
+                  options={optionsVille}
+                  placeholder=" Ville"
+                />
+              </div> */}
+
+              <div
+                className="col-lg-1 col-md-3"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
+                <Select
+                  isDisabled={this.state.Disabled}
+                  value={this.selectedOptionStatut}
+                  onChange={this.handleChangeStatut}
+                  options={this.state.statut}
+                  placeholder="Statut"
+                  required
+                />
+              </div>
+              <div
+                className="col-lg-1 col-md-3"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
+                <Select
+                  id="recherchePlace"
+                  isDisabled={this.state.Disabled}
+                  value={selectedOptionRace}
+                  onChange={this.handleChangeRace}
+                  options={this.state.race}
+                  placeholder=" Race"
+                  required
+                />
+              </div>
+
+              {/*             <div className="col-lg-3 col-md-3">
+                <input
+                  id="recherchePlace"
+                  type="text"
+                  className="form-control"
+                  placeholder=" Reference de l'annonce"
+                  name="reference"
+                  onChange={this.onChange}
+                />
+              </div> */}
+              {/*             <div className="col-lg-2 col-md-3">
+                <input
+                  id="recherchePlace"
+                  type="text"
+                  className="form-control"
+                  placeholder=" Budget min"
+                  name="prix_min"
+                  onChange={this.onChange}
+                />
+              </div> */}
+              <div
+                className="col-lg-1 col-md-3"
+                name="prix_max"
+                id="recherchePlace"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
+                <RangeSlider
+                  tooltip="auto"
+                  name="prix_max"
+                  id="recherchePlace"
+                  value={valueprice}
+                  min={prix_min}
+                  max={prix_max}
+                  onChange={(e) =>
+                    this.setState({
+                      conditions: Object.assign(this.state.conditions, {
+                        prix_max: e.target.value,
+                      }),
+                      valueprice: e.target.value,
+                    })
+                  }
+                  /*  onAfterChange={e => this.setState({
+                conditions: Object.assign(this.state.conditions, { [e.target.name]: e.target.value }),
+                valueprice: e.target.value
+              })} */
+                />
+                <div style={{ color: "white" }}>
+                  {" "}
+                  Prix max : {valueprice} DH
+                </div>
+
+                <RangeSlider
+                  tooltip="auto"
+                  name="poids_max"
+                  value={valuepoids}
+                  min={poids_min}
+                  max={poids_max}
+                  onChange={(e) =>
+                    this.setState({
+                      conditions: Object.assign(this.state.conditions, {
+                        poids_max: e.target.value,
+                      }),
+                      valuepoids: e.target.value,
+                    })
+                  }
+                />
+                <div style={{ color: "white" }}>
+                  {" "}
+                  Poids max : {valuepoids} KG
+                </div>
+                {/*   <input
+                  id="recherchePlace"
+                  type="text"
+                  className="form-control"
+                  placeholder=" Budget max"
+                  name="prix_max"
+                  onChange={this.onChange}
+                /> */}
+              </div>
+
+              {/*             <div className="col-lg-2 col-md-3">
+                <input
+                  id="recherchePlace"
+                  type="text"
+                  className="form-control"
+                  placeholder=" Poids min"
+                  name="poids_min"
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="col-lg-2 col-md-3">
+                <input
+                  id="recherchePlace"
+                  type="text"
+                  className="form-control"
+                  placeholder=" Poids max"
+                  name="poids_max"
+                  onChange={this.onChange}
+                />
+              </div> */}
+
+              <div
+                className="col-lg-1 col-md-3"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
+                <div className="RechButton">
+                  <button
+                    id="roundB"
+                    className="newBtn site-btn"
+                    onClick={this.handelChercher}
+                  >
+                    <i className="fa fa-search "></i> Rechercher{" "}
+                  </button>
+                </div>
+                <div className="ReinButton">
+                  <button
+                    id="roundB"
+                    className="newBtn site-btn"
+                    onClick={this.handelReinitialiser}
+                  >
+                    <i className="fa fa-refresh"></i> Reinitialiser{" "}
+                  </button>
+                </div>
+              </div>
+              <div
+                className="col-lg-1 col-md-3"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              ></div>
+            </div>
+          </div>
+        </section>
         <Modal
-
-show={this.state.showSearchModal}
-onHide={this.showSearch}
-backdrop="static"
-keyboard={false}
-id="modalRecherche"
->
-<Modal.Header closeButton>
-  <h4 className="text-left mt-4">Rechercher</h4>
-</Modal.Header>
-<Modal.Body>
-
-  <div className="sidebar__item" style={{ backgroundColor:"#F3F6FA"}}>
-  <div className="">
-                <div  className="col-lg-12">
+          show={this.state.showSearchModal}
+          onHide={this.showSearch}
+          backdrop="static"
+          keyboard={false}
+          id="modalRecherche"
+        >
+          <Modal.Header closeButton>
+            <h4 className="text-left mt-4">Rechercher</h4>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              className="sidebar__item"
+              style={{ backgroundColor: "#F3F6FA" }}
+            >
+              <div className="">
+                <div className="col-lg-12">
                   <br></br>
                   <br></br>
                   <div className="sidebar__item">
-                   
-
                     <h6 id="gras" className="latest-product__item">
                       Espece
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-
                         <Select
                           value={selectedOptionEspece}
                           onChange={this.handleChangeEspece}
                           options={optionsEspece}
                           placeholder="Espece"
                           required
-                        // className="Select"
+                          // className="Select"
                         />
                         <br></br>
                       </div>
                     </div>
-
 
                     <h6 id="gras" className="latest-product__item">
                       Race
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-
                         <Select
                           isDisabled={this.state.Disabled}
                           value={selectedOptionRace}
@@ -433,7 +731,24 @@ id="modalRecherche"
                           options={this.state.race}
                           placeholder=" Race"
                           required
-                        // className="Select"
+                          // className="Select"
+                        />
+                        <br></br>
+                      </div>
+                    </div>
+                    <h6 id="gras" className="latest-product__item">
+                      Statut
+                    </h6>
+                    <div className="row">
+                      <div className="col-lg-12 col-md-12">
+                        <Select
+                          isDisabled={this.state.Disabled}
+                          value={this.selectedOptionStatut}
+                          onChange={this.handleChangeStatut}
+                          options={this.state.statut}
+                          placeholder="Statut"
+                          required
+                          // className="Select"
                         />
                         <br></br>
                       </div>
@@ -445,7 +760,7 @@ id="modalRecherche"
                       <div className="col-lg-12 col-md-12">
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           placeholder=" Reference de l'annonce"
                           name="reference"
                           onChange={this.onChange}
@@ -460,7 +775,7 @@ id="modalRecherche"
                       <div className="col-lg-12 col-md-12">
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           placeholder=" Budget min"
                           name="prix_min"
                           onChange={this.onChange}
@@ -472,7 +787,7 @@ id="modalRecherche"
                       <div className="col-lg-12 col-md-12">
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           placeholder=" Budget max"
                           name="prix_max"
                           onChange={this.onChange}
@@ -488,7 +803,7 @@ id="modalRecherche"
                       <div className="col-lg-12 col-md-12">
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           placeholder=" Poids min"
                           name="poids_min"
                           onChange={this.onChange}
@@ -499,7 +814,7 @@ id="modalRecherche"
                       <div className="col-lg-12 col-md-12">
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           placeholder=" Poids max"
                           name="poids_max"
                           onChange={this.onChange}
@@ -519,7 +834,7 @@ id="modalRecherche"
                           options={optionsVille}
                           placeholder=" Ville"
 
-                        // className="Select"
+                          // className="Select"
                         />
                         <br></br>
                         <br></br>
@@ -531,21 +846,18 @@ id="modalRecherche"
                         <button
                           id="roundB"
                           className="newBtn site-btn"
-                          onClick={this.handelChercher} >
-                          <i className="fa fa-search "></i>
-
-                          {" "}
-                          Rechercher{" "}
+                          onClick={this.handelChercher}
+                        >
+                          <i className="fa fa-search "></i> Rechercher{" "}
                         </button>
                         <br></br>
                         <br></br>
                         <button
                           id="roundB"
                           className="newBtn site-btn"
-                          onClick={this.handelReinitialiser} >
-                          <i className="fa fa-refresh"></i>
-                          {" "}
-                          Reinitialiser{" "}
+                          onClick={this.handelReinitialiser}
+                        >
+                          <i className="fa fa-refresh"></i> Reinitialiser{" "}
                         </button>
                         <br></br>
                         <br></br>
@@ -554,177 +866,65 @@ id="modalRecherche"
                   </div>
                 </div>
               </div>
-
- </div>
-
-
-</Modal.Body>
-
-</Modal>
+            </div>
+          </Modal.Body>
+        </Modal>
 
         {/**modal de recherche */}
         <section className="">
           <div className="container">
             <div className="row">
-              <div className="col-lg-3 col-md-6">
-                <div id="rechercher" className="rechercherD col-lg-12">
-                  <br></br>
-                  <br></br>
-                  <div className="sidebar__item">
-                    <h4>Rechercher</h4>
+              <div className="col-lg-3 col-md-6" id="parElvrHidden">
+                <br></br>
+                <a className="lienapropos" href="./Apropos">
+                  <div
+                    style={{ cursor: "pointer" }}
+                    className="categorie_items"
+                  >
+                    <span></span>
 
-                    <h6 id="gras" className="latest-product__item">
-                      Espece
-                    </h6>
-                    <div className="row">
-                      <div className="col-lg-12 col-md-12">
-
-                        <Select
-                          value={selectedOptionEspece}
-                          onChange={this.handleChangeEspece}
-                          options={optionsEspece}
-                          placeholder="Espece"
-                          required
-                        // className="Select"
-                        />
-                        <br></br>
-                      </div>
-                    </div>
-
-
-                    <h6 id="gras" className="latest-product__item">
-                      Race
-                    </h6>
-                    <div className="row">
-                      <div className="col-lg-12 col-md-12">
-
-                        <Select
-                          isDisabled={this.state.Disabled}
-                          value={selectedOptionRace}
-                          onChange={this.handleChangeRace}
-                          options={this.state.race}
-                          placeholder=" Race"
-                          required
-                        // className="Select"
-                        />
-                        <br></br>
-                      </div>
-                    </div>
-                    <h6 id="gras" className="latest-product__item">
-                      Reference
-                    </h6>
-                    <div className="row">
-                      <div className="col-lg-12 col-md-12">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder=" Reference de l'annonce"
-                          name="reference"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                    </div>
-                    <br />
-                    <h6 id="gras" className="latest-product__item">
-                      Prix
-                    </h6>
-                    <div className="row">
-                      <div className="col-lg-12 col-md-12">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder=" Budget min"
-                          name="prix_min"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-lg-12 col-md-12">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder=" Budget max"
-                          name="prix_max"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                    </div>
+                    <img
+                      style={{ height: "40px" }}
+                      src={require("./Images/logo-text.png")}
+                      alt=""
+                    />
                     <br></br>
-
-                    <h6 id="gras" className="latest-product__item">
-                      Poids
-                    </h6>
-                    <div className="row">
-                      <div className="col-lg-12 col-md-12">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder=" Poids min"
-                          name="poids_min"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-lg-12 col-md-12">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder=" Poids max"
-                          name="poids_max"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                    </div>
-                    <br></br>
-
-                    <h6 id="gras" className="latest-product__item">
-                      Ville
-                    </h6>
-                    <div className="row">
-                      <div className="col-lg-12 col-md-12">
-                        <Select
-                          value={selectedOptionVille}
-                          onChange={this.handleChangeVille}
-                          options={optionsVille}
-                          placeholder=" Ville"
-
-                        // className="Select"
-                        />
-                        <br></br>
-                        <br></br>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-lg-12 col-md-12">
-                        {/* <button className="btn btn-success" onClick={this.handelChercher}> Rechercher </button><br/> */}
-                        <button
-                          id="roundB"
-                          className="newBtn site-btn"
-                          onClick={this.handelChercher} >
-                          <i className="fa fa-search "></i>
-
-                          {" "}
-                          Rechercher{" "}
-                        </button>
-                        <br></br>
-                        <br></br>
-                        <button
-                          id="roundB"
-                          className="newBtn site-btn"
-                          onClick={this.handelReinitialiser} >
-                          <i className="fa fa-refresh"></i>
-                          {" "}
-                          Reinitialiser{" "}
-                        </button>
-                        <br></br>
-                        <br></br>
-                      </div>
-                    </div>
+                    <p>
+                      Découvrez nous d'avantage, votre confiance est notre
+                      priorité.
+                    </p>
                   </div>
-                </div>
+                </a>
+                <hr></hr>
+                <h4
+                  style={{
+                    fontWeight: "900",
+                    marginTop: "25px",
+                    textAlign: "center",
+                  }}
+                >
+                  Rejoignez notre application mobile Aujourd'hui!
+                </h4>
+                <a href="https://qrco.de/bcHPx6">
+                  <div className="infoCards">
+                    <center>
+                      {" "}
+                      <img
+                        style={{ width: "100%" }}
+                        src="http://www.anoc.ma/wp-content/uploads/2021/06/6-01.jpg"
+                        alt=""
+                      />
+                    </center>
+                  </div>
+                </a>
+                <br />
+                <center>
+                  <img
+                    style={{ width: "70%" }}
+                    src="./Images/my_App.png"
+                    alt=""
+                  />
+                </center>
               </div>
 
               <div className="col-lg-9 col-md-12">
@@ -732,7 +932,7 @@ id="modalRecherche"
                   <div
                     style={{
                       width: "100%",
-                      height: "100",
+                      height: "40rem",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
@@ -747,150 +947,390 @@ id="modalRecherche"
                   </div>
                 ) : (
                   <div className="filter__item">
-                      <div className="row"> 
-                      <div className="col-6">{" "}</div>
-                      <div className="col-5">{" "}</div>
-                        <div onClick={this.showSearch} className='ModalSearch'>
-<i class="fa fa-search fa-lg" aria-hidden="true"></i>
-</div></div>
-                
+                    <div className="row">
+                      <div className="col-6"> </div>
+                      <div className="col-5"> </div>
+                      <div
+                        onClick={this.showSearch}
+                        className="ModalSearch col-4"
+                      >
+                        <i
+                          className="fa fa-search fa-lg"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                    </div>
+
                     <div className="row">
                       <div className="col-lg-4 col-md-5"></div>
                       <div className="col-lg-12 col-md-12">
                         <br />
-                        <div class="row mb-5">
-                          <div class="col-sm"> <img
-                            src={this.state.Eleveur.photo_profil}
-                            class=" product__item__pic  set-bg" />
-                            {this.state.Eleveur.anoc ?
-                              <h1 style={{ borderRadius: "0% 0% 0% 40%", fontSize: "14px" }} class=" badge badge-success  pt-1 w-100  ">
+                        <div className="row mb-5">
+                          <div className="col-sm">
+                            {" "}
+                            <img
+                              src={this.state.Eleveur.photo_profil}
+                              className=" product__item__pic  set-bg"
+                            />
+                            {this.state.Eleveur.anoc ? (
+                              <h1
+                                style={{
+                                  borderRadius: "0% 0% 0% 40%",
+                                  fontSize: "14px",
+                                }}
+                                className=" badge badge-success  pt-1 w-100  "
+                              >
                                 <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                <span>Labélisé ANOC</span>  </h1>
-                              :
-                              <span className="badge pt-3 w-100 mt-1   ">{"  "}</span>}</div>
-                          <div class="col-sm" >
-                            <h3 className="mt-1">
-                              <Box component="fieldset" mb={3} borderColor="transparent">
-                                Eleveur :{" "}
-                                {this.state.Eleveur.nom +
-                                  " " +
-                                  this.state.Eleveur.prenom}{" "}{" "}
-                                <Rating name="read-only" value={this.state.Eleveur.rating} readOnly />
-                              </Box>
-                            </h3>{" "}
-                            <h6 className="my-2">  <i class="fa fa-map"></i> <b>Region  : </b>{" " + this.state.Eleveur.region} </h6>
-                            <h6 className="mb-2"><i class="fa fa-home"></i>   <b>Ville : </b>{" " + this.state.Eleveur.ville}</h6>
-                            <h6 className="mb-2"><i class="fa fa-phone" aria-hidden="true"></i>   <b>Telephone : </b>{" " + this.state.Eleveur.tel}</h6>
-                            <h6 className="">  <img style={{ width: "18px", height: "20px", marginBottom: "5px" }}
-                              data-imgbigurl="Images/sheep-head.png"
-                              src="Images/sheep-head.png"
-                              alt=""
-                            />   <b> <span id="nbEspece">
-                              {this.state.Annonces.length}
-                            </span>{" "}
-                             Têtes au total</b></h6>
-                            {this.state.Eleveur.anoc ?
-                              <span className=" text-success" style={{ position: "relative", top: "40px" }}>
-                                <HiOutlineBadgeCheck className=" mr-1 fa-lg " /> Le label de l'ANOC est un gage de la qualité du produit. <br></br></span>
-                              : null}
+                                <span>Labélisé ANOC</span>{" "}
+                              </h1>
+                            ) : (
+                              <span className="badge pt-3 w-100 mt-1   ">
+                                {"  "}
+                              </span>
+                            )}
+                          </div>
+                          <div className="product__details__text">
+                            <div id="centrer" className="container col-md-12">
+                              <br></br>
+                              <h3 className="mt-1">
+                                <Box
+                                  component="fieldset"
+                                  mb={3}
+                                  borderColor="transparent"
+                                >
+                                  Eleveur :{" "}
+                                  {this.state.Eleveur.nom +
+                                    " " +
+                                    this.state.Eleveur.prenom}{" "}
+                                  <br></br>
+                                  <div id="rating-eleveur">
+                                    <Rating
+                                      name="read-only"
+                                      value={this.state.Eleveur.rating}
+                                      readOnly
+                                    />
+                                  </div>
+                                </Box>
+                              </h3>{" "}
+                              <ul id="data-eleveur" className="pt-4">
+                                <li>
+                                  <h6 className="my-2">
+                                    {" "}
+                                    <span className="icon">
+                                      <i className="fa fa-map"></i>
+                                    </span>
+                                    <span className="key">
+                                      <b>Région</b>
+                                    </span>
+                                    <span className="colon">
+                                      <b> :</b>
+                                    </span>
+                                    <span className="value">
+                                      {" " + this.state.Eleveur.region}{" "}
+                                    </span>
+                                  </h6>
+                                </li>
+                                <li>
+                                  <h6 className="mb-2">
+                                    <span className="icon">
+                                      <i className="fa fa-home"></i>
+                                    </span>
+                                    <span className="key">
+                                      <b>Ville</b>
+                                    </span>
+                                    <span className="colon">
+                                      <b> :</b>
+                                    </span>
+                                    <span className="value">
+                                      {" " + this.state.Eleveur.ville}
+                                    </span>
+                                  </h6>
+                                </li>
+                                <li>
+                                  <h6 className="mb-2">
+                                    <span className="icon">
+                                      <i
+                                        className="fa fa-phone"
+                                        aria-hidden="true"
+                                      ></i>
+                                    </span>
+                                    <span className="key">
+                                      <b>Téléphone</b>
+                                    </span>
+                                    <span className="colon">
+                                      <b> :</b>
+                                    </span>
+                                    <span className="value">
+                                      {" " + this.state.Eleveur.tel}
+                                    </span>
+                                  </h6>
+                                </li>
+                                <li>
+                                  <h6 className="">
+                                    {" "}
+                                    <span className="icon">
+                                      <img
+                                        style={{
+                                          width: "16px",
+                                          height: "18px",
+                                          marginBottom: "5px",
+                                        }}
+                                        data-imgbigurl="Images/sheep-head.png"
+                                        src="Images/sheep-head.png"
+                                        alt=""
+                                      />
+                                    </span>
+                                    <span className="key">
+                                      <b>Total des têtes</b>
+                                    </span>
+                                    <span className="colon">
+                                      <b> :</b>
+                                    </span>
+                                    <span id="nbEspece" className="value">
+                                      <b>{this.state.Annonces.length}</b>
+                                    </span>
+                                  </h6>
+                                </li>
+                              </ul>
+                              {this.state.Eleveur.anoc ? (
+                                <span className=" text-success">
+                                  <HiOutlineBadgeCheck className=" mr-1 fa-lg " />{" "}
+                                  Le label de l'ANOC est un gage de la qualité
+                                  du produit. <br></br>
+                                </span>
+                              ) : null}
+                              <br></br>
+                            </div>
                           </div>
                         </div>
-                        <div>
-                          <br></br></div>
-                        <h6 id="centrerT" className="mt-3">
-                          <b id="nbEspece">{vendu.length}{" "}</b> Vendus{" "}
-                          <b className="ml-3" id="nbEspece">{dispo.length}{" "}</b> Disponibles{" "}
-                          <b className="ml-3" id="nbEspece">{reserv.length}{" "}</b> Réservés{" "}
-                        </h6>
-                        <br></br>
-                        <h5>Ce qu'il vous propose :</h5>
-                        <br></br>
-                        <div>
-                          <div id="filterPlace" className="col-lg-5 col-md-5 fa ">
+
+                        <div id="filtre-div">
+                          <h5 id="h5-ce-q">Ce qu'il vous propose :</h5>
+                          <h5 id="dispo-vendus" className="mt-3">
+                            <b className="ml-3" id="nbEspece">
+                              {dispo.length}{" "}
+                            </b>{" "}
+                            <strong>Disponibles </strong>
+                            <b className="ml-3" id="nbEspece">
+                              {vendu.length}{" "}
+                            </b>
+                            <strong>Vendus </strong>
+                          </h5>
+                          <div
+                            id="filterPlace"
+                            className="col-lg-5 col-md-5 fa "
+                          >
                             <Select
                               id="filterPlace"
                               value={this.state.selectedOptionSort}
                               onChange={this.sortData}
                               options={optionsSort}
-                              placeholder="&#xf161; Trier par"
-                            //
-                            //f0b0
+                              placeholder={
+                                this.state.selectedOptionSort
+                                  ? this.state.selectedOptionSort
+                                  : "Trier par"
+                              }
+                              //
+                              //f0b0
 
-                            // className="Select"
+                              // className="Select"
                             />
                           </div>
-
                         </div>
                         <br></br>
-
                       </div>
                     </div>
                   </div>
                 )}
                 {/*<!-- Sheeps Grid Section Begin --> */}
                 <div>
-                  {loading ? (
-                    null
-                  ) : (
+                  {loading ? null : (
                     <div>
                       <div className="row">
                         {currentAnnonces.map((Annonces) => (
-                          <div className="col-lg-4 col-md-6 col-sm-6">
+                          <div
+                            className="col-lg-4 col-md-6 col-sm-6"
+                            key={Annonces.$oid}
+                          >
                             <div id="anonce" className="product__item">
+                              {Annonces.statut === "disponible" ? (
+                                <div className="icon-vendus">
+                                  <h1
+                                    style={{
+                                      borderRadius: "0% 0% 0% 40%",
+                                      fontSize: "14px",
+                                    }}
+                                    className=" badge badge-success  pt-1 w-100  "
+                                  >
+                                    <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
+                                    <span>Disponible</span>{" "}
+                                  </h1>{" "}
+                                </div>
+                              ) : (
+                                <div className="icon-vendus">
+                                  <h1
+                                    style={{
+                                      borderRadius: "0% 0% 0% 40%",
+                                      fontSize: "14px",
+                                    }}
+                                    className=" badge badge-danger  pt-1 w-100  "
+                                  >
+                                    <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
+                                    <span>Vendu</span>{" "}
+                                  </h1>{" "}
+                                </div>
+                              )}
                               <div
                                 className="product__item__pic set-bg"
                                 data-setbg={Annonces.images}
                               >
                                 <img
                                   src={Annonces.image_face}
-                                  className="product__item__pic set-bg"
+                                  alt="item"
+                                  style={{
+                                    width: "355px",
+                                    height: "170px",
+                                    borderTopRightRadius: "10%",
+                                    borderTopLeftRadius: "10%",
+                                    objectFit: "contain",
+                                  }}
                                 />
 
                                 <ul className="product__item__pic__hover">
-
                                   <li>
-                                    <Link to={`/DetailsMouton/${Annonces._id.$oid}`}>
+                                    <Link
+                                      to={`/DetailsMouton/${Annonces._id.$oid}`}
+                                    >
                                       <a href="#">
-                                        <i class="fa fa-eye"></i>
+                                        <i className="fa fa-eye"></i>
                                       </a>
                                     </Link>
                                   </li>
                                 </ul>
                               </div>
-                              {Annonces.anoc ?
-                                <h1 style={{ borderRadius: "0% 0% 0% 40%", fontSize: "14px" }} class=" badge badge-success  pt-1 w-100  ">
+                              {Annonces.anoc ? (
+                                <h1
+                                  style={{
+                                    borderRadius: "0% 0% 0% 40%",
+                                    fontSize: "14px",
+                                  }}
+                                  className=" badge badge-success  pt-1 w-100  "
+                                >
                                   <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                  <span>Labélisé ANOC</span>  </h1>
-                                : <h1 style={{ borderRadius: "0% 0% 0% 40%", fontSize: "14px" }} class=" badge  pt-4 w-100  ">
-
-                                  <span>{" "} </span>  </h1>}
+                                  <span>Labélisé ANOC</span>{" "}
+                                </h1>
+                              ) : (
+                                <h1
+                                  style={{
+                                    borderRadius: "0% 0% 0% 40%",
+                                    fontSize: "14px",
+                                  }}
+                                  className=" badge  pt-4 w-100  "
+                                >
+                                  <span> </span>{" "}
+                                </h1>
+                              )}
                               <div className="product__item__text p-2 text-justify">
-                                <h6 ><GiSheep className=" mr-1 fa-lg " />{Annonces.espece}
+                                <div
+                                  className="region"
+                                  style={{
+                                    color: "#aaa",
+                                    fontSize: "15px",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  <i
+                                    className="fa fa-map-marker"
+                                    style={{ marginRight: "0.5rem" }}
+                                  ></i>
+                                  {Annonces.localisation + " "}
+                                </div>
 
-                                  <span className="float-right">
-                                    < FaShapes />{" " + this.annonceVision(Annonces)}
-                                  </span> </h6>
+                                <div
+                                  className="product__item__information"
+                                  style={{
+                                    color: "black",
+                                    fontSize: "15px",
+                                  }}
+                                >
+                                  <div className=" nbrm">
+                                    <img
+                                      style={{
+                                        width: "18px",
+                                        height: "18px",
+                                        marginBottom: "5px",
+                                        marginRight: "5px",
+                                      }}
+                                      data-imgbigurl="Images/sheep-head.png"
+                                      src="Images/sheep-head.png"
+                                      alt=""
+                                    />
+                                    {Annonces.espece == "chevre"
+                                      ? "Chèvre"
+                                      : "Mouton"}
+                                    <span className="float-right">
+                                      <FaShapes
+                                        style={{ marginRight: "5px" }}
+                                      />
+                                      {" " + Annonces.race}
+                                    </span>
+                                  </div>
 
-                                <h6>
-                                  <img
-                                    style={{ width: "18px", height: "18px", marginRight: "5px" }}
-                                    src="./Images/age.png" />
+                                  <div>
+                                    <MdCake
+                                      className=" mr-1 fa-lg "
+                                      style={{ marginRight: "5px" }}
+                                    />
 
-                                  {Annonces.age + " mois"}
+                                    {Annonces.age + " mois"}
 
-                                  <span className="float-right ">
-                                    <GiWeight className=" mr-1 fa-lg " />
-                                    {Annonces.poids + " Kg"}</span></h6>
-
-                                <h6 className=" nbrm" style={{ color: "black", fontSize: "18px" }}>
-                                  <i class="fa fa-map-marker"></i> {Annonces.region}
-                                </h6>
-
-                                <h5 id="mad">
-                                  <i class="fa fa-usd" aria-hidden="true"></i>
-                                  {"         " + Annonces.prix + " Dhs"}
-                                  <h5 style={{ color: "rgb(187, 33, 36)" }} className="  float-right" >
-                                    {"         " + Annonces.statut}</h5></h5>
+                                    <span className="float-right ">
+                                      <GiWeight
+                                        className=" mr-1 fa-lg "
+                                        style={{ marginRight: "5px" }}
+                                      />
+                                      {Annonces.poids + " Kg"}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <span className="float-left ">
+                                      <IoMdMale
+                                        className=" mr-1 fa-lg "
+                                        style={{
+                                          width: "18px",
+                                          height: "18px",
+                                          marginRight: "5px",
+                                        }}
+                                      />
+                                      {Annonces.sexe}
+                                    </span>
+                                  </div>
+                                  <div
+                                    className="float-right "
+                                    style={{
+                                      color: "#fe6927",
+                                      fontSize: "18px",
+                                      fontWeight: "1000",
+                                      textDecoration: "bold",
+                                      alignContent: "center",
+                                    }}
+                                  >
+                                    <img
+                                      style={{ height: "30px" }}
+                                      src={require("./Images/cash-payment.png")}
+                                      alt=""
+                                    />
+                                    {/*   <FaDollarSign
+                                      className=" mr-1 fa-lg "
+                                      style={{
+                                        width: "18px",
+                                        height: "18px",
+                                        marginRight: "0.5rem",
+                                      }}
+                                    /> */}
+                                    {Annonces.prix + "  Dhs"}
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -898,23 +1338,15 @@ id="modalRecherche"
                       </div>
 
                       <div className="center-div">
-                        <nav className="row">
-                          <ul className="pagination center-div">
-                            {this.state.nombrePages.map((number) => (
-                              <li
-                                key={number}
-                                className="page-item stylePagination"
-                              >
-                                <a
-                                  onClick={() => this.paginate(number)}
-                                  className="page-link"
-                                >
-                                  {number}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </nav>
+                        <Pagination
+                          activePage={this.state.currentPage}
+                          itemsCountPerPage={9}
+                          totalItemsCount={this.state.Annonces.length}
+                          pageRangeDisplayed={7}
+                          onChange={this.paginate.bind(this)}
+                          itemClass="page-item"
+                          linkClass="page-link"
+                        />
                       </div>
                       <br></br>
                     </div>

@@ -1,35 +1,58 @@
 import React, { Component } from "react";
-import { FormattedMessage } from 'react-intl'
 
 class Footer extends Component {
   render() {
     return (
-      <div  className="text-center"> 
-        <footer className="footer spad">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="footer__widget">
-                  <div className="footer__widget__social ">
-                    <h6> 
-                      <FormattedMessage id="Footer_suivez"></FormattedMessage>{"  "} 
-                    </h6>
-                    <a style={{height:"max-content"}} href="https://www.facebook.com/Association.nationale.ovine.et.caprine/">
-                      <img src="/Images/facebook.png"/>
-                    </a>
-                    <a style={{height:"max-content"}} href="http://www.anoc.ma/">
-                    <img src="/Images/site.png"/>
-                    </a>
-                    <a style={{height:"max-content"}} href="https://www.youtube.com/channel/UCzX4064MubkoUVL1ecFDGpQ">
-                    <img src="/Images/youtube.png"/>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <footer className="footer-distributed">
+        <div className="footer-left">
+          <img
+            style={{ height: "40px" }}
+            src={require("./Images/logo-text.png")}
+            alt=""
+          />
+          <p className="footer-company-name">anoc &copy; 2021</p>
+        </div>
+
+        <div className="footer-center">
+          <div>
+            <i className="fa fa-map-marker"></i>
+            <p>
+              <span>Résidence Meriem, Avenue Hassan II</span> Rabat, Maroc
+            </p>
           </div>
-        </footer>
-         </div>
+
+          <div>
+            <i className="fa fa-phone"></i>
+            <p>05376-90802</p>
+          </div>
+
+          <div>
+            <i className="fa fa-envelope"></i>
+            <p>
+              <a href="mailto:support@company.com">anoc@anoc.com</a>
+            </p>
+          </div>
+        </div>
+
+        <div className="footer-right">
+          <p className="footer-company-about">
+            <span>A propos</span>
+            ASSOCIATION NATIONALE DES ÉLEVEURS OVINS ET CAPRINS
+          </p>
+
+          <div className="footer-icons">
+            <a href="https://www.facebook.com/Association.nationale.ovine.et.caprine/">
+              <i className="fa fa-facebook"></i>
+            </a>
+            <a href="http://www.anoc.ma/">
+              <i className="fa fa-globe"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCzX4064MubkoUVL1ecFDGpQ">
+              <i className="fa fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </footer>
     );
   }
 }

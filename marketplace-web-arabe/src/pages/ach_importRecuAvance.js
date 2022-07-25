@@ -25,12 +25,12 @@ class ach_importRecuAvance extends Component {
       scope.setState({ dataUrl: dataURL });
     };
     reader.readAsDataURL(file);
-    console.log(this.props.location.state.id)
+    console.log(this.props.location.state.id);
   }
 
   handlePut = (e) => {
     e.preventDefault();
-     const myToken = `Bearer ` + localStorage.getItem("myToken");
+    const myToken = `Bearer ` + localStorage.getItem("myToken");
 
     const id = this.props.location.state.id;
     // const idm = this.props.location.state.idm;
@@ -40,11 +40,13 @@ class ach_importRecuAvance extends Component {
         {
           statut: "en attente de validation avance",
           reçu_avance: this.state.dataUrl,
-          id_consommateur:id.idc
+          id_consommateur: id.idc,
         },
         {
-          headers: { "Content-Type": "application/json",
-        "Authorization": myToken, },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: myToken,
+          },
         }
       )
       .then((res) => {
@@ -56,8 +58,10 @@ class ach_importRecuAvance extends Component {
               //   msg_refus_avance: this.state.dataUrl,
             },
             {
-              headers: { "Content-Type": "application/json",
-            "Authorization": myToken, },
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: myToken,
+              },
             }
           )
           .then((res) => {
@@ -77,41 +81,39 @@ class ach_importRecuAvance extends Component {
       });
   };
 
-
-componentDidMount(){
-  function appendLeadingZeroes(n) {
-    if (n <= 9) {
-      return "0" + n;
+  componentDidMount() {
+    function appendLeadingZeroes(n) {
+      if (n <= 9) {
+        return "0" + n;
+      }
+      return n;
     }
-    return n;
+
+    let current_datetime = new Date();
+    let formatted_date =
+      current_datetime.getFullYear() +
+      "-" +
+      appendLeadingZeroes(current_datetime.getMonth() + 1) +
+      "-" +
+      appendLeadingZeroes(current_datetime.getDate()) +
+      " " +
+      appendLeadingZeroes(current_datetime.getHours()) +
+      ":" +
+      appendLeadingZeroes(current_datetime.getMinutes()) +
+      ":" +
+      appendLeadingZeroes(current_datetime.getSeconds());
+
+    console.log(formatted_date);
+
+    const expiredTimeToken = localStorage.getItem("expiredTimeToken");
+    const token = localStorage.getItem("usertoken");
+    //const myToken = `Bearer ` + localStorage.getItem("myToken");
+    console.log(expiredTimeToken);
+
+    if (!token || expiredTimeToken < formatted_date) {
+      this.props.history.push("/login");
+    }
   }
-
-  let current_datetime = new Date();
-  let formatted_date =
-    current_datetime.getFullYear() +
-    "-" +
-    appendLeadingZeroes(current_datetime.getMonth() + 1) +
-    "-" +
-    appendLeadingZeroes(current_datetime.getDate()) +
-    " " +
-    appendLeadingZeroes(current_datetime.getHours()) +
-    ":" +
-    appendLeadingZeroes(current_datetime.getMinutes()) +
-    ":" +
-    appendLeadingZeroes(current_datetime.getSeconds());
-
-  console.log(formatted_date);
-
-  const expiredTimeToken = localStorage.getItem("expiredTimeToken");
-  const token = localStorage.getItem("usertoken");
-  const myToken = `Bearer ` + localStorage.getItem("myToken");
-  console.log(expiredTimeToken);
-
-  if (!token || expiredTimeToken < formatted_date) {
-
-    this.props.history.push("/login");
-  }
-}
 
   render() {
     return (
@@ -131,13 +133,13 @@ componentDidMount(){
               <br />
             </div>
             <br />
-            <div class="product__details__pic__item">
+            <div className="product__details__pic__item">
               <br />
               <img
                 id="img-background"
-                
-                class="product__details__pic__item--large"
+                className="product__details__pic__item--large"
                 src={this.state.dataUrl}
+                alt=""
               />
             </div>
             <button id="roundB" className="site-btn" type="submit">

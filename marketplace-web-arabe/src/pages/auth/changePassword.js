@@ -19,11 +19,10 @@ class changePassword extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-
   onSubmit(e) {
     e.preventDefault();
     const adress = this.state.email;
-    console.log(this.state.email)
+    console.log(this.state.email);
     this.setState({ loading: true }, () => {
       axios
         .post(
@@ -44,8 +43,7 @@ class changePassword extends Component {
           this.setState({ loading: false });
           Swal.fire({
             title: "Email de réinitailisation envoyé",
-            text:
-              "Un lien vient de vous être envoyé par mail. Consulter votre boîte mail pour finaliser la réiniatisation de votre mot de passe.",
+            text: "Un lien vient de vous être envoyé par mail. Consulter votre boîte mail pour finaliser la réiniatisation de votre mot de passe.",
             icon: "success",
             width: 400,
             heightAuto: false,
@@ -63,8 +61,7 @@ class changePassword extends Component {
           ) {
             Swal.fire({
               /* title: "Erreur de connection",*/
-              text:
-                "Lien de réinitailisation déja envoyé sur votre adresse mail. Vérifiez votre boîte mail!",
+              text: "Lien de réinitailisation déja envoyé sur votre adresse mail. Vérifiez votre boîte mail!",
               icon: "info",
               width: 400,
               heightAuto: false,
@@ -73,8 +70,8 @@ class changePassword extends Component {
               confirmButtonText: "Ok",
             });
           } else if (
-            (err.response.data.error ===
-              "We can't find a user with that e-mail address.")
+            err.response.data.error ===
+            "We can't find a user with that e-mail address."
           ) {
             Swal.fire({
               /* title: "Erreur de connection",*/
@@ -126,15 +123,21 @@ class changePassword extends Component {
                     <div className="col-lg-12 col-md-12">
                       <center>
                         {" "}
-                        <br /> <h2 className="text-center">Réinitialiser Mot de Passe</h2>
+                        <br />{" "}
+                        <h2 className="text-center">
+                          Réinitialiser Mot de Passe
+                        </h2>
                       </center>
                       <br />
                       <br />{" "}
                       <div className="row">
                         <div id="LoginIcon" className="col-lg-1 col-md-1">
                           <p></p>
-                          <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                          <span className="symbol-input100">
+                            <i
+                              className="fa fa-envelope"
+                              aria-hidden="true"
+                            ></i>
                           </span>{" "}
                         </div>
                         <div id="LoginIcon" className="col-lg-11 col-md-11">
@@ -148,7 +151,6 @@ class changePassword extends Component {
                         </div>
                       </div>
                       <p></p>
-                     
                     </div>
                     <p></p>
                     <div className="col-lg-12 text-center">
@@ -157,7 +159,7 @@ class changePassword extends Component {
                         <div
                           style={{
                             width: "100%",
-                            height: "100",
+                            height: "40rem",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
@@ -177,8 +179,6 @@ class changePassword extends Component {
                       )}
                       <p></p>
                     </div>
-                    
-                    
                   </div>
                 </center>
               </form>

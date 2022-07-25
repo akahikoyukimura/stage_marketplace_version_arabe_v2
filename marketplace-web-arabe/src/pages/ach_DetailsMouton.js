@@ -3,7 +3,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import { HiOutlineBadgeCheck } from 'react-icons/hi';
+import { HiOutlineBadgeCheck } from "react-icons/hi";
+import HomeCaroussel from "./HomeCaroussel";
 
 import {
   EmailShareButton,
@@ -53,7 +54,6 @@ class DetailsMouton extends Component {
   }
 
   componentDidMount() {
-
     // const idm = this.props.location.state.id;
     const idm = this.props.match.params.idMouton;
     const token = localStorage.getItem("usertoken");
@@ -64,30 +64,34 @@ class DetailsMouton extends Component {
         .get("http://127.0.0.1:8000/api/Espece/" + idm, {
           headers: {
             // "x-access-token": token, // the token is a variable which holds the token
-            "Authorization": myToken,
+            Authorization: myToken,
           },
         })
         .then((res) => {
-          this.setState({
-            Espece: res.data.objet,
-            eleveur: res.data.Eleveur[0],
-            image: res.data.objet.image_profile,
-            loading: false,
-
-          }, () => {
-            axios
-              .get("http://127.0.0.1:8000/api/cooperative/" + res.data.objet.id_cooperative, {
-                headers: {
-                  // "x-access-token": token, // the token is a variable which holds the token
-                  "Authorization": myToken,
-                },
-              })
-              .then((res) => {
-                this.setState({ cooperative: res.data }, () => {
-
+          this.setState(
+            {
+              Espece: res.data.objet,
+              eleveur: res.data.Eleveur[0],
+              image: res.data.objet.image_profile,
+              loading: false,
+            },
+            () => {
+              axios
+                .get(
+                  "http://127.0.0.1:8000/api/cooperative/" +
+                    res.data.objet.id_cooperative,
+                  {
+                    headers: {
+                      // "x-access-token": token, // the token is a variable which holds the token
+                      Authorization: myToken,
+                    },
+                  }
+                )
+                .then((res) => {
+                  this.setState({ cooperative: res.data }, () => {});
                 });
-              })
-          });
+            }
+          );
           if (res.data.objet.statut === "disponible") {
             this.setState({ isDispo: true });
           }
@@ -105,7 +109,7 @@ class DetailsMouton extends Component {
       this.setState(
         {
           Favoris: [],
-          Panier: []
+          Panier: [],
         },
         () => this.setState({ isFav: false })
       );
@@ -113,7 +117,7 @@ class DetailsMouton extends Component {
       axios
         .get("http://127.0.0.1:8000/api/consommateur/" + token, {
           headers: {
-            "Authorization": myToken,
+            Authorization: myToken,
           },
         })
         .then((res) => {
@@ -127,8 +131,8 @@ class DetailsMouton extends Component {
             {
               Panier: paniers,
               Favoris: favoris,
-
-            }, () => {
+            },
+            () => {
               if (this.state.Panier.length !== 0) {
                 this.setState({ isInpanier: true });
               }
@@ -136,13 +140,9 @@ class DetailsMouton extends Component {
                 this.setState({ isFav: true });
               }
             }
-
           );
-
-
         });
     }
-
   }
 
   handleFavoris(Mid) {
@@ -161,7 +161,7 @@ class DetailsMouton extends Component {
               // "Access-Control-Allow-Origin": "*",
               // "Content-Type": "application/json",
               // Accept: "application/json",
-              "Authorization": myToken,
+              Authorization: myToken,
             },
           }
         )
@@ -177,7 +177,6 @@ class DetailsMouton extends Component {
  
         confirmButtonText: "Ok!",*/
       });
-
     }
   }
 
@@ -198,7 +197,7 @@ class DetailsMouton extends Component {
               // "Access-Control-Allow-Origin": "*",
               // "Content-Type": "application/json",
               // Accept: "application/json",
-              "Authorization": myToken,
+              Authorization: myToken,
             },
           }
         )
@@ -256,105 +255,226 @@ class DetailsMouton extends Component {
   }
 
   render() {
-    var mois = new Array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre");
+    // var mois = new Array(
+    //   "Janvier",
+    //   "Février",
+    //   "Mars",
+    //   "Avril",
+    //   "Mai",
+    //   "Juin",
+    //   "Juillet",
+    //   "Août",
+    //   "Septembre",
+    //   "Octobre",
+    //   "Novembre",
+    //   "Décembre"
+    // );
     const { loading } = this.state;
     const shareUrl = "http://localhost:3000/DetailsMouton";
     return (
       <div>
-
         <style>{` .product__details__text ul{ margin-top:35px;} `}</style>
         {loading ? (
           <div
             style={{
               width: "100%",
-              height: "100",
+              height: "40rem",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
             }}
           >
             <br></br>
-            <Loader
-              type="Oval"
-              color="#7fad39"
-              height="80"
-              width="80"
-            />
+            <Loader type="Oval" color="#7fad39" height="80" width="80" />
           </div>
         ) : (
           <section className="product-details spad">
             <div className="container">
               <div className="row">
                 <div className="col-lg-6 col-md-6">
-                  <div className="product__details__pic" >
-                    {this.state.Espece.anoc ? <div className="product__details__pic__item mb-1">
-                      <img
-                        className="product__details__pic__item--large"
-                        src={this.state.image}
-                        alt=""
-                        id="roundB"
-                      />
-                    </div> : <div className="product__details__pic__item">
-                      <img
-                        className="product__details__pic__item--large"
-                        src={this.state.image}
-                        alt=""
-                        id="roundB"
-                      />
-                    </div>}
-                    {this.state.Espece.anoc ?
-                      <h1 style={{ fontSize: "14px", backgroundColor: "#4CB050", color: "white" }} className=" badge    rounded-0  w-100  ">
-                        <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                        <span>Labélisé ANOC</span>  </h1>
-                      :
-                      null}
+                  <div className="product__details__pic">
+                    {this.state.Espece.anoc ? (
+                      <div className="product__details__pic__item mb-1">
+                        <img
+                          className="product__details__pic__item--large"
+                          src={this.state.image}
+                          alt=""
+                          id="roundB"
+                          style={{ objectFit: "scale-down" }}
+                        />
+                        <div className="heartchild">
+                          <h4 className="d-inline">
+                            {this.state.isFav ? (
+                              <span className="text-left text-danger col-lg-4 col-md-4">
+                                {" "}
+                                <a
+                                  id={this.state.Espece._id}
+                                  onClick={(e) => {
+                                    this.handleDeleteFav(e.currentTarget.id);
+                                  }}
+                                >
+                                  <i
+                                    className="fa fa-heart fa-lg"
+                                    style={{ margin: "0.5em" }}
+                                  ></i>
+                                </a>{" "}
+                              </span>
+                            ) : null}
+                            {!this.state.isFav ? (
+                              <span className="text-left text-muted col-lg-2 col-md-2">
+                                {" "}
+                                <a
+                                  id={this.state.Espece._id}
+                                  onClick={(e) =>
+                                    this.handleFavoris(e.currentTarget.id)
+                                  }
+                                >
+                                  <i
+                                    className="fa fa-heart fa-lg"
+                                    style={{ margin: "0.5em" }}
+                                  ></i>{" "}
+                                </a>{" "}
+                              </span>
+                            ) : null}
+                          </h4>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="product__details__pic__item">
+                        <img
+                          className="product__details__pic__item--large"
+                          src={this.state.image}
+                          alt=""
+                          id="roundB"
+                          style={{ objectFit: "contain" }}
+                        />
+                        <div className="heartchild">
+                          <h4 className="d-inline">
+                            {this.state.isFav ? (
+                              <span className="text-left text-danger col-lg-4 col-md-4">
+                                {" "}
+                                <a
+                                  id={this.state.Espece._id}
+                                  onClick={(e) => {
+                                    this.handleDeleteFav(e.currentTarget.id);
+                                  }}
+                                >
+                                  <i className="fa fa-heart "></i>
+                                </a>{" "}
+                              </span>
+                            ) : null}
+                            {!this.state.isFav ? (
+                              <span className="text-left text-muted col-lg-2 col-md-2">
+                                {" "}
+                                <a
+                                  id={this.state.Espece._id}
+                                  onClick={(e) =>
+                                    this.handleFavoris(e.currentTarget.id)
+                                  }
+                                >
+                                  <i className="fa fa-heart"></i>
+                                </a>{" "}
+                              </span>
+                            ) : null}
+                          </h4>
+                        </div>
+                      </div>
+                    )}
                     <div className="row">
                       <div className="container">
-                        <div id="lesImagesM" className="col-lg-12 col-md-12 mb-2">
-                          <div className="row"> <img
-                            className="col-sm-4" style={{ height: "100px", width: "auto",margin:"auto" }}
-                            // data-imgbigurl="Images/1.jpg"
-                            src={this.state.Espece.image_boucle}
-                            alt=""
-                            onClick={this.onClickImageBoucle}
-                          />
+                        <div
+                          id="lesImagesM"
+                          className="col-lg-12 col-md-12 mb-2"
+                        >
+                          <div className="row">
                             <img
-                              className="col-sm-4" style={{ height: "100px", width: "auto",margin:"auto" }}
+                              style={{
+                                height: "100px",
+                                width: "100px",
+                                margin: "1%",
+                              }}
+                              // data-imgbigurl="Images/1.jpg"
+                              src={this.state.Espece.image_boucle}
+                              alt=""
+                              onClick={this.onClickImageBoucle}
+                            />
+                            <img
+                              style={{
+                                height: "100px",
+                                width: "100px",
+                                margin: "1%",
+                              }}
                               // data-imgbigurl="Images/1.jpg"
                               src={this.state.Espece.image_face}
                               alt=""
                               onClick={this.onClickImageFace}
                             />
+
                             <img
-                              className="col-sm-4" style={{ height: "100px", width: "auto",margin:"auto" }}
+                              style={{
+                                height: "100px",
+                                width: "100px",
+                                margin: "1%",
+                              }}
                               // data-imgbigurl="Images/1.jpg"
                               src={this.state.Espece.image_profile}
                               alt=""
                               onClick={this.onClickImageProfile}
                             />
-
                           </div>
-
                         </div>
-                        {this.state.Espece.anoc ?
+                        {this.state.Espece.anoc ? (
                           <span className=" text-success ">
-                            <HiOutlineBadgeCheck className=" mr-1 fa-lg " /> Le label de l'ANOC est un gage de la qualité du produit. <br></br></span>
-                          : null}
+                            <HiOutlineBadgeCheck className=" mr-1 fa-lg " /> Le
+                            label de l'ANOC est un gage de la qualité du
+                            produit. <br></br>
+                          </span>
+                        ) : null}
                         <br></br>
-                        <div >
+                        <div
+                          style={{
+                            backgroundColor: "white",
+                            borderRadius: "5%",
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontSize: "18px",
+                              fontWeight: "bold",
+                              padding: "10px 0 10px 10px",
+                            }}
+                          >
+                            Description
+                          </span>
+                          <div id="gris">
+                            {this.state.Espece.description ? (
+                              <span className="text-dark col-md-12">
+                                {this.state.Espece.description}
+                              </span>
+                            ) : (
+                              <span>Aucune description disponible</span>
+                            )}
+                          </div>
+                        </div>
+                        <div>
                           <br></br>
 
                           <div id="centrer2">
                             {/* Ajouter ici Social Sharing Button */}
                             <h4 id="centrer2">
                               Partager l'annonce avec vos proches sur :
-                              </h4>
-                            <br></br>
+                            </h4>
                             <div>
                               <EmailShareButton
                                 url={shareUrl + "/" + this.state.Espece._id}
                                 subject="Annonce intéressante à voir (Animal à vendre)"
-                                body={"Annonce intéressante à voir ( " + this.state.Espece.categorie + " " + this.state.Espece.race + " )"}
+                                body={
+                                  "Annonce intéressante à voir ( " +
+                                  this.state.Espece.categorie +
+                                  " " +
+                                  this.state.Espece.race +
+                                  " )"
+                                }
                               >
                                 <EmailIcon size={36} round />
                               </EmailShareButton>{" "}
@@ -367,27 +487,44 @@ class DetailsMouton extends Component {
                               <FacebookShareButton
                                 // url= "https://youtube.com"
                                 url={shareUrl + "/" + this.state.Espece._id}
-                                quote={"Annonce intéressante à voir ( " + this.state.Espece.categorie + " " + this.state.Espece.race + " )"}
+                                quote={
+                                  "Annonce intéressante à voir ( " +
+                                  this.state.Espece.categorie +
+                                  " " +
+                                  this.state.Espece.race +
+                                  " )"
+                                }
                               >
                                 <FacebookIcon size={36} round />
                               </FacebookShareButton>{" "}
                               <WhatsappShareButton
                                 // url= "https://youtube.com"
                                 url={shareUrl + "/" + this.state.Espece._id}
-                                title={"Annonce intéressante à voir ( " + this.state.Espece.categorie + " " + this.state.Espece.race + " )"}
+                                title={
+                                  "Annonce intéressante à voir ( " +
+                                  this.state.Espece.categorie +
+                                  " " +
+                                  this.state.Espece.race +
+                                  " )"
+                                }
                                 separator=": "
                               >
                                 <WhatsappIcon size={36} round />
                               </WhatsappShareButton>{" "}
                               <TwitterShareButton
                                 url={shareUrl + "/" + this.state.Espece._id}
-                                title={"Annonce intéressante à voir ( " + this.state.Espece.categorie + " " + this.state.Espece.race + " )"}
+                                title={
+                                  "Annonce intéressante à voir ( " +
+                                  this.state.Espece.categorie +
+                                  " " +
+                                  this.state.Espece.race +
+                                  " )"
+                                }
                               >
                                 <TwitterIcon size={36} round />
                               </TwitterShareButton>
                             </div>
                           </div>
-
                         </div>
                       </div>
                     </div>
@@ -395,60 +532,40 @@ class DetailsMouton extends Component {
                 </div>
                 <div className="col-lg-6 col-md-6">
                   <div className="product__details__text">
-                    <h3 className="col-lg-12 col-md-12  ">
-                      <span className="col-lg-11 col-md-11">
-                        {" "}
-                      Détails annonce espèce{"              "}
-                        <h4 className="d-inline">
-                          {this.state.isFav ? (
-                            <span className="text-left text-danger col-lg-2 col-md-2">
-                              {" "}
-                              <a
-                                id={this.state.Espece._id}
-                                onClick={(e) => {
-                                  this.handleDeleteFav(e.currentTarget.id);
-                                }}
-                              >
-                                <i className="fa fa-heart "></i>
-                              </a>{" "}
-                            </span>
-                          ) : null}
-                          {!this.state.isFav ? (
-                            <span className="text-left text-muted col-lg-2 col-md-2">
-                              {" "}
-                              <a
-                                id={this.state.Espece._id}
-                                onClick={(e) =>
-                                  this.handleFavoris(e.currentTarget.id)
-                                }
-                              >
-                                <i className="fa fa-heart"></i>
-                              </a>{" "}
-                            </span>
-                          ) : null}
-                        </h4>
-                      </span>
-                    </h3>
-                    <h3 id="centrer2">
-
-                    </h3>
                     <div id="centrer" className="container col-md-12">
-                      <b>{" "}</b>
+                      <b> </b>
                       <br></br>
-                      <b>Annonce № : <span className="text-secondary">{this.state.Espece.reference}</span> <br></br> </b>
+                      <b>
+                        Annonce № :{" "}
+                        <span className="text-secondary">
+                          {this.state.Espece.reference}
+                        </span>{" "}
+                        <br></br>{" "}
+                      </b>
                       <br></br>
-                      <b className="w-50">Nom du proprietaire (eleveur) :
-                      <span className="text-secondary"> {" " + this.state.eleveur.nom.toUpperCase() +
-                          "     " +
-                          this.state.eleveur.prenom} </span></b>
+                      <b className="w-50">
+                        Nom du propriétaire (eleveur) :
+                        <span className="text-secondary">
+                          {" "}
+                          {" " +
+                            this.state.eleveur.nom.toUpperCase() +
+                            "     " +
+                            this.state.eleveur.prenom}{" "}
+                        </span>
+                      </b>
 
                       <ul className="pt-4">
-
                         <li>
-                          <b>№ Boucle</b> <span>{this.state.Espece.boucle}</span>
+                          <b>№ Boucle</b>{" "}
+                          <span>{this.state.Espece.boucle}</span>
                         </li>
                         <li>
-                          <b>Espece</b> <span>{this.state.Espece.espece}</span>
+                          <b>Espece</b>{" "}
+                          <span>
+                            {this.state.Espece.espece == "chevre"
+                              ? "Chèvre"
+                              : "Mouton"}
+                          </span>
                         </li>
                         {/*<li>
                           <b>Categorie</b> <span>{this.state.Espece.categorie}</span>
@@ -457,10 +574,11 @@ class DetailsMouton extends Component {
                           <b>Race</b> <span>{this.state.Espece.race}</span>
                         </li>
                         <li>
-                          <b>localisation</b> <span>{this.state.Espece.localisation} </span>
+                          <b>Ville</b>{" "}
+                          <span>{this.state.Espece.localisation} </span>
                         </li>
                         <li>
-                          <b>sexe</b> <span>{this.state.Espece.sexe} </span>
+                          <b>Sexe</b> <span>{this.state.Espece.sexe} </span>
                         </li>
                         <li>
                           <b>Age</b> <span>{this.state.Espece.age} mois</span>
@@ -468,121 +586,179 @@ class DetailsMouton extends Component {
                         <li>
                           <b>Poids</b> <span>{this.state.Espece.poids} Kg</span>
                         </li>
-
-
-
-                        <li>
-
-                        </li>
-
-                        <li className="bg-ligh text-danger  h6 center" >
-                          <b>Prix </b>
-                          {this.state.Espece.prix} Dhs<i> (Hors transport)</i>
-                        </li>
                       </ul>
                     </div>
-                    <br></br>
-
-                  </div>
-                  <div>
-                    <h4>Description</h4>
-                    <div id="gris" className="container ">
-                      {this.state.Espece.description ? (
-                        <p className="text-dark col-md-12">{this.state.Espece.description}</p>
-                      ) : (
-                        <p  >Aucune description disponible</p>
-                      )}
-                    </div>
-                    <br></br>
-                
-                  
-                <br></br>
-                <div  className="row  text-center">    
-                    {!this.state.isLoged ? this.state.isDispo ?
-                         <div className="col-md-6 mt-2">  <Link
-                          to={{
-                            pathname: "/Commander",
-                            state: {
-                              id: this.state.Espece._id,
-                              cooperative: this.state.cooperative
-                            },
-                          }}
-                        >
-                          <button style={{ borderColor: 'transparent', backgroundColor: "#4CB050",paddingLeft:"19px",paddingRight:"19px" }}
-
-                            className="primary-btn rounded     "  >
-                             <i className="fa fa-plus"></i> Commander l'espece
-        </button>
-                        </Link></div>
- 
-
-                      : null :
-                      this.state.isDispo && !this.state.isInpanier ? <>
-                        <div className="col-md-6 mt-2"> 
-                        <Link  >
-                         <button style={{ borderColor: 'transparent', backgroundColor: "#4CB050" }}
-                          id={this.state.Espece._id}
-                          className="primary-btn rounded "
-                          onClick={(e) =>
-                            this.handlePanier(e.currentTarget.id)
-                          }
-                        >
-                          <i className="fa fa-shopping-cart"></i> Ajouter au panier
-            </button>  </Link> </div>
-                        <div className="col-md-6 mt-2">  <Link
-                          to={{
-                            pathname: "/Commander",
-                            state: {
-                              id: this.state.Espece._id,
-                              cooperative: this.state.cooperative
-                            },
-                          }}
-                        >
-                          <button style={{ borderColor: 'transparent', backgroundColor: "#4CB050",paddingLeft:"19px",paddingRight:"19px" }}
-
-                            className="primary-btn rounded    "  >
-                            <i className="fa fa-plus"></i> Commander l'espece
-</button>
-                        </Link></div>
-                      </>
-
-                        : this.state.isDispo && this.state.isInpanier ?
-                           
-                            <div className="col-md-6 mt-2">  <Link
-                              to={{
-                                pathname: "/Commander",
-                                state: {
-                                  id: this.state.Espece._id,
-                                  cooperative: this.state.cooperative
-                                },
-                              }}
+                    <div className="price-stack-left container">
+                      <div className="single-price-wrap">
+                        <div className="white-block single-price">
+                          <i className="fas fa-euro-sign"></i>
+                          <div className="white-block-content">
+                            <div
+                              className="price"
+                              style={{ fontSize: "1rem", fontWeight: "900" }}
                             >
-                              <button style={{ borderColor: 'transparent', backgroundColor: "#4CB050" ,paddingLeft:"19px",paddingRight:"19px"}}
-
-                                className="primary-btn rounded    "  >
-                                 <i className="fa fa-plus"></i> Commander l'espece
-</button>
-                            </Link></div>
-                            : null}
-                     
-                </div>
-          
-                <br></br>
-                 </div>
-               
-             
-
-
-                 
-
-
-
-                    <br></br>
-                    
+                              {this.state.Espece.prix}
+                              <span className="price-symbol"> DH</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
- 
+                  <div className="row  text-center">
+                    {!this.state.isLoged ? (
+                      this.state.isDispo ? (
+                        <div className="col-10 col sm-8 col-md-4 col-lg-4">
+                          {" "}
+                          <Link
+                            to={{
+                              pathname: "/Commander",
+                              state: {
+                                id: this.state.Espece._id,
+                                cooperative: this.state.cooperative,
+                              },
+                            }}
+                          >
+                            <button
+                              style={{
+                                borderColor: "transparent",
+                                backgroundColor: "#4CB050",
+                              }}
+                              className="primary-btn rounded     "
+                            >
+                              <i className="fa fa-plus"></i> Commander l'espece
+                            </button>
+                          </Link>
+                        </div>
+                      ) : null
+                    ) : this.state.isDispo && !this.state.isInpanier ? (
+                      <>
+                        <div className="col-10 col sm-10 col-md-4 col-lg-4">
+                          <Link>
+                            <button
+                              style={{
+                                borderColor: "transparent",
+                                backgroundColor: "#4CB050",
+                              }}
+                              id={this.state.Espece._id}
+                              className="primary-btn rounded "
+                              onClick={(e) =>
+                                this.handlePanier(e.currentTarget.id)
+                              }
+                            >
+                              <i className="fa fa-shopping-cart"></i> Ajouter au
+                              panier
+                            </button>{" "}
+                          </Link>{" "}
+                        </div>
+                        <div className="col-10 col sm-10 col-md-4 col-lg-4">
+                          {" "}
+                          <Link
+                            to={{
+                              pathname: "/Commander",
+                              state: {
+                                id: this.state.Espece._id,
+                                cooperative: this.state.cooperative,
+                              },
+                            }}
+                          >
+                            <button
+                              style={{
+                                borderColor: "transparent",
+                                backgroundColor: "#4CB050",
+                              }}
+                              className="primary-btn rounded    "
+                            >
+                              <i className="fa fa-plus"></i> Commander l'espece
+                            </button>
+                          </Link>
+                        </div>
+                      </>
+                    ) : this.state.isDispo && this.state.isInpanier ? (
+                      <div className="col-10 col sm-10 col-md-4 col-lg-4">
+                        {" "}
+                        <Link
+                          to={{
+                            pathname: "/Commander",
+                            state: {
+                              id: this.state.Espece._id,
+                              cooperative: this.state.cooperative,
+                            },
+                          }}
+                        >
+                          <button
+                            style={{
+                              borderColor: "transparent",
+                              backgroundColor: "#4CB050",
+                            }}
+                            className="primary-btn rounded    "
+                          >
+                            <i className="fa fa-plus"></i> Commander l'espece
+                          </button>
+                        </Link>
+                      </div>
+                    ) : null}
+                    <div className="col-10 col sm-10 col-md-4 col-lg-4">
+                      <button
+                        style={{
+                          borderColor: "transparent",
+                          backgroundColor: "#f87171",
+                        }}
+                        className="primary-btn rounded     "
+                        onClick={(e) => {
+                          this.state.isFav
+                            ? this.handleDeleteFav(this.state.Espece._id)
+                            : this.handleFavoris(this.state.Espece._id);
+                        }}
+                      >
+                        {this.state.isFav ? (
+                          <span className="text-left text-danger ">
+                            {" "}
+                            <a id={this.state.Espece._id}>
+                              <i className="fa fa-heart"></i>
+                            </a>{" "}
+                          </span>
+                        ) : null}
+                        {!this.state.isFav ? (
+                          <span className="text-left ">
+                            {" "}
+                            <a id={this.state.Espece._id}>
+                              <i
+                                className="fa fa-heart"
+                                style={{ color: "white" }}
+                              ></i>
+                            </a>{" "}
+                          </span>
+                        ) : null}
+                        {/*                                 <i className="fa fa-plus"></i>
+                         */}{" "}
+                        {!this.state.isFav
+                          ? "Ajouter aux favories"
+                          : "Supprimer de favoris"}
+                      </button>
+                    </div>
+                  </div>
+
+                  <br></br>
+                </div>
+                <br></br>
               </div>
-          </div>
+              <div
+                style={{
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                  margin: "20px",
+                }}
+              >
+                Annonces similaire
+              </div>
+              <div>
+                <HomeCaroussel
+                  espece={this.state.Espece.espece}
+                  ville={this.state.Espece.localisation}
+                />
+              </div>
+            </div>
           </section>
         )}
       </div>

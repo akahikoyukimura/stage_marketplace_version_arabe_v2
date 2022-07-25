@@ -154,19 +154,19 @@ class Commander_ extends Component {
     const { optionsVille } = this.state;
     return (
       <div>
-        <div class="container">
+        <div className="container">
           <h3>Commander votre mouton</h3>
           <br></br>
         </div>
 
-        <div id="coul" class="container">
+        <div id="coul" className="container">
           <br></br>
           <div className="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="product__details__pic">
-                <div class="product__details__pic__item">
+            <div className="col-lg-6 col-md-6">
+              <div className="product__details__pic">
+                <div className="product__details__pic__item">
                   <img
-                    class="product__details__pic__item--large"
+                    className="product__details__pic__item--large"
                     src={this.state.image}
                     alt=""
                   />
@@ -214,21 +214,21 @@ class Commander_ extends Component {
               </div>
             </div>
             <div className="col-lg-6 col-md-6">
-              <div class="checkout__form">
+              <div className="checkout__form">
                 <form action="#" onSubmit="" name="commander">
                   <h4>Résumé de vote commande</h4>
-                  <div id="centrer" class="col-lg-12 col-md-6">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="checkout__input">
+                  <div id="centrer" className="col-lg-12 col-md-6">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
                           <p>
                             <b>Boucle</b>
                           </p>
                           <span>{this.state.Mouton.boucle}</span>
                         </div>
                       </div>
-                      <div class="col-lg-6">
-                        <div class="checkout__input">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
                           <p>
                             <b>Race</b>
                           </p>
@@ -237,17 +237,17 @@ class Commander_ extends Component {
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="checkout__input">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
                           <p>
                             <b>Poids</b>
                           </p>
                           <span>{this.state.Mouton.poids} Kg</span>
                         </div>
                       </div>
-                      <div class="col-lg-6">
-                        <div class="checkout__input">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
                           <p>
                             <b>Age</b>
                           </p>
@@ -256,17 +256,17 @@ class Commander_ extends Component {
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="checkout__input">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
                           <p>
                             <b>Avance</b>
                           </p>
                           <span>{this.state.Mouton.avance} MAD</span>
                         </div>
                       </div>
-                      <div class="col-lg-6">
-                        <div class="checkout__input">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
                           <p>
                             <b>Prix mouton</b>
                           </p>
@@ -275,9 +275,9 @@ class Commander_ extends Component {
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="checkout__input">
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="checkout__input">
                           <p>
                             <b>Eleveur</b>
                           </p>
@@ -297,13 +297,13 @@ class Commander_ extends Component {
           <br></br>
         </div>
 
-        <div class="container">
+        <div className="container">
           <br></br>
           <div className="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="checkout__form">
+            <div className="col-lg-6 col-md-6">
+              <div className="checkout__form">
                 <h4>Détails livraison</h4>
-                <div class="checkout__input">
+                <div className="checkout__input">
                   <b>
                     Votre ville de livraison<span>*</span>
                   </b>
@@ -319,7 +319,7 @@ class Commander_ extends Component {
                     <br></br>
                   </div>
 
-                  <div class="checkout__input">
+                  <div className="checkout__input">
                     <p>
                       <b>Le point de relais</b>
                     </p>
@@ -327,7 +327,7 @@ class Commander_ extends Component {
                   </div>
 
                   <div>
-                    <div class="checkout__input">
+                    <div className="checkout__input">
                       <p>
                         <b>Date de livraison</b>
                       </p>
@@ -335,7 +335,7 @@ class Commander_ extends Component {
                     </div>
 
                     <div>
-                      <div class="checkout__input bg-ligh text-danger h6 center">
+                      <div className="checkout__input bg-ligh text-danger h6 center">
                         <p>
                           <b>Heure de livraison</b>
                         </p>
@@ -351,9 +351,9 @@ class Commander_ extends Component {
               </div>
             </div>
             <div className="col-lg-6 col-md-6">
-              <div class="checkout__form">
+              <div className="checkout__form">
                 <h4>Détails paiement</h4>
-                <div class="checkout__input bg-ligh text-danger h6 center">
+                <div className="checkout__input bg-ligh text-danger h6 center">
                   <p>
                     <b>Mode de paiement</b>
                   </p>
@@ -371,7 +371,7 @@ class Commander_ extends Component {
                   pour continuer.
                 </h6>
                 <br></br>
-                <div class="checkout__input__checkbox">
+                <div className="checkout__input__checkbox">
                   <label for="regles">
                     J'accepte les conditions générales des règles de vente et
                     achat
@@ -381,10 +381,10 @@ class Commander_ extends Component {
                       required
                       onChange={this.onChangecheck}
                     />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
                 </div>
-                <div id="coul" class="checkout__input__checkbox">
+                <div id="coul" className="checkout__input__checkbox">
                   <label for="regles">
                     Veuillez saisir votre ville et accepter les conditions
                     générales pour valider votre commande.
@@ -395,12 +395,12 @@ class Commander_ extends Component {
           </div>
         </div>
 
-        <div class="container">
-          <div class="product-details spad">
+        <div className="container">
+          <div className="product-details spad">
             <div>
-              <div id="centrer" class="col-lg-12 col-md-6">
+              <div id="centrer" className="col-lg-12 col-md-6">
                 <h3>Détails du prix</h3>
-                <div class="shoping__checkout">
+                <div className="shoping__checkout">
                   <ul>
                     <li>
                       Avance <span>{this.state.Mouton.avance} MAD</span>
@@ -415,7 +415,7 @@ class Commander_ extends Component {
                     <li className="btn-center">
                       <a
                         href="/ToutesLesAnnonces"
-                        class="btn primary-btn btn-sm"
+                        className="btn primary-btn btn-sm"
                         role="button"
                       >
                         Annuler commande
@@ -431,12 +431,9 @@ class Commander_ extends Component {
                           }}
                         >
                           {" "}
-                        
-                          
-                            <a href="#" class="btn primary-btn " disabled>
-                              Valider
-                            </a>{" "}
-                          
+                          <a href="#" className="btn primary-btn " disabled>
+                            Valider
+                          </a>{" "}
                         </Link>
                       ) : null}
                     </li>

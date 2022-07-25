@@ -18,8 +18,14 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   decryp(sample) {
-    var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890;~!@#$%^&*()_+<>?,./|{}][".split("");
-    var rot13Alphabet = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm0987654321[]}{|/.,?><+_)(*&^%$#@!~;".split("");
+    var alphabet =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890;~!@#$%^&*()_+<>?,./|{}][".split(
+        ""
+      );
+    var rot13Alphabet =
+      "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm0987654321[]}{|/.,?><+_)(*&^%$#@!~;".split(
+        ""
+      );
     var result = "";
     for (var x = 0; x < sample.length; x++) {
       for (var y = 0; y < alphabet.length; y++) {
@@ -31,12 +37,14 @@ class Login extends Component {
         result += " ";
       }
     }
-     return result;
+    return result;
   }
   cryp(str) {
-    const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890;~!@#$%^&*()_+<>?,./|{}][';
-    const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm0987654321[]}{|/.,?><+_)(*&^%$#@!~;';
-    let encoded = '';
+    const input =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890;~!@#$%^&*()_+<>?,./|{}][";
+    const output =
+      "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm0987654321[]}{|/.,?><+_)(*&^%$#@!~;";
+    let encoded = "";
     for (let i = 0; i < str.length; i++) {
       const index = input.indexOf(str[i]);
       encoded += output[index];
@@ -46,15 +54,21 @@ class Login extends Component {
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-    if ([e.target.name] === "login"&&localStorage.getItem(e.target.value)!=null) {
-      var all = document.querySelectorAll('input[name="password"]')
-      Array.from(all).map((a) => (a.value = this.decryp(localStorage.getItem(e.target.value))))
-      this.setState({ password: this.decryp(localStorage.getItem(e.target.value)) })
+    if (
+      [e.target.name] === "login" &&
+      localStorage.getItem(e.target.value) != null
+    ) {
+      var all = document.querySelectorAll('input[name="password"]');
+      Array.from(all).map(
+        (a) => (a.value = this.decryp(localStorage.getItem(e.target.value)))
+      );
+      this.setState({
+        password: this.decryp(localStorage.getItem(e.target.value)),
+      });
       if (localStorage.getItem(e.target.value) !== null) {
-        this.setState({ isChecked: true })
-      }
-      else {
-        this.setState({ isChecked: false })
+        this.setState({ isChecked: true });
+      } else {
+        this.setState({ isChecked: false });
       }
     }
   }
@@ -66,37 +80,42 @@ class Login extends Component {
     localStorage.removeItem("usertoken");
     localStorage.removeItem("myToken");
     localStorage.removeItem("expiredTimeToken");
-
-
   }
 
   onSubmit(e) {
     e.preventDefault();
-  
+
     const user = {
       login: this.state.login,
       password: this.state.password,
       remember_token: this.state.isChecked,
-      role:"Consommateur",
+      role: "Consommateur",
     };
 
     this.setState({ loading: true }, () => {
       axios
         .post("http://127.0.0.1:8000/api/login", user)
         .then((res) => {
-          localStorage.setItem("usertoken", res.data.success.token.token.user_id);
+          localStorage.setItem(
+            "usertoken",
+            res.data.success.token.token.user_id
+          );
           localStorage.setItem("myToken", res.data.success.token.accessToken);
-          localStorage.setItem("expiredTimeToken", res.data.success.token.token.expires_at);
+          localStorage.setItem(
+            "expiredTimeToken",
+            res.data.success.token.token.expires_at
+          );
           if (this.state.isChecked) {
-            localStorage.setItem(this.state.login, this.cryp(this.state.password));
-          }
-          else {
+            localStorage.setItem(
+              this.state.login,
+              this.cryp(this.state.password)
+            );
+          } else {
             localStorage.removeItem(this.state.login);
           }
           this.props.history.push("/ToutesLesAnnonces");
           this.setState({ loading: false });
           window.location.reload();
-
         })
         .catch((err) => {
           this.setState({ loading: false });
@@ -107,7 +126,6 @@ class Login extends Component {
             width: 400,
             heightAuto: false,
             confirmButtonColor: "#7fad39",
-
             confirmButtonText: "Ok!",
           });
         });
@@ -143,13 +161,22 @@ class Login extends Component {
                       <br />
                       <br />{" "}
                       <div className="row">
-                        <div id="LoginIcon" className="col-lg-1 col-md-1">
+                        <div
+                          id="LoginIcon"
+                          className="col-lg-1 col-md-1 col-sm-1 .col-1"
+                        >
                           <p></p>
-                          <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                          <span className="symbol-input100">
+                            <i
+                              className="fa fa-envelope"
+                              aria-hidden="true"
+                            ></i>
                           </span>{" "}
                         </div>
-                        <div id="LoginIcon" className="col-lg-11 col-md-11">
+                        <div
+                          id="LoginIcon"
+                          className="col-lg-11 col-md-11 col-sm-11 .col-11"
+                        >
                           <input
                             type="text"
                             placeholder="Email / Téléphone "
@@ -161,13 +188,19 @@ class Login extends Component {
                       </div>
                       <p></p>
                       <div className="row">
-                        <div id="LoginIcon" className="col-lg-1 col-md-1">
+                        <div
+                          id="LoginIcon"
+                          className="col-lg-1 col-md-1 col-sm-1 .col-1"
+                        >
                           <p></p>
-                          <span class="symbol-input100">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
+                          <span className="symbol-input100">
+                            <i className="fa fa-lock" aria-hidden="true"></i>
                           </span>{" "}
                         </div>
-                        <div id="LoginIcon" className="col-lg-11 col-md-11">
+                        <div
+                          id="LoginIcon"
+                          className="col-lg-11 col-md-11 col-sm-11 .col-11"
+                        >
                           <input
                             type="password"
                             placeholder="Password"
@@ -175,18 +208,26 @@ class Login extends Component {
                             onChange={this.onChange}
                           />
                         </div>
-                        <div class="custom-control custom-checkbox mt-4">
-                          <input type="checkbox" name="remember" class="custom-control-input" id="checkbox-1" onChange={() => this.handleChecked()} checked={this.state.isChecked} />
-                          <label class="custom-control-label" for="checkbox-1" onChange={() => this.handleChecked()}>
-                            <i className="text-right">Se souvenir de moi </i>
-                          </label>
-                        </div>
+
+                        <p></p>
                       </div>
-                      <p>
-
-
-
-                      </p>
+                      <div className="custom-control custom-checkbox mt-4">
+                        <input
+                          type="checkbox"
+                          name="remember"
+                          className="custom-control-input"
+                          id="checkbox-1"
+                          onChange={() => this.handleChecked()}
+                          checked={this.state.isChecked}
+                        />
+                        <label
+                          className="custom-control-label"
+                          for="checkbox-1"
+                          onChange={() => this.handleChecked()}
+                        >
+                          <i className="text-right">Se souvenir de moi </i>
+                        </label>
+                      </div>
                     </div>
                     <p></p>
                     <div className="col-lg-12 text-center">
@@ -195,7 +236,8 @@ class Login extends Component {
                         <div
                           style={{
                             width: "100%",
-                            height: "100",
+                            height: "80%",
+                            margin: "5px",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
@@ -223,8 +265,7 @@ class Login extends Component {
                     <div>
                       <br />
                       <i className="text-right">
-                        Mot de passe oublié ? Vous
-                        pouvez créer un nouveau.{" "}
+                        Mot de passe oublié ? Vous pouvez créer un nouveau.{" "}
                       </i>
 
                       <a type="submit" href="/changePassword">

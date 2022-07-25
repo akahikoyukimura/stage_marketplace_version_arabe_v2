@@ -5,12 +5,13 @@ import Pagination from "react-js-pagination";
 import "bootstrap-less";
 import Loader from "react-loader-spinner";
 import Swal from "sweetalert2";
-import { GiWeight, GiSheep } from "react-icons/gi";
-import { HiOutlineBadgeCheck } from "react-icons/hi";
+import { GiWeight } from "react-icons/gi";
+import { IoMdMale } from "react-icons/io";
 import { FaShapes } from "react-icons/fa";
-import { FormattedMessage } from "react-intl";
+import { MdCake } from "react-icons/md";
+import { HiOutlineBadgeCheck } from "react-icons/hi";
+require("bootstrap-less/bootstrap/bootstrap.less");
 
-const intl = JSON.parse(localStorage.getItem("intl"));
 class Commandes extends Component {
   constructor() {
     super();
@@ -103,26 +104,26 @@ class Commandes extends Component {
       });
     }
 
-    // this.setState(() => {
-    //   axios
-    //     .get("http://127.0.0.1:8000/api/consommateur/" + token + "/panier", {
-    //       headers: {
-    //         // "x-access-token": token, // the token is a variable which holds the token
-    //         "Content-Type": "application/json",
-    //         Authorization: myToken,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       this.setState({
-    //         panier: res.data,
-    //       });
-    //       let p = [];
-    //       this.state.panier.map((e) => {
-    //         p.push(e._id);
-    //       });
-    //       this.setState({ idp: p });
-    //     });
-    // });
+    this.setState(() => {
+      axios
+        .get("http://127.0.0.1:8000/api/consommateur/" + token + "/panier", {
+          headers: {
+            // "x-access-token": token, // the token is a variable which holds the token
+            "Content-Type": "application/json",
+            Authorization: myToken,
+          },
+        })
+        .then((res) => {
+          this.setState({
+            panier: res.data,
+          });
+          let p = [];
+          this.state.panier.map((e) => {
+            p.push(e._id);
+          });
+          this.setState({ idp: p });
+        });
+    });
   }
   annonceVision(a) {
     if (a.race === undefined) {
@@ -158,7 +159,7 @@ class Commandes extends Component {
         );
 
       Swal.fire({
-        title: intl.messages.favoris_ajoute_au_panier_succes,
+        title: "Ajouté dans Pannier",
         icon: "success",
         width: 400,
         heightAuto: false,
@@ -186,12 +187,12 @@ class Commandes extends Component {
 
       swalWithBootstrapButtons
         .fire({
-          title: intl.messages.panier_delete_item,
-          text: intl.messages.panier_delete_message,
+          title: "Etes-vous sûr?",
+          text: "Voulez-vous supprimer cette annonce !",
           icon: "warning",
           showCancelButton: true,
-          confirmButtonText: intl.messages.panier_delete_oui,
-          cancelButtonText: intl.messages.panier_delete_non,
+          confirmButtonText: "  Oui !  ",
+          cancelButtonText: "  Non !  ",
           reverseButtons: true,
         })
         .then((result) => {
@@ -220,7 +221,7 @@ class Commandes extends Component {
                 this.props.history.push("/Favoris");
               });
             Swal.fire({
-              title: intl.messages.panier_delete_succes,
+              title: "Supprimé avec succès ",
               icon: "success",
               width: 400,
               heightAuto: false,
@@ -239,7 +240,7 @@ class Commandes extends Component {
             this.setState({ nombrePages: pageNumbers });
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire({
-              title: intl.messages.panier_delete_failed,
+              title: "Annonce non supprimée ! ",
               icon: "error",
               width: 400,
               heightAuto: false,
@@ -273,67 +274,37 @@ class Commandes extends Component {
     if (fav.length == 1 || fav.length == 0) {
       titre = (
         <h6>
-          <span>{fav.length}</span>{" "}
-          <FormattedMessage
-            values={{ count: fav.length }}
-            id="panier_nbr_annonces"
-          />{" "}
-        </h6>
-      );
-    } else if (fav.length === 2) {
-      titre = (
-        <h6>
-          <FormattedMessage
-            values={{ count: fav.length }}
-            id="panier_nbr_annonces"
-          />{" "}
+          <span>{fav.length}</span> Annonce{" "}
         </h6>
       );
     } else {
       titre = (
         <h6>
-          <span>{fav.length}</span>{" "}
-          <FormattedMessage
-            values={{ count: fav.length }}
-            id="panier_nbr_annonces"
-          />{" "}
+          <span>{fav.length}</span> Annonces{" "}
         </h6>
       );
     }
+
     return (
       <div>
         {/* //   {/* <!-- Page Preloder --> */}
         {/* <div id="preloder">
            <div className="loader"></div>
         </div>  */}
-        <section
-          style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}
-          className=""
-        >
+        <section className="">
           <div className="container">
             <br></br>
-            <h3
-              style={
-                localStorage.getItem("lg") == "ar"
-                  ? { textAlign: "justify" }
-                  : {}
-              }
-              className="latest-product__item"
-            >
-              <FormattedMessage id="favoris_title" />{" "}
-              <i className="fa fa-heart"> </i>
+            <h3 className="latest-product__item">
+              Mes favoris{" "}
+              <span className="text-left text-danger ">
+                {" "}
+                <i className="fa fa-heart"></i>
+              </span>
             </h3>
             <div className="row">
               <div className="col-lg-12 col-md-7">
                 {/*<!-- Sheeps Grid Section Begin --> */}
-                <div
-                  style={
-                    localStorage.getItem("lg") == "ar"
-                      ? { textAlignLast: "right" }
-                      : {}
-                  }
-                  className="filter__found text-left"
-                >
+                <div className="filter__found text-left">
                   <h6>
                     <span>{titre}</span>
                   </h6>
@@ -342,7 +313,7 @@ class Commandes extends Component {
                   <div
                     style={{
                       width: "100%",
-                      height: "100",
+                      height: "40rem",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
@@ -358,32 +329,42 @@ class Commandes extends Component {
                 ) : (
                   <div>
                     {this.state.Favoris.length == 0 ? (
-                      <div className="text-center my-5">
+                      <div
+                        className="text-center my-5"
+                        style={{ height: "30rem" }}
+                      >
                         <p style={{ color: "#fba502" }}>
-                          <i class="fa fa-frown-o fa-5x" aria-hidden="true"></i>
+                          <i
+                            className="fa fa-frown-o fa-5x"
+                            aria-hidden="true"
+                          ></i>
                         </p>
 
                         <h3 style={{ color: "#28a745" }}>
-                          <FormattedMessage id="favoris_vide" />
+                          Liste des favoris vide !
                         </h3>
                       </div>
                     ) : (
                       <div className="row">
                         {currentAnnonces.map((Annonces) => (
-                          <div className="col-lg-3 col-md-3 col-sm-6">
+                          <div className="col-lg-3 col-md-6 col-sm-6">
                             <div id="anonce" className="product__item">
                               <div
                                 className="product__item__pic set-bg"
                                 // data-setbg={Annonces.images}
                                 // src="Images/sardi1.jpg"
                               >
-                                <centre>
-                                  {" "}
-                                  <img
-                                    src={Annonces.image_face}
-                                    className="product__item__pic set-bg"
-                                  />
-                                </centre>
+                                <img
+                                  src={Annonces.image_face}
+                                  alt="item"
+                                  style={{
+                                    width: "355px",
+                                    height: "170px",
+                                    borderTopRightRadius: "10%",
+                                    borderTopLeftRadius: "10%",
+                                    objectFit: "contain",
+                                  }}
+                                />
                                 <ul className="product__item__pic__hover">
                                   <li>
                                     <Link to={`/DetailsMouton/${Annonces._id}`}>
@@ -415,10 +396,7 @@ class Commandes extends Component {
                                   className=" badge badge-success pt-2 w-100  "
                                 >
                                   <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                  <span>
-                                    {" "}
-                                    <FormattedMessage id="panier_Labelise" />
-                                  </span>{" "}
+                                  <span>Labélisé ANOC</span>{" "}
                                 </h1>
                               ) : (
                                 <span className="badge pt-3 w-100 mb-2    ">
@@ -427,106 +405,132 @@ class Commandes extends Component {
                               )}
 
                               <div className="product__item__text p-2 text-justify">
-                                <h6>
-                                  <img
-                                    style={{
-                                      width: "18px",
-                                      height: "20px",
-                                      marginBottom: "5px",
-                                    }}
-                                    data-imgbigurl="Images/sheep-head.png"
-                                    src="Images/sheep-head.png"
-                                    alt=""
-                                  />
-                                  {" " + Annonces.espece}
-                                  <span className="float-right">
-                                    <FaShapes /> {this.annonceVision(Annonces)}
-                                  </span>{" "}
-                                </h6>
-
-                                <h6>
-                                  <img
-                                    style={{
-                                      width: "18px",
-                                      height: "18px",
-                                      marginRight: "5px",
-                                    }}
-                                    src="./Images/age.png"
-                                  />{" "}
-                                  <FormattedMessage
-                                    id="panier_mouton_age_mois"
-                                    values={{ age: Annonces.age }}
-                                  />
-                                  <span className="float-right ">
-                                    <GiWeight className=" mr-1 fa-lg " />{" "}
-                                    <FormattedMessage
-                                      id="panier_mouton_poids_kg"
-                                      values={{ poids: Annonces.poids }}
-                                    />
-                                  </span>
-                                </h6>
-
-                                <h6
-                                  className=" nbrm"
-                                  style={{ color: "black", fontSize: "18px" }}
+                                <div
+                                  className="region"
+                                  style={{
+                                    color: "#aaa",
+                                    fontSize: "15px",
+                                    textAlign: "center",
+                                  }}
                                 >
-                                  <i class="fa fa-map-marker"></i>{" "}
-                                  {Annonces.region}
-                                </h6>
-
-                                <h5 id="mad">
                                   <i
-                                    className="fa fa-usd"
-                                    aria-hidden="true"
-                                  ></i>{" "}
-                                  <FormattedMessage
-                                    id="panier_mouton_currency"
-                                    values={{ prix: Annonces.prix }}
-                                  />
-                                </h5>
-
-                                {Annonces.statut == "disponible" ? (
-                                  <div>
-                                    {!this.ispanier(Annonces._id) ? (
-                                      <button
-                                        id={Annonces._id}
-                                        className="float-right rounded mt-2 text-white bg-success py-1 px-2  "
-                                        style={{
-                                          fontSize: "16px",
-                                          border: "none",
-                                        }}
-                                        onClick={(e) => {
-                                          this.handlePanier(e.currentTarget.id);
-                                        }}
-                                      >
-                                        <i className="fa fa-shopping-cart ">
-                                          {" "}
-                                          <FormattedMessage id="favoris_ajoute_au_panier" />
-                                        </i>
-                                      </button>
-                                    ) : (
-                                      <button
-                                        disabled="disabled"
-                                        className="float-right rounded text-white mt-2    btn-default py-1 px-2  "
-                                        style={{
-                                          fontSize: "16px",
-                                          border: "none",
-                                        }}
-                                      >
-                                        <i className="fa fa "> </i>
-                                      </button>
-                                    )}
+                                    className="fa fa-map-marker"
+                                    style={{ marginRight: "0.5rem" }}
+                                  ></i>
+                                  {Annonces.localisation}
+                                </div>
+                                <div
+                                  className="product__item__information"
+                                  style={{
+                                    color: "black",
+                                    fontSize: "15px",
+                                  }}
+                                >
+                                  <div className=" nbrm">
+                                    <img
+                                      style={{
+                                        width: "18px",
+                                        height: "18px",
+                                        marginBottom: "5px",
+                                        marginRight: "5px",
+                                      }}
+                                      data-imgbigurl="Images/sheep-head.png"
+                                      src="Images/sheep-head.png"
+                                      alt=""
+                                    />
+                                    {Annonces.espece == "chevre"
+                                      ? "Chèvre"
+                                      : "Mouton"}
+                                    <span className="float-right">
+                                      <FaShapes
+                                        style={{ marginRight: "5px" }}
+                                      />
+                                      {" " + Annonces.race}
+                                    </span>
                                   </div>
-                                ) : (
-                                  <button
-                                    disabled="disabled"
-                                    className="float-right rounded text-white  mt-2  btn-default py-1 px-2  "
-                                    style={{ fontSize: "16px", border: "none" }}
+                                  <div>
+                                    <IoMdMale
+                                      className=" mr-1 fa-lg "
+                                      style={{
+                                        marginRight: "5px",
+                                      }}
+                                    />
+                                    {Annonces.sexe}
+                                    <span className="float-right ">
+                                      <GiWeight
+                                        className=" mr-1 fa-lg "
+                                        style={{ marginRight: "5px" }}
+                                      />
+                                      {Annonces.poids + " Kg"}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <span className="float-left ">
+                                      <MdCake
+                                        className=" mr-1 fa-lg "
+                                        style={{ marginRight: "5px" }}
+                                      />
+
+                                      {Annonces.age + " mois"}
+                                    </span>
+                                  </div>
+                                  <div
+                                    className="float-right "
+                                    style={{
+                                      color: "#fe6927",
+                                      fontSize: "18px",
+                                      fontWeight: "1000",
+                                      textDecoration: "bold",
+                                      alignContent: "center",
+                                    }}
                                   >
-                                    <i className="fa fa "> </i>
-                                  </button>
-                                )}
-                                <div></div>
+                                    <img
+                                      style={{ height: "30px" }}
+                                      src={require("./Images/cash-payment.png")}
+                                      alt=""
+                                    />
+                                    {/* <FaDollarSign
+                                      className=" mr-1 fa-lg "
+                                      style={{
+                                        width: "18px",
+                                        height: "18px",
+                                        marginRight: "0.5rem",
+                                      }}
+                                    /> */}
+                                    {Annonces.prix + "  Dhs"}
+                                  </div>
+                                  <br></br>
+                                  {Annonces.statut == "disponible" ? (
+                                    <div style={{ textAlign: "center" }}>
+                                      <br></br>
+
+                                      {!this.ispanier(Annonces._id) ? (
+                                        <button
+                                          id={Annonces._id}
+                                          className="rounded  text-white bg-success py-1 px-2  "
+                                          style={{
+                                            fontSize: "16px",
+                                            borderWidth: "0px",
+                                          }}
+                                          onClick={(e) => {
+                                            this.handlePanier(
+                                              e.currentTarget.id
+                                            );
+                                          }}
+                                        >
+                                          <i className="fa fa-shopping-cart ">
+                                            {" "}
+                                            {""} ajouter au Panier
+                                          </i>
+                                        </button>
+                                      ) : (
+                                        <>
+                                          <br></br>
+                                        </>
+                                      )}
+                                    </div>
+                                  ) : null}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -536,20 +540,15 @@ class Commandes extends Component {
                   </div>
                 )}
                 <div className="center-div">
-                  <nav className="row">
-                    <ul className="pagination center-div">
-                      {this.state.nombrePages.map((number) => (
-                        <li key={number} className="page-item stylePagination">
-                          <a
-                            onClick={() => this.paginate(number)}
-                            className="page-link"
-                          >
-                            {number}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </nav>
+                  <Pagination
+                    activePage={this.state.currentPage}
+                    itemsCountPerPage={9}
+                    totalItemsCount={this.state.Favoris.length}
+                    pageRangeDisplayed={7}
+                    onChange={this.paginate.bind(this)}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                  />
                 </div>
 
                 <br></br>

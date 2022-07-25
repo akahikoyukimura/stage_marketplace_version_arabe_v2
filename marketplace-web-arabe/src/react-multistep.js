@@ -3,49 +3,45 @@ import { css, styled, setup } from "goober";
 setup(React.createElement);
 
 const Ol = styled("ol")`
-  margin: 0;
-  padding-bottom: 2.2rem;
   list-style-type: none;
-  margin:auto;
-  maxWidth:max-content;
-
+  margin: auto;
+  max-width: max-content;
 `;
 
 const LiClass = (props) => css`
   display: inline-block;
   text-align: center;
-  margin-left: auto;
-  width: 16.2em; 
-  margin-right: auto;
   line-height: 4.5rem;
+  width: 20rem;
+  margin: 0.4em;
   padding: 0 0.7rem;
   cursor: pointer;
   color: ${props.state === "todo" ? "silver" : "black"};
-  border-bottom: 4px solid ${props.state === "todo" ? "silver" : "#7fad39"};
+  border-bottom: 4px solid ${props.state === "todo" ? "silver" : "#fe6927"};
   &:before {
     position: relative;
     bottom: -3.99rem;
     float: left;
     left: 50%;
     ${props.state === "todo"
-    ? 'content: "\u039F";'
-    : props.state === "doing"
-      ? 'content: "\u2022";'
-      : 'content: "\u2713";'
-  }
-    color: ${props.state === "todo" ? "silver" : "white"};
-    background-color: ${props.state === "todo" ? "white" : "#7fad39"};  
-    width: 1.2em;
+      ? 'content: "\u039F";'
+      : props.state === "doing"
+      ? 'content: "";'
+      : 'content: "\u2713";'}
+    color: ${props.state === "todo" ? "silver" : "#fe6927"};
+    background-color: ${props.state === "todo" ? "white" : "#fe6927"};
+    width: 1em;
     line-height: ${props.state === "todo" ? "1.2em" : "1.4em"};
     border-radius: ${props.state === "todo" ? "0" : "1.2em"};
   }
   &:hover,
   &::before {
-    color: #222;
+    background-color: #f9f9f9;
+    color: fe6927;
   }
   &:after {
     content: "\\00a0\\00a0";
-  }   
+  }
   span {
     padding: 0 1.5rem;
   }
@@ -108,8 +104,10 @@ export default function MultiStep(props) {
   };
 
   const next = () => {
-    if (props.valide(compState)) { setStepState(compState + 1) };
-  }
+    if (props.valide(compState)) {
+      setStepState(compState + 1);
+    }
+  };
   const previous = () =>
     setStepState(compState > 0 ? compState - 1 : compState);
   const handleKeyDown = (evt) =>
@@ -126,14 +124,11 @@ export default function MultiStep(props) {
         setStepState(evt.currentTarget.value);
       }
     }
-
   };
-  const a = ["Livraison", "Montan à payer", "Moyens de paiement"];
-  const ab = [1, 2, 3]
+  const a = ["Livraison", "Montant à payer", "Moyens de paiement"];
+  const ab = [1, 2, 3];
   const renderSteps = () =>
-
     props.steps.map((s, i) => (
-
       <li
         className={LiClass({ state: stylesState[i] })}
         onClick={handleOnClick}
@@ -144,7 +139,6 @@ export default function MultiStep(props) {
       </li>
     ));
 
-
   const renderNav = (show) =>
     show && (
       <div>
@@ -154,7 +148,7 @@ export default function MultiStep(props) {
           }
           onClick={previous}
         >
-          Préc
+          Précedent
         </button>
 
         <button
@@ -163,14 +157,16 @@ export default function MultiStep(props) {
           }
           onClick={next}
         >
-          Suiv
+          Suivant
         </button>
       </div>
     );
 
   return (
     <div onKeyDown={handleKeyDown}>
-      <Ol >{renderSteps()}</Ol>
+      <div style={{ width: "100%", margin: "auto", textAlign: "center" }}>
+        <Ol>{renderSteps()}</Ol>
+      </div>
       <div>{props.steps[compState].component}</div>
       <div>{renderNav(showNav)}</div>
     </div>

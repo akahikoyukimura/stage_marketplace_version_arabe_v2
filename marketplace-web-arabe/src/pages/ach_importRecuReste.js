@@ -137,11 +137,11 @@ class ach_importRecuReste extends Component {
               <br />
             </div>
             <br />
-            <div class="product__details__pic__item">
+            <div className="product__details__pic__item">
               <br />
               <img
                 id="img-background"
-                class="product__details__pic__item--large"
+                className="product__details__pic__item--large"
                 src={this.state.dataUrl}
               />
             </div>
