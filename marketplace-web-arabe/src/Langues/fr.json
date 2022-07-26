@@ -267,6 +267,7 @@
     "signup_madame": "Madame",
     "signup_champs": "champ_obligatoire",
     "signup_accepte": "j'accepte",
+
     "signup_obligatoire": "Ce champs est obligatoire",
     "signup_conditions": "les conditions generales d'utilisation ",
     "signup_existe": "Email ou numéro de télephone déjà existant",
