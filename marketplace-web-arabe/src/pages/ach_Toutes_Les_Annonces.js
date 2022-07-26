@@ -68,14 +68,14 @@ class HomeSheeps extends Component {
 
       selectedOptionSort: null,
       optionsSort: [
-        { value: "prix", label: "Moins cher au plus cher" },
-        { value: "prix_dec", label: "Plus cher au moins cher" },
+        { value: "prix", label: <FormattedMessage id="tout_les_annonces_moins_cher_au_plus" /> },
+        { value: "prix_dec", label:<FormattedMessage id="tout_les_annonces_plus_cher_au_moins" /> },
 
-        { value: "age", label: "Plus jeune au plus age" },
-        { value: "age_dec", label: "plus age au plus jeune" },
+        { value: "age", label: <FormattedMessage id="tout_les_annonces_plus_jeune_au_plus_age" /> },
+        { value: "age_dec", label:<FormattedMessage id="tout_les_annonces_plus_age_au_plus_jeune" /> },
 
-        { value: "poids", label: "Moins lourd au plus lourd" },
-        { value: "poids_dec", label: "Plus lourd au moins lourd" },
+        { value: "poids", label: <FormattedMessage id="tout_les_annonces_moins_lourd_au_plus_lourd" /> },
+        { value: "poids_dec", label:<FormattedMessage id="tout_les_annonces_plus_lourd_aumoins_lourd" /> },
       ],
     };
 
@@ -648,13 +648,13 @@ class HomeSheeps extends Component {
               <br></br>
               <center>
                 <h4>
-                  {"\u2728"} Rejoignez notre application mobile Aujourd'hui{" "}
+                  {"\u2728"} <FormattedMessage id="tout_les_annonces_popup_title"/>{" "}
                   {"\u2728"}
                 </h4>
               </center>
               <br></br>
               <br></br>
-              <div style={{ display: "flex", flexDirection: "row" }}>
+              <div style={localStorage.getItem('lg')=='ar'?{ display: "flex", flexDirection: "row",direction:"rtl" }:{ display: "flex", flexDirection: "row"}}>
                 <div className="infoCards item" style={{ flexBasis: "70%" }}>
                   {" "}
                   <a href="https://qrco.de/bcHPx6">
@@ -688,13 +688,13 @@ class HomeSheeps extends Component {
                 </div>
               </div>
               <br />
-              <div style={{ display: "flex" }}>
+              <div style={localStorage.getItem('lg')=='ar'?{}:{ display: "flex" }}>
                 <button
                   className="fermer"
                   style={{ marginLeft: "auto" }}
                   onClick={this.closeModal}
                 >
-                  Fermer
+                  <FormattedMessage id="tout_les_annonces_popup_button_fermer"/>
                 </button>
               </div>
             </Popup>
@@ -712,39 +712,54 @@ class HomeSheeps extends Component {
                 className="col-lg-2 col-md-3"
                 style={{ display: "table-cell", verticalAlign: "middle" }}
               >
-                <Select
-                  value={selectedOptionEspece}
-                  onChange={this.handleChangeEspece}
-                  options={optionsEspece}
-                  placeholder="Espece"
-                  required
-                />
+                <FormattedMessage id="tout_les_annonces_espece">
+                          {(placeholder) => (
+                            <Select
+                            value={selectedOptionEspece}
+                            onChange={this.handleChangeEspece}
+                            options={optionsEspece}
+                            placeholder={placeholder}
+                            required
+                          />
+                          )}
+                        </FormattedMessage>
+                
               </div>
 
               <div
                 className="col-lg-2 col-md-3"
                 style={{ display: "table-cell", verticalAlign: "middle" }}
               >
-                <Select
-                  id="recherchePlace"
-                  isDisabled={this.state.Disabled}
-                  value={selectedOptionRace}
-                  onChange={this.handleChangeRace}
-                  options={this.state.race}
-                  placeholder=" Race"
-                  required
-                />
+                <FormattedMessage id="home_item_race">
+                          {(placeholder) => (
+                            <Select
+                            id="recherchePlace"
+                            isDisabled={this.state.Disabled}
+                            value={selectedOptionRace}
+                            onChange={this.handleChangeRace}
+                            options={this.state.race}
+                            placeholder={placeholder}
+                            required
+                          />
+                          )}
+                        </FormattedMessage>
+                
               </div>
               <div
                 className="col-lg-2 col-md-3"
                 style={{ display: "table-cell", verticalAlign: "middle" }}
               >
-                <Select
-                  value={selectedOptionVille}
-                  onChange={this.handleChangeVille}
-                  options={optionsVille}
-                  placeholder=" Ville"
-                />
+                <FormattedMessage id="tout_les_annonces_ville">
+                          {(placeholder) => (
+                            <Select
+                            value={selectedOptionVille}
+                            onChange={this.handleChangeVille}
+                            options={optionsVille}
+                            placeholder={placeholder}
+                          />
+                          )}
+                        </FormattedMessage>
+                
               </div>
               {/*             <div className="col-lg-3 col-md-3">
               <input
@@ -771,7 +786,7 @@ class HomeSheeps extends Component {
                 className="col-lg-2 col-md-3"
                 name="prix_max"
                 id="recherchePlace"
-                style={{ display: "table-cell" }}
+                style={localStorage.getItem('lg')=='ar'?{ display: "table-cell",direction:"ltr" }:{ display: "table-cell" }}
               >
                 <RangeSlider
                   tooltip="auto"
@@ -795,7 +810,11 @@ class HomeSheeps extends Component {
                 />
                 <div style={{ color: "white" }}>
                   {" "}
-                  Prix max : {valueprice} DH
+                  <FormattedMessage
+   id = "tout_les_annonces_prix_max"
+   values = {{Mprix: valueprice}}
+/>
+                  {/* Prix max : {valueprice} DH */}
                 </div>
                 <RangeSlider
                   tooltip="auto"
@@ -818,7 +837,11 @@ class HomeSheeps extends Component {
                 />
                 <div style={{ color: "white" }}>
                   {" "}
-                  Poids max : {valuepoids} KG
+                  <FormattedMessage
+   id = "tout_les_annonces_poids__max"
+   values = {{Mpoids: valuepoids}}
+/>
+                  {/* Poids max : {valuepoids} KG */}
                 </div>
                 {/*   <input
                 id="recherchePlace"
@@ -860,7 +883,7 @@ class HomeSheeps extends Component {
                   className="newBtn site-btn"
                   onClick={this.handelChercher}
                 >
-                  <i className="fa fa-search "></i> Rechercher{" "}
+                  <i className="fa fa-search "></i> <FormattedMessage id="tout_les_annonces_rechrcher"/>{" "}
                 </button>
               </div>
               <div
@@ -872,7 +895,7 @@ class HomeSheeps extends Component {
                   className="newBtn site-btn"
                   onClick={this.handelReinitialiser}
                 >
-                  <i className="fa fa-refresh"></i> Reinitialiser{" "}
+                  <i className="fa fa-refresh"></i> <FormattedMessage id="tout_les_annonces_reinilialiser"/>{" "}
                 </button>
               </div>
             </div>
@@ -904,12 +927,11 @@ class HomeSheeps extends Component {
                       />
                       <br></br>
                       <p>
-                        Découvrez nous d'avantage, votre confiance est notre
-                        priorité.
+                        <FormattedMessage id="tout_les_annonces_my_anoc_message"/>
                       </p>
                     </div>
                   </a>
-                  <h4 style={{ fontWeight: "900" }}>Catégorie</h4>
+                  <h4 style={{ fontWeight: "900" }}><FormattedMessage id="tout_les_annonces_categorie"/></h4>
                   <br></br>
                   <div
                     id="gras"
@@ -927,8 +949,8 @@ class HomeSheeps extends Component {
                     <div>
                       {" "}
                       <GiSheep className=" mr-1 fa-lg " />
-                      Moutons
-                      <p style={{ margin: "0px" }}> {nbrmoutons} Annonces </p>
+                      <FormattedMessage id="tout_les_annonces_moutons"/>
+                      <p style={{ margin: "0px" }}> {nbrmoutons} <FormattedMessage values={{ count: nbrmoutons }} id="panier_nbr_annonces" /> </p>
                     </div>
                   </div>
                   <div
@@ -947,14 +969,14 @@ class HomeSheeps extends Component {
                     <div style={{ verticalAlign: "middle", padding: "auto" }}>
                       {" "}
                       <GiGoat className=" mr-1 fa-lg " />
-                      Chèvres
-                      <p style={{ margin: "0px" }}> {nbrchevre} Annonces </p>
+                      <FormattedMessage id="tout_les_annonces_chevres"/>
+                      <p style={{ margin: "0px" }}> {nbrchevre} <FormattedMessage values={{ count: nbrchevre }} id="panier_nbr_annonces" /> </p>
                     </div>
                   </div>
                   <div className="mymap">
                     {" "}
                     <h4 style={{ fontWeight: "900", marginTop: "25px" }}>
-                      Régions
+                      <FormattedMessage id="tout_les_annonces_regions"/>
                     </h4>
                     <br></br>
                     <center>
@@ -1077,7 +1099,7 @@ class HomeSheeps extends Component {
                       textAlign: "center",
                     }}
                   >
-                    Rejoignez notre application mobile Aujourd'hui!
+                    <FormattedMessage id="tout_les_annonces_popup_title"/>!
                   </h4>
                   <a href="https://qrco.de/bcHPx6">
                     <div className="infoCards">
@@ -1104,90 +1126,112 @@ class HomeSheeps extends Component {
                       <div className="mobileSearch">
                         {" "}
                         <h6 id="gras" className="latest-product__item">
-                          Reference
+                          <FormattedMessage id="tout_les_annonces_reference"/>
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
+                          <FormattedMessage id="tout_les_annonces_reference_placeholder">
+                          {(placeholder) => (
                             <input
-                              id="recherchePlace"
-                              type="text"
-                              className="form-control"
-                              placeholder=" Reference de l'annonce"
-                              name="reference"
-                              onChange={this.onChange}
-                            />
+                            id="recherchePlace"
+                            type="text"
+                            className="form-control"
+                            placeholder={placeholder}
+                            name="reference"
+                            onChange={this.onChange}
+                          />
+                          )}
+                        </FormattedMessage>
                           </div>
                         </div>
                         <br />
                         <h6 id="gras" className="latest-product__item">
-                          Prix
+                          <FormattedMessage id="home_item_price"/>
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
+                          <FormattedMessage id="tout_les_annonces_min_budget">
+                          {(placeholder) => (
                             <input
                               id="recherchePlace"
                               type="text"
-                              className="form-control"
-                              placeholder=" Budget min"
+                              class="form-control"
+                              placeholder={placeholder}
                               name="prix_min"
                               onChange={this.onChange}
                             />
+                          )}
+                        </FormattedMessage>
                           </div>
                         </div>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
+                          <FormattedMessage id="tout_les_annonces_max_budget">
+                          {(placeholder) => (
                             <input
                               id="recherchePlace"
                               type="text"
-                              className="form-control"
-                              placeholder=" Budget max"
+                              class="form-control"
+                              placeholder={placeholder}
                               name="prix_max"
                               onChange={this.onChange}
                             />
+                          )}
+                        </FormattedMessage>
                           </div>
                         </div>
                         <br></br>
                         <h6 id="gras" className="latest-product__item">
-                          Poids Environ
+                          <FormattedMessage id="tout_les_annonces_poids"/>
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
+                          <FormattedMessage id="tout_les_annonces_poids_min">
+                          {(placeholder) => (
                             <input
                               id="recherchePlace"
                               type="text"
-                              className="form-control"
-                              placeholder=" Poids min"
+                              class="form-control"
+                              placeholder={placeholder}
                               name="poids_min"
                               onChange={this.onChange}
                             />
+                          )}
+                        </FormattedMessage>
                           </div>
                         </div>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
+                          <FormattedMessage id="tout_les_annonces_poids_max">
+                          {(placeholder) => (
                             <input
                               id="recherchePlace"
                               type="text"
-                              className="form-control"
-                              placeholder=" Poids max"
+                              class="form-control"
+                              placeholder={placeholder}
                               name="poids_max"
                               onChange={this.onChange}
                             />
+                          )}
+                        </FormattedMessage>
                           </div>
                         </div>
                         <br></br>
                         <h6 id="gras" className="latest-product__item">
-                          Ville
+                          <FormattedMessage id="tout_les_annonces_ville"/>
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
+                          <FormattedMessage id="tout_les_annonces_ville">
+                          {(placeholder) => (
                             <Select
                               value={selectedOptionVille}
                               onChange={this.handleChangeVille}
                               options={optionsVille}
-                              placeholder=" Ville"
-
-                              // className="Select"
+                              placeholder={placeholder}
                             />
+                          )}
+                        </FormattedMessage>
                             <br></br>
                             <br></br>
                           </div>
@@ -1200,7 +1244,7 @@ class HomeSheeps extends Component {
                               className="newBtn site-btn"
                               onClick={this.handelChercher}
                             >
-                              <i className="fa fa-search "></i> Rechercher{" "}
+                              <i className="fa fa-search "></i> <FormattedMessage id="tout_les_annonces_rechrcher"/>{" "}
                             </button>
                             <br></br>
                             <br></br>
@@ -1209,7 +1253,7 @@ class HomeSheeps extends Component {
                               className="newBtn site-btn"
                               onClick={this.handelReinitialiser}
                             >
-                              <i className="fa fa-refresh"></i> Reinitialiser{" "}
+                              <i className="fa fa-refresh"></i> <FormattedMessage id="tout_les_annonces_reinilialiser"/>{" "}
                             </button>
                             <br></br>
                             <br></br>
@@ -1229,7 +1273,11 @@ class HomeSheeps extends Component {
                   <div className="filter__item">
                     <div>
                       <div id="filterPlace" className="col-lg-5 col-md-8 fa ">
-                        <Select
+                      <FormattedMessage
+                        id="tout_les_annonces_trier"
+                      >
+                        {(placeholder) => (
+                          <Select
                           id="filterPlace"
                           value={this.state.selectedOptionSort}
                           onChange={this.sortData}
@@ -1237,9 +1285,11 @@ class HomeSheeps extends Component {
                           placeholder={
                             this.state.selectedOptionSort
                               ? this.state.selectedOptionSort
-                              : "Trier par"
+                              : placeholder
                           }
                         />
+                        )}
+                      </FormattedMessage>
                       </div>
                     </div>
 
@@ -1252,7 +1302,7 @@ class HomeSheeps extends Component {
                               {" "}
                               {this.state.Annonces.length}
                             </span>{" "}
-                            Annonces disponibles à vendre{" "}
+                            <FormattedMessage id="tout_les_annonces_disponible"/>{" "}
                           </h4>
                         </div>
                       </div>
@@ -1289,7 +1339,7 @@ class HomeSheeps extends Component {
                             </p>
 
                             <h3 style={{ color: "#28a745" }}>
-                              Pas d'annonce disponible à vendre !
+                              <FormattedMessage id="tout_les_annonces_pas_disponible"/>
                             </h3>
                           </div>
                         ) : (
@@ -1324,7 +1374,7 @@ class HomeSheeps extends Component {
                                         className=" badge badge-success py-1 w-100  "
                                       >
                                         <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                        <span>Labélisé ANOC</span>{" "}
+                                        <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                                       </h1>
                                     ) : (
                                       <span className="badge pt-3 w-100  mt-1  ">
@@ -1344,7 +1394,7 @@ class HomeSheeps extends Component {
                                         <i
                                           className="fa fa-map-marker"
                                           style={{ marginRight: "0.5rem" }}
-                                        ></i>
+                                        ></i>{" "}
                                         {Annonces.localisation}
                                       </div>
                                       <div
@@ -1367,9 +1417,9 @@ class HomeSheeps extends Component {
                                             alt=""
                                           />
                                           {Annonces.espece == "chevre"
-                                            ? "Chèvre"
-                                            : "Mouton"}
-                                          <span className="float-right">
+                                            ? <FormattedMessage id="tout_les_annonces_mouton"/>
+                                            : <FormattedMessage id="tout_les_annonces_chevre"/>}
+                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}} >
                                             <FaShapes
                                               style={{ marginRight: "5px" }}
                                             />
@@ -1385,33 +1435,38 @@ class HomeSheeps extends Component {
                                             }}
                                           />
                                           {Annonces.sexe}
-                                          <span className="float-right ">
+                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}}>
                                             <GiWeight
                                               className=" mr-1 fa-lg "
                                               style={{ marginRight: "5px" }}
                                             />
-                                            {Annonces.poids + " Kg"}
+                                            <FormattedMessage id="panier_mouton_poids_kg"
+                                            values={{ poids:Annonces.poids }} />
+                                            {/* {Annonces.poids + " Kg"} */}
                                           </span>
                                         </div>
                                         <div>
-                                          <span className="float-left ">
+                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "right"}:{float:"left"}}>
                                             <MdCake
                                               className=" mr-1 fa-lg "
                                               style={{ marginRight: "5px" }}
                                             />
+                                            <FormattedMessage id="panier_mouton_age_mois"
+                                            values={{ age:Annonces.age }} />
 
-                                            {Annonces.age + " mois"}
+                                            {/* {Annonces.age + " mois"} */}
                                           </span>
                                         </div>
                                         <div
-                                          className="float-right "
-                                          style={{
-                                            color: "#fe6927",
-                                            fontSize: "18px",
-                                            fontWeight: "1000",
-                                            textDecoration: "bold",
-                                            alignContent: "center",
-                                          }}
+                                          style={localStorage.getItem('lg')=="ar"?{ float: "left",color: "#fe6927",
+                                          fontSize: "18px",
+                                          fontWeight: "1000",
+                                          textDecoration: "bold",
+                                          alignContent: "center",}:{float:"right",color: "#fe6927",
+                                          fontSize: "18px",
+                                          fontWeight: "1000",
+                                          textDecoration: "bold",
+                                          alignContent: "center",}}
                                         >
                                           <img
                                             style={{ height: "30px" }}
@@ -1426,7 +1481,9 @@ class HomeSheeps extends Component {
                                               marginRight: "0.5rem",
                                             }}
                                           /> */}
-                                          {Annonces.prix + "  Dhs"}
+                                          <FormattedMessage id="panier_mouton_currency"
+                                            values={{ prix:Annonces.prix }} />
+                                          {/* {Annonces.prix + "  Dhs"} */}
                                         </div>
                                       </div>
                                     </div>
@@ -1459,10 +1516,9 @@ class HomeSheeps extends Component {
                       <div className="kc-elm kc-css-856498 kc_col-sm-12 kc_column kc_col-sm-12">
                         <div className="kc-col-container">
                           <div className="af-title text-center">
-                            <h3 className="af-heading">Comment ça marche ?</h3>
+                            <h3 className="af-heading"><FormattedMessage id="tout_les_annonces_comment_ca_marche"/></h3>
                             <p>
-                              Profitez de tous les avantages offert par notre
-                              platforme
+                              <FormattedMessage id="tout_les_annonces_comment_ca_marche_message"/>
                             </p>
                           </div>
                           <div
@@ -1475,7 +1531,11 @@ class HomeSheeps extends Component {
                           ></div>
                           <div
                             className="hiw-wrapper hiw-wrapper-4  flex-start-v"
-                            style={{
+                            style={localStorage.getItem('lg')=="ar"?{
+                              display: "inline-flex",
+                              flexWrap: "nowrap",
+                              textAlign:"right"
+                            }:{
                               display: "inline-flex",
                               flexWrap: "nowrap",
                             }}
@@ -1492,10 +1552,9 @@ class HomeSheeps extends Component {
                                 1{" "}
                               </div>
                               <div className="service-content">
-                                <h5>Inscrivez-vous gratuitement</h5>
+                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_1_title"/></h5>
                                 <p>
-                                  Créer votre compte sur MyAnoc, c'est gratuit et
-                                  rapide !
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_1_message"/>
                                 </p>
                               </div>
                             </div>
@@ -1511,10 +1570,9 @@ class HomeSheeps extends Component {
                                 2{" "}
                               </div>
                               <div className="service-content">
-                                <h5>Consulter les annonces rapidement</h5>
+                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_2_title"/></h5>
                                 <p>
-                                  Découvrir l'ensemble des espèces proposées sur
-                                  notre plateforme
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_2_message"/>
                                 </p>
                               </div>
                             </div>
@@ -1530,10 +1588,9 @@ class HomeSheeps extends Component {
                                 3{" "}
                               </div>
                               <div className="service-content">
-                                <h5>Ajouter votre choix au panier</h5>
+                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_3_title"/></h5>
                                 <p>
-                                  N'oublier pas d'ajouter les éléments choisi
-                                  sur votre panier personel
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_3_message"/>
                                 </p>
                               </div>
                             </div>
@@ -1549,8 +1606,8 @@ class HomeSheeps extends Component {
                                 4{" "}
                               </div>
                               <div className="service-content">
-                                <h5>Commander</h5>
-                                <p>Finalisez les dernières étapes de votre commande</p>
+                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_4_title"/></h5>
+                                <p><FormattedMessage id="tout_les_annonces_comment_ca_marche_4_message"/></p>
                               </div>
                             </div>
                           </div>

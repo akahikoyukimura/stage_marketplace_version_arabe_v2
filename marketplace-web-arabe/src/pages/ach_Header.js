@@ -389,7 +389,7 @@ class Header extends Component {
           </div>
         </header>
         {/* <!-- Humberger Begin --> */}
-        <header className="header sticky_header">
+        <header style={{ zIndex:"9" }} className="header sticky_header">
           <div style={{ paddingLeft: "0px", paddingRight: "0px" }}>
             <div>
               <div
