@@ -355,7 +355,7 @@ class Header extends Component {
                           : "Français"}
                       </div>
                       <span className="arrow_carrot-down"></span>
-                      <ul>
+                      <ul style={{ zIndex:"10",color:"white",marginTop:"40px" }}>
                         <li>
                           <a
                             onClick={() => {
@@ -404,7 +404,7 @@ class Header extends Component {
           </div>
         </header>
         {/* <!-- Humberger Begin --> */}
-        <header className="header sticky_header">
+        <header style={{ zIndex:"9" }} className="header sticky_header">
           <div style={{ paddingLeft: "0px", paddingRight: "0px" }}>
             <div>
               <div
