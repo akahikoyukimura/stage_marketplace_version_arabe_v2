@@ -198,13 +198,14 @@ class Login extends Component {
                         </FormattedMessage>
                         </div>
                         <div class="custom-control custom-checkbox mt-4" style={localStorage.getItem("lg") == "ar"? { direction: "rtl", textAlign: "centre", width:"100%" }: {}}>
-                          <input type="checkbox" name="remember" class="custom-control-input" id="checkbox-1" onChange={() => this.handleChecked()} checked={this.state.isChecked} />
+                          <input type="checkbox" name="remember"  class="custom-control-input" id="checkbox-1" onChange={() => this.handleChecked()} checked={this.state.isChecked} />
                           <label class="custom-control-label" for="checkbox-1" onChange={() => this.handleChecked()}>
                             <i className="text-right"><FormattedMessage id="login_remember" /> </i>
                           </label>
                         </div>
                       </div>
                       <p>
+
 
 
 

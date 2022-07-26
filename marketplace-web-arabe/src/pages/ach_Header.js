@@ -244,9 +244,9 @@ class Header extends Component {
     return (
       <>
         <style>{CSS}</style>
-        <header className="header">
+        <header className="header"  style={localStorage.getItem("lg") == "ar"? { direction: "rtl" ,textAlign:"right" }: {}}>
           {/* Comment goes here */}
-          <div className="Header__top">
+          <div className="Header__top" >
             <div
               className="container"
               style={{ paddingLeft: "0px", paddingRight: "0px" }}
