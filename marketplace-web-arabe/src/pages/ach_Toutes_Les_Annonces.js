@@ -68,14 +68,14 @@ class HomeSheeps extends Component {
 
       selectedOptionSort: null,
       optionsSort: [
-        { value: "prix", label: "Moins cher au plus cher" },
-        { value: "prix_dec", label: "Plus cher au moins cher" },
+        { value: "prix", label: <FormattedMessage id="tout_les_annonces_moins_cher_au_plus" /> },
+        { value: "prix_dec", label:<FormattedMessage id="tout_les_annonces_plus_cher_au_moins" /> },
 
-        { value: "age", label: "Plus jeune au plus age" },
-        { value: "age_dec", label: "plus age au plus jeune" },
+        { value: "age", label: <FormattedMessage id="tout_les_annonces_plus_jeune_au_plus_age" /> },
+        { value: "age_dec", label:<FormattedMessage id="tout_les_annonces_plus_age_au_plus_jeune" /> },
 
-        { value: "poids", label: "Moins lourd au plus lourd" },
-        { value: "poids_dec", label: "Plus lourd au moins lourd" },
+        { value: "poids", label: <FormattedMessage id="tout_les_annonces_moins_lourd_au_plus_lourd" /> },
+        { value: "poids_dec", label:<FormattedMessage id="tout_les_annonces_plus_lourd_aumoins_lourd" /> },
       ],
     };
 
@@ -786,7 +786,7 @@ class HomeSheeps extends Component {
                 className="col-lg-2 col-md-3"
                 name="prix_max"
                 id="recherchePlace"
-                style={{ display: "table-cell" }}
+                style={localStorage.getItem('lg')=='ar'?{ display: "table-cell",direction:"ltr" }:{ display: "table-cell" }}
               >
                 <RangeSlider
                   tooltip="auto"
@@ -1394,7 +1394,7 @@ class HomeSheeps extends Component {
                                         <i
                                           className="fa fa-map-marker"
                                           style={{ marginRight: "0.5rem" }}
-                                        ></i>
+                                        ></i>{" "}
                                         {Annonces.localisation}
                                       </div>
                                       <div
@@ -1419,7 +1419,7 @@ class HomeSheeps extends Component {
                                           {Annonces.espece == "chevre"
                                             ? <FormattedMessage id="tout_les_annonces_mouton"/>
                                             : <FormattedMessage id="tout_les_annonces_chevre"/>}
-                                          <span className="float-right">
+                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}} >
                                             <FaShapes
                                               style={{ marginRight: "5px" }}
                                             />
@@ -1435,7 +1435,7 @@ class HomeSheeps extends Component {
                                             }}
                                           />
                                           {Annonces.sexe}
-                                          <span className="float-right ">
+                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}}>
                                             <GiWeight
                                               className=" mr-1 fa-lg "
                                               style={{ marginRight: "5px" }}
@@ -1446,7 +1446,7 @@ class HomeSheeps extends Component {
                                           </span>
                                         </div>
                                         <div>
-                                          <span className="float-left ">
+                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "right"}:{float:"left"}}>
                                             <MdCake
                                               className=" mr-1 fa-lg "
                                               style={{ marginRight: "5px" }}
@@ -1458,14 +1458,15 @@ class HomeSheeps extends Component {
                                           </span>
                                         </div>
                                         <div
-                                          className="float-right "
-                                          style={{
-                                            color: "#fe6927",
-                                            fontSize: "18px",
-                                            fontWeight: "1000",
-                                            textDecoration: "bold",
-                                            alignContent: "center",
-                                          }}
+                                          style={localStorage.getItem('lg')=="ar"?{ float: "left",color: "#fe6927",
+                                          fontSize: "18px",
+                                          fontWeight: "1000",
+                                          textDecoration: "bold",
+                                          alignContent: "center",}:{float:"right",color: "#fe6927",
+                                          fontSize: "18px",
+                                          fontWeight: "1000",
+                                          textDecoration: "bold",
+                                          alignContent: "center",}}
                                         >
                                           <img
                                             style={{ height: "30px" }}
@@ -1515,10 +1516,9 @@ class HomeSheeps extends Component {
                       <div className="kc-elm kc-css-856498 kc_col-sm-12 kc_column kc_col-sm-12">
                         <div className="kc-col-container">
                           <div className="af-title text-center">
-                            <h3 className="af-heading">Comment ça marche ?</h3>
+                            <h3 className="af-heading"><FormattedMessage id="tout_les_annonces_comment_ca_marche"/></h3>
                             <p>
-                              Profitez de tous les avantages offert par notre
-                              platforme
+                              <FormattedMessage id="tout_les_annonces_comment_ca_marche_message"/>
                             </p>
                           </div>
                           <div
@@ -1531,7 +1531,11 @@ class HomeSheeps extends Component {
                           ></div>
                           <div
                             className="hiw-wrapper hiw-wrapper-4  flex-start-v"
-                            style={{
+                            style={localStorage.getItem('lg')=="ar"?{
+                              display: "inline-flex",
+                              flexWrap: "nowrap",
+                              textAlign:"right"
+                            }:{
                               display: "inline-flex",
                               flexWrap: "nowrap",
                             }}
@@ -1548,10 +1552,9 @@ class HomeSheeps extends Component {
                                 1{" "}
                               </div>
                               <div className="service-content">
-                                <h5>Inscrivez-vous gratuitement</h5>
+                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_1_title"/></h5>
                                 <p>
-                                  Créer votre compte sur MyAnoc, c'est gratuit et
-                                  rapide !
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_1_message"/>
                                 </p>
                               </div>
                             </div>
@@ -1567,10 +1570,9 @@ class HomeSheeps extends Component {
                                 2{" "}
                               </div>
                               <div className="service-content">
-                                <h5>Consulter les annonces rapidement</h5>
+                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_2_title"/></h5>
                                 <p>
-                                  Découvrir l'ensemble des espèces proposées sur
-                                  notre plateforme
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_2_message"/>
                                 </p>
                               </div>
                             </div>
@@ -1586,10 +1588,9 @@ class HomeSheeps extends Component {
                                 3{" "}
                               </div>
                               <div className="service-content">
-                                <h5>Ajouter votre choix au panier</h5>
+                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_3_title"/></h5>
                                 <p>
-                                  N'oublier pas d'ajouter les éléments choisi
-                                  sur votre panier personel
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_3_message"/>
                                 </p>
                               </div>
                             </div>
@@ -1605,8 +1606,8 @@ class HomeSheeps extends Component {
                                 4{" "}
                               </div>
                               <div className="service-content">
-                                <h5>Commander</h5>
-                                <p>Finalisez les dernières étapes de votre commande</p>
+                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_4_title"/></h5>
+                                <p><FormattedMessage id="tout_les_annonces_comment_ca_marche_4_message"/></p>
                               </div>
                             </div>
                           </div>
