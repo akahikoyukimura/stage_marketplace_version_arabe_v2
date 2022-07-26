@@ -244,9 +244,9 @@ class Header extends Component {
     return (
       <>
         <style>{CSS}</style>
-        <header className="header">
+        <header className="header"  style={localStorage.getItem("lg") == "ar"? { direction: "rtl" ,textAlign:"right" }: {}}>
           {/* Comment goes here */}
-          <div className="header__top">
+          <div className="Header__top" >
             <div
               className="container"
               style={{ paddingLeft: "0px", paddingRight: "0px" }}
@@ -341,10 +341,9 @@ class Header extends Component {
                         </div>
                       ) : null}
                     </div>
-
                     <div
                       className="header__top__right__language "
-                      style={{ marginRight: "26px" }}
+                      style={{ marginRight: "26px", marginTop:"20px" }}
                     >
                       <i className="fa fa-globe mr-2" aria-hidden="true">
                         {" "}
@@ -380,23 +379,9 @@ class Header extends Component {
                       </ul>
                     </div>
 
-                    {/* {
-                      <div className="header__top__right__language item ">
-                        <i className="fa fa-globe mr-2" aria-hidden="true">
-                          {" "}
-                        </i>
-                        <div> Français</div>
-                        <span className="arrow_carrot-down"></span>
-                        <ul>
-                          <li>
-                            <a href="#">Français</a>
-                          </li>
-                          <li>
-                            <a href="#"> العربية</a>
-                          </li>
-                        </ul>
-                      </div>
-                    } */}
+
+                   
+                   
                   </div>
                 </div>
               </div>
@@ -534,6 +519,8 @@ class Header extends Component {
               </div>
             ) : null}
             <br></br>
+           
+
             {/*}  <i className="fa fa-globe" aria-hidden="true"></i>      <div>Français</div>
               <span className="arrow_carrot-down"></span>
               <ul>
