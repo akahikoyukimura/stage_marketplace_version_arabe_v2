@@ -260,6 +260,37 @@
     "details_cmd_motif_annulation":"سبب الالغاء",
     "details_cmd_details_produit":"تفاصيل المنتج",
     "details_cmd_details_livraison":"تفاصيل التوصيل",
-    "details_cmd_adresse_livraison":"عنوان التوصيل"
+    "details_cmd_adresse_livraison":"عنوان التوصيل",
+
+    "_comment28": "this is login ",
+    "login_email": "البريد الالكتروني او الهاتف",
+    "login_password": " الرمز السري",
+    "login_remember": "تذكرني دائما",
+    "login_forget": " هل نسيت كلمة السر؟ يمكنك استعادته",
+    "login_login": "تسجيل الدخول",
+    "login_signup": "إنشاء حساب ",
+    "login_refus": "البريد الالكتروني او الرمز السري غير صحيح",
+
+    "login_change": "اضغط هنا",
+
+
+    "_comment29": "this is login ",
+    "signup_signup": "إنشاء حساب ",
+    "signup_monsieur": "ذكر",
+    "signup_madame": "انثى",
+    "signup_email": "البريد الالكتروني",
+    "signup_ville": "المدينة",
+    "signup_adresse": "العنوان",
+    "signup_password": " المرجو تاكيد الرمز السري",
+    "signup_nom": "الاسم العائلي",
+    "signup_prenom": "الاسم الشخصي",
+    "signup_champs": "خانات إلزامية",
+    "signup_accepte": "أوافق",
+    "signup_conditions": "على شروط الاستخدام العامة ",
+    "signup_existe": "البريد الالكتروني او الهاتف مستعمل",
+    "signup_obligatoire": "هذه الخانة اجبارية",
+    "signup_meme": "المرجو ادخال نفس الرمز السري",
+    "signup_obligatoire2": " يجب عليكم قبول  شروط الاستخدام العامة"
+
 
   }

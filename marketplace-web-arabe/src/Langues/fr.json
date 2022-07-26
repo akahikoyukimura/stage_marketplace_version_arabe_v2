@@ -261,7 +261,38 @@
     "details_cmd_motif_annulation":"Motif de l'annulation",
     "details_cmd_details_produit":"Détails produit",
     "details_cmd_details_livraison":"Détails livraison",
-    "details_cmd_adresse_livraison":"Adresse de livraison"
+    "details_cmd_adresse_livraison":"Adresse de livraison",
+
+    "_comment28": "this is login",
+
+    "login_email": "Email ou Numéro de téléphone",
+    "login_password": "Mot de passe ",
+    "login_remember": "se souvenir",
+    "login_forget": " Mot de passe oublié? vous pouvez créer un autre",
+    "login_login": "Se connecter",
+    "login_signup": "S'inscrire",
+    "login_change": "réinitialiser",
+    "login_refus": "Votre email ou mot de passe est incorrect",
+
+    "_comment29": "this is signup",
+
+    "signup_signup": "S'inscrire",
+    "signup_succes": "Votre compte a été créé avec succès. Connectez-vous avec l'adresse mail ou le numéro renseignés",
+    "signup_monsieur": "Monsieur",
+    "signup_password": " veuillez confirmer le mot de passe",
+    "signup_ville": "ville",
+    "signup_adresse": "adresse",
+    "signup_nom": "nom",
+    "signup_prenom": "prenom",
+    "signup_madame": "Madame",
+    "signup_champs": "champ_obligatoire",
+    "signup_accepte": "j'accepte",
+
+    "signup_obligatoire": "Ce champs est obligatoire",
+    "signup_conditions": "les conditions generales d'utilisation ",
+    "signup_existe": "Email ou numéro de télephone déjà existant",
+    "signup_meme": "Entrez exactement le même mot de passe"
+
 
 
   }
