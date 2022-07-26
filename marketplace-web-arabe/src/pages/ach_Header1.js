@@ -255,7 +255,7 @@ class Header extends Component {
                         <img src="/Images/youtube.png" />
                       </a>
                     </div>
-                    {/*    <div className="header__top__right__language " style={{ marginRight: "26px" }}>
+                    <div className="header__top__right__language " style={{ marginRight: "26px" }}>
                       <i className="fa fa-globe mr-2" aria-hidden="true">{" "}</i>
                       <div> Français</div>
                       <span className="arrow_carrot-down"></span>
@@ -267,7 +267,7 @@ class Header extends Component {
                           <a href="#"> العربية</a>
                         </li>
                       </ul>
-    </div>*/}
+    </div>
                     {this.state.isLoged ? (
                       <div className="header__top__right__language mr-0">
                         <div>
