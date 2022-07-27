@@ -281,7 +281,14 @@
     "change_email_erreur": "Vous n'avez de compte avec cette adresse",
     "change_repete": "Lien de réinitailisation déja envoyé sur votre adresse mail. Vérifiez votre boîte mail!",
     "change_oups": "Oooops...",
-    "change_reinitialiser_title": "Email de réinitailisation envoyé"
+    "change_reinitialiser_title": "Email de réinitailisation envoyé",
+
+    "_comment31": "this is compte",
+
+    "compte_civilisation": "civilisation",
+    "compte_tel": "telephone"
+
+
 
 
 

@@ -280,6 +280,11 @@
     "change_email_erreur": "ليس لديكم حساب في هذا البريد الالكتروني",
     "change_repete": "لقد تم ارسال رابط مسبقا الي البريد الالكتروني , المرجو التحقق ",
     "change_oups": "اووبسس...",
-    "change_reinitialiser_title": "تم إرسال الرابط"
+    "change_reinitialiser_title": "تم إرسال الرابط",
 
+
+    "_comment31": "this is compte",
+
+    "compte_civilisation": "جنس",
+    "compte_tel": "الهاتف"
 }
