@@ -267,11 +267,23 @@
     "signup_madame": "Madame",
     "signup_champs": "champ_obligatoire",
     "signup_accepte": "j'accepte",
-
     "signup_obligatoire": "Ce champs est obligatoire",
     "signup_conditions": "les conditions generales d'utilisation ",
     "signup_existe": "Email ou numéro de télephone déjà existant",
-    "signup_meme": "Entrez exactement le même mot de passe"
+    "signup_meme": "Entrez exactement le même mot de passe",
+
+
+    "_comment30": "this is change mot de passe",
+    "change_reinitialiser": "Réinitialiser Mot de Passe",
+    "change_valider": "valider",
+    "change_lien": "Un lien vient de vous être envoyé par mail. Consulter votre boîte mail pour finaliser la réiniatisation de votre mot de passe.",
+    "change_erreur": "Erreur Serveur",
+    "change_email_erreur": "Vous n'avez de compte avec cette adresse",
+    "change_repete": "Lien de réinitailisation déja envoyé sur votre adresse mail. Vérifiez votre boîte mail!",
+    "change_oups": "Oooops...",
+    "change_reinitialiser_title": "Email de réinitailisation envoyé"
+
+
 
 
 

@@ -256,6 +256,7 @@
     "signup_signup": "إنشاء حساب ",
     "signup_monsieur": "ذكر",
     "signup_madame": "انثى",
+    "signup_succes": "لقد تم انشاء الحساب بنجاح ,المرجو التسجيل عن طريق البريد الالكتروني او الهاتف ",
     "signup_email": "البريد الالكتروني",
     "signup_ville": "المدينة",
     "signup_adresse": "العنوان",
@@ -268,7 +269,17 @@
     "signup_existe": "البريد الالكتروني او الهاتف مستعمل",
     "signup_obligatoire": "هذه الخانة اجبارية",
     "signup_meme": "المرجو ادخال نفس الرمز السري",
-    "signup_obligatoire2": " يجب عليكم قبول  شروط الاستخدام العامة"
+    "signup_obligatoire2": " يجب عليكم قبول  شروط الاستخدام العامة",
 
+
+    "_comment30": "this is change mot de passe",
+    "change_reinitialiser": "استعادت الرمز السري",
+    "change_valider": "تاكيد",
+    "change_lien": "لقد تم ارسال رابط الي البريد الالكتروني , المرجو التحقق منه من اجل انهاء العملية",
+    "change_erreur": "لقد حدث خطا اثناء العملية",
+    "change_email_erreur": "ليس لديكم حساب في هذا البريد الالكتروني",
+    "change_repete": "لقد تم ارسال رابط مسبقا الي البريد الالكتروني , المرجو التحقق ",
+    "change_oups": "اووبسس...",
+    "change_reinitialiser_title": "تم إرسال الرابط"
 
 }
