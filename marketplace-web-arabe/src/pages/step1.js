@@ -6,6 +6,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import Select from "react-select";
+import { FormattedMessage } from "react-intl";
+
+const intl=JSON.parse(localStorage.getItem('intl'))
 
 class Commander1 extends Component {
   constructor(props) {
@@ -26,7 +29,7 @@ class Commander1 extends Component {
               }}
             >
               <br></br>
-              <h3>Livraison :</h3>
+              <h3><FormattedMessage id="step1_title"/></h3>
               <div className="shoping__checkout mt-2 pb-0">
                 <div className="row">
                   <div className="col-lg-6 col-md-6">
@@ -40,8 +43,8 @@ class Commander1 extends Component {
                             height={20}
                             width={48}
                           />
-                          <span style={{ marginLeft: "20px" }}>
-                            Récupérer  à la coopérative{" "}
+                          <span style={localStorage.getItem('lg')=='ar'?{ marginRight: "20px" }:{ marginLeft: "20px" }}>
+                          <FormattedMessage id="step1_recuperer_a_la_cooperative"/>{" "}
                           </span>
                         </h6>
                         <br></br>
@@ -58,8 +61,8 @@ class Commander1 extends Component {
                                 height={20}
                                 width={48}
                               />{" "}
-                              <span style={{ marginLeft: "20px" }}>
-                                Me faire livrer à domicile{" "}
+                              <span style={localStorage.getItem('lg')=='ar'?{ marginRight: "20px" }:{ marginLeft: "20px" }}>
+                              <FormattedMessage id="step1_a_domicile"/>{" "}
                               </span>
                             </h6>
                             <br></br>
@@ -74,13 +77,13 @@ class Commander1 extends Component {
                                 height={20}
                                 width={48}
                               />{" "}
-                              <span style={{ marginLeft: "20px" }}>
-                                Livraison Standard{" "}
+                              <span style={localStorage.getItem('lg')=='ar'?{ marginRight: "20px" }:{ marginLeft: "20px" }}>
+                              <FormattedMessage id="step1_livraison_standard"/>{" "}
                               </span>
                             </h6>
                             <br></br>
                             {this.props.data.check5 ? (
-                              <div className=" ml-3">
+                              <div style={localStorage.getItem('lg')=="ar"?{marginRight:"1rem"}:{}} className=" ml-3">
                                 <div className="form-check">
                                   <input
                                     checked={
@@ -94,10 +97,11 @@ class Commander1 extends Component {
                                     id="domicile"
                                   />
                                   <label
+                                  style={localStorage.getItem('lg')=="ar"?{marginRight:"1.25rem"}:{}}
                                     className="form-check-label"
                                     for="domicile"
                                   >
-                                    Me faire livrer a domicile
+                                    <FormattedMessage id="step1_a_domicile"/>
                                   </label>
                                 </div>
                                 <div className="form-check">
@@ -114,10 +118,11 @@ class Commander1 extends Component {
                                     id="point_relais"
                                   />
                                   <label
+                                  style={localStorage.getItem('lg')=="ar"?{marginRight:"1.25rem"}:{}}
                                     className="form-check-label"
                                     for="point_relais"
                                   >
-                                    Me faire livrer en point relais
+                                    <FormattedMessage id="step1_livrer_en_point_relais"/>
                                   </label>
                                 </div>
                                 <br></br>
@@ -131,8 +136,8 @@ class Commander1 extends Component {
                                 height={20}
                                 width={48}
                               />{" "}
-                              <span style={{ marginLeft: "20px" }}>
-                                Livraison VIP{" "}
+                              <span style={localStorage.getItem('lg')=='ar'?{ marginRight: "20px" }:{ marginLeft: "20px" }}>
+                              <FormattedMessage id="step1_livraison_vip"/>{" "}
                               </span>
                             </h6>
                             <br></br>
@@ -170,7 +175,7 @@ class Commander1 extends Component {
                                       aria-hidden="true"
                                     >
                                       {" "}
-                                      Date de Livraison{" "}
+                                      <FormattedMessage id="step1_date_livraisn"/>{" "}
                                     </i>
                                     <br></br>
                                     <input
@@ -195,14 +200,14 @@ class Commander1 extends Component {
                                     <i className="fa fa-home fa-lg"></i>{" "}
                                     <span> &nbsp;  &nbsp;</span>
 
-                                    <b>  Coopérative : </b>
+                                    <b> <FormattedMessage id="step1_cooperative"/> </b>
                                     {"   " + this.props.data.cooperative.nom}
                                   </h6>
                                   <h6 className="mb-2">
                                     <i className="fa fa-map-marker fa-lg"></i>{" "}
                                     <span> &nbsp;  &nbsp; &nbsp;</span>
 
-                                    <b>  Adresse :</b>
+                                    <b>  <FormattedMessage id="step1_adresse"/> :</b>
                                     {"    " +
                                       this.props.data.cooperative.adresse}{" "}
                                   </h6>
@@ -210,7 +215,7 @@ class Commander1 extends Component {
                                   <h6 className="my-2" >
                                     {" "}
                                     <i className="fa fa-map"></i><span> &nbsp;  &nbsp; &nbsp;</span>
-                                    <b>Ville :</b>
+                                    <b><FormattedMessage id="step1_ville"/> :</b>
                                     {" " +
                                       this.props.data.cooperative.ville}{" "}
                              
@@ -229,14 +234,17 @@ class Commander1 extends Component {
                             <div className="col-lg-8 col-md-8 mt-2">
                               <i className="fa fa-map-o " aria-hidden="true" > </i>
                               <span>&nbsp;&nbsp;</span>
-                              <b>Ville de livraison</b>
-                              <Select
-                                value={this.props.data.selectedOptionVille}
-                                onChange={this.props.handleChangeVille}
-                                options={this.props.data.optionsVille}
-                                placeholder="Ville"
-                                name="selectedOptionVille"
-                              />
+                              <b><FormattedMessage id="step1_ville_de_livraison"/></b>
+                              <FormattedMessage id="step1_ville">
+                          {(placeholder) => (
+                            <Select
+                            value={this.props.data.selectedOptionVille}
+                            onChange={this.props.handleChangeVille}
+                            options={this.props.data.optionsVille}
+                            placeholder={placeholder}
+                            name="selectedOptionVille" />
+                          )}
+                        </FormattedMessage>
                             </div>
                           ) : null}
                           {this.props.data.check2 ||
@@ -249,14 +257,17 @@ class Commander1 extends Component {
                                   aria-hidden="true"
                                 >
                                   {" "}
-                                  Point relais de Livraison{" "}
+                                  <FormattedMessage id="step1_point_relais_livraison"/>{" "}
                                 </i>
-                                <Select
-                                  value={this.props.data.selectedOptionPoint}
-                                  onChange={this.props.handleChangePoint}
-                                  options={this.props.data.optionsPoint}
-                                  placeholder="point de relais"
-                                />
+                                <FormattedMessage id="step1_point_de_relais">
+                          {(placeholder) => (
+                            <Select
+                            value={this.props.data.selectedOptionPoint}
+                            onChange={this.props.handleChangePoint}
+                            options={this.props.data.optionsPoint}
+                            placeholder={placeholder} />
+                          )}
+                        </FormattedMessage>
                               </div>
                             ) : null
                           ) : null}
@@ -266,9 +277,7 @@ class Commander1 extends Component {
                             this.props.data.entrée_ville === true &&
                             this.props.data.selectedOptionVille !== "" ? (
                             <h6 style={{ color: "#fe6927", marginTop: "4px" }}>
-                              Un technicien ANOC va vous contacter le jour de
-                              livraison que vous avez choisi pour vous informer
-                              de l'adresse exacte de la livraison.
+                              <FormattedMessage id="step1_message_point_relais"/>
                             </h6>
                           ) : null}
                           {this.props.data.check3 ||
@@ -282,16 +291,21 @@ class Commander1 extends Component {
                               >
                               </i>
                               <span>&nbsp;&nbsp;&nbsp;</span>
-                              <b>Adresse</b>
+                              <b><FormattedMessage id="step1_adresse"/></b>
 
                               <br></br>
-                              <textarea
-                                defaultValue={this.props.data.adresse}
-                                onChange={this.props.onPaiementChanged}
-                                name="adresse"
-                                placeholder="adresse"
-                                cols="33"
-                              />
+                              <FormattedMessage id="step1_adresse">
+                          {(placeholder) => (
+                            <textarea
+                            defaultValue={this.props.data.adresse}
+                            onChange={this.props.onPaiementChanged}
+                            name="adresse"
+                            placeholder={placeholder}
+                            cols="33"
+                          />
+                          )}
+                        </FormattedMessage>
+                              
                             </div>
                           ) : null}
                         </div>
@@ -306,9 +320,8 @@ class Commander1 extends Component {
                     className="fa fa-exclamation-circle"
                     aria-hidden="true"
                   ></i>{" "}
-                  Votre commande sera livre 24h a 48h avant le jour de l'aid.
-                  Nous vous contacterons par telephone preciser vous informer du
-                  jour et de l'heure exacte.{" "}
+                  <FormattedMessage id="step1_message_livraison"/>
+                  {" "}
                 </h6>
               ) : null}
             </div>
