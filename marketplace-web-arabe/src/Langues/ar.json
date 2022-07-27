@@ -246,8 +246,9 @@
 
     "_comment26": "this is ach_alerte_commande page",
     "alerte_cmd_title": "طلبيتك سارت بنجاح",
+    "alerte_cmd_cash_message":"بعد تأكيد طلبك ، يجب عليك إعداد المبلغ الإجمالي نقدًا للدفع",
     "alerte_cmd_h5_message_validation": "للمصادقة على طلبيتك ، ما عليك سوى دفع رسوم الحجز عن طريق إجراء",
-    "alerte_cmd_h5_message_transfert_au_technicien": " تحويل الأموال للتقني :",
+    "alerte_cmd_h5_message_transfert_au_technicien": " تحويل الأموال للتقني : ",
     "alerte_cmd_h5_message_virement_sur_rib": " تحويل إلى الRIB التالي :",
     "alerte_cmd_h5_frais_reservation": "رسوم الحجز التي يجب دفعها : <span>{avance} درهم</span>",
     "alerte_cmd_attention_message1": "<span>تحذير :</span> لديك حتى {deadline} لدفع واستيراد توصيل الدفع الخاص بك.",

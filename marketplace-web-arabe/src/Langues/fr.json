@@ -247,6 +247,7 @@
 
     "_comment26": "this is ach_alerte_commande page",
     "alerte_cmd_title": "Votre commande s'est déroulée avec succès",
+    "alerte_cmd_cash_message":"Après avoir valider votre commande, vous devez préparer la somme totale en cash pour payer",
     "alerte_cmd_h5_message_validation": "Pour valider votre commande , il vous suffit de payer les frais de reservation en effectuant",
     "alerte_cmd_h5_message_transfert_au_technicien": "un transfert d'argent au  technicien : ",
     "alerte_cmd_h5_message_virement_sur_rib": " un virement sur le rib suivant : ",
