@@ -14,14 +14,16 @@ import Loader from "react-loader-spinner";
 // import { register } from "./UserFunctions";
 
 
-
 const intl = JSON.parse(localStorage.getItem("intl"));
+
+
 
 class SignUp extends Component {
 
   constructor() {
     super();
     this.state = {
+      message:[],
       nom: "",
       prenom: "",
       isChecked: false,
@@ -42,6 +44,16 @@ class SignUp extends Component {
     this.register = this.register.bind(this);
   }
 
+
+  componentDidMount() {
+   
+    const intl = JSON.parse(localStorage.getItem("intl"));
+  
+    this.setState({
+     message:intl.messages,
+      //date: datetime,
+    });
+  }
   handleChecked() {
     this.setState({ isChecked: !this.state.isChecked });
   }
@@ -124,7 +136,7 @@ class SignUp extends Component {
 
         Swal.fire({
           title: "Compte créé",
-          text:intl.messages.signup_succes,
+          text: intl.messages.signup_succes,
           icon: "success",
           width: 400,
           heightAuto: false,
@@ -185,11 +197,13 @@ class SignUp extends Component {
     return valide;
 
   }
+
+
   onSubmit(e) {
     e.preventDefault();
     this.setState({ loading: true }, () => {
       const user = {
-        
+
         email: this.state.email,
         password: this.state.password,
         telephone: this.state.telephone,
@@ -253,7 +267,7 @@ class SignUp extends Component {
                     </center>
                     <br />{" "}
                   </div>
-                  <div className="col-lg-6 col-md-6 form-check-inline" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl", textAlign: "right"} : {}}>
+                  <div className="col-lg-6 col-md-6 form-check-inline" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl", textAlign: "right" } : {}}>
                     <input onChange={this.onChange} style={{ transform: "scale(0.5)" }} className="form-check-input" type="radio" name="civilisation" value="Mr" />
                     <label className="form-check-label mb-4 " htmlFor="Mr"><FormattedMessage id="signup_monsieur" /></label>
                     <input onChange={this.onChange} style={{ transform: "scale(0.5)" }} className="form-check-input" type="radio" name="civilisation" value="Mme" />
@@ -269,15 +283,10 @@ class SignUp extends Component {
                         <i className="fa fa-user " aria-hidden="true"></i>
                       </span>{" "}
                     </div>
-                    <div id="LoginIcon" className="col-lg-10 col-md-10 " style={{ padding: "5px" }}>
-                        <input
-                          type="text"
-                          placeholder="nom"
-                          name="nom"
-                          onChange={this.onChange}
-
-
-                        />
+                    <div id="LoginIcon" className="col-lg-10 col-md-10 " >
+                    <FormattedMessage id="signup_nom" {...this.state.message.signup_nom}>
+                        {(msg) => (<input placeholder={msg} />)}
+                      </FormattedMessage>
                     </div>
                   </div>
                   <div className="row col-lg-6 col-md-6 pr-0  pl-4 mb-3 ml-3" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl", textAlign: "centre", width: "100%" } : {}}>
@@ -287,15 +296,11 @@ class SignUp extends Component {
                         <i className="fa fa-user " aria-hidden="true"></i>
                       </span>{" "}
                     </div>
-                    <div id="LoginIcon" className="col-lg-10 col-md-10 " style={{ padding: "5px" }}>
-                      
-                        <input
-                          type="text"
-                          placeholder="prenom"
-                          name="prenom"
-                          onChange={this.onChange}
-
-                        />
+                    <div id="LoginIcon" className="col-lg-10 col-md-10 " >
+                  
+                      <FormattedMessage id="signup_prenom" {...this.state.message.signup_prenom}>
+                        {(msg) => (<input placeholder={msg} />)}
+                      </FormattedMessage>
                     </div>
                   </div>
                   <div className="row col-lg-12 col-md-12 pr-0  pl-4 mb-4" >
