@@ -1334,7 +1334,7 @@ class Commandes extends Component {
                                     {Annonces.espece[0].espece == "chevre"
                                       ? <FormattedMessage id="tout_les_annonces_chevre"/>
                                       : <FormattedMessage id="tout_les_annonces_mouton"/>}
-                                    <span className="float-right">
+                                    <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}}>
                                       <FaShapes
                                         style={{ marginRight: "5px" }}
                                       />
@@ -1345,7 +1345,7 @@ class Commandes extends Component {
 
                                 {this.Max(Annonces, "poids") ===
                                 this.Min(Annonces, "poids") ? (
-                                  <span className="float-right ">
+                                  <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}}>
                                     <GiWeight
                                       className=" mr-1 fa-lg "
                                       style={{ marginRight: "5px" }}
@@ -1688,14 +1688,15 @@ class Commandes extends Component {
                                 </span>) : null
                                 }
                                 <div
-                                  className="float-right "
-                                  style={{
-                                    color: "#fe6927",
-                                    fontSize: "18px",
-                                    fontWeight: "1000",
-                                    textDecoration: "bold",
-                                    alignContent: "center",
-                                  }}
+                                  style={localStorage.getItem('lg')=="ar"?{ float: "left",color: "#fe6927",
+                                  fontSize: "18px",
+                                  fontWeight: "1000",
+                                  textDecoration: "bold",
+                                  alignContent: "center",}:{float:"right",color: "#fe6927",
+                                  fontSize: "18px",
+                                  fontWeight: "1000",
+                                  textDecoration: "bold",
+                                  alignContent: "center",}}
                                 >
                                   <img
                                     style={{ height: "30px" }}
@@ -1711,7 +1712,7 @@ class Commandes extends Component {
                                             }}
                                           /> */}
                                   {(Annonces.statut === "en attente de validation avance" ? 
-                                    (Annonces.prix_total - Annonces.avance) : (Annonces.prix_total)) + intl.messages.panier_currency}
+                                    (Annonces.prix_total - Annonces.avance) : (Annonces.prix_total)) +" "+ intl.messages.panier_currency}
                                 </div>
                               </div>
                             </div>
