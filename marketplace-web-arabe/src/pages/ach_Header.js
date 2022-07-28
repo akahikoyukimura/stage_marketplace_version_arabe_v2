@@ -10,6 +10,7 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
+import {FormattedMessage} from "react-intl";
 
 class Header extends Component {
   constructor() {
@@ -284,7 +285,7 @@ class Header extends Component {
                           }}
                         >
                           {" "}
-                          Règles de vente et d'achat
+                          <FormattedMessage id="header_regles"/>
                         </a>
                       </div>
                     </div>
@@ -318,7 +319,7 @@ class Header extends Component {
                             onClick={this.logout}
                           >
                             <i className="fa fa-sign-out">
-                              <b>Se déconnecter</b>{" "}
+                              <b><FormattedMessage id="header_se_deconnecter"/></b>{" "}
                             </i>
                           </a>
                         </div>
@@ -335,7 +336,7 @@ class Header extends Component {
                           >
                             <i className="fa fa-sign-in">
                               {" "}
-                              <b> Se connecter</b>{" "}
+                              <b><FormattedMessage id="header_se_connecter"/></b>{" "}
                             </i>
                           </a>
                         </div>
@@ -408,7 +409,7 @@ class Header extends Component {
                         {" "}
                         <a style={{ color: colors[0] }} href="./">
                           <GiSheep className=" mr-1 fa-lg " />
-                          Nos espèces
+                          <FormattedMessage id="header_especes"/>
                         </a>
                       </div>
                     </li>
@@ -420,7 +421,7 @@ class Header extends Component {
                           href="./AnnoncesParEleveurs"
                           className="Header"
                         >
-                          <FaUserAlt className="  mb-1 " /> Nos éleveurs
+                          <FaUserAlt className="  mb-1 " /> <FormattedMessage id="header_eleveurs"/>
                         </a>
                       </div>
                     </li>
@@ -549,7 +550,7 @@ class Header extends Component {
                         style={{ width: "1em" }}
                       />{" "}
                     </div>
-                    <div>Nos Espèces </div>
+                    <div><FormattedMessage id="header_especes"/> </div>
                   </div>
                 </a>
               </li>
@@ -570,7 +571,7 @@ class Header extends Component {
                       {" "}
                       <FaUserAlt className="  mb-1 " />{" "}
                     </div>
-                    <div>Nos éleveurs</div>
+                    <div><FormattedMessage id="header_eleveurs"/></div>
                   </div>
                 </a>
               </li>
@@ -588,7 +589,7 @@ class Header extends Component {
                           {" "}
                           <AiFillHeart className=" fa-lg " />
                         </div>
-                        <div> Mes favoris</div>
+                        <div> <FormattedMessage id="header_favori"/></div>
                       </div>
                     </a>
                   </li>
@@ -604,7 +605,7 @@ class Header extends Component {
                           {" "}
                           <FaShoppingCart className="fa-sm mb-1 " />
                         </div>
-                        <div> Mon panier d'achat</div>
+                        <div> <FormattedMessage id="header_panier"/></div>
                       </div>{" "}
                     </a>
                   </li>
@@ -619,7 +620,7 @@ class Header extends Component {
                           {" "}
                           <MdAssignment className="  fa-lg " />
                         </div>
-                        <div> Mes commandes</div>
+                        <div> <FormattedMessage id="header_commandes"/></div>
                       </div>{" "}
                     </a>
                   </li>
@@ -634,7 +635,7 @@ class Header extends Component {
                       {" "}
                       <FaSearch className=" fa-sm  " />
                     </div>
-                    <div> A propos de nous</div>
+                    <div> <FormattedMessage id="header_a_propos"/></div>
                   </div>{" "}
                 </a>
               </li>
@@ -647,7 +648,7 @@ class Header extends Component {
               <div>
                 {" "}
                 <a href="/login" onClick={this.logout}>
-                  <i className="fa fa-sign-out"> Se déconnecter</i>
+                  <i className="fa fa-sign-out"> <FormattedMessage id="header_se_deconnecter"/></i>
                 </a>
               </div>
             ) : null}
@@ -655,7 +656,7 @@ class Header extends Component {
               <div>
                 {" "}
                 <a href="/login">
-                  <i className="fa fa-sign-in"> Se connecter</i>
+                  <i className="fa fa-sign-in"> <FormattedMessage id="header_se_connecter"/></i>
                 </a>
               </div>
             ) : null}

@@ -4,6 +4,7 @@ import { GiSheep } from "react-icons/gi";
 import { MdAssignment } from "react-icons/md";
 import { AiFillHeart, AiOutlineSearch } from "react-icons/ai";
 import { FaShoppingCart, FaUserAlt, FaUniversity } from "react-icons/fa";
+import { FormattedMessage } from "react-intl";
 import Swal from "sweetalert2";
 
 class Header extends Component {
@@ -226,7 +227,7 @@ class Header extends Component {
                       <li>
                         <a style={{ color: colors[6] }} href="./Apropos">
                           {" "}
-                          <AiOutlineSearch className=" fa-lg " /> A propos
+                          <AiOutlineSearch className=" fa-lg " /> <FormattedMessage id="header_a_propos"/>
                         </a>
                       </li>
                     </ul>
@@ -297,7 +298,7 @@ class Header extends Component {
                             onClick={this.logout}
                           >
                             <i className="fa fa-sign-out">
-                              <b>Se déconnecter</b>{" "}
+                              <b><FormattedMessage id="header_se_deconnecter"/></b>{" "}
                             </i>
                           </a>
                         </div>
@@ -314,7 +315,7 @@ class Header extends Component {
                           >
                             <i className="fa fa-sign-in">
                               {" "}
-                              <b> Se connecter</b>{" "}
+                              <b><FormattedMessage id="header_se_connecter"/></b>{" "}
                             </i>
                           </a>
                         </div>
@@ -345,7 +346,7 @@ class Header extends Component {
                     <li className="header__menu__dropdown">
                       <a style={{ color: colors[0] }} href="./">
                         <GiSheep className=" mr-1 fa-lg " />
-                        Nos espèces
+                        <FormattedMessage id="header_especes"/>
                       </a>
                     </li>
                     <li>
@@ -354,7 +355,7 @@ class Header extends Component {
                         href="./AnnoncesParEleveurs"
                         className="Header"
                       >
-                        <FaUserAlt className="  mb-1 " /> Nos éleveurs
+                        <FaUserAlt className="  mb-1 " /> <FormattedMessage id="header_eleveurs"/>
                       </a>
                     </li>
                     {this.state.isLoged ? (
@@ -365,7 +366,7 @@ class Header extends Component {
                             className="Header"
                             href="./commandesParStatut"
                           >
-                            <MdAssignment className="  fa-lg " /> Mes commandes
+                            <MdAssignment className="  fa-lg " /> <FormattedMessage id="header_commandes"/>
                           </a>
                         </li>
                         <span className="form-inline my-2 my-lg-0">
@@ -375,7 +376,7 @@ class Header extends Component {
                               className="Header"
                               href="./Favoris"
                             >
-                              <AiFillHeart className=" fa-lg " /> Mes favoris
+                              <AiFillHeart className=" fa-lg " /> <FormattedMessage id="header_favori"/>
                             </a>
                           </li>
 
@@ -385,8 +386,7 @@ class Header extends Component {
                               style={{ color: colors[4] }}
                               href="./panier"
                             >
-                              <FaShoppingCart className="fa-sm mb-1 " /> Mon
-                              panier d'achat
+                              <FaShoppingCart className="fa-sm mb-1 " /> <FormattedMessage id="header_panier"/>
                             </a>
                           </li>
                         </span>
@@ -459,7 +459,7 @@ class Header extends Component {
                 <div>
                   {" "}
                   <a href="/login" onClick={this.logout}>
-                    <i className="fa fa-sign-out"> Se déconnecter</i>
+                    <i className="fa fa-sign-out"> <FormattedMessage id="header_se_deconnecter"/></i>
                   </a>
                 </div>
               ) : null}
@@ -467,7 +467,7 @@ class Header extends Component {
                 <div>
                   {" "}
                   <a href="/login">
-                    <i className="fa fa-sign-in"> Se connecter</i>
+                    <i className="fa fa-sign-in"> <FormattedMessage id="header_se_connecter"/></i>
                   </a>
                 </div>
               ) : null}
@@ -482,7 +482,7 @@ class Header extends Component {
                   style={{ color: colors[0] }}
                 >
                   {" "}
-                  <GiSheep className=" mr-1 fa-lg " /> Nos Espèces{" "}
+                  <GiSheep className=" mr-1 fa-lg " /> <FormattedMessage id="header_especes"/>{" "}
                 </a>
               </li>
               <li>
@@ -492,7 +492,7 @@ class Header extends Component {
                   href="./AnnoncesParEleveurs"
                 >
                   {" "}
-                  <FaUserAlt className="  mb-1 " /> Nos éleveurs
+                  <FaUserAlt className="  mb-1 " /><FormattedMessage id="header_eleveurs"/>
                 </a>
               </li>
               {this.state.isLoged ? (
@@ -534,7 +534,7 @@ class Header extends Component {
               <li>
                 <a style={{ color: colors[6] }} href="./Apropos">
                   {" "}
-                  <AiOutlineSearch className=" fa-lg " /> A propos de nous
+                  <AiOutlineSearch className=" fa-lg " /> <FormattedMessage id="header_a_propos"/>
                 </a>
               </li>
             </ul>

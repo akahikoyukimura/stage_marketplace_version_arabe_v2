@@ -7,6 +7,8 @@ import { HiOutlineBadgeCheck } from "react-icons/hi";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Pagination from "react-js-pagination";
+import {FormattedMessage} from 'react-intl'
+import { Form } from "react-bootstrap";
 //import RangeSlider from "react-bootstrap-range-slider";
 
 require("bootstrap-less/bootstrap/bootstrap.less");
@@ -46,7 +48,7 @@ class AllOffers extends Component {
           label: (
             <>
               {" "}
-              <i className="fa fa-star-o text-warning fa-sm"></i> Etoile [5{" "}
+              <i className="fa fa-star-o text-warning fa-sm"></i> <FormattedMessage id="eleveurs_etoile"/> [5{" "}
               <i className="fa fa-long-arrow-right  "></i> 1]{" "}
             </>
           ),
@@ -54,13 +56,18 @@ class AllOffers extends Component {
         {
           value: "rating_dec",
           label: (
+            // <>
+            //   {" "}
+            //   <i
+            //     className="fa fa-star-o text-warning fa-sm"
+            //     style={{ color: "#ebebeb" }}
+            //   ></i>{" "}
+            //   <FormattedMessage id="eleveurs_etoile"/> [1 <i className="fa fa-long-arrow-right  "> 5]</i>{" "}
+            // </>
             <>
               {" "}
-              <i
-                className="fa fa-star-o fa-sm"
-                style={{ color: "#ebebeb" }}
-              ></i>{" "}
-              Etoile [1 <i className="fa fa-long-arrow-right  "> 5]</i>{" "}
+              <i className="fa fa-star-o text-warning fa-sm"></i> <FormattedMessage id="eleveurs_etoile"/> [1{" "}
+              <i className="fa fa-long-arrow-right  "></i> 5]{" "}
             </>
           ),
         },
@@ -455,7 +462,7 @@ class AllOffers extends Component {
     const { poids_max } = this.state;
  */
     return (
-      <div>
+      <div style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
         <section className="search-header">
           <div
             style={{
@@ -470,61 +477,70 @@ class AllOffers extends Component {
             <div className="searchheader">
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell" }}
+                style={{ display: "table-cell"}}
               >
-                <Select
-                  value={selectedOptionEspece}
-                  onChange={this.handleChangeEspece}
-                  options={optionsEspece}
-                  placeholder="Espece"
-                  required
-                />
+                <FormattedMessage id="eleveurs_espece">
+                  {(espece) => (
+                    <Select
+                    value={selectedOptionEspece}
+                    onChange={this.handleChangeEspece}
+                    options={optionsEspece}
+                    placeholder={espece}
+                    required
+                  />
+                  )}
+                </FormattedMessage>
                 <br></br>
               </div>
 
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell" }}
+                style={{ display: "table-cell", verticalAlign:"middle" }}
               >
-                <Select
-                  value={selectedOptionVille}
-                  onChange={this.handleChangeVille}
-                  options={optionsVille}
-                  placeholder=" Ville"
-                />
+                <FormattedMessage id="eleveurs_ville">
+                  {(ville) => (
+                    <Select
+                    value={selectedOptionVille}
+                    onChange={this.handleChangeVille}
+                    options={optionsVille}
+                    placeholder={ville}
+                  />
+                  )}
+                
+                </FormattedMessage>
               </div>
 
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell" }}
+                style={{ display: "table-cell", verticalAlign:"middle" }}
               >
                 <button
                   id="roundB"
                   className="newBtn site-btn"
                   onClick={this.handelChercher}
                 >
-                  <i className="fa fa-search "></i> Rechercher{" "}
+                  <i className="fa fa-search "></i> <FormattedMessage id="eleveurs_rechercher"/>{" "}
                 </button>
               </div>
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell" }}
+                style={{ display: "table-cell", verticalAlign:"middle" }}
               >
                 <button
                   id="roundB"
                   className="newBtn site-btn"
                   onClick={this.handelReinitialiser}
                 >
-                  <i className="fa fa-refresh"></i> Reinitialiser{" "}
+                  <i className="fa fa-refresh"></i><FormattedMessage id="eleveurs_reinitialiser"/>{" "}
                 </button>
               </div>
             </div>
           </div>
         </section>
-        <div className="pageAnnonceEleveur">
+        <div className="pageAnnonceEleveur" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
           <section className="">
             <br></br>
-            <div className="container">
+            <div className="container" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
               <div className="row">
                 <div className="col-lg-3 col-md-4">
                   <a className="lienapropos" href="./Apropos">
@@ -539,75 +555,93 @@ class AllOffers extends Component {
                       />
                       <br></br>
                       <p>
-                        Découvrez nous d'avantage, votre confiance est notre
-                        priorité.
+                      <FormattedMessage id="eleveurs_my_anoc_message"/>
+                        
                       </p>
                     </div>
                   </a>
-                  <div id="rechercher" className="col-lg-12">
-                    <div className="mobileSearch">
+                  <div id="rechercher" className="col-lg-12" >
+                    <div className="mobileSearch" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
                       <div className="sidebar__item">
-                        <h4>Rechercher</h4>
+                        <h4><FormattedMessage id="eleveurs_rechercher"/></h4>
 
                         <h6 id="gras" className="latest-product__item">
-                          Espece
+                          <FormattedMessage id="eleveurs_espece"/>
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                            <Select
-                              value={selectedOptionEspece}
-                              onChange={this.handleChangeEspece}
-                              options={optionsEspece}
-                              placeholder="Espece"
-                              required
-                            />
+                            <FormattedMessage id="eleveurs_espece">
+                              {(espece) =>(
+                                <Select
+                                value={selectedOptionEspece}
+                                onChange={this.handleChangeEspece}
+                                options={optionsEspece}
+                                placeholder={espece}
+                                required
+                              />
+                              )}
+                            </FormattedMessage>
                             <br></br>
                           </div>
                         </div>
 
                         <h6 id="gras" className="latest-product__item">
-                          Race
+                          <FormattedMessage id="eleveurs_race"/>
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                            <Select
-                              id="recherchePlace"
-                              isDisabled={this.state.Disabled}
-                              value={selectedOptionRace}
-                              onChange={this.handleChangeRace}
-                              options={this.state.race}
-                              placeholder=" Race"
-                              required
-                            />
+                            <FormattedMessage id="eleveurs_race">
+                              {(race)=>(
+                                <Select
+                                id="recherchePlace"
+                                isDisabled={this.state.Disabled}
+                                value={selectedOptionRace}
+                                onChange={this.handleChangeRace}
+                                options={this.state.race}
+                                placeholder={race}
+                                required
+                              />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </div>
                         <br></br>
                         <h6 id="gras" className="latest-product__item">
-                          Region
+                          <FormattedMessage id="eleveurs_region"/>
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                            <Select
-                              value={selectedOptionRegions}
-                              onChange={this.handleChangeRegion}
-                              options={optionsRegions}
-                              placeholder=" Region"
-                            />
+                            <FormattedMessage id="eleveurs_region">
+                              {(region)=>(
+                                <Select
+                                value={selectedOptionRegions}
+                                onChange={this.handleChangeRegion}
+                                options={optionsRegions}
+                                placeholder={region}
+                              />
+                              )}
+                            
+                            </FormattedMessage>
                             <br></br>
                           </div>
                         </div>
 
                         <h6 id="gras" className="latest-product__item">
-                          Ville
+                          <FormattedMessage id="eleveurs_ville"/>
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                            <Select
-                              value={selectedOptionVille}
-                              onChange={this.handleChangeVille}
-                              options={optionsVille}
-                              placeholder=" Ville"
-                            />
+                            <FormattedMessage id="eleveurs_ville">
+                              {(ville)=>(
+                                <Select
+                                value={selectedOptionVille}
+                                onChange={this.handleChangeVille}
+                                options={optionsVille}
+                                placeholder={ville}
+                              />
+                              )}
+                            
+                            </FormattedMessage>
                             <br></br>
                             <br></br>
                           </div>
@@ -619,7 +653,7 @@ class AllOffers extends Component {
                               className="newBtn site-btn"
                               onClick={this.handelChercher}
                             >
-                              <i className="fa fa-search "></i> Rechercher{" "}
+                              <i className="fa fa-search "></i> <FormattedMessage id="eleveurs_rechercher"/>{" "}
                             </button>
                             <br></br>
                             <br></br>
@@ -628,7 +662,7 @@ class AllOffers extends Component {
                               className="newBtn site-btn"
                               onClick={this.handelReinitialiser}
                             >
-                              <i className="fa fa-refresh"></i> Reinitialiser{" "}
+                              <i className="fa fa-refresh"></i> <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
                             </button>
                             <br></br>
                             <br></br>
@@ -640,7 +674,7 @@ class AllOffers extends Component {
                   <div className="mymap">
                     {" "}
                     <h4 style={{ fontWeight: "900", marginTop: "25px" }}>
-                      Régions
+                      <FormattedMessage id="eleveurs_regions"/>
                     </h4>
                     <center>
                       <svg
@@ -762,7 +796,7 @@ class AllOffers extends Component {
                       textAlign: "center",
                     }}
                   >
-                    Rejoignez notre application mobile Aujourd'hui!
+                    <FormattedMessage id="eleveurs_msg_popup"/>
                   </h4>
                   <a href="https://qrco.de/bcHPx6">
                     <div className="infoCards">
@@ -795,17 +829,22 @@ class AllOffers extends Component {
                   <div className="filter__item">
                     <div>
                       <div id="filterPlace" className="col-lg-5 col-md-8 fa ">
-                        <Select
-                          id="filterPlace"
-                          // value={this.state.selectedOptionSort}
-                          onChange={this.sortData}
-                          options={optionsSort}
-                          placeholder={
-                            this.state.selectedOptionSort
-                              ? this.state.selectedOptionSort
-                              : "Trie par le nombre d'etoiles"
-                          }
-                        />
+                        <FormattedMessage id="eleveurs_trie">
+                          {(tri)=>(
+                            <Select
+                            id="filterPlace"
+                            // value={this.state.selectedOptionSort}
+                            onChange={this.sortData}
+                            options={optionsSort}
+                            placeholder={
+                              this.state.selectedOptionSort
+                                ? this.state.selectedOptionSort
+                                : tri
+                            }
+                          />
+                          )}
+                        
+                        </FormattedMessage>
                       </div>
                     </div>
 
@@ -815,7 +854,7 @@ class AllOffers extends Component {
                         <div className="filter__found text-left">
                           <h4>
                             {" "}
-                            Nos eleveurs{" : "}
+                            <FormattedMessage id="eleveurs_nos_eleveurs"/>{" : "}
                             <span id="nbEspece"> {elv.length}</span>{" "}
                           </h4>
                         </div>
@@ -853,7 +892,7 @@ class AllOffers extends Component {
                             </p>
 
                             <h3 style={{ color: "#28a745" }}>
-                              Pas d'eleveur !
+                              <FormattedMessage id="eleveurs_pas_eleveur"/>
                             </h3>
                           </div>
                         ) : (

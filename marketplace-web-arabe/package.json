@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/highlight": "^7.18.6",
     "@material-ui/core": "^4.12.1",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@testing-library/jest-dom": "^4.2.4",
@@ -12,6 +13,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-less": "^3.3.8",
     "react": "^16.14.0",
+    "react-animation": "^1.2.2",
     "react-animations": "^1.0.0",
     "react-bootstrap": "^1.6.1",
     "react-bootstrap-carousel": "^4.1.1",

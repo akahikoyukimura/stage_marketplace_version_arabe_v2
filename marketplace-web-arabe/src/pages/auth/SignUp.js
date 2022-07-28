@@ -59,11 +59,11 @@ class SignUp extends Component {
         },
         {
           headers: {
-            // "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             Accept: "application/json",
             //Authorization: myToken,
-            // "Access-Control-Allow-Origin": "*",
+            //"Access-Control-Allow-Origin": "*",
           },
         }
       )
@@ -269,17 +269,15 @@ class SignUp extends Component {
                         <i className="fa fa-user " aria-hidden="true"></i>
                       </span>{" "}
                     </div>
-                    <div id="LoginIcon" className="col-lg-10 col-md-10 " style={{ padding: "7px" }}>
-                      <FormattedMessage id="signup_nom" > {(msg) => (
+                    <div id="LoginIcon" className="col-lg-10 col-md-10 " style={{ padding: "5px" }}>
                         <input
                           type="text"
-                          placeholder={msg}
+                          placeholder="nom"
                           name="nom"
                           onChange={this.onChange}
 
 
-                        />)}
-                      </FormattedMessage>
+                        />
                     </div>
                   </div>
                   <div className="row col-lg-6 col-md-6 pr-0  pl-4 mb-3 ml-3" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl", textAlign: "centre", width: "100%" } : {}}>
@@ -289,16 +287,15 @@ class SignUp extends Component {
                         <i className="fa fa-user " aria-hidden="true"></i>
                       </span>{" "}
                     </div>
-                    <div id="LoginIcon" className="col-lg-10 col-md-10 " style={{ padding: "7px" }}>
-                      <FormattedMessage id="signup_prenom" > {(msg) => (
+                    <div id="LoginIcon" className="col-lg-10 col-md-10 " style={{ padding: "5px" }}>
+                      
                         <input
                           type="text"
-                          placeholder={msg}
+                          placeholder="prenom"
                           name="prenom"
                           onChange={this.onChange}
 
-                        />)}
-                      </FormattedMessage>
+                        />
                     </div>
                   </div>
                   <div className="row col-lg-12 col-md-12 pr-0  pl-4 mb-4" >

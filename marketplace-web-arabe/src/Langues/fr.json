@@ -21,6 +21,7 @@
     "header_commandes": "Mes commandes",
     "header_favori": "Mes favoris",
     "header_panier": "Mon panier d'achat",
+    "header_regles":"Règles de vente et d'achat",
 
     "_comment3": "this is ach_Header page",
     "add_mouton_title": "Ajouter annonce mouton",
@@ -158,13 +159,17 @@
     "eleveurs_rechercher":"Rechercher",
     "eleveurs_espece":"Espèce",
     "eleveurs_race":"Race",
-    "eleveurs_region":"Region",
+    "eleveurs_region":"Région",
+    "eleveurs_regions":"Régions",
     "eleveurs_ville":"Ville",
     "eleveurs_reinitialiser":"Reinitialiser",
     "eleveurs_nos_eleveurs":"Nos eleveurs",
     "eleveurs_pas_eleveur":"Pas d'eleveur !",
-    "eleveurs_trie":"{icon} Trie par le nombre d'etoiles",
+    "eleveurs_trie":" Trie par le nombre d'etoiles",
     "eleveurs_etoile":"Etoile",
+    "eleveurs_my_anoc_message":"Découvrez nous d'avantage, votre confiance est notre priorité.",
+    "eleveurs_msg_popup":"Rejoignez notre application mobile Aujourd'hui!",
+
 
     "_comment10":"A propos",
     "Apropos_text":"L’ANOC (Association Nationale Ovine et Caprine) est une association à but non lucratif qui a pour mission principale l’amélioration du revenu de l’éleveur ovin et caprin ainsi que la valorisation de son métier, notamment dans des conditions assez difficiles du milieu rural. Ainsi que la contribution au développement économique et rural par le développement de l’élevage des petits ruminants et la promotion de ses produits.",

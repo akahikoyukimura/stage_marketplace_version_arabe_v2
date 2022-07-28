@@ -11,6 +11,7 @@
     "annance_publie_eleveur": "المربي",
     "annance_publie_placeholder": "ماذا تحتاج؟",
     "annance_publie_submit": "بحث",
+
     "_comment2": "this is ach_Header page",
     "header_a_propos": "معلومات عنا",
     "header_se_deconnecter": "تسجيل الخروج",
@@ -20,6 +21,7 @@
     "header_commandes": "طلبياتي",
     "header_favori": "أشيائى المفضلة",
     "header_panier": "سلة التسوق الخاصة بي",
+    "header_regles":"قواعد البيع والشراء",
 
     "_comment3": "this is ach_Header page",
     "add_mouton_title": "إضافة إعلان الأغنام",
@@ -158,12 +160,15 @@
     "eleveurs_espece":"الأنواع",
     "eleveurs_race":"العرق",
     "eleveurs_region":"الجهة",
+    "eleveurs_regions":"الجهات",
     "eleveurs_ville":"المدينة",
     "eleveurs_reinitialiser":"إعادة",
     "eleveurs_nos_eleveurs":"المربين لدينا",
     "eleveurs_pas_eleveur":"لا يوجد أي مربي",
-    "eleveurs_trie":"{icon} ترتيب حسب عدد النجمات",
+    "eleveurs_trie":" ترتيب حسب عدد النجمات",
     "eleveurs_etoile":"نجمة",
+    "eleveurs_my_anoc_message":"اكتشف المزيد عنا ، ثقتك هي أولويتنا.",
+    "eleveurs_msg_popup":"انضم الى تطبيق الجوال الخاص بنا",
 
     "_comment10":"Apropos",
     "Apropos_text":"الجمعية الوطنية لمربي الأغنام والماعز هي جمعية وطنية ذات هدف غير ربحي، تسعى لتنمية مربي الأغنام والماعز وتعزيز مهنتهم ضمن ظروف صعبة داخل العالم القروي. من بين أهداف الجمعية أيضا، المساهمة في التنمية الاقتصادية والاجتماعية من خلال تنمية تربية هذه المواشي والتسويق لمنتجاتها",
