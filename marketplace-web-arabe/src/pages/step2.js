@@ -4,6 +4,9 @@ import Select from "react-select";
 import Commander3 from "./step3";
 
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+
+const intl=JSON.parse(localStorage.getItem('intl'))
 class Commander2 extends Component {
   constructor(props) {
     super(props);
@@ -63,11 +66,20 @@ class Commander2 extends Component {
               >
                 <br></br>
 
-                <h3>Montant à payer : </h3>
+                <h3><FormattedMessage id="step2_title"/> : </h3>
                 <div className="shoping__checkout mt-2 pb-0">
                   <ul className="mb-0">
                     <li>
-                      Prix net <span>{this.props.data.prix} Dhs</span>
+                    <FormattedMessage
+                    id = "step2_prix_net"
+                    values = {{prix:this.props.data.prix, 
+                      span: (word)=> 
+                      <span 
+                      style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}
+                      >
+                        {word}
+                        </span>}}
+                    />
                     </li>
                     <li
                       style={{
@@ -75,21 +87,48 @@ class Commander2 extends Component {
                         borderColor: "black",
                       }}
                     >
-                      Prix Transport <span>{resultat[1]} Dhs </span>
+                      <FormattedMessage
+                    id = "step2_prix_transport"
+                    values = {{prix:resultat[1], 
+                      span: (word)=> 
+                      <span 
+                      style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}
+                      >
+                        {word}
+                        </span>}}
+                    />
                     </li>
                     <li>
-                      Prix total{" "}
-                      <span>{this.props.data.prix - -resultat[1]} Dhs </span>
+                    <FormattedMessage
+                    id = "step2_prix_totale"
+                    values = {{prix:this.props.data.prix-(-resultat[1]), 
+                      span: (word)=> 
+                      <span 
+                      style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}
+                      >
+                        {word}
+                        </span>}}
+                    />
                     </li>
                     <li>
-                      Frais de reservation (*){" "}
-                      <span>{this.props.data.avance}Dhs</span>
+                    <FormattedMessage
+                    id = "step2_frais_reservation"
+                    values = {{prix:this.props.data.avance, 
+                      span: (word)=> 
+                      <span 
+                      style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}
+                      >
+                        {word}
+                        </span>}}
+                    />
+                      {/* Frais de reservation (*){" "}
+                      <span>{this.props.data.avance}Dhs</span> */}
                     </li>
                   </ul>
                 </div>
                 <br></br>
 
-                <span>* Avance non rembourssable</span>
+                <span><FormattedMessage id="step2_warning"/></span>
               </div>
             ) : null}
           </div>

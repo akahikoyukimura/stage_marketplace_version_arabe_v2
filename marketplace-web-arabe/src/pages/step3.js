@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Select from "react-select";
 
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
+
+const intl=JSON.parse(localStorage.getItem('intl'))
 class Commander3 extends Component {
   constructor(props) {
     super(props);
@@ -58,8 +61,8 @@ class Commander3 extends Component {
                 }}
               >
                 <br></br>
-                <h3>Moyens de paiement:</h3>
-                <div className="shoping__checkout mt-2 pb-0">
+                <h3><FormattedMessage id="multistep_moyens_de_paiement"/>{" "}:</h3>
+                <div style={localStorage.getItem("lg")=='ar'?{"marginRight":"25px"}:{}} className="shoping__checkout mt-2 pb-0">
                   {this.state.occasion == "aid" &&
                   this.state.payementRapide == true ? (
                     <>
@@ -68,7 +71,7 @@ class Commander3 extends Component {
                           {" "}
                         </i>
                         <span>&nbsp;&nbsp;</span>
-                        <b>Veuillez choisir votre bank</b>
+                        <b><FormattedMessage id="step2_choisir_virement_title"/></b>
                         <Select
                           value={this.state.userBank}
                           onChange={this.handleChangeBank}
@@ -79,9 +82,7 @@ class Commander3 extends Component {
                       </div>
                       <span>
                         <small>
-                          Puisqu'il ne reste que peu de jours avant l'Aid,
-                          l'option de paiement par virement vous sera activé
-                          seulement si vous avez la même banque que nous.
+                          <FormattedMessage id="step2_choisir_virement_message"/>
                         </small>
                       </span>
                       <br />
@@ -104,7 +105,7 @@ class Commander3 extends Component {
                           value="virement"
                         />
                         <label className="form-check-label" htmlFor="virement">
-                          <b> Virement bancaire</b>
+                          <b> <FormattedMessage id="step2_virement_bancaire"/></b>
                         </label>
                       </div>
                     </>
@@ -121,8 +122,8 @@ class Commander3 extends Component {
                       id="cash"
                       value="cash"
                     />
-                    <label className="form-check-label" htmlFor="cash">
-                      <b>Par cash</b>
+                    <label style={localStorage.getItem("lg")=='ar'?{marginRight:"25px"}:{}} className="form-check-label" htmlFor="cash">
+                      <b><FormattedMessage id="step3_par_cash"/></b>
                     </label>
                   </div>
                   <div className="form-check mt-2">
@@ -135,14 +136,14 @@ class Commander3 extends Component {
                       id="transfert"
                       value="transfert"
                     />
-                    <label className="form-check-label" htmlFor="transfert">
-                      <b>Par agence de transfert d'argent (*)</b>
+                    <label style={localStorage.getItem("lg")=='ar'?{"marginRight":"25px"}:{}} className="form-check-label" htmlFor="transfert">
+                      <b><FormattedMessage id="step3_par_agence"/></b>
                     </label>
                   </div>
                 </div>
                 <span>
                   <small>
-                    * les frais de transfert sont a la charge de l'achteur
+                  <FormattedMessage id="step3_frais_transport"/>
                   </small>
                 </span>
                 <br></br>
@@ -156,8 +157,8 @@ class Commander3 extends Component {
                     id="condition"
                     onChange={this.props.onChangecheck}
                   />
-                  <label className="form-check-label" htmlFor="condition">
-                    J'accepte les conditions generales de vente
+                  <label style={localStorage.getItem("lg")=='ar'?{"marginRight":"25px"}:{}} className="form-check-label" htmlFor="condition">
+                  <FormattedMessage id="step3_accepte"/>
                   </label>
                 </div>
               </div>
@@ -177,10 +178,10 @@ class Commander3 extends Component {
               <a
                 style={{ borderColor: "black" }}
                 id=""
-                className="primary-btn float-right text-white"
+                className={localStorage.getItem("lg")=="ar"?"primary-btn float-left text-white":"primary-btn float-right text-white"}
                 disabled
               >
-                Valider
+                <FormattedMessage id="step3_valider"/>
               </a>{" "}
             </Link>
           ) : null}

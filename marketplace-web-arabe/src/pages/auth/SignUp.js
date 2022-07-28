@@ -22,8 +22,8 @@ class SignUp extends Component {
   constructor() {
     super();
     this.state = {
-      // first_name: "",
-      // last_name: "",
+      nom: "",
+      prenom: "",
       isChecked: false,
       email: "",
       password: "",
@@ -124,8 +124,7 @@ class SignUp extends Component {
 
         Swal.fire({
           title: "Compte créé",
-          text:
-            "Votre compte a été créé avec succès. Connectez-vous avec l'adresse mail ou le numéro renseignés",
+          text:intl.messages.signup_succes,
           icon: "success",
           width: 400,
           heightAuto: false,
@@ -190,6 +189,7 @@ class SignUp extends Component {
     e.preventDefault();
     this.setState({ loading: true }, () => {
       const user = {
+        
         email: this.state.email,
         password: this.state.password,
         telephone: this.state.telephone,
@@ -379,7 +379,7 @@ class SignUp extends Component {
                             type="text"
                             placeholder={msg}
                             aria-hidden="true"
-                            name="Email"
+                            name="email"
                             onChange={this.onChange}
                           />
 

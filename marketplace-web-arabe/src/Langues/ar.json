@@ -76,23 +76,24 @@
     "tout_les_annonces_comment_ca_marche_4_message":"أكمل الخطوات النهائية لطلبك",
 
     "_comment5": "this is ach_panier page",
-    "panier_title": "سلتي",
-    "panier_nbr_annonces": "{count, plural, =0 { إعلان} one { إعلان} two {إعلانين} other { إعلانات}}",
-    "panier_vide": "قائمة سلة التسوق فارغة!",
-    "panier_cooperative": "تعاونية",
-    "panier_currency": "درهم",
-    "panier_cmd_globale": "الطلبية العامة",
-    "panier_commander": "طلب",
-    "panier_Labelise": " علامة ANOC ",
-    "panier_mouton_age_mois": "{age} اشهر",
-    "panier_mouton_poids_kg": "{poids} كلغ",
-    "panier_mouton_currency": "{prix} درهم",
-    "panier_delete_item": "هل انت متأكد؟",
-    "panier_delete_message": "!هل تريد حذف هذا الإعلان",
-    "panier_delete_oui": "! نعم",
-    "panier_delete_non": "! لا",
-    "panier_delete_succes": "تم الحذف بنجاح",
-    "panier_delete_failed": "! لم يتم حذف الإعلان",
+    "panier_title":"سلتي",
+    "panier_nbr_annonces":"{count, plural, =0 { إعلان} one { إعلان} two {إعلانين} other { إعلانات}}",
+    "panier_vide":"قائمة سلة التسوق فارغة!",
+    "panier_cooperative":"تعاونية",
+    "panier_currency":"درهم",
+    "panier_currency_abbreviation":"د",
+    "panier_cmd_globale":"الطلبية العامة",
+    "panier_commander":"طلب",
+    "panier_Labelise":" علامة ANOC ",
+    "panier_mouton_age_mois":"{age} اشهر",
+    "panier_mouton_poids_kg":"{poids} كلغ",
+    "panier_mouton_currency":"{prix} درهم",
+    "panier_delete_item":"هل انت متأكد؟",
+    "panier_delete_message":"!هل تريد حذف هذا الإعلان",
+    "panier_delete_oui":"! نعم",
+    "panier_delete_non":"! لا",
+    "panier_delete_succes":"تم الحذف بنجاح",
+    "panier_delete_failed":"! لم يتم حذف الإعلان",
 
     "_comment6": "this is ach_favoris page",
     "favoris_title":"أشيائى المفضلة",
@@ -197,6 +198,12 @@
     "details_mouton_aucune_description":"لا يوجد وصف متاح",
     "details_mouton_commander":"طلب النوع",
     "details_mouton_espece":"النوع",
+<<<<<<< HEAD
+=======
+    "details_mouton_ajouter_favoris":"اضافة الى قائمة الاشياء المفضلة",
+    "details_mouton_supprimer_favoris":"إزالة من قائمة الاشياء المفضلة",
+    "details_mouton_annonces_similaire":"إعلانات مشابهة",
+>>>>>>> b2c532c8e7e6d289a8f9061caa215199a1be8f9a
 
     "_comment21":"this is ach_commander page",
     "commander_title":"اطلب حيوانك",
@@ -235,6 +242,7 @@
     "step2_frais_reservation":"رسوم الحجز (*) <span>{prix}درهم</span>",
     "step2_warning":"* تسبيق غير قابل للاسترداد",
 
+<<<<<<< HEAD
     "_comment25":"this is step3 page",
     "step2_virement_bancaire":"تحويل مصرفي",
     "step3_par_agence":"عن طريق وكالة تحويل الأموال (*)",
@@ -266,6 +274,44 @@
     "details_cmd_details_produit":"تفاصيل المنتج",
     "details_cmd_details_livraison":"تفاصيل التوصيل",
     "details_cmd_adresse_livraison":"عنوان التوصيل",
+=======
+    "_comment24": "this is step2 page",
+    "step2_title": "المبلغ الواجب دفعه",
+    "step2_prix_net": "السعر الصافي <span>{prix} درهم </span>",
+    "step2_prix_transport": "سعر النقل <span>{prix} درهم </span>",
+    "step2_prix_totale": "السعر الاجمالي  <span>{prix} درهم </span>",
+    "step2_frais_reservation": "رسوم الحجز (*)  <span>{prix} درهم</span>",
+    "step2_warning": "* تسبيق غير قابل للاسترداد",
+
+    "_comment25": "this is step3 page",
+    "step2_virement_bancaire": "تحويل مصرفي",
+    "step2_choisir_virement_title":"الرجاء اختيار البنك الذي تتعامل معه",
+    "step3_par_cash": "نقدا",
+    "step2_choisir_virement_message":"نظرًا لأنه لم يتبق سوى أيام قليلة قبل العيد ، فلن يتم تفعيل خيار الدفع عن طريق التحويل المصرفي إلا إذا كان لديك نفس البنك الذي لدينا.",
+    "step3_par_agence": "عن طريق وكالة تحويل الأموال (*)",
+    "step3_frais_transport": "* تكاليف التحويل على حساب المشتري",
+    "step3_accepte": "أقبل الشروط العامة للبيع",
+    "step3_valider": "مصادقة",
+
+    "_comment26": "this is ach_alerte_commande page",
+    "alerte_cmd_title": "طلبيتك سارت بنجاح",
+    "alerte_cmd_cash_message":"بعد تأكيد طلبك ، يجب عليك إعداد المبلغ الإجمالي نقدًا للدفع",
+    "alerte_cmd_h5_message_validation": "للمصادقة على طلبيتك ، ما عليك سوى دفع رسوم الحجز عن طريق إجراء",
+    "alerte_cmd_h5_message_transfert_au_technicien": " تحويل الأموال للتقني : ",
+    "alerte_cmd_h5_message_virement_sur_rib": " تحويل إلى الRIB التالي :",
+    "alerte_cmd_h5_frais_reservation": "رسوم الحجز التي يجب دفعها : <span>{avance} درهم</span>",
+    "alerte_cmd_attention_message1": "<span>تحذير :</span> لديك حتى {deadline} لدفع واستيراد توصيل الدفع الخاص بك.",
+    "alerte_cmd_attention_message2": "بعد هذا الوقت، سيتم إلغاء طلبيتك تلقائيًا!",
+    "alerte_cmd_valider": "المصادقة على الطلبية",
+    "alerte_cmd_annuler": "الغاء الطلبية",
+    "alerte_cmd_annuler_popup_text": "!هل تريد إلغاء طلبيتك",
+    "alerte_cmd_annulation_success_title": "!إلغاء",
+    "alerte_cmd_annulation_success_body": "تم إلغاء طلبيتك بنجاح",
+    "alerte_cmd_annulation_failed_title": "إلغاء",
+    "alerte_cmd_annulation_failed_body": "!لم يتم إلغاء الطلبية",
+    "alerte_cmd_validation_title": "تمت المصادقة على الطلبية",
+    "alerte_cmd_validation_body": "قم بإنهاء طلبيتك في قسم طلباتي",
+>>>>>>> b2c532c8e7e6d289a8f9061caa215199a1be8f9a
 
     "_comment28": "this is login ",
     "login_email": "البريد الالكتروني او الهاتف",
@@ -283,6 +329,7 @@
     "signup_signup": "إنشاء حساب ",
     "signup_monsieur": "ذكر",
     "signup_madame": "انثى",
+    "signup_succes": "لقد تم انشاء الحساب بنجاح ,المرجو التسجيل عن طريق البريد الالكتروني او الهاتف ",
     "signup_email": "البريد الالكتروني",
     "signup_ville": "المدينة",
     "signup_adresse": "العنوان",
@@ -295,7 +342,26 @@
     "signup_existe": "البريد الالكتروني او الهاتف مستعمل",
     "signup_obligatoire": "هذه الخانة اجبارية",
     "signup_meme": "المرجو ادخال نفس الرمز السري",
-    "signup_obligatoire2": " يجب عليكم قبول  شروط الاستخدام العامة"
+    "signup_obligatoire2": " يجب عليكم قبول  شروط الاستخدام العامة",
 
 
+<<<<<<< HEAD
   }
+=======
+    "_comment30": "this is change mot de passe",
+    "change_reinitialiser": "استعادت الرمز السري",
+    "change_valider": "تاكيد",
+    "change_lien": "لقد تم ارسال رابط الي البريد الالكتروني , المرجو التحقق منه من اجل انهاء العملية",
+    "change_erreur": "لقد حدث خطا اثناء العملية",
+    "change_email_erreur": "ليس لديكم حساب في هذا البريد الالكتروني",
+    "change_repete": "لقد تم ارسال رابط مسبقا الي البريد الالكتروني , المرجو التحقق ",
+    "change_oups": "اووبسس...",
+    "change_reinitialiser_title": "تم إرسال الرابط",
+
+
+    "_comment31": "this is compte",
+
+    "compte_civilisation": "جنس",
+    "compte_tel": "الهاتف"
+}
+>>>>>>> b2c532c8e7e6d289a8f9061caa215199a1be8f9a
