@@ -9,6 +9,9 @@ import { Modal } from "react-bootstrap";
 import { Redirect } from "react-router";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { FormattedMessage } from "react-intl";
+
+const intl=JSON.parse(localStorage.getItem('intl'))
 class DetailsCommande extends Component {
   constructor(props) {
     super(props);
@@ -1390,7 +1393,7 @@ class DetailsCommande extends Component {
         <div>
           <style>{`.btn-link {  color:white} .btn-link:hover {color:white;} .card { background-color: #fafafa !important } .container {max-width: 90%;}  `}</style>
           <div className="container">
-            <h3 style={{ marginTop: "1em" }}>Détails commande </h3>
+            <h3 style={{ marginTop: "1em" }}><FormattedMessage id="details_cmd_title"/> </h3>
             <br></br>
             <div>
               <div id="accordion">
@@ -1408,8 +1411,8 @@ class DetailsCommande extends Component {
                           className="btn btn-link collapsed"
                         >
                           <h5 style={{ color: "white" }}>
-                            <FaClipboardCheck className="mb-2" /> Motif de
-                            l'annulation
+                            <FaClipboardCheck className="mb-2" />
+                            <FormattedMessage id="details_cmd_motif_annulation"/>
                           </h5>{" "}
                         </button>
                       </h5>
@@ -1470,7 +1473,7 @@ class DetailsCommande extends Component {
                                         className=" badge badge-success py-1 w-100  "
                                       >
                                         <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                        <span>Labélisé ANOC</span>{" "}
+                                        <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                                       </h1>
                                     ) : (
                                       <span className="badge pt-3 w-100  mt-1  ">
@@ -1479,26 +1482,26 @@ class DetailsCommande extends Component {
                                     )}
                                     <div className="product__item__text p-2 text-justify">
                                       <h6 className="">
-                                        <b>№ Boucle</b> : {Annonces.boucle}
+                                        <b><FormattedMessage id="details_mouton_numero_boucle"/></b> : {Annonces.boucle}
                                       </h6>
                                       <h6 className="">
-                                        <b>Espece</b> :{" "}
+                                        <b><FormattedMessage id="details_mouton_espece"/></b> :{" "}
                                         {Annonces.espece == "chevre"
-                                          ? "Chèvre"
-                                          : "Mouton"}
+                                          ? <FormattedMessage id="tout_les_annonces_chevre"/>
+                                          : <FormattedMessage id="tout_les_annonces_mouton"/>}
                                       </h6>
                                       <h6 className="">
-                                        <b>Race :</b> {Annonces.race}
+                                        <b><FormattedMessage id="home_item_race"/> :</b> {Annonces.race}
                                       </h6>
                                       <h6 className="">
-                                        <b>Poids : </b>
-                                        {Annonces.poids} Kg
+                                        <b><FormattedMessage id="home_item_poids"/> : </b>
+                                        {Annonces.poids} <FormattedMessage id="cmd_kg"/>
                                       </h6>
                                       <h6 className="">
-                                        <b>Age :</b> {Annonces.age} mois
+                                        <b><FormattedMessage id="cmd_age"/> :</b> {Annonces.age}{" "} <FormattedMessage id="cmd_mois"/>
                                       </h6>
                                       <h6 className="">
-                                        <b>Localisation :</b>{" "}
+                                        <b><FormattedMessage id="add_mouton_localisation"/> :</b>{" "}
                                         {Annonces.localisation}
                                       </h6>
                                       <h5 className=" text-danger  ">
@@ -1506,7 +1509,7 @@ class DetailsCommande extends Component {
                                           className="fa fa-usd"
                                           aria-hidden="true"
                                         ></i>{" "}
-                                        {Annonces.prix + "  Dhs"}
+                                        {Annonces.prix + " "+intl.messages.panier_currency}
                                       </h5>
                                       <div className="row mt-3">
                                         <div className="col-2"> </div>
@@ -1565,7 +1568,7 @@ class DetailsCommande extends Component {
                           style={{ flexBasis: "95%", textAlign: "left" }}
                         >
                           {" "}
-                          <FaClipboardCheck className="mb-2" /> Détails produit{" "}
+                          <FaClipboardCheck className="mb-2" /> <FormattedMessage id="details_cmd_details_produit"/>{" "}
                         </div>{" "}
                         <div className="item" style={{ flexBasis: "5%" }}>
                           {" "}
@@ -1642,7 +1645,7 @@ class DetailsCommande extends Component {
                                       className=" badge badge-success py-1 w-100  "
                                     >
                                       <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                      <span>Labélisé ANOC</span>{" "}
+                                      <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                                     </h1>
                                   ) : (
                                     <span className="badge pt-3 w-100  mt-1  ">
@@ -1665,26 +1668,26 @@ class DetailsCommande extends Component {
                               >
                                 <div className="product__item__text p-2 text-justify">
                                   <h6 className="">
-                                    <b>№ Boucle</b> : {esp.boucle}
+                                    <b><FormattedMessage id="details_mouton_numero_boucle"/></b> : {esp.boucle}
                                   </h6>
                                   <h6 className="">
-                                    <b>Espece</b> :{" "}
+                                    <b><FormattedMessage id="details_mouton_espece"/></b> :{" "}
                                     {esp.espece == "chevre"
-                                      ? "Chèvre"
-                                      : "Mouton"}
+                                      ? <FormattedMessage id="tout_les_annonces_chevre"/>
+                                      : <FormattedMessage id="tout_les_annonces_mouton"/>}
                                   </h6>
                                   <h6 className="">
-                                    <b>Race :</b> {esp.race}
+                                    <b><FormattedMessage id="home_item_race"/> :</b> {esp.race}
                                   </h6>
                                   <h6 className="">
-                                    <b>Poids : </b>
-                                    {esp.poids} Kg
+                                    <b><FormattedMessage id="home_item_poids"/> : </b>
+                                    {esp.poids} {" "}<FormattedMessage id="cmd_kg"/>
                                   </h6>
                                   <h6 className="">
-                                    <b>Age :</b> {esp.age} mois
+                                    <b><FormattedMessage id="cmd_age"/> :</b> {esp.age} {" "}<FormattedMessage id="cmd_mois"/>
                                   </h6>
                                   <h6 className="">
-                                    <b>Ville :</b> {esp.localisation}
+                                    <b><FormattedMessage id="add_mouton_localisation"/> :</b> {esp.localisation}
                                   </h6>
 
                                   <h5 className=" text-danger mt-4">
@@ -1693,7 +1696,7 @@ class DetailsCommande extends Component {
                                       src={require("./Images/cash-payment.png")}
                                       alt=""
                                     />{" "}
-                                    {esp.prix + "  Dhs"}
+                                    {esp.prix + " "+intl.messages.panier_currency}
                                   </h5>
                                 </div>
                               </div>
@@ -1729,8 +1732,8 @@ class DetailsCommande extends Component {
                           style={{ flexBasis: "95%", textAlign: "left" }}
                         >
                           {" "}
-                          <FaClipboardCheck className="mb-2" /> Détails
-                          livraison{" "}
+                          <FaClipboardCheck className="mb-2" />
+                          <FormattedMessage id="details_cmd_details_livraison"/>{" "}
                         </div>
                         <div className="item" style={{ flexBasis: "5%" }}>
                           {" "}
@@ -1751,7 +1754,7 @@ class DetailsCommande extends Component {
                                     className="fa fa-calendar-o"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  Date de livraison :
+                                  <FormattedMessage id="cmd_statut_date_livraison"/>
                                   <b style={{ fontWeight: "normal" }}>
                                     {" "}
                                     {commandes.date_de_livraison.replace(
@@ -1766,7 +1769,7 @@ class DetailsCommande extends Component {
                                   className="fa fa-map-o"
                                   aria-hidden="true"
                                 ></i>{" "}
-                                Ville de livraison :{" "}
+                                <FormattedMessage id="step1_ville_de_livraison"/> :{" "}
                                 <b>{" " + commandes.ville_livraison}</b>{" "}
                               </li>
                               <li>
@@ -1774,7 +1777,7 @@ class DetailsCommande extends Component {
                                   className="fa fa-map-marker"
                                   aria-hidden="true"
                                 ></i>{" "}
-                                Adresse de livraison :{" "}
+                                <FormattedMessage id="details_cmd_adresse_livraison"/> :{" "}
                                 <b>
                                   {commandes.adresse_domicile
                                     ? commandes.adresse_domicile
@@ -1792,10 +1795,8 @@ class DetailsCommande extends Component {
                                     className="fa fa-exclamation-circle"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  Votre commande sera livre 24h a 48h avant le
-                                  jour de l'aid. Nous vous contacterons par
-                                  telephone preciser vous informer du jour et de
-                                  l'heure exacte.{" "}
+                                  <FormattedMessage id="step1_message_livraison"/>
+                                  {" "}
                                 </h6>
                               )}
                             </ul>
@@ -1831,7 +1832,7 @@ class DetailsCommande extends Component {
                           style={{ flexBasis: "95%", textAlign: "left" }}
                         >
                           {" "}
-                          <FaClipboardCheck className="mb-2" /> Détails prix{" "}
+                          <FaClipboardCheck className="mb-2" /> <FormattedMessage id="details_cmd_details_prix"/>{" "}
                         </div>{" "}
                         <div className="item" style={{ flexBasis: "5%" }}>
                           <i className="fa fa-angle-down fa-lg arrowicon"></i>
@@ -1846,13 +1847,10 @@ class DetailsCommande extends Component {
                           <div className="shoping__checkout mt-2 pb-0">
                             <ul>
                               <li>
-                                Prix net{" "}
-                                <span>
-                                  {" "}
-                                  {this.state.prix_total -
-                                    this.state.prix_transport}
-                                  Dhs
-                                </span>
+                                <FormattedMessage
+                                id="step2_prix_net"
+                                values={{ prix:this.state.prix_total - this.state.prix_transport,span:(word)=><span>{word}</span> }}
+                                />
                               </li>
                               {
                                 <li
@@ -1861,14 +1859,18 @@ class DetailsCommande extends Component {
                                     borderColor: "black",
                                   }}
                                 >
-                                  Prix Transport{" "}
-                                  <span> {this.state.prix_transport} Dhs </span>
+                                  <FormattedMessage
+                                id="step2_prix_transport"
+                                values={{ prix:this.state.prix_transport,span:(word)=><span>{word}</span> }}
+                                />
                                 </li>
                               }
 
                               <li>
-                                Prix Total{" "}
-                                <span> {this.state.prix_total}Dhs</span>
+                              <FormattedMessage
+                                id="step2_prix_totale"
+                                values={{ prix:this.state.prix_total,span:(word)=><span>{word}</span> }}
+                                />
                               </li>
 
                               {commandes.statut ===
@@ -1881,15 +1883,19 @@ class DetailsCommande extends Component {
                                     className="fa fa-exclamation-circle"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  Avance à payer{" "}
-                                  <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage id="cmd_avance"/>{" "}
+                                  <span> {this.state.prix_avance}<FormattedMessage id="panier_currency"/></span>
                                 </li>
                               ) : null}
                               {commandes.statut ===
                               "en attente de validation avance" ? (
                                 <li>
-                                  Avance deja payee{" "}
-                                  <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                />
+                                  {/* Avance deja payee{" "}
+                                  <span> {this.state.prix_avance}Dhs</span> */}
                                 </li>
                               ) : null}
                               {commandes.statut ===
@@ -1899,16 +1905,24 @@ class DetailsCommande extends Component {
                                   "en attente de paiement du reste") ? (
                                 <>
                                   <li>
-                                    Avance deja payee{" "}
-                                    <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                />
+                                    {/* Avance deja payee{" "}
+                                    <span> {this.state.prix_avance}Dhs</span> */}
                                   </li>
                                   <li className="text-danger">
                                     <i
                                       className="fa fa-exclamation-circle"
                                       aria-hidden="true"
                                     ></i>{" "}
-                                    Reste à payer{" "}
-                                    <span> {this.state.prix_reste}Dhs</span>
+                                    <FormattedMessage
+                                id="details_cmd_reste_a_payee"
+                                values={{ prix:this.state.prix_reste,span:(word)=><span>{word}</span> }}
+                                />
+                                    {/* Reste à payer{" "}
+                                    <span> {this.state.prix_reste}Dhs</span> */}
                                   </li>
                                 </>
                               ) : null}
@@ -1918,12 +1932,20 @@ class DetailsCommande extends Component {
                               commandes.statut === "validé" ? (
                                 <>
                                   <li>
-                                    Avance deja payee{" "}
-                                    <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                />
+                                    {/* Avance deja payee{" "}
+                                    <span> {this.state.prix_avance}Dhs</span> */}
                                   </li>
                                   <li>
-                                    Reste deja payee{" "}
-                                    <span> {this.state.prix_reste}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_reste_deja_payee"
+                                values={{ prix:this.state.prix_reste,span:(word)=><span>{word}</span> }}
+                                />
+                                    {/* Reste deja payee{" "}
+                                    <span> {this.state.prix_reste}Dhs</span> */}
                                   </li>
                                 </>
                               ) : null}
@@ -1934,20 +1956,28 @@ class DetailsCommande extends Component {
                                   "en attente de paiement du complément") ? (
                                 <>
                                   <li>
-                                    Avance deja payee{" "}
-                                    <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                />
                                   </li>
                                   <li>
-                                    Reste deja payee{" "}
-                                    <span> {this.state.prix_reste}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_reste_deja_payee"
+                                values={{ prix:this.state.prix_reste,span:(word)=><span>{word}</span> }}
+                                />
                                   </li>
                                   <li className="text-danger">
                                     <i
                                       className="fa fa-exclamation-circle"
                                       aria-hidden="true"
                                     ></i>{" "}
-                                    Complement à payer{" "}
-                                    <span> {commandes.complement}Dhs</span>
+                                    <FormattedMessage
+                                id="details_cmd_complement_a_payee"
+                                values={{ prix:commandes.complement,span:(word)=><span>{word}</span> }}
+                                />
+                                    {/* Complement à payer{" "}
+                                    <span> {commandes.complement}Dhs</span> */}
                                   </li>
                                 </>
                               ) : null}
@@ -1955,19 +1985,27 @@ class DetailsCommande extends Component {
                               "en attente de validation du complément" ? (
                                 <>
                                   <li>
-                                    Avance deja payee{" "}
-                                    <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                />
                                   </li>
                                   <li>
-                                    Reste deja payee{" "}
-                                    <span> {this.state.prix_reste}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_reste_deja_payee"
+                                values={{ prix:this.state.prix_reste,span:(word)=><span>{word}</span> }}
+                                />
                                   </li>
                                   <li>
-                                    Complement deja payee{" "}
+                                  <FormattedMessage
+                                id="details_cmd_complement_deja_payee"
+                                values={{ prix:this.state.prix_complement,span:(word)=><span>{word}</span> }}
+                                />
+                                    {/* Complement deja payee{" "}
                                     <span>
                                       {" "}
                                       {this.state.prix_complement}Dhs
-                                    </span>
+                                    </span> */}
                                   </li>
                                 </>
                               ) : null}
@@ -1977,7 +2015,7 @@ class DetailsCommande extends Component {
                                     className="fa fa-exclamation-circle"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  Commande validee
+                                  <FormattedMessage id="details_cmd_cmd_validee"/>
                                 </li>
                               ) : null}
                             </ul>
@@ -2025,20 +2063,20 @@ class DetailsCommande extends Component {
                               "en attente de paiement avance" ||
                             commandes.statut ===
                               "en attente de validation avance"
-                              ? "Paiement des frais de resevation"
+                              ? <FormattedMessage id="details_cmd_frais_reservation_title"/>
                               : null}
                             {commandes.statut ===
                               "en attente de paiement du reste" ||
                             commandes.statut ===
                               "en attente de validation reste" ||
                             commandes.statut === "validé"
-                              ? "Paiement du reste du montant"
+                              ? <FormattedMessage id="details_cmd_reste_du_montant"/>
                               : null}
                             {commandes.statut ===
                               "en attente de paiement du complément" ||
                             commandes.statut ===
                               "en attente de validation du complément"
-                              ? "Paiement du complément du montant"
+                              ? <FormattedMessage id="details_cmd_complement_du_montant"/>
                               : null}
                           </div>
                           <div className="item" style={{ flexBasis: "5%" }}>
@@ -2059,9 +2097,9 @@ class DetailsCommande extends Component {
                             <div>
                               <h5>
                                 {" "}
-                                <b>Frais de reservation (non remboursable) </b>
+                                <b><FormattedMessage id="details_cmd_frais_reservation_message"/> </b>
                                 <small>
-                                  {commandes.avance} {" Dhs"}
+                                  {commandes.avance} {" "}<FormattedMessage id="panier_currency"/>
                                 </small>
                               </h5>
                               <br></br>
@@ -2082,13 +2120,11 @@ class DetailsCommande extends Component {
                                   className="form-check-label"
                                   htmlFor="virement"
                                 >
-                                  <b> Virement bancaire</b>
+                                  <b> <FormattedMessage id="step2_virement_bancaire"/></b>
                                 </label>
                               </div>
                               <p>
-                                pour payer les frais de reservation, il vous
-                                suffit d'effectuer un virement sur le RIB
-                                suivant
+                                <FormattedMessage id="details_cmd_frais_reservation_message1"/>
                                 <span className="text-danger">
                                   {" " + this.state.cooperative_rib}
                                 </span>
@@ -2110,20 +2146,17 @@ class DetailsCommande extends Component {
                                   className="form-check-label"
                                   htmlFor="transfert"
                                 >
-                                  <b>Par agence de transfert d'argent (*)</b>
+                                  <b><FormattedMessage id="step3_par_agence"/></b>
                                 </label>
                               </div>
 
                               <span>
                                 <small>
-                                  * les frais de transfert sont a la charge de
-                                  l'achteur
+                                  <FormattedMessage id="step3_frais_transport"/>
                                 </small>
                               </span>
                               <p>
-                                pour payer les frais de reservation, il vous
-                                suffit d'effectuer un transfert d'argent à
-                                l'eleveur suivant
+                                <FormattedMessage id="details_cmd_frais_reservation_message1_eleveur"/>
                                 {
                                   <span className="text-danger">
                                     {" " + this.state.tech}
@@ -2132,26 +2165,29 @@ class DetailsCommande extends Component {
                               </p>
                               <br></br>
                               <p className="text-danger">
-                                <b>Attention :</b>
+                              <FormattedMessage
+                                id="details_cmd_attention_messages"
+                                values={{ deadline:commandes.deadline
+                                  ,b:(word)=><b>{word}</b>
+                                  ,br:()=><br></br> }}
+                                />
+                                {/* <b>Attention :</b>
                                 <br></br>
                                 Vous avez jusqu'au{" "}
                                 {" " + commandes.deadline + " "} pour nous
                                 transmettre la copie (scan / photo) de l'ordre
                                 de virement ou de transfert .Au-delà de ce
-                                delai, votre commande sera annulee.
+                                delai, votre commande sera annulee. */}
                               </p>
                             </div>
                           ) : null}
                           {commandes.statut ===
                           "en attente de validation avance" ? (
                             <div>
-                              <b>Validation en cours</b>{" "}
-                              {commandes.avance + " Dhs"}
+                              <b><FormattedMessage id="cmd_validation_en_cours"/></b>{" "}
+                              {commandes.avance + " "}<FormattedMessage id="panier_currency"/>
                               <p className="text-danger">
-                                Votre reçu a bien ete receptionne. Il sera
-                                verifie dans les plus brefs delais. Des
-                                reception du virement, votre produit sera
-                                reserve
+                                <FormattedMessage id="details_cmd_recu_bien_recu"/>
                               </p>
                               <br></br>
                               <br></br>
@@ -2179,7 +2215,8 @@ class DetailsCommande extends Component {
                           commandes.statut === "reçu reste refusé" ? (
                             <div>
                               <b>
-                                Reste du montant : {commandes.reste + "Dhs"}
+                                <FormattedMessage id="details_cmd_reste_montant"/> : 
+                                {commandes.reste + " "}<FormattedMessage id="panier_currency"/>
                               </b>
                             </div>
                           ) : null}
@@ -2187,13 +2224,10 @@ class DetailsCommande extends Component {
                           {commandes.statut ===
                           "en attente de validation reste" ? (
                             <div>
-                              <b>Validation en cours</b>{" "}
-                              {commandes.reste + " Dhs"}
+                              <b><FormattedMessage id="cmd_validation_en_cours"/></b>{" "}
+                              {commandes.reste + " "}<FormattedMessage id="panier_currency"/>
                               <p className="text-danger">
-                                Votre reçu a bien ete receptionne. Il sera
-                                verifie dans les plus brefs delais. Des
-                                reception du virement, nous vous contacterons
-                                pour la livraison
+                                <FormattedMessage id="details_cmd_livraison_message"/>
                               </p>
                               <br></br>
                               <br></br>
@@ -2220,21 +2254,18 @@ class DetailsCommande extends Component {
                           "en attente de paiement du complément" ? (
                             <div>
                               <b>
-                                Complément du montant :{" "}
-                                {commandes.complement + "Dhs"}
+                                <FormattedMessage id="details_cmd_complement_montant"/> :{" "}
+                                {commandes.complement + " "}<FormattedMessage id="panier_currency"/>
                               </b>
                             </div>
                           ) : null}
                           {commandes.statut ===
                           "en attente de validation du complément" ? (
                             <div>
-                              <b>Validation en cours</b>{" "}
-                              {commandes.complement + " Dhs"}
+                              <b><FormattedMessage id="cmd_validation_en_cours"/></b>{" "}
+                              {commandes.complement + " "}<FormattedMessage id="panier_currency"/>
                               <p className="text-danger">
-                                Votre reçu a bien ete receptionne. Il sera
-                                verifie dans les plus brefs delais. Des
-                                reception du virement, nous vous contacterons
-                                pour la livraison
+                                <FormattedMessage id="details_cmd_livraison_message"/>
                               </p>
                               <br></br>
                               <br></br>
@@ -2260,10 +2291,10 @@ class DetailsCommande extends Component {
                           {commandes.statut === "validé" ? (
                             <div>
                               <p className="text-danger">
-                                Votre virement est valide. la livraison est
-                                prevu le {commandes.date_de_livraison} . Nous
-                                vous contacterons par telephone pour preciser
-                                l'heure exacte
+                              <FormattedMessage
+                                id="details_cmd_virement_valide_message"
+                                values={{ date_de_livraison:commandes.date_de_livraison}}
+                                />
                               </p>
                               <br></br>
                               <br></br>
@@ -2324,8 +2355,8 @@ class DetailsCommande extends Component {
                           className="btn btn-link collapsed"
                         >
                           <h5 style={{ color: "white" }}>
-                            <FaClipboardCheck className="mb-2" /> Motif de
-                            l'annulation
+                            <FaClipboardCheck className="mb-2" /> 
+                            <FormattedMessage id="details_cmd_motif_annulation"/>
                           </h5>{" "}
                         </button>
                       </h5>
@@ -2340,9 +2371,8 @@ class DetailsCommande extends Component {
                             <p className="text-danger">{commandes.statut}</p>
                             <p>
                               <b>
-                                Pour toute reclamation, contactez le service
-                                client au 0601120156. Disponible de 9h à 19h
-                                sauf Samedi et Dimanche{" "}
+                                <FormattedMessage id="details_cmd_reclamation"/>
+                                {" "}
                               </b>
                             </p>
                           </div>
@@ -2366,7 +2396,7 @@ class DetailsCommande extends Component {
                       onClick={this.Modal.bind(this, "avance")}
                       className="btn-success py-1 px-4 mb-3 w-75"
                     >
-                      <BsFileEarmarkPlus className="fa-lg" /> Payer l'avance{" "}
+                      <BsFileEarmarkPlus className="fa-lg" /> <FormattedMessage id="details_cmd_payer_avance"/>{" "}
                     </button>
                   ) : null}
                   {commandes.statut === "en attente de paiement du reste" ||
@@ -2377,7 +2407,7 @@ class DetailsCommande extends Component {
                       onClick={this.Modal.bind(this, "reste")}
                       className="btn-success py-1 px-4 mb-3 w-75"
                     >
-                      <BsFileEarmarkPlus className="fa-lg" /> Payer le reste{" "}
+                      <BsFileEarmarkPlus className="fa-lg" /> <FormattedMessage id="details_cmd_payer_reste"/>{" "}
                     </button>
                   ) : null}
                   {commandes.statut ===
@@ -2389,8 +2419,7 @@ class DetailsCommande extends Component {
                       className="btn-success py-1 px-4 mb-3 w-75"
                     >
                       {" "}
-                      <BsFileEarmarkPlus className="fa-lg" /> Payer le
-                      complement{" "}
+                      <BsFileEarmarkPlus className="fa-lg" /> <FormattedMessage id="details_cmd_payer_complement"/>{" "}
                     </button>
                   ) : null}
                 </div>
@@ -2408,7 +2437,7 @@ class DetailsCommande extends Component {
                         onClick={this.handelDelete}
                       >
                         {" "}
-                        <BiTrash className="fa-lg" /> Annuler la commande{" "}
+                        <BiTrash className="fa-lg" /> <FormattedMessage id="alerte_cmd_annuler"/>{" "}
                       </button>
                     </div>
                   </>
