@@ -431,23 +431,23 @@ class DetailsCommande extends Component {
     let motif = "";
     switch (esp.motif_annulation) {
       case "Apparition d'un abcès":
-        motif = "Apparition d'un abcès";
+        motif = intl.messages.details_cmd_motif_abces;
         break;
       case "Jetage du nez":
-        motif = "Ecoulement nasales";
+        motif = intl.messages.details_cmd_motif_nasales;
         break;
       case "Conjonctivite":
-        motif = "Une inflammation de la conjonctive de l'œil";
+        motif = intl.messages.details_cmd_motif_oeil;
         break;
       case "Ictère":
         motif =
-          "Une coloration jaune de la peau, des conjonctives et d'autres tissus";
+          intl.messages.details_cmd_motif_peau;
         break;
       case "Fracture":
-        motif = "Fracture";
+        motif = intl.messages.details_cmd_fracture;
         break;
       case "Boitréé":
-        motif = "Boitréé";
+        motif = intl.messages.details_cmd_boitree;
         break;
       default:
         motif = esp.motif_annulation;
@@ -468,12 +468,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous annuler cette espece!",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.details_cmd_annuler_espece,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui!  ",
-        cancelButtonText: "  Non!  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -506,8 +506,8 @@ class DetailsCommande extends Component {
                   .then((res) => {
                     this.props.history.push("./commandesParStatut");
                     swalWithBootstrapButtons.fire(
-                      "Annulation !",
-                      "Votre espece a bien été annulée",
+                      intl.messages.alerte_cmd_annulation_success_title,
+                      intl.messages.details_cmd_annuler_espece_success,
                       "success"
                     );
                     window.location.reload();
@@ -554,8 +554,8 @@ class DetailsCommande extends Component {
                   },
                   () => {
                     swalWithBootstrapButtons.fire(
-                      "Annulation !",
-                      "Votre espece a bien été annulée",
+                      intl.messages.alerte_cmd_annulation_success_title,
+                      intl.messages.details_cmd_annuler_espece_success,
                       "success"
                     );
                   }
@@ -564,8 +564,8 @@ class DetailsCommande extends Component {
           }
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire(
-            "Annulation",
-            "Espece non annulée !",
+            intl.messages.alerte_cmd_annulation_failed_title,
+            intl.messages.details_cmd_annuler_espece_failed,
             "error"
           );
         }
@@ -586,12 +586,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous annuler votre commande!",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.alerte_cmd_annuler_popup_text,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui!  ",
-        cancelButtonText: "  Non!  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -625,16 +625,16 @@ class DetailsCommande extends Component {
               });
 
               swalWithBootstrapButtons.fire(
-                "Annulation !",
-                "Votre commande a bien été annulée",
+                intl.messages.alerte_cmd_annulation_success_title,
+                intl.messages.alerte_cmd_annulation_success_body,
                 "success"
               );
               this.props.history.push("./commandesParStatut");
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire(
-            "Annulation",
-            "Commande non annulée !",
+            intl.messages.alerte_cmd_annulation_failed_title,
+            intl.messages.alerte_cmd_annulation_failed_body,
             "error"
           );
         }
@@ -666,7 +666,7 @@ class DetailsCommande extends Component {
           .then((res) => {
             Swal.fire({
               text:
-                "Vous allez recevoir un email de validation de votre reçu sur votre email : " +
+                intl.messages.details_cmd_email_validation +
                 this.state.commandes.consommateur.email,
               icon: "success",
               width: 400,
@@ -696,7 +696,7 @@ class DetailsCommande extends Component {
           .then((res) => {
             Swal.fire({
               text:
-                "Vous allez recevoir un email de validation de votre reçu sur votre email : " +
+              intl.messages.details_cmd_email_validation +
                 this.state.commandes.consommateur.email,
               icon: "success",
               width: 400,
@@ -726,7 +726,7 @@ class DetailsCommande extends Component {
           .then((res) => {
             Swal.fire({
               text:
-                "Vous allez recevoir un email de validation de votre reçu sur votre email : " +
+              intl.messages.details_cmd_email_validation +
                 this.state.commandes.consommateur.email,
               icon: "success",
               width: 400,
@@ -766,8 +766,8 @@ class DetailsCommande extends Component {
         buttonsStyling: false,
       });
       swalWithBootstrapButtons.fire(
-        "Rappel !",
-        "Vous n'avez pas choisi une image !",
+        intl.messages.commander_error_message_title,
+        intl.messages.details_cmd_image_recu,
         "error"
       );
     }
@@ -811,12 +811,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous changer cette annonce !",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.details_cmd_changer_annonce,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui !  ",
-        cancelButtonText: "  Non !  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -886,7 +886,7 @@ class DetailsCommande extends Component {
             );
 
             Swal.fire({
-              title: "change avec succès ",
+              title: intl.messages.details_cmd_change_success,
               icon: "success",
               width: 400,
               heightAuto: false,
@@ -897,7 +897,7 @@ class DetailsCommande extends Component {
           }
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire({
-            title: "Annonce non changee ! ",
+            title: intl.messages.details_cmd_pas_changer_annonce,
             icon: "error",
             width: 400,
             heightAuto: false,
@@ -918,12 +918,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous refuser les produits de changements  !",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.details_cmd_refuser_produit,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui !  ",
-        cancelButtonText: "  Non !  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -951,7 +951,7 @@ class DetailsCommande extends Component {
                 //   window.sessionStorage.setItem("reponses", JSON.stringify(this.state.reponses))
 
                 Swal.fire({
-                  title: "Annule avec succès ",
+                  title: intl.messages.details_cmd_annuler_success,
                   icon: "success",
                   width: 400,
                   heightAuto: false,
@@ -990,7 +990,7 @@ class DetailsCommande extends Component {
           });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire({
-            title: "Non refuser ! ",
+            title: intl.messages.details_cmd_non_refuser,
             icon: "error",
             width: 400,
             heightAuto: false,
@@ -1141,7 +1141,7 @@ class DetailsCommande extends Component {
           },
           () => {
             Swal.fire({
-              title: "Changement annuler ",
+              title: intl.messages.cmd_changement_annuler,
               icon: "error",
               width: 400,
               heightAuto: false,
@@ -1298,12 +1298,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous annuler votre commande!",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.alerte_cmd_annuler_popup_text,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui!  ",
-        cancelButtonText: "  Non!  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -1340,8 +1340,8 @@ class DetailsCommande extends Component {
                   this.setState({ redirect: true });
                 });
               swalWithBootstrapButtons.fire(
-                "Annulation !",
-                "Votre commande a bien été annulée",
+                intl.messages.alerte_cmd_annulation_success_title,
+                intl.messages.alerte_cmd_annulation_success_body,
                 "success"
               );
             });
@@ -1352,8 +1352,8 @@ class DetailsCommande extends Component {
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(
-            "Annulation",
-            "Commande non annulée !",
+            intl.messages.alerte_cmd_annulation_failed_title,
+            intl.messages.alerte_cmd_annulation_failed_body,
             "error"
           );
         }

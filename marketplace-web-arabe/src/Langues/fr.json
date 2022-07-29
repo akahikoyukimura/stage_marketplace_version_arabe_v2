@@ -334,6 +334,22 @@
     "details_cmd_change_success":"Changer avec succès",
     "details_cmd_champs_obligatoire":"Ce champs est obligatoire",
     "details_cmd_champs_rib":"Le rib doit contenir 24 caractères",
+    "details_cmd_motif_abces":"Apparition d'un abcès",
+    "details_cmd_motif_nasales":"Ecoulement nasales",
+    "details_cmd_motif_oeil":"Une inflammation de la conjonctive de l'œil",
+    "details_cmd_motif_peau":"Une coloration jaune de la peau, des conjonctives et d'autres tissus",
+    "details_cmd_fracture":"Fracture",
+    "details_cmd_boitree":"Boitréé",
+    "details_cmd_annuler_espece":"Voulez-vous annuler cette espece!",
+    "details_cmd_annuler_espece_success":"Votre espece a bien été annulée",
+    "details_cmd_annuler_espece_failed":"Espece non annulée !",
+    "details_cmd_email_validation":"Vous allez recevoir un email de validation de votre reçu sur votre email : ",
+    "details_cmd_image_recu":"Vous n'avez pas choisi une image !",
+    "details_cmd_changer_annonce":"Voulez-vous changer cette annonce !",
+    "details_cmd_pas_changer_annonce":"Annonce non changee !",
+    "details_cmd_refuser_produit":"Voulez-vous refuser les produits de changements  !",
+    "details_cmd_annuler_success":"Annuler avec succès",
+    "details_cmd_non_refuser":"Non refuser ! ",
 
 
 
