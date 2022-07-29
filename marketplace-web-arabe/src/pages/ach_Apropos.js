@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import YouTube from "react-youtube";
 import axios from "axios";
+import { FormattedMessage } from "react-intl";
+
+
+const intl = JSON.parse(localStorage.getItem("intl"));
 
 class Apropos extends Component {
   render() {
@@ -10,47 +14,35 @@ class Apropos extends Component {
     };
     return (
       <section className="product spad">
-        <div id="apropos" className="container">
-          <div className="col-lg-12 col-md-6">
-            <h2 id="aproposh">Qui sommes nous ?</h2> <br></br>
+        <div id="apropos" className="container" style={localStorage.getItem("lg") == "ar"? { direction: "rtl", textAlign: "right"}: {}}>
+          <div className="col-lg-12 col-md-6" >
+            <h2 id="aproposh"><FormattedMessage id="apropos_nous" /></h2> <br></br>
             <h5 id="apropo1">
-              L’ANOC (Association Nationale Ovine et Caprine) est une
-              association à but non lucratif qui a pour mission principale
-              l’amélioration du revenu de l’éleveur ovin et caprin ainsi que la
-              valorisation de son métier, notamment dans des conditions assez
-              difficiles du milieu rural. Ainsi que la contribution au
-              développement économique et rural par le développement de
-              l’élevage des petits ruminants et la promotion de ses produits.
+            <FormattedMessage id="apropos_nous_description" />
             </h5>
             <br></br>
             <br></br>
-            <h2 id="aproposh">Nos objectifs ?</h2> <br></br>
-            <main>
-              <ol className="gradient-list">
-                <li>
-                  Développer l’élevage ovin caprin et préserver le patrimoine
-                  animal national ;
+            <h2 id="aproposh"><FormattedMessage id="apropos_objectif" /></h2> <br></br>
+            <main >
+              <ol className="gradient-list" style={localStorage.getItem("lg") == "ar"? { direction: "rtl", textAlign: "right"}: {}}>
+                <li >
+                <FormattedMessage id="apropos_objectif1" />
                 </li>
                 <li>
-                  Améliorer les revenus des éleveurs de petits ruminants ;
+                <FormattedMessage id="apropos_objectif2" />
                 </li>
                 <li>
-                  Défendre l’intérêt des éleveurs et du secteur notamment dans
-                  les politiques publiques.
+                <FormattedMessage id="apropos_objectif3" />
                 </li>
-                <li>Organiser et améliorer la technicité des éleveurs;</li>
+                <li><FormattedMessage id="apropos_objectif4" /></li>
                 <li>
-                  Améliorer la productivité des races ovines et caprines au
-                  Maroc;
+                <FormattedMessage id="apropos_objectif5" />
                 </li>
                 <li>
-                  Contribuer à la valorisation marchande des produits et
-                  sous-produits de l’élevage;
+                <FormattedMessage id="apropos_objectif6" />
                 </li>
                 <li>
-                  Diffuser les bonnes pratiques en matière de conduite de
-                  troupeau (santé animale, alimentation, reproduction, hygiène
-                  des bâtiments,…);
+                <FormattedMessage id="apropos_objectif7" />
                 </li>
               </ol>
             </main>
@@ -58,7 +50,7 @@ class Apropos extends Component {
             <br></br>
             <br></br>
             <br></br>
-            <div className="row">
+            <div className="row" style={localStorage.getItem("lg") == "ar"? { direction: "rtl", textAlign: "right"}: {}}>
               <div className="col-lg-6 col-md-6">
                 <YouTube videoId="WlKkq-p2oJE" opts={opts} />
               </div>
