@@ -199,7 +199,7 @@ class DetailsCommande extends Component {
                           window.sessionStorage.setItem("ids", []);
 
                           Swal.fire({
-                            title: "Votre commande a bien été changée ",
+                            title: intl.messages.details_cmd_change_success_popup,
                             icon: "success",
                             width: 400,
                             heightAuto: false,
@@ -262,7 +262,7 @@ class DetailsCommande extends Component {
                       this.setState({ cloture: true, ids: [] }, () => {
                         window.sessionStorage.setItem("ids", []);
                         Swal.fire({
-                          title: "Changer avec succès ",
+                          title: intl.messages.details_cmd_change_success,
                           icon: "success",
                           width: 400,
                           heightAuto: false,
@@ -287,7 +287,7 @@ class DetailsCommande extends Component {
       ) {
         this.setState({ ids: [] }, () => {
           Swal.fire({
-            title: "Changement annuler ",
+            title: intl.messages.cmd_changement_annuler,
             icon: "error",
             width: 400,
             heightAuto: false,
@@ -301,7 +301,7 @@ class DetailsCommande extends Component {
         if (this.state.ids.length > 0) {
           this.setState({ ids: [] }, () => {
             Swal.fire({
-              title: "Changement annuler ",
+              title: intl.messages.cmd_changement_annuler,
               icon: "error",
               width: 400,
               heightAuto: false,
@@ -318,15 +318,15 @@ class DetailsCommande extends Component {
     let valide = true;
 
     if (this.state.nom_prenom.length === 0 || this.state.nom_prenom === " ") {
-      errors["nom_prenom"] = "Ce champs est obligatoire ";
+      errors["nom_prenom"] = intl.messages.details_cmd_champs_obligatoire;
       valide = false;
     }
     if (this.state.rib.length === 0) {
-      errors["rib"] = "Ce champs est obligatoire ";
+      errors["rib"] = intl.messages.details_cmd_champs_obligatoire;
       valide = false;
     }
     if (this.state.rib.length !== 0 && this.state.rib.length !== 24) {
-      errors["rib"] = " Le rib doit contenir 24 caractères ";
+      errors["rib"] = intl.messages.details_cmd_champs_rib;
       valide = false;
     }
     this.setState({ errors: errors });
@@ -361,7 +361,7 @@ class DetailsCommande extends Component {
           },
           () => {
             Swal.fire({
-              title: "Changer avec succès ",
+              title: intl.messages.details_cmd_change_success,
               icon: "success",
               width: 400,
               heightAuto: false,
@@ -399,7 +399,7 @@ class DetailsCommande extends Component {
           },
           () => {
             Swal.fire({
-              title: "Changer avec succès ",
+              title: intl.messages.details_cmd_change_success,
               icon: "success",
               width: 400,
               heightAuto: false,
@@ -1392,7 +1392,7 @@ class DetailsCommande extends Component {
         />
         <div>
           <style>{`.btn-link {  color:white} .btn-link:hover {color:white;} .card { background-color: #fafafa !important } .container {max-width: 90%;}  `}</style>
-          <div className="container">
+          <div style={localStorage.getItem('lg')=='ar'?{direction:"rtl",textAlign:"right"}:{}} className="container">
             <h3 style={{ marginTop: "1em" }}><FormattedMessage id="details_cmd_title"/> </h3>
             <br></br>
             <div>
@@ -1565,7 +1565,7 @@ class DetailsCommande extends Component {
                       >
                         <div
                           className="item"
-                          style={{ flexBasis: "95%", textAlign: "left" }}
+                          style={localStorage.getItem('lg')=='ar'?{ flexBasis: "95%", textAlign: "right" }:{ flexBasis: "95%", textAlign: "left" }}
                         >
                           {" "}
                           <FaClipboardCheck className="mb-2" /> <FormattedMessage id="details_cmd_details_produit"/>{" "}
@@ -1729,7 +1729,7 @@ class DetailsCommande extends Component {
                       >
                         <div
                           className="item"
-                          style={{ flexBasis: "95%", textAlign: "left" }}
+                          style={localStorage.getItem('lg')=='ar'?{ flexBasis: "95%", textAlign: "right" }:{ flexBasis: "95%", textAlign: "left" }}
                         >
                           {" "}
                           <FaClipboardCheck className="mb-2" />
@@ -1829,7 +1829,7 @@ class DetailsCommande extends Component {
                       >
                         <div
                           className="item"
-                          style={{ flexBasis: "95%", textAlign: "left" }}
+                          style={localStorage.getItem('lg')=='ar'?{ flexBasis: "95%", textAlign: "right" }:{ flexBasis: "95%", textAlign: "left" }}
                         >
                           {" "}
                           <FaClipboardCheck className="mb-2" /> <FormattedMessage id="details_cmd_details_prix"/>{" "}
@@ -1849,7 +1849,7 @@ class DetailsCommande extends Component {
                               <li>
                                 <FormattedMessage
                                 id="step2_prix_net"
-                                values={{ prix:this.state.prix_total - this.state.prix_transport,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_total - this.state.prix_transport,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                               </li>
                               {
@@ -1861,7 +1861,7 @@ class DetailsCommande extends Component {
                                 >
                                   <FormattedMessage
                                 id="step2_prix_transport"
-                                values={{ prix:this.state.prix_transport,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_transport,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                 </li>
                               }
@@ -1869,7 +1869,7 @@ class DetailsCommande extends Component {
                               <li>
                               <FormattedMessage
                                 id="step2_prix_totale"
-                                values={{ prix:this.state.prix_total,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_total,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                               </li>
 
@@ -1884,7 +1884,7 @@ class DetailsCommande extends Component {
                                     aria-hidden="true"
                                   ></i>{" "}
                                   <FormattedMessage id="cmd_avance"/>{" "}
-                                  <span> {this.state.prix_avance}<FormattedMessage id="panier_currency"/></span>
+                                  <span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}> {this.state.prix_avance}{" "}<FormattedMessage id="panier_currency"/></span>
                                 </li>
                               ) : null}
                               {commandes.statut ===
@@ -1892,7 +1892,7 @@ class DetailsCommande extends Component {
                                 <li>
                                   <FormattedMessage
                                 id="details_cmd_avance_deja_payee"
-                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                   {/* Avance deja payee{" "}
                                   <span> {this.state.prix_avance}Dhs</span> */}
@@ -1907,7 +1907,7 @@ class DetailsCommande extends Component {
                                   <li>
                                   <FormattedMessage
                                 id="details_cmd_avance_deja_payee"
-                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                     {/* Avance deja payee{" "}
                                     <span> {this.state.prix_avance}Dhs</span> */}
@@ -1919,7 +1919,7 @@ class DetailsCommande extends Component {
                                     ></i>{" "}
                                     <FormattedMessage
                                 id="details_cmd_reste_a_payee"
-                                values={{ prix:this.state.prix_reste,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_reste,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                     {/* Reste à payer{" "}
                                     <span> {this.state.prix_reste}Dhs</span> */}
@@ -1934,7 +1934,7 @@ class DetailsCommande extends Component {
                                   <li>
                                   <FormattedMessage
                                 id="details_cmd_avance_deja_payee"
-                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                     {/* Avance deja payee{" "}
                                     <span> {this.state.prix_avance}Dhs</span> */}
@@ -1942,7 +1942,7 @@ class DetailsCommande extends Component {
                                   <li>
                                   <FormattedMessage
                                 id="details_cmd_reste_deja_payee"
-                                values={{ prix:this.state.prix_reste,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_reste,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                     {/* Reste deja payee{" "}
                                     <span> {this.state.prix_reste}Dhs</span> */}
@@ -1958,13 +1958,13 @@ class DetailsCommande extends Component {
                                   <li>
                                   <FormattedMessage
                                 id="details_cmd_avance_deja_payee"
-                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                   </li>
                                   <li>
                                   <FormattedMessage
                                 id="details_cmd_reste_deja_payee"
-                                values={{ prix:this.state.prix_reste,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_reste,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                   </li>
                                   <li className="text-danger">
@@ -1974,7 +1974,7 @@ class DetailsCommande extends Component {
                                     ></i>{" "}
                                     <FormattedMessage
                                 id="details_cmd_complement_a_payee"
-                                values={{ prix:commandes.complement,span:(word)=><span>{word}</span> }}
+                                values={{ prix:commandes.complement,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                     {/* Complement à payer{" "}
                                     <span> {commandes.complement}Dhs</span> */}
@@ -1987,19 +1987,19 @@ class DetailsCommande extends Component {
                                   <li>
                                   <FormattedMessage
                                 id="details_cmd_avance_deja_payee"
-                                values={{ prix:this.state.prix_avance,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                   </li>
                                   <li>
                                   <FormattedMessage
                                 id="details_cmd_reste_deja_payee"
-                                values={{ prix:this.state.prix_reste,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_reste,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                   </li>
                                   <li>
                                   <FormattedMessage
                                 id="details_cmd_complement_deja_payee"
-                                values={{ prix:this.state.prix_complement,span:(word)=><span>{word}</span> }}
+                                values={{ prix:this.state.prix_complement,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
                                 />
                                     {/* Complement deja payee{" "}
                                     <span>
@@ -2055,7 +2055,7 @@ class DetailsCommande extends Component {
                         >
                           <div
                             className="item"
-                            style={{ flexBasis: "95%", textAlign: "left" }}
+                            style={localStorage.getItem('lg')=='ar'?{ flexBasis: "95%", textAlign: "right" }:{ flexBasis: "95%", textAlign: "left" }}
                           >
                             {" "}
                             <FaClipboardCheck className="mb-2" />{" "}
@@ -2117,6 +2117,7 @@ class DetailsCommande extends Component {
                                   value="virement"
                                 />
                                 <label
+                                style={localStorage.getItem('lg')=='ar'?{paddingRight:"1.25rem"}:{}}
                                   className="form-check-label"
                                   htmlFor="virement"
                                 >
@@ -2143,6 +2144,7 @@ class DetailsCommande extends Component {
                                   value="transfert"
                                 />
                                 <label
+                                style={localStorage.getItem('lg')=='ar'?{paddingRight:"1.25rem"}:{}}
                                   className="form-check-label"
                                   htmlFor="transfert"
                                 >
@@ -2216,7 +2218,7 @@ class DetailsCommande extends Component {
                             <div>
                               <b>
                                 <FormattedMessage id="details_cmd_reste_montant"/> : 
-                                {commandes.reste + " "}<FormattedMessage id="panier_currency"/>
+                                {" "+commandes.reste + " "}<FormattedMessage id="panier_currency"/>
                               </b>
                             </div>
                           ) : null}
@@ -2255,7 +2257,7 @@ class DetailsCommande extends Component {
                             <div>
                               <b>
                                 <FormattedMessage id="details_cmd_complement_montant"/> :{" "}
-                                {commandes.complement + " "}<FormattedMessage id="panier_currency"/>
+                                {" "+commandes.complement + " "}<FormattedMessage id="panier_currency"/>
                               </b>
                             </div>
                           ) : null}
@@ -2386,7 +2388,7 @@ class DetailsCommande extends Component {
             <br></br>
             <br></br>
             <div className="my-5">
-              <div className="row">
+              <div style={localStorage.getItem('lg')=='ar'?{justifyContent:"left"}:{}} className="row">
                 <div className="col-md-4 offset-md-4">
                   {commandes.statut === "en attente de paiement avance" ||
                   commandes.statut === "reçu avance refusé" ? (
@@ -2425,7 +2427,7 @@ class DetailsCommande extends Component {
                 </div>
                 <div className="col-md-3 offset-md-3"> </div>
               </div>
-              <div className="row mb-5">
+              <div style={localStorage.getItem('lg')=='ar'?{justifyContent:"left"}:{}} className="row mb-5">
                 {console.log(commandes.statut)}
                 {commandes.statut !== "commande annulée (deadline dépassé)" ? (
                   <>
@@ -2465,7 +2467,7 @@ class DetailsCommande extends Component {
           >
             <Modal.Header closeButton>
               <Modal.Title>
-                <h4>Solutions proposées</h4>
+                <h4><FormattedMessage id="details_cmd_solution_propose"/></h4>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body
@@ -2530,43 +2532,43 @@ class DetailsCommande extends Component {
                               className=" badge badge-success py-1 w-100  "
                             >
                               <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                              <span>Labélisé ANOC</span>{" "}
+                              <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                             </h1>
                           ) : (
                             <span className="badge pt-3 w-100  mt-1  ">
                               {"  "}
                             </span>
                           )}
-                          <div className="product__item__text p-2 text-justify">
+                          <div style={localStorage.getItem('lg')=='ar'?{ direction:"rtl" }:{}} className="product__item__text p-2 text-justify">
                             <h6 className="">
-                              <b>Espece</b> :{" "}
+                              <b><FormattedMessage id="details_mouton_espece"/></b> :{" "}
                               {Annonces.espece == "chevre"
-                                ? "Chèvre"
-                                : "Mouton"}
+                                ? <FormattedMessage id="tout_les_annonces_chevre"/>
+                                : <FormattedMessage id="tout_les_annonces_mouton"/>}
                             </h6>
                             <h6 className="">
-                              <b>Race :</b> {Annonces.race}
+                              <b><FormattedMessage id="home_item_race"/> :</b> {Annonces.race}
                             </h6>
                             <h6 className="">
-                              <b>Poids : </b>
-                              {Annonces.poids} Kg
+                              <b><FormattedMessage id="home_item_poids"/> : </b>
+                              {Annonces.poids} <FormattedMessage id="cmd_kg"/>
                             </h6>
                             <h6 className="">
-                              <b>Age :</b> {Annonces.age} mois
+                              <b><FormattedMessage id="cmd_age"/> :</b> {Annonces.age} <FormattedMessage id="cmd_mois"/>
                             </h6>
                             {this.state.Especes[0].prix - Annonces.prix > 0 ? (
                               <h5 className=" text-success text-center mt-4  ">
                                 -{" "}
                                 {this.state.Especes[0].prix -
                                   Annonces.prix +
-                                  "  Dhs"}
+                                  " "}<FormattedMessage id="panier_currency"/>
                               </h5>
                             ) : (
                               <h5 className=" text-danger text-center mt-4 ">
                                 +{" "}
                                 {Annonces.prix -
                                   this.state.Especes[0].prix +
-                                  "  Dhs"}
+                                  " "}<FormattedMessage id="panier_currency"/>
                               </h5>
                             )}
 
@@ -2581,7 +2583,7 @@ class DetailsCommande extends Component {
                                   )}
                                   className="col-6 py-1 btn btn-success"
                                 >
-                                  Accepter
+                                  <FormattedMessage id="details_cmd_accepter"/>
                                 </button>
                                 <div className="col-3"> </div>
                               </div>
@@ -2597,7 +2599,7 @@ class DetailsCommande extends Component {
                                   )}
                                   className="col-4 py-1 btn btn-success"
                                 >
-                                  Accepter
+                                  <FormattedMessage id="details_cmd_accepter"/>
                                 </button>
                                 <div className="col-1"> </div>
                                 <button
@@ -2605,7 +2607,7 @@ class DetailsCommande extends Component {
                                   type="button"
                                   className="col-4 py-1 btn btn-danger"
                                 >
-                                  Refuser
+                                  <FormattedMessage id="details_cmd_refuser"/>
                                 </button>
                                 <div className="col-2"> </div>
                               </div>
@@ -2623,7 +2625,7 @@ class DetailsCommande extends Component {
                         onClick={this.RefuseTSoutions}
                         className="col-4 py-1 btn btn-danger"
                       >
-                        Refuser les solutions proposées
+                        <FormattedMessage id="details_cmd_refuser_solution"/>
                       </button>
                       <div className="col-4"> </div>
                     </div>
@@ -2636,40 +2638,46 @@ class DetailsCommande extends Component {
                   )[0].produits_changement.length === 0 ? (
                     <h4 className="text-danger mb-5 mt-2">
                       {" "}
-                      Pas de produits de changements proposés.
+                      <FormattedMessage id="details_cmd_pas_de_produit_de_changement"/>
                     </h4>
                   ) : (
                     <h4 className="text-danger mb-5 mt-2">
                       {" "}
-                      Vous avez refuse tous les produits de changements
-                      proposés.
+                      <FormattedMessage id="details_cmd_pas_de_produit_de_changement_refuser"/>
                     </h4>
                   )}
                   {this.state.commandes.ancien_statut !==
                   "en attente de paiement avance" ? (
                     <>
                       <h5>
-                        Dans ce cas là, nous procederons à votre remboursement :{" "}
+                      <FormattedMessage id="details_cmd_proceder_au_remboursement"/>:{" "}
                         <span className="text-danger">
-                          {this.state.prixRemb} Dhs
+                          {this.state.prixRemb}{" "} <FormattedMessage id="panier_currency"/>
                         </span>
                       </h5>
                       <form className="my-5 ">
                         <div className="form-group">
                           <label htmlFor="nom_prenom">
-                            Votre nom et prenom
+                            <FormattedMessage id="details_cmd_nom_prenom"/>
                           </label>
                           {this.state.nom_prenom_valide === "" ? (
-                            <input
+                            <FormattedMessage id="details_cmd_nom_prenom">
+                            {(placeholder) => (
+                              <input
                               onChange={this.onChange}
                               type="text"
                               className="form-control"
                               id="nom_prenom"
                               name="nom_prenom"
-                              placeholder="Nom et prenom"
+                              placeholder={placeholder}
                             />
+                            )}
+                          </FormattedMessage>
+                            
                           ) : (
-                            <input
+                            <FormattedMessage id="details_cmd_nom_prenom">
+                            {(placeholder) => (
+                              <input
                               disabled
                               value={this.state.nom_prenom_valide}
                               onChange={this.onChange}
@@ -2677,15 +2685,18 @@ class DetailsCommande extends Component {
                               className="form-control"
                               id="nom_prenom"
                               name="nom_prenom"
-                              placeholder="Nom et prenom"
+                              placeholder={placeholder}
                             />
+                            )}
+                          </FormattedMessage>
+                            
                           )}
                           <span className="text-danger">
                             {this.state.errors["nom_prenom"]}
                           </span>
                         </div>
                         <div className="form-group">
-                          <label htmlFor="rib">Votre numero de RIB</label>
+                          <label htmlFor="rib"><FormattedMessage id="details_cmd_numero_rib"/></label>
                           {this.state.rib_valide === "" ? (
                             <input
                               onChange={this.onChange}
@@ -2721,7 +2732,7 @@ class DetailsCommande extends Component {
                           onClick={this.ModalS.bind(this, this.state.especeAv)}
                           className="btn btn-danger col-2"
                         >
-                          Annuler{" "}
+                          <FormattedMessage id="details_cmd_annuler"/>{" "}
                         </button>
                         <div className="col-2"> </div>
                         <button
@@ -2729,13 +2740,13 @@ class DetailsCommande extends Component {
                           onClick={this.handlPost}
                           className="btn btn-success col-2"
                         >
-                          Valider
+                          <FormattedMessage id="step3_valider"/>
                         </button>
                         <div className="col-3"> </div>
                       </div>
                     </>
                   ) : (
-                    <h5>Dans ce cas là, l'ennonce sera annulee </h5>
+                    <h5><FormattedMessage id="details_cmd_annuler_annonce"/> </h5>
                   )}
                 </div>
               ) : null}
@@ -2753,7 +2764,7 @@ class DetailsCommande extends Component {
           >
             <Modal.Header closeButton>
               <Modal.Title>
-                <h4>Solution choisi</h4>
+                <h4><FormattedMessage id="details_cmd_solution_choisi"/></h4>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body
@@ -2770,7 +2781,7 @@ class DetailsCommande extends Component {
                       {" "}
                       <h4 className="text-danger mb-5 mt-2">
                         {" "}
-                        Vous avez choisi l'espece suivante :
+                        <FormattedMessage id="details_cmd_solution_choisi_espece"/>
                       </h4>
                       <div className="  mb-4">
                         <div className="row m-auto">
@@ -2842,7 +2853,7 @@ class DetailsCommande extends Component {
                                   className=" badge badge-success py-1 w-100  "
                                 >
                                   <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                  <span>Labélisé ANOC</span>{" "}
+                                  <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                                 </h1>
                               ) : (
                                 <span className="badge pt-3 w-100  mt-1  ">
@@ -2865,9 +2876,9 @@ class DetailsCommande extends Component {
                               backgroundSize: "cover",
                             }}
                           >
-                            <div className="product__item__text p-2 text-justify">
+                            <div style={localStorage.getItem('lg')=='ar'?{ direction:"rtl" }:{}} className="product__item__text p-2 text-justify">
                               <h6 className="">
-                                <b>№ Boucle</b> :{" "}
+                                <b><FormattedMessage id="details_mouton_numero_boucle"/></b> :{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
@@ -2875,7 +2886,7 @@ class DetailsCommande extends Component {
                                 }
                               </h6>
                               <h6 className="">
-                                <b>Espece</b> :{" "}
+                                <b><FormattedMessage id="details_mouton_espece"/></b> :{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
@@ -2883,7 +2894,7 @@ class DetailsCommande extends Component {
                                 }
                               </h6>
                               <h6 className="">
-                                <b>Race :</b>{" "}
+                                <b><FormattedMessage id="home_item_race"/> :</b>{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
@@ -2891,25 +2902,25 @@ class DetailsCommande extends Component {
                                 }
                               </h6>
                               <h6 className="">
-                                <b>Poids : </b>
+                                <b><FormattedMessage id="home_item_poids"/> : </b>
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
                                   ).poids
                                 }{" "}
-                                Kg
+                                <FormattedMessage id="cmd_kg"/>
                               </h6>
                               <h6 className="">
-                                <b>Age :</b>{" "}
+                                <b><FormattedMessage id="cmd_age"/> :</b>{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
                                   ).age
                                 }{" "}
-                                mois
+                                <FormattedMessage id="cmd_mois"/>
                               </h6>
                               <h6 className="">
-                                <b>Localisation :</b>{" "}
+                                <b><FormattedMessage id="add_mouton_localisation"/> :</b>{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
@@ -2921,7 +2932,7 @@ class DetailsCommande extends Component {
                                 <i className="fa fa-usd" aria-hidden="true"></i>{" "}
                                 {this.getChoix(
                                   this.getEspece(this.state.especeAv)
-                                ).prix + "  Dhs"}
+                                ).prix + " "}<FormattedMessage id="panier_currency"/>
                               </h5>
                             </div>
                           </div>
@@ -2931,8 +2942,7 @@ class DetailsCommande extends Component {
                   ) : (
                     <h4 className="text-danger mb-5 mt-2">
                       {" "}
-                      Vous avez refuse tous les produits de changements
-                      proposés.
+                      <FormattedMessage id="details_cmd_pas_de_produit_de_changement_refuser"/>
                     </h4>
                   )}
                 </div>
@@ -2952,13 +2962,13 @@ class DetailsCommande extends Component {
             <Modal.Header closeButton>
               <Modal.Title>
                 {this.state.payer === "avance" ? (
-                  <h4>Importer le reçu : paiement d'avance</h4>
+                  <h4><FormattedMessage id="details_cmd_recu_avance"/></h4>
                 ) : null}
                 {this.state.payer === "reste" ? (
-                  <h4>Importer le reçu : paiement du reste</h4>
+                  <h4><FormattedMessage id="details_cmd_recu_reste"/></h4>
                 ) : null}
                 {this.state.payer === "complement" ? (
-                  <h4>Importer le reçu : paiement du complement</h4>
+                  <h4><FormattedMessage id="details_cmd_recu_complement"/></h4>
                 ) : null}{" "}
               </Modal.Title>
             </Modal.Header>
@@ -3007,14 +3017,14 @@ class DetailsCommande extends Component {
                 onClick={this.Modal}
                 className="btn btn-danger"
               >
-                Annuler{" "}
+                <FormattedMessage id="details_cmd_annuler"/>{" "}
               </button>
               <button
                 type="button"
                 onClick={this.handlePut}
                 className="btn btn-success"
               >
-                Valider
+                <FormattedMessage id="step3_valider"/>
               </button>
             </Modal.Footer>
           </Modal>
