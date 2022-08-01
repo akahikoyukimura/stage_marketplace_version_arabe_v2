@@ -912,7 +912,7 @@ class HomeSheeps extends Component {
 
             <div className="container">
               <div className="row">
-                <div className="col-lg-3 col-md-4">
+                <div style={localStorage.getItem('lg')=='ar'?{textAlign:"right"}:{}} className="col-lg-3 col-md-4">
                   <a className="lienapropos" href="./Apropos">
                     <div
                       style={{ cursor: "pointer" }}
@@ -1270,7 +1270,7 @@ class HomeSheeps extends Component {
                   </div>
                 </div>
                 <div className="col-lg-9 col-md-7">
-                  <div className="filter__item">
+                  <div style={localStorage.getItem('lg')=='ar'?{textAlign:"right"}:{}} className="filter__item">
                     <div>
                       <div id="filterPlace" className="col-lg-5 col-md-8 fa ">
                       <FormattedMessage
@@ -1297,7 +1297,7 @@ class HomeSheeps extends Component {
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
                         <div className="filter__found text-left">
-                          <h4>
+                          <h4 style={localStorage.getItem('lg')=='ar'?{textAlign:"right"}:{}}>
                             <span id="nbEspece">
                               {" "}
                               {this.state.Annonces.length}
