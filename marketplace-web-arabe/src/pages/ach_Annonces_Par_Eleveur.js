@@ -477,7 +477,7 @@ class AllOffers extends Component {
             <div className="searchheader">
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell"}}
+                style={{ display: "table-cell", verticalAlign:"middle"}}
               >
                 <FormattedMessage id="eleveurs_espece">
                   {(espece) => (
@@ -562,7 +562,7 @@ class AllOffers extends Component {
                   </a>
                   <div id="rechercher" className="col-lg-12" >
                     <div className="mobileSearch" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
-                      <div className="sidebar__item">
+                      <div style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}} className="sidebar__item">
                         <h4><FormattedMessage id="eleveurs_rechercher"/></h4>
 
                         <h6 id="gras" className="latest-product__item">

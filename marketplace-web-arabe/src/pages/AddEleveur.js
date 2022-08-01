@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {FormattedMessage} from 'react-intl'
 
 class AddEleveur extends Component {
   render() {
@@ -9,38 +10,86 @@ class AddEleveur extends Component {
             <div className="row">
               <div className="col-lg-12">
                 <div className="contact__form__title">
-                  <h2>Ajouter  éleveur</h2>
+                  <h2><FormattedMessage id="eleveurs_add"/></h2>
                 </div>
               </div>
             </div>
             <form action="#">
               <div className="row">
                 <div className="col-lg-6 col-md-6">
-                  <input type="text" placeholder="Nom" />
+                  <FormattedMessage id="eleveurs_nom">
+                    {(nom)=>(
+                      <input type="text" 
+                      placeholder={nom} />
+                    )}
+                  
+                  </FormattedMessage>
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <input type="text" placeholder="Prénom" />
+                <FormattedMessage id="eleveurs_prenom">
+                    {(prenom)=>(
+                      <input type="text" 
+                      placeholder={prenom} />
+                    )}
+                  
+                  </FormattedMessage>
+
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <input type="text" placeholder="Numéro de téléphone" />
+                <FormattedMessage id="eleveurs_num_tel">
+                    {(num)=>(
+                      <input type="text" 
+                      placeholder={num} />
+                    )}
+      
+                  </FormattedMessage>
+                  
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <input type="text" placeholder="Poids" />
+                <FormattedMessage id="eleveurs_poids">
+                    {(poids)=>(
+                      <input type="text" 
+                      placeholder={poids} />
+                    )}
+                  
+                  </FormattedMessage>
+                  
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <input type="text" placeholder="Adresse" />
+                <FormattedMessage id="eleveurs_adresse">
+                    {(adr)=>(
+                      <input type="text" 
+                      placeholder={adr} />
+                    )}
+                  
+                  </FormattedMessage>
+                  
                 </div>
                 <div className="col-lg-6 col-md-6">
-                  <input type="text" placeholder="Numéro de RIB" />
+                <FormattedMessage id="eleveurs_RIB">
+                    {(rib)=>(
+                      <input type="text" 
+                      placeholder={rib} />
+                    )}
+                  
+                  </FormattedMessage>
+                  
                 </div>
                
                 <div className="col-lg-12 ">
-                  <input type="file" placeholder="Images" />
+                <FormattedMessage id="eleveurs_img">
+                    {(img)=>(
+                      <input type="file" 
+                      placeholder={img} />
+                    )}
+                  
+                  </FormattedMessage>
+                  
                 </div>
                 <div className="col-lg-12 text-center">
                  
                   <button type="submit" className="site-btn">
-                    Ajouter
+                    <FormattedMessage id="eleveurs_ajouter"/>
                   </button>
                 </div>
               </div>

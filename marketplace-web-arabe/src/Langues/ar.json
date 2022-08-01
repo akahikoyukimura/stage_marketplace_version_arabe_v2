@@ -170,6 +170,37 @@
     "eleveurs_etoile":"نجمة",
     "eleveurs_my_anoc_message":"اكتشف المزيد عنا ، ثقتك هي أولويتنا.",
     "eleveurs_msg_popup":"انضم الى تطبيق الجوال الخاص بنا",
+    "eleveurs_statut":"الحالة",
+    "eleveurs_poids":"الوزن",
+    "eleveurs_poids_max":"الوزن الأقصى",
+    "eleveurs_poids_min":"الوزن الأدنى",
+    "eleveurs_KG":"كلغ",
+    "eleveurs_prix":"الثمن",
+    "eleveurs_prix_max":"الثمن الأقصى",
+    "eleveurs_prix_min":"الثمن الأدنى",
+    "eleveurs_DH":"درهم",
+    "eleveurs_reference":"مرجع",
+    "eleveurs_ref_De_annonce":"مرجع الإعلان",
+    "eleveurs_labelise":"موسوم من ",
+    "eleveurs_eleveur":"المربي",
+    "eleveurs_tel":"الهاتف",
+    "eleveurs_total_tetes":"مجموع الرؤوس",
+    "eleveurs_label":" هو ضمان جودة المنتج{anoc}وسم ",
+    "eleveurs_propose":"ما يقترحه عليكم :",
+    "eleveurs_especes_disponibles":"متاحة   ",
+    "eleveurs_especes_vendus":"مباعة",
+    "eleveurs_especes_dispo":"متاح",
+    "eleveurs_especes_vendu":"مباع",
+    "eleveurs_add":"أضف مربي",
+    "eleveurs_nom":"النسب",
+    "eleveurs_prenom":"الاسم",
+    "eleveurs_num_tel":"رقم الهاتف",
+    "eleveurs_adresse":"العنوان",
+    "eleveurs_RIB":"رقم كشف الحساب البنكي",
+    "eleveurs_img":"الصور",
+    "eleveurs_ajouter":"إضافة",
+
+    
 
     "_comment10":"Apropos",
     "Apropos_text":"الجمعية الوطنية لمربي الأغنام والماعز هي جمعية وطنية ذات هدف غير ربحي، تسعى لتنمية مربي الأغنام والماعز وتعزيز مهنتهم ضمن ظروف صعبة داخل العالم القروي. من بين أهداف الجمعية أيضا، المساهمة في التنمية الاقتصادية والاجتماعية من خلال تنمية تربية هذه المواشي والتسويق لمنتجاتها",
@@ -198,12 +229,9 @@
     "details_mouton_aucune_description":"لا يوجد وصف متاح",
     "details_mouton_commander":"طلب النوع",
     "details_mouton_espece":"النوع",
-<<<<<<< HEAD
-=======
     "details_mouton_ajouter_favoris":"اضافة الى قائمة الاشياء المفضلة",
     "details_mouton_supprimer_favoris":"إزالة من قائمة الاشياء المفضلة",
     "details_mouton_annonces_similaire":"إعلانات مشابهة",
->>>>>>> b2c532c8e7e6d289a8f9061caa215199a1be8f9a
 
     "_comment21":"this is ach_commander page",
     "commander_title":"اطلب حيوانك",
@@ -242,47 +270,6 @@
     "step2_frais_reservation":"رسوم الحجز (*) <span>{prix}درهم</span>",
     "step2_warning":"* تسبيق غير قابل للاسترداد",
 
-<<<<<<< HEAD
-    "_comment25":"this is step3 page",
-    "step2_virement_bancaire":"تحويل مصرفي",
-    "step3_par_agence":"عن طريق وكالة تحويل الأموال (*)",
-    "step3_frais_transport":"* تكاليف التحويل على حساب المشتري",
-    "step3_accepte":"أقبل الشروط العامة للبيع",
-    "step3_valider":"مصادقة",
-
-    "_comment26":"this is ach_alerte_commande page",
-    "alerte_cmd_title":"طلبيتك سارت بنجاح",
-    "alerte_cmd_h5_message_validation":"للمصادقة على طلبيتك ، ما عليك سوى دفع رسوم الحجز عن طريق إجراء",
-    "alerte_cmd_h5_message_transfert_au_technicien":" تحويل الأموال للتقني :",
-    "alerte_cmd_h5_message_virement_sur_rib":" تحويل إلى الRIB التالي :",
-    "alerte_cmd_h5_frais_reservation":"رسوم الحجز التي يجب دفعها : <span>{avance} درهم</span>",
-    "alerte_cmd_attention_message1":"<span>تحذير :</span> لديك حتى {deadline} لدفع واستيراد توصيل الدفع الخاص بك.",
-    "alerte_cmd_attention_message2":"بعد هذا الوقت، سيتم إلغاء طلبيتك تلقائيًا!",
-    "alerte_cmd_valider":"المصادقة على الطلبية",
-    "alerte_cmd_annuler":"الغاء الطلبية",
-    "alerte_cmd_annuler_popup_text":"!هل تريد إلغاء طلبيتك",
-    "alerte_cmd_annulation_success_title":"!إلغاء",
-    "alerte_cmd_annulation_success_body":"تم إلغاء طلبيتك بنجاح",
-    "alerte_cmd_annulation_failed_title":"إلغاء",
-    "alerte_cmd_annulation_failed_body":"!لم يتم إلغاء الطلبية",
-    "alerte_cmd_validation_title":"تمت المصادقة على الطلبية",
-    "alerte_cmd_validation_body":"قم بإنهاء طلبيتك في قسم طلباتي",
-
-    "_comment27":"this is ach_details_commande page",
-    "details_cmd_title":"تفاصيل الطلبية",
-    "details_cmd_motif_annulation":"سبب الالغاء",
-    "details_cmd_details_produit":"تفاصيل المنتج",
-    "details_cmd_details_livraison":"تفاصيل التوصيل",
-    "details_cmd_adresse_livraison":"عنوان التوصيل",
-=======
-    "_comment24": "this is step2 page",
-    "step2_title": "المبلغ الواجب دفعه",
-    "step2_prix_net": "السعر الصافي <span>{prix} درهم </span>",
-    "step2_prix_transport": "سعر النقل <span>{prix} درهم </span>",
-    "step2_prix_totale": "السعر الاجمالي  <span>{prix} درهم </span>",
-    "step2_frais_reservation": "رسوم الحجز (*)  <span>{prix} درهم</span>",
-    "step2_warning": "* تسبيق غير قابل للاسترداد",
-
     "_comment25": "this is step3 page",
     "step2_virement_bancaire": "تحويل مصرفي",
     "step2_choisir_virement_title":"الرجاء اختيار البنك الذي تتعامل معه",
@@ -311,8 +298,14 @@
     "alerte_cmd_annulation_failed_body": "!لم يتم إلغاء الطلبية",
     "alerte_cmd_validation_title": "تمت المصادقة على الطلبية",
     "alerte_cmd_validation_body": "قم بإنهاء طلبيتك في قسم طلباتي",
->>>>>>> b2c532c8e7e6d289a8f9061caa215199a1be8f9a
 
+    "_comment27":"this is ach_details_commande page",
+    "details_cmd_title":"تفاصيل الطلبية",
+    "details_cmd_motif_annulation":"سبب الالغاء",
+    "details_cmd_details_produit":"تفاصيل المنتج",
+    "details_cmd_details_livraison":"تفاصيل التوصيل",
+    "details_cmd_adresse_livraison":"عنوان التوصيل",
+    
     "_comment28": "this is login ",
     "login_email": "البريد الالكتروني او الهاتف",
     "login_password": " الرمز السري",
@@ -345,9 +338,6 @@
     "signup_obligatoire2": " يجب عليكم قبول  شروط الاستخدام العامة",
 
 
-<<<<<<< HEAD
-  }
-=======
     "_comment30": "this is change mot de passe",
     "change_reinitialiser": "استعادت الرمز السري",
     "change_valider": "تاكيد",
@@ -364,4 +354,3 @@
     "compte_civilisation": "جنس",
     "compte_tel": "الهاتف"
 }
->>>>>>> b2c532c8e7e6d289a8f9061caa215199a1be8f9a

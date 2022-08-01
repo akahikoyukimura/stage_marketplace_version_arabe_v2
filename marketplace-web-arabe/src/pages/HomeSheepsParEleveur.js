@@ -13,6 +13,7 @@ import Box from "@material-ui/core/Box";
 import { Modal } from "react-bootstrap";
 import Pagination from "react-js-pagination";
 import RangeSlider from "react-bootstrap-range-slider";
+import {FormattedMessage} from 'react-intl'
 
 class HomeSheepsParEleveur extends Component {
   constructor() {
@@ -49,14 +50,14 @@ class HomeSheepsParEleveur extends Component {
       redirect: false,
       selectedOptionSort: null,
       optionsSort: [
-        { value: "prix", label: "Moins cher au plus cher" },
-        { value: "prix_dec", label: "Plus cher au moins cher" },
+        { value: "prix", label: <FormattedMessage id="tout_les_annonces_moins_cher_au_plus" /> },
+        { value: "prix_dec", label:<FormattedMessage id="tout_les_annonces_plus_cher_au_moins" /> },
 
-        { value: "age", label: "Plus jeune au plus age" },
-        { value: "age_dec", label: "plus age au plus jeune" },
+        { value: "age", label: <FormattedMessage id="tout_les_annonces_plus_jeune_au_plus_age" /> },
+        { value: "age_dec", label:<FormattedMessage id="tout_les_annonces_plus_age_au_plus_jeune" /> },
 
-        { value: "poids", label: "Moins lourd au plus lourd" },
-        { value: "poids_dec", label: "Plus lourd au moins lourd" },
+        { value: "poids", label: <FormattedMessage id="tout_les_annonces_moins_lourd_au_plus_lourd" /> },
+        { value: "poids_dec", label:<FormattedMessage id="tout_les_annonces_plus_lourd_aumoins_lourd" /> },
       ],
       showSearchModal: false,
       statut: [
@@ -482,7 +483,7 @@ class HomeSheepsParEleveur extends Component {
     );
 
     return (
-      <div>
+      <div style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
         {/**modal de recherche */}
         <section className="search-header">
           <div
@@ -502,13 +503,18 @@ class HomeSheepsParEleveur extends Component {
                 className="col-lg-1 col-md-3"
                 style={{ display: "table-cell", verticalAlign: "middle" }}
               >
-                <Select
-                  value={selectedOptionEspece}
-                  onChange={this.handleChangeEspece}
-                  options={optionsEspece}
-                  placeholder="Espece"
-                  required
-                />
+                <FormattedMessage id="eleveurs_espece">
+                  {(espece) => (
+                    <Select
+                    value={selectedOptionEspece}
+                    onChange={this.handleChangeEspece}
+                    options={optionsEspece}
+                    placeholder={espece}
+                    required
+                  />
+                  )}
+                
+                </FormattedMessage>
               </div>
 
               {/* <div
@@ -527,28 +533,38 @@ class HomeSheepsParEleveur extends Component {
                 className="col-lg-1 col-md-3"
                 style={{ display: "table-cell", verticalAlign: "middle" }}
               >
-                <Select
-                  isDisabled={this.state.Disabled}
-                  value={this.selectedOptionStatut}
-                  onChange={this.handleChangeStatut}
-                  options={this.state.statut}
-                  placeholder="Statut"
-                  required
-                />
+                <FormattedMessage id="eleveurs_statut">
+                  {(statut) => (
+                    <Select
+                    isDisabled={this.state.Disabled}
+                    value={this.selectedOptionStatut}
+                    onChange={this.handleChangeStatut}
+                    options={this.state.statut}
+                    placeholder="Statut"
+                    required
+                  />
+                  )}
+                
+                </FormattedMessage>
               </div>
               <div
                 className="col-lg-1 col-md-3"
                 style={{ display: "table-cell", verticalAlign: "middle" }}
               >
-                <Select
-                  id="recherchePlace"
-                  isDisabled={this.state.Disabled}
-                  value={selectedOptionRace}
-                  onChange={this.handleChangeRace}
-                  options={this.state.race}
-                  placeholder=" Race"
-                  required
-                />
+                <FormattedMessage id="eleveurs_race">
+                  {(race) =>(
+                    <Select
+                    id="recherchePlace"
+                    isDisabled={this.state.Disabled}
+                    value={selectedOptionRace}
+                    onChange={this.handleChangeRace}
+                    options={this.state.race}
+                    placeholder=" Race"
+                    required
+                  />
+                  )}
+                
+                </FormattedMessage>
               </div>
 
               {/*             <div className="col-lg-3 col-md-3">
@@ -599,7 +615,7 @@ class HomeSheepsParEleveur extends Component {
                 />
                 <div style={{ color: "white" }}>
                   {" "}
-                  Prix max : {valueprice} DH
+                  <FormattedMessage id="eleveurs_prix_max"/> : {valueprice} <FormattedMessage id="eleveurs_DH"/>
                 </div>
 
                 <RangeSlider
@@ -619,7 +635,7 @@ class HomeSheepsParEleveur extends Component {
                 />
                 <div style={{ color: "white" }}>
                   {" "}
-                  Poids max : {valuepoids} KG
+                  <FormattedMessage id="eleveurs_poids_max"/> : {valuepoids} <FormattedMessage id="eleveurs_KG"/>
                 </div>
                 {/*   <input
                   id="recherchePlace"
@@ -662,7 +678,7 @@ class HomeSheepsParEleveur extends Component {
                     className="newBtn site-btn"
                     onClick={this.handelChercher}
                   >
-                    <i className="fa fa-search "></i> Rechercher{" "}
+                    <i className="fa fa-search "></i> <FormattedMessage id="eleveurs_rechercher"/>{" "}
                   </button>
                 </div>
                 <div className="ReinButton">
@@ -671,7 +687,7 @@ class HomeSheepsParEleveur extends Component {
                     className="newBtn site-btn"
                     onClick={this.handelReinitialiser}
                   >
-                    <i className="fa fa-refresh"></i> Reinitialiser{" "}
+                    <i className="fa fa-refresh"></i> <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
                   </button>
                 </div>
               </div>
@@ -690,7 +706,7 @@ class HomeSheepsParEleveur extends Component {
           id="modalRecherche"
         >
           <Modal.Header closeButton>
-            <h4 className="text-left mt-4">Rechercher</h4>
+            <h4 className="text-left mt-4"><FormattedMessage id="eleveurs_rechercher"/></h4>
           </Modal.Header>
           <Modal.Body>
             <div
@@ -703,73 +719,92 @@ class HomeSheepsParEleveur extends Component {
                   <br></br>
                   <div className="sidebar__item">
                     <h6 id="gras" className="latest-product__item">
-                      Espece
+                      <FormattedMessage id="eleveurs_espece"/>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <Select
-                          value={selectedOptionEspece}
-                          onChange={this.handleChangeEspece}
-                          options={optionsEspece}
-                          placeholder="Espece"
-                          required
-                          // className="Select"
-                        />
+                        <FormattedMessage>
+                          {(espece) => (
+                            <Select
+                            value={selectedOptionEspece}
+                            onChange={this.handleChangeEspece}
+                            options={optionsEspece}
+                            placeholder="Espece"
+                            required
+                            // className="Select"
+                          />
+                          )}
+                        </FormattedMessage>
                         <br></br>
                       </div>
                     </div>
 
                     <h6 id="gras" className="latest-product__item">
-                      Race
+                      <FormattedMessage id="eleveurs_race"/>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <Select
-                          isDisabled={this.state.Disabled}
-                          value={selectedOptionRace}
-                          onChange={this.handleChangeRace}
-                          options={this.state.race}
-                          placeholder=" Race"
-                          required
-                          // className="Select"
-                        />
+                        <FormattedMessage id="eleveurs_race">
+                          {(race)=>(
+                            <Select
+                            isDisabled={this.state.Disabled}
+                            value={selectedOptionRace}
+                            onChange={this.handleChangeRace}
+                            options={this.state.race}
+                            placeholder={race}
+                            required
+                            // className="Select"
+                            />
+                          )}
+
+                        </FormattedMessage>
                         <br></br>
                       </div>
                     </div>
                     <h6 id="gras" className="latest-product__item">
-                      Statut
+                      <FormattedMessage id="eleveurs_statut"/>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <Select
-                          isDisabled={this.state.Disabled}
-                          value={this.selectedOptionStatut}
-                          onChange={this.handleChangeStatut}
-                          options={this.state.statut}
-                          placeholder="Statut"
-                          required
-                          // className="Select"
-                        />
+                        <FormattedMessage id="eleveurs_statut">
+                          {(statut)=>(
+                            <Select
+                            isDisabled={this.state.Disabled}
+                            value={this.selectedOptionStatut}
+                            onChange={this.handleChangeStatut}
+                            options={this.state.statut}
+                            placeholder={statut}
+                            required
+                            // className="Select"
+                          />
+                          )}
+                        
+                        </FormattedMessage>
                         <br></br>
                       </div>
                     </div>
                     <h6 id="gras" className="latest-product__item">
-                      Reference
+                      <FormattedMessage id="eleveurs_reference"/>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder=" Reference de l'annonce"
-                          name="reference"
-                          onChange={this.onChange}
-                        />
+                        <FormattedMessage id="eleveurs_ref_de_annonce">
+                          {(ref) => (
+                            <input
+                            type="text"
+                            className="form-control"
+                            placeholder={ref}
+                            name="reference"
+                            onChange={this.onChange}
+                          />
+                          )}
+                        
+                        </FormattedMessage>
                       </div>
                     </div>
                     <br />
                     <h6 id="gras" className="latest-product__item">
-                      Prix
+                      <FormattedMessage id="eleveurs_prix"/>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
@@ -785,6 +820,7 @@ class HomeSheepsParEleveur extends Component {
 
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
+                        <FormattedMessage id="eleveurs_prix_max">
                         <input
                           type="text"
                           className="form-control"
@@ -792,39 +828,49 @@ class HomeSheepsParEleveur extends Component {
                           name="prix_max"
                           onChange={this.onChange}
                         />
+                        </FormattedMessage>
                       </div>
                     </div>
                     <br></br>
 
                     <h6 id="gras" className="latest-product__item">
-                      Poids
+                      <FormattedMessage id="eleveurs_poids"/>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder=" Poids min"
-                          name="poids_min"
-                          onChange={this.onChange}
-                        />
+                        <FormattedMessage id="eleveurs_poids_min">
+                          {(poidsMin)=>(
+                            <input
+                            type="text"
+                            className="form-control"
+                            placeholder={poidsMin}
+                            name="poids_min"
+                            onChange={this.onChange}
+                          />
+                          )}
+                        
+                        </FormattedMessage>
                       </div>
                     </div>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder=" Poids max"
-                          name="poids_max"
-                          onChange={this.onChange}
-                        />
+                        <FormattedMessage id="eleveurs_poids_max">
+                          {(poidsMax) => (
+                            <input
+                            type="text"
+                            className="form-control"
+                            placeholder={poidsMax}
+                            name="poids_max"
+                            onChange={this.onChange}
+                          />
+                          )}
+                        </FormattedMessage>
                       </div>
                     </div>
                     <br></br>
 
                     <h6 id="gras" className="latest-product__item">
-                      Ville
+                      <FormattedMessage id="eleveurs_ville"/>
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
@@ -848,7 +894,7 @@ class HomeSheepsParEleveur extends Component {
                           className="newBtn site-btn"
                           onClick={this.handelChercher}
                         >
-                          <i className="fa fa-search "></i> Rechercher{" "}
+                          <i className="fa fa-search "></i> <FormattedMessage id="eleveurs_rechercher"/>{" "}
                         </button>
                         <br></br>
                         <br></br>
@@ -857,7 +903,7 @@ class HomeSheepsParEleveur extends Component {
                           className="newBtn site-btn"
                           onClick={this.handelReinitialiser}
                         >
-                          <i className="fa fa-refresh"></i> Reinitialiser{" "}
+                          <i className="fa fa-refresh"></i> <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
                         </button>
                         <br></br>
                         <br></br>
@@ -871,7 +917,8 @@ class HomeSheepsParEleveur extends Component {
         </Modal>
 
         {/**modal de recherche */}
-        <section className="">
+        <section className=""
+          style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}                            >
           <div className="container">
             <div className="row">
               <div className="col-lg-3 col-md-6" id="parElvrHidden">
@@ -890,8 +937,7 @@ class HomeSheepsParEleveur extends Component {
                     />
                     <br></br>
                     <p>
-                      Découvrez nous d'avantage, votre confiance est notre
-                      priorité.
+                      <FormattedMessage id="eleveurs_my_anoc_message"/>
                     </p>
                   </div>
                 </a>
@@ -903,7 +949,7 @@ class HomeSheepsParEleveur extends Component {
                     textAlign: "center",
                   }}
                 >
-                  Rejoignez notre application mobile Aujourd'hui!
+                  <FormattedMessage id="eleveurs_msg_popup"/>
                 </h4>
                 <a href="https://qrco.de/bcHPx6">
                   <div className="infoCards">
@@ -961,7 +1007,9 @@ class HomeSheepsParEleveur extends Component {
                       </div>
                     </div>
 
-                    <div className="row">
+                    <div 
+                    className="row"
+                    >
                       <div className="col-lg-4 col-md-5"></div>
                       <div className="col-lg-12 col-md-12">
                         <br />
@@ -981,15 +1029,19 @@ class HomeSheepsParEleveur extends Component {
                                 className=" badge badge-success  pt-1 w-100  "
                               >
                                 <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                <span>Labélisé ANOC</span>{" "}
+                                <span><FormattedMessage id="eleveurs_labelise"/> ANOC</span>{" "}
                               </h1>
                             ) : (
+                            
                               <span className="badge pt-3 w-100 mt-1   ">
                                 {"  "}
                               </span>
                             )}
                           </div>
-                          <div className="product__details__text">
+                          <div 
+                          className="product__details__text"
+                          style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}
+                          >
                             <div id="centrer" className="container col-md-12">
                               <br></br>
                               <h3 className="mt-1">
@@ -998,7 +1050,7 @@ class HomeSheepsParEleveur extends Component {
                                   mb={3}
                                   borderColor="transparent"
                                 >
-                                  Eleveur :{" "}
+                                  <FormattedMessage id="eleveurs_eleveur"/> :{" "}
                                   {this.state.Eleveur.nom +
                                     " " +
                                     this.state.Eleveur.prenom}{" "}
@@ -1020,7 +1072,7 @@ class HomeSheepsParEleveur extends Component {
                                       <i className="fa fa-map"></i>
                                     </span>
                                     <span className="key">
-                                      <b>Région</b>
+                                      <b><FormattedMessage id ="eleveurs_region"></FormattedMessage></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
@@ -1036,7 +1088,7 @@ class HomeSheepsParEleveur extends Component {
                                       <i className="fa fa-home"></i>
                                     </span>
                                     <span className="key">
-                                      <b>Ville</b>
+                                      <b><FormattedMessage id="eleveurs_ville"></FormattedMessage></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
@@ -1055,7 +1107,7 @@ class HomeSheepsParEleveur extends Component {
                                       ></i>
                                     </span>
                                     <span className="key">
-                                      <b>Téléphone</b>
+                                      <b><FormattedMessage id="eleveurs_tel"/></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
@@ -1081,7 +1133,7 @@ class HomeSheepsParEleveur extends Component {
                                       />
                                     </span>
                                     <span className="key">
-                                      <b>Total des têtes</b>
+                                      <b><FormattedMessage id="eleveurs_total_tetes"/></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
@@ -1095,46 +1147,53 @@ class HomeSheepsParEleveur extends Component {
                               {this.state.Eleveur.anoc ? (
                                 <span className=" text-success">
                                   <HiOutlineBadgeCheck className=" mr-1 fa-lg " />{" "}
-                                  Le label de l'ANOC est un gage de la qualité
-                                  du produit. <br></br>
+                                  <FormattedMessage id="eleveurs_label"
+                                  values={{anoc: "ANOC"}}/>
+                                   <br></br>
                                 </span>
                               ) : null}
                               <br></br>
                             </div>
                           </div>
                         </div>
+                        
+                        
 
-                        <div id="filtre-div">
-                          <h5 id="h5-ce-q">Ce qu'il vous propose :</h5>
+                        <div id="filtre-div"
+                        style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
+                          <h5 id="h5-ce-q" ><FormattedMessage id="eleveurs_propose"/></h5>
                           <h5 id="dispo-vendus" className="mt-3">
                             <b className="ml-3" id="nbEspece">
                               {dispo.length}{" "}
                             </b>{" "}
-                            <strong>Disponibles </strong>
+                            <strong><FormattedMessage id="eleveurs_especes_disponibles"/></strong>
                             <b className="ml-3" id="nbEspece">
                               {vendu.length}{" "}
                             </b>
-                            <strong>Vendus </strong>
+                            <strong><FormattedMessage id="eleveurs_especes_vendus"/></strong>
                           </h5>
                           <div
                             id="filterPlace"
                             className="col-lg-5 col-md-5 fa "
                           >
-                            <Select
-                              id="filterPlace"
-                              value={this.state.selectedOptionSort}
-                              onChange={this.sortData}
-                              options={optionsSort}
-                              placeholder={
-                                this.state.selectedOptionSort
-                                  ? this.state.selectedOptionSort
-                                  : "Trier par"
-                              }
-                              //
-                              //f0b0
-
-                              // className="Select"
-                            />
+                            <FormattedMessage id="tout_les_annonces_trier">
+                              {(trie) => (
+                                 <Select
+                                 id="filterPlace"
+                                 value={this.state.selectedOptionSort}
+                                 onChange={this.sortData}
+                                 options={optionsSort}
+                                 placeholder={
+                                   this.state.selectedOptionSort
+                                     ? this.state.selectedOptionSort
+                                     : trie
+                                 }
+                                 //f0b0
+                                 // className="Select"
+                               />
+                              )}
+                           
+                            </FormattedMessage>
                           </div>
                         </div>
                         <br></br>
@@ -1163,7 +1222,7 @@ class HomeSheepsParEleveur extends Component {
                                     className=" badge badge-success  pt-1 w-100  "
                                   >
                                     <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                    <span>Disponible</span>{" "}
+                                    <span><FormattedMessage id="eleveurs_especes_dispo"/></span>{" "}
                                   </h1>{" "}
                                 </div>
                               ) : (
@@ -1176,7 +1235,7 @@ class HomeSheepsParEleveur extends Component {
                                     className=" badge badge-danger  pt-1 w-100  "
                                   >
                                     <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                    <span>Vendu</span>{" "}
+                                    <span><FormattedMessage id="eleveurs_especes_vendu"/></span>{" "}
                                   </h1>{" "}
                                 </div>
                               )}
@@ -1231,107 +1290,110 @@ class HomeSheepsParEleveur extends Component {
                                 </h1>
                               )}
                               <div className="product__item__text p-2 text-justify">
-                                <div
-                                  className="region"
-                                  style={{
-                                    color: "#aaa",
-                                    fontSize: "15px",
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  <i
-                                    className="fa fa-map-marker"
-                                    style={{ marginRight: "0.5rem" }}
-                                  ></i>
-                                  {Annonces.localisation + " "}
-                                </div>
-
-                                <div
-                                  className="product__item__information"
-                                  style={{
-                                    color: "black",
-                                    fontSize: "15px",
-                                  }}
-                                >
-                                  <div className=" nbrm">
-                                    <img
-                                      style={{
-                                        width: "18px",
-                                        height: "18px",
-                                        marginBottom: "5px",
-                                        marginRight: "5px",
-                                      }}
-                                      data-imgbigurl="Images/sheep-head.png"
-                                      src="Images/sheep-head.png"
-                                      alt=""
-                                    />
-                                    {Annonces.espece == "chevre"
-                                      ? "Chèvre"
-                                      : "Mouton"}
-                                    <span className="float-right">
-                                      <FaShapes
-                                        style={{ marginRight: "5px" }}
-                                      />
-                                      {" " + Annonces.race}
-                                    </span>
-                                  </div>
-
-                                  <div>
-                                    <MdCake
-                                      className=" mr-1 fa-lg "
-                                      style={{ marginRight: "5px" }}
-                                    />
-
-                                    {Annonces.age + " mois"}
-
-                                    <span className="float-right ">
-                                      <GiWeight
-                                        className=" mr-1 fa-lg "
-                                        style={{ marginRight: "5px" }}
-                                      />
-                                      {Annonces.poids + " Kg"}
-                                    </span>
-                                  </div>
-                                  <div>
-                                    <span className="float-left ">
-                                      <IoMdMale
-                                        className=" mr-1 fa-lg "
+                                      <div
+                                        className="region"
                                         style={{
-                                          width: "18px",
-                                          height: "18px",
-                                          marginRight: "5px",
+                                          color: "#aaa",
+                                          fontSize: "15px",
+                                          textAlign: "center",
                                         }}
-                                      />
-                                      {Annonces.sexe}
-                                    </span>
-                                  </div>
-                                  <div
-                                    className="float-right "
-                                    style={{
-                                      color: "#fe6927",
-                                      fontSize: "18px",
-                                      fontWeight: "1000",
-                                      textDecoration: "bold",
-                                      alignContent: "center",
-                                    }}
-                                  >
-                                    <img
-                                      style={{ height: "30px" }}
-                                      src={require("./Images/cash-payment.png")}
-                                      alt=""
-                                    />
-                                    {/*   <FaDollarSign
-                                      className=" mr-1 fa-lg "
-                                      style={{
-                                        width: "18px",
-                                        height: "18px",
-                                        marginRight: "0.5rem",
-                                      }}
-                                    /> */}
-                                    {Annonces.prix + "  Dhs"}
-                                  </div>
-                                </div>
-                              </div>
+                                      >
+                                        <i
+                                          className="fa fa-map-marker"
+                                          style={{ marginRight: "0.5rem" }}
+                                        ></i>{" "}
+                                        {Annonces.localisation}
+                                      </div>
+                                      <div
+                                        className="product__item__information"
+                                        style={{
+                                          color: "black",
+                                          fontSize: "15px",
+                                        }}
+                                      >
+                                        <div className=" nbrm">
+                                          <img
+                                            style={{
+                                              width: "18px",
+                                              height: "18px",
+                                              marginBottom: "5px",
+                                              marginRight: "5px",
+                                            }}
+                                            data-imgbigurl="Images/sheep-head.png"
+                                            src="Images/sheep-head.png"
+                                            alt=""
+                                          />
+                                          {Annonces.espece == "chevre"
+                                            ? <FormattedMessage id="tout_les_annonces_chevre"/>
+                                            : <FormattedMessage id="tout_les_annonces_mouton"/>}
+                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}} >
+                                            <FaShapes
+                                              style={{ marginRight: "5px" }}
+                                            />
+                                            {" " + Annonces.race}
+                                          </span>
+                                        </div>
+
+                                        <div>
+                                          <IoMdMale
+                                            className=" mr-1 fa-lg "
+                                            style={{
+                                              marginRight: "5px",
+                                            }}
+                                          />
+                                          {Annonces.sexe}
+                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}}>
+                                            <GiWeight
+                                              className=" mr-1 fa-lg "
+                                              style={{ marginRight: "5px" }}
+                                            />
+                                            <FormattedMessage id="panier_mouton_poids_kg"
+                                            values={{ poids:Annonces.poids }} />
+                                            {/* {Annonces.poids + " Kg"} */}
+                                          </span>
+                                        </div>
+                                        <div>
+                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "right"}:{float:"left"}}>
+                                            <MdCake
+                                              className=" mr-1 fa-lg "
+                                              style={{ marginRight: "5px" }}
+                                            />
+                                            <FormattedMessage id="panier_mouton_age_mois"
+                                            values={{ age:Annonces.age }} />
+
+                                            {/* {Annonces.age + " mois"} */}
+                                          </span>
+                                        </div>
+                                        <div
+                                          style={localStorage.getItem('lg')=="ar"?{ float: "left",color: "#fe6927",
+                                          fontSize: "18px",
+                                          fontWeight: "1000",
+                                          textDecoration: "bold",
+                                          alignContent: "center",}:{float:"right",color: "#fe6927",
+                                          fontSize: "18px",
+                                          fontWeight: "1000",
+                                          textDecoration: "bold",
+                                          alignContent: "center",}}
+                                        >
+                                          <img
+                                            style={{ height: "30px" }}
+                                            src={require("./Images/cash-payment.png")}
+                                            alt=""
+                                          />
+                                          {/* <FaDollarSign
+                                            className=" mr-1 fa-lg "
+                                            style={{
+                                              width: "18px",
+                                              height: "18px",
+                                              marginRight: "0.5rem",
+                                            }}
+                                          /> */}
+                                          <FormattedMessage id="panier_mouton_currency"
+                                            values={{ prix:Annonces.prix }} />
+                                          {/* {Annonces.prix + "  Dhs"} */}
+                                        </div>
+                                      </div>
+                                    </div>
                             </div>
                           </div>
                         ))}

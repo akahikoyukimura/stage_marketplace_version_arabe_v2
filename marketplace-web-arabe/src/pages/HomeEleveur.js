@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {FormattedMessage} from 'react-intl'
 class HomeEleveur extends Component {
     constructor() {
         super();
@@ -47,7 +47,7 @@ class HomeEleveur extends Component {
                           <div className="hero__search__form">
                             <form action="#">
                               <div className="hero__search__categories">
-                                éleveur
+                              <FormattedMessage id="eleveurs_eleveur"/>
                                 <span className="arrow_carrot-down"></span>
                               </div>
                               <input
@@ -55,7 +55,7 @@ class HomeEleveur extends Component {
                                 placeholder=""
                               />
                               <button type="submit" className="site-btn">
-                                CHERCHER
+                              <FormattedMessage id="eleveurs_rechercher"/>
                               </button>
                             </form>
                           </div>
@@ -79,17 +79,17 @@ class HomeEleveur extends Component {
                     <div className="latest-product__item__text col-lg-6 ">
                       
                       <h6>
-                        <b>Nom </b>
+                        <b><FormattedMessage id="eleveurs_nom_complet"/></b>
                         {"         " + Eleveurs.Nom +"         " } 
                       </h6>
                       
                       <h6>
-                        <b>Adresse</b>
+                        <b><FormattedMessage id="eleveurs_adresse"/></b>
                         {"         " + Eleveurs.Adresse +"         " }
                       </h6>
                      
                       <h6>
-                        <b>Télépphone</b> {Eleveurs.Tele}
+                        <b><FormattedMessage id="eleveurs_num_tel"/></b> {Eleveurs.Tele}
                       </h6>
                     
                       
