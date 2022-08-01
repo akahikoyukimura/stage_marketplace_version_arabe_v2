@@ -131,7 +131,7 @@ class HomeSheeps extends Component {
     races = [...new Set(races)];
     races.map((e) => {
       r.splice(0, 0, { value: e, label: e });
-    });
+    });console.log(races);
 
     this.setState({
       race: r,
@@ -140,7 +140,7 @@ class HomeSheeps extends Component {
         espece: c,
         race: null,
       }),
-    });
+    });console.log(r);
   };
 
   handleChangeRace = (selectedOptionRace) => {
@@ -249,7 +249,10 @@ class HomeSheeps extends Component {
         let espece = [];
         Object.getOwnPropertyNames(this.groupBy(res.data, "espece")).map(
           (e) => {
-            espece.splice(0, 0, { value: e, label: e });
+            localStorage.getItem('lg')=='ar'?e=="mouton"?
+            espece.splice(0, 0, { value: "mouton", label: "خروف" }):
+            espece.splice(0, 0, { value: "chevre", label: "ماعز" }):
+            espece.splice(0, 0, { value: e, label: e })
           }
         );
 
@@ -384,6 +387,7 @@ class HomeSheeps extends Component {
     });
   }
   handelChercher() {
+    console.log(this.state.conditions);
     this.setState({ loading: true }, () => {
       axios
         .get("http://127.0.0.1:8000/api/Espece", {
@@ -728,7 +732,7 @@ class HomeSheeps extends Component {
 
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle" }}
+                style={{ display: "table-cell", verticalAlign: "middle",zIndex:2 }}
               >
                 <FormattedMessage id="home_item_race">
                           {(placeholder) => (
@@ -747,7 +751,7 @@ class HomeSheeps extends Component {
               </div>
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle" }}
+                style={{ display: "table-cell", verticalAlign: "middle",zIndex:2 }}
               >
                 <FormattedMessage id="tout_les_annonces_ville">
                           {(placeholder) => (
@@ -1272,7 +1276,7 @@ class HomeSheeps extends Component {
                 <div className="col-lg-9 col-md-7">
                   <div style={localStorage.getItem('lg')=='ar'?{textAlign:"right"}:{}} className="filter__item">
                     <div>
-                      <div id="filterPlace" className="col-lg-5 col-md-8 fa ">
+                      <div style={{ zIndex:1 }} id="filterPlace" className="col-lg-5 col-md-8 fa ">
                       <FormattedMessage
                         id="tout_les_annonces_trier"
                       >
