@@ -313,7 +313,7 @@ class HomeSheeps extends Component {
           "المحمدية",
           "تاوريرت",
           "افران",
-          "خريبݣة"
+          "خريبݣة",
         ];
         res.data.map((e) => {
           villes.push(e.localisation);
@@ -326,7 +326,7 @@ class HomeSheeps extends Component {
         if (localStorage.getItem("lg") == "ar") {
           for (
             let index = 0, j = 0;
-            index < ville.length, j <villes_ar.length;
+            index < ville.length, j < villes_ar.length;
             index++, j++
           ) {
             ville[index].label = villes_ar[j];
@@ -799,7 +799,15 @@ class HomeSheeps extends Component {
             <div className="searchheader">
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle" }}
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "table-cell",
+                        verticalAlign: "middle",
+                        textAlign: "right",
+                      }
+                    : { display: "table-cell", verticalAlign: "middle" }
+                }
               >
                 <FormattedMessage id="tout_les_annonces_espece">
                   {(placeholder) => (
@@ -816,11 +824,16 @@ class HomeSheeps extends Component {
 
               <div
                 className="col-lg-2 col-md-3"
-                style={{
-                  display: "table-cell",
-                  verticalAlign: "middle",
-                  zIndex: 2,
-                }}
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "table-cell",
+                        verticalAlign: "middle",
+                        zIndex: 2,
+                        textAlign: "right",
+                      }
+                    : { display: "table-cell", verticalAlign: "middle",zIndex: 2, }
+                }
               >
                 <FormattedMessage id="home_item_race">
                   {(placeholder) => (
@@ -838,11 +851,16 @@ class HomeSheeps extends Component {
               </div>
               <div
                 className="col-lg-2 col-md-3"
-                style={{
-                  display: "table-cell",
-                  verticalAlign: "middle",
-                  zIndex: 2,
-                }}
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "table-cell",
+                        verticalAlign: "middle",
+                        zIndex: 2,
+                        textAlign: "right",
+                      }
+                    : { display: "table-cell", verticalAlign: "middle",zIndex: 2, }
+                }
               >
                 <FormattedMessage id="tout_les_annonces_ville">
                   {(placeholder) => (
@@ -1538,8 +1556,14 @@ class HomeSheeps extends Component {
                                           style={{ marginRight: "0.5rem" }}
                                         ></i>{" "}
                                         {localStorage.getItem("lg") == "ar"
-                                              ? Annonces.localisation_ar?Annonces.localisation_ar:optionsVille.find(element => element.value==Annonces.localisation).label
-                                              : Annonces.localisation}
+                                          ? Annonces.localisation_ar
+                                            ? Annonces.localisation_ar
+                                            : optionsVille.find(
+                                                (element) =>
+                                                  element.value ==
+                                                  Annonces.localisation
+                                              ).label
+                                          : Annonces.localisation}
                                       </div>
                                       <div
                                         className="product__item__information"
