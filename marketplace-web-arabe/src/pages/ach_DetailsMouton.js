@@ -71,6 +71,7 @@ class DetailsMouton extends Component {
           },
         })
         .then((res) => {
+          console.log(res);
           this.setState(
             {
               Espece: res.data.objet,
@@ -91,10 +92,11 @@ class DetailsMouton extends Component {
                   }
                 )
                 .then((res) => {
+                  console.log(res);
                   this.setState({ cooperative: res.data }, () => {});
                 });
             }
-          );
+          );console.log(this.state.eleveur);
           if (res.data.objet.statut === "disponible") {
             this.setState({ isDispo: true });
           }
@@ -304,7 +306,7 @@ class DetailsMouton extends Component {
                           id="roundB"
                           style={{ objectFit: "scale-down" }}
                         />
-                        <div className="heartchild">
+                        <div style={localStorage.getItem('lg')=='ar'?{left: "0",right: "auto"}:{}} className="heartchild">
                           <h4 className="d-inline">
                             {this.state.isFav ? (
                               <span className="text-left text-danger col-lg-4 col-md-4">
@@ -550,11 +552,20 @@ class DetailsMouton extends Component {
                       <b className="w-50">
                         <FormattedMessage id="details_mouton_nom_eleveur"/>
                         <span className="text-secondary">
-                          {" "}
-                          {" " +
+                        {localStorage.getItem('lg')=='ar'?
+                          this.state.eleveur.nom_ar||this.state.eleveur.prenom_ar?
+                          " " +
+                          this.state.eleveur.nom_ar +
+                          " " +
+                          this.state.eleveur.prenom_ar+" ":
+                          " " +
                             this.state.eleveur.nom.toUpperCase() +
-                            "     " +
-                            this.state.eleveur.prenom}{" "}
+                            " " +
+                            this.state.eleveur.prenom+" ":
+                            " " +
+                              this.state.eleveur.nom.toUpperCase() +
+                              " " +
+                              this.state.eleveur.prenom+" "}
                         </span>
                       </b>
 
@@ -575,14 +586,36 @@ class DetailsMouton extends Component {
                           <b>Categorie</b> <span>{this.state.Espece.categorie}</span>
                         </li>*/}
                         <li>
-                          <b><FormattedMessage id="home_item_race"/></b> <span>{this.state.Espece.race}</span>
+                          <b><FormattedMessage id="home_item_race"/></b> 
+                          <span>
+                          {localStorage.getItem("lg") == "ar"
+                                              ? this.state.Espece.race_ar
+                                              ?this.state.Espece.race_ar
+                                              :this.state.Espece.race
+                                              : this.state.Espece.race}
+                            {/* {this.state.Espece.race} */}
+                            </span>
                         </li>
                         <li>
                           <b><FormattedMessage id="tout_les_annonces_ville"/></b>{" "}
-                          <span>{this.state.Espece.localisation} </span>
+                          <span>
+                            {localStorage.getItem("lg") == "ar"
+                                          ? this.state.Espece.localisation_ar
+                                          ?this.state.Espece.localisation_ar
+                                          : this.state.Espece.localisation
+                                            : this.state.Espece.localisation}
+                            {/* {this.state.Espece.localisation}  */}
+                            </span>
                         </li>
                         <li>
-                          <b><FormattedMessage id="add_mouton_sexe"/></b> <span>{this.state.Espece.sexe} </span>
+                          <b><FormattedMessage id="add_mouton_sexe"/></b> 
+                          <span>
+                          {localStorage.getItem("lg") == "ar"
+                                            ? this.state.Espece.sexe == "Mâle"
+                                              ? "ذكر"
+                                              : "أنثى"
+                                            : this.state.Espece.sexe}
+                            </span>
                         </li>
                         <li>
                         <FormattedMessage

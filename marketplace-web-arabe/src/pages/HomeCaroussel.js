@@ -152,8 +152,12 @@ class HomeCaroussel extends Component {
                         <i
                           className="fa fa-map-marker"
                           style={{ marginRight: "0.5rem" }}
-                        ></i>
-                        {Annonces.localisation}
+                        ></i>{" "}
+                        {localStorage.getItem("lg") == "ar"
+                                          ? Annonces.localisation_ar
+                                          ?Annonces.localisation_ar
+                                          : Annonces.localisation
+                                            : Annonces.localisation}
                       </div>
                       <div
                         className="product__item__information"
@@ -177,7 +181,12 @@ class HomeCaroussel extends Component {
                           {Annonces.espece == "chevre" ? <FormattedMessage id="tout_les_annonces_chevre"/> : <FormattedMessage id="tout_les_annonces_mouton"/>}
                           <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}}>
                             <FaShapes style={{ marginRight: "5px" }} />
-                            {" " + Annonces.race}
+                            {" "}
+                            {localStorage.getItem("lg") == "ar"
+                                              ? Annonces.race_ar
+                                              ?Annonces.race_ar
+                                              :Annonces.race
+                                              :Annonces.race}
                           </span>
                         </div>
 
@@ -210,7 +219,11 @@ class HomeCaroussel extends Component {
                                 marginRight: "5px",
                               }}
                             />
-                            {Annonces.sexe}
+                            {localStorage.getItem("lg") == "ar"
+                                            ? Annonces.sexe == "Mâle"
+                                              ? "ذكر"
+                                              : "أنثى"
+                                            : Annonces.sexe}
                           </span>
                         </div>
                         <div

@@ -532,7 +532,7 @@ Route::post('Espece', function (Request $request) {
 //Récupération infos Espece avec son eleveur
 Route::get('Espece/{id}', function ($id) {
     $espece = Espece::find($id);
-    $elev = Eleveur::select(['civilisation', 'nom', 'prenom', 'tel', 'email', 'adresse', 'region', 'rib', 'boucle'])
+    $elev = Eleveur::select(['civilisation', 'nom','nom_ar', 'prenom','prenom_ar', 'tel', 'email', 'adresse', 'region', 'rib', 'boucle'])
         ->where('Especes.id_espece', '=',  $id)
         ->get();
     return response()->json(["objet" => $espece, "Eleveur" => $elev]);
