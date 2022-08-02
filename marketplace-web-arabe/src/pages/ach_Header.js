@@ -253,7 +253,7 @@ class Header extends Component {
               style={{ paddingLeft: "0px", paddingRight: "0px" }}
             >
               <div className="row">
-                <div className="col-lg-6 col-md-6">
+                <div style={{ alignSelf:"center" }} className="col-lg-6 col-md-6">
                   <div className="header__top__left">
                     <div className="header__logo">
                       <a href="./">
@@ -318,7 +318,7 @@ class Header extends Component {
                             href="/login"
                             onClick={this.logout}
                           >
-                            <i className="fa fa-sign-out">
+                            <i className="fa fa-sign-out">{" "}
                               <b><FormattedMessage id="header_se_deconnecter"/></b>{" "}
                             </i>
                           </a>
@@ -344,7 +344,7 @@ class Header extends Component {
                     </div>
                     <div
                       className="header__top__right__language "
-                      style={{ marginRight: "26px", marginTop:"20px" }}
+                      
                     >
                       <i className="fa fa-globe mr-2" aria-hidden="true">
                         {" "}
@@ -355,7 +355,7 @@ class Header extends Component {
                           : "Français"}
                       </div>
                       <span className="arrow_carrot-down"></span>
-                      <ul style={{ zIndex:"10",color:"white",marginTop:"40px" }}>
+                      <ul style={{ zIndex:"10",color:"white",marginTop:"45px" }}>
                         <li>
                           <a
                             onClick={() => {
@@ -402,18 +402,18 @@ class Header extends Component {
                   top: 0,
                 }}
               >
-                <nav className="header__menu">
+                <nav style={localStorage.getItem('lg')=='ar'?{direction:"rtl"}:{}} className="header__menu">
                   <ul>
-                    <li className="">
+                    <li style={localStorage.getItem('lg')=='ar'?{float:"right",marginRight:"37.8px",paddingRight: "5px"}:{}} className="">
                       <div>
                         {" "}
                         <a style={{ color: colors[0] }} href="./">
-                          <GiSheep className=" mr-1 fa-lg " />
+                          <GiSheep className=" mr-1 fa-lg " />{" "}
                           <FormattedMessage id="header_especes"/>
                         </a>
                       </div>
                     </li>
-                    <li className="">
+                    <li style={localStorage.getItem('lg')=='ar'?{float:"right",marginRight:"37.8px",paddingRight: "5px"}:{}} className="">
                       <div>
                         {" "}
                         <a
@@ -421,13 +421,13 @@ class Header extends Component {
                           href="./AnnoncesParEleveurs"
                           className="Header"
                         >
-                          <FaUserAlt className="  mb-1 " /> <FormattedMessage id="header_eleveurs"/>
+                          <FaUserAlt className="  mb-1 " />{" "} <FormattedMessage id="header_eleveurs"/>
                         </a>
                       </div>
                     </li>
                     {this.state.isLoged ? (
                       <span>
-                        <li>
+                        <li style={localStorage.getItem('lg')=='ar'?{float:"right",paddingRight: "5px"}:{}}>
                           <div>
                             {" "}
                             <a
@@ -435,13 +435,13 @@ class Header extends Component {
                               className="Header"
                               href="./commandesParStatut"
                             >
-                              <MdAssignment className="  fa-lg " /> Mes
-                              commandes
+                              <MdAssignment className="  fa-lg " /> {" "}
+                              <FormattedMessage id="header_commandes"/>
                             </a>
                           </div>
                         </li>
                         <span className="form-inline my-2 my-lg-0">
-                          <li>
+                          <li style={localStorage.getItem('lg')=='ar'?{paddingRight: "5px"}:{}}>
                             <div>
                               {" "}
                               <a
@@ -449,12 +449,12 @@ class Header extends Component {
                                 className="Header"
                                 href="./Favoris"
                               >
-                                <AiFillHeart className=" fa-lg " /> Mes favoris
+                                <AiFillHeart className=" fa-lg " />{" "} <FormattedMessage id="header_favori"/>
                               </a>
                             </div>
                           </li>
 
-                          <li>
+                          <li style={localStorage.getItem('lg')=='ar'?{paddingRight: "5px"}:{}}>
                             <div>
                               {" "}
                               <a
@@ -462,11 +462,26 @@ class Header extends Component {
                                 style={{ color: colors[4] }}
                                 href="./panier"
                               >
-                                <FaShoppingCart className="fa-sm mb-1 " /> Mon
-                                panier d'achat
+                                <FaShoppingCart className="fa-sm mb-1 " />{" "}
+                                <FormattedMessage id="header_panier"/>
                                 {this.state.commandes > 0 ? (
                                   <span
-                                    style={{
+                                    style={localStorage.getItem('lg')=='ar'
+                                    ?{
+                                      width: "23px",
+                                      height: "23px",
+                                      borderRadius: "50%",
+                                      background: "#fe6927",
+                                      color: "white",
+                                      fontWeight: "bold",
+                                      position: "absolute",
+                                      zIndex: "10",
+                                      marginRight: "0.5em",
+                                      top: "auto",
+                                      bottom: "auto",
+                                      paddingTop: "initial",
+                                    }
+                                    :{
                                       width: "23px",
                                       height: "23px",
                                       borderRadius: "50%",
@@ -501,7 +516,7 @@ class Header extends Component {
           </div>
         </header>
         <div className="humberger__menu__overlay"></div>
-        <div className="humberger__menu__wrapper">
+        <div style={localStorage.getItem('lg')=='ar'?{direction: "rtl"}:{}} className="humberger__menu__wrapper">
           <div className="humberger__menu__logo">
             <a href="#">
               <img src="/Images/myanoc.jpg" alt="" />
@@ -550,7 +565,7 @@ class Header extends Component {
                         style={{ width: "1em" }}
                       />{" "}
                     </div>
-                    <div><FormattedMessage id="header_especes"/> </div>
+                    <div>{" "}<FormattedMessage id="header_especes"/> </div>
                   </div>
                 </a>
               </li>
@@ -571,7 +586,7 @@ class Header extends Component {
                       {" "}
                       <FaUserAlt className="  mb-1 " />{" "}
                     </div>
-                    <div><FormattedMessage id="header_eleveurs"/></div>
+                    <div>{" "} <FormattedMessage id="header_eleveurs"/></div>
                   </div>
                 </a>
               </li>
@@ -589,7 +604,7 @@ class Header extends Component {
                           {" "}
                           <AiFillHeart className=" fa-lg " />
                         </div>
-                        <div> <FormattedMessage id="header_favori"/></div>
+                        <div>{" "} <FormattedMessage id="header_favori"/></div>
                       </div>
                     </a>
                   </li>
@@ -605,7 +620,7 @@ class Header extends Component {
                           {" "}
                           <FaShoppingCart className="fa-sm mb-1 " />
                         </div>
-                        <div> <FormattedMessage id="header_panier"/></div>
+                        <div>{" "} <FormattedMessage id="header_panier"/></div>
                       </div>{" "}
                     </a>
                   </li>
@@ -620,7 +635,7 @@ class Header extends Component {
                           {" "}
                           <MdAssignment className="  fa-lg " />
                         </div>
-                        <div> <FormattedMessage id="header_commandes"/></div>
+                        <div>{" "} <FormattedMessage id="header_commandes"/></div>
                       </div>{" "}
                     </a>
                   </li>
@@ -635,7 +650,7 @@ class Header extends Component {
                       {" "}
                       <FaSearch className=" fa-sm  " />
                     </div>
-                    <div> <FormattedMessage id="header_a_propos"/></div>
+                    <div>{" "} <FormattedMessage id="header_a_propos"/></div>
                   </div>{" "}
                 </a>
               </li>
