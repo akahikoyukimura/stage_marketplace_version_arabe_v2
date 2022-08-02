@@ -552,15 +552,20 @@ class DetailsMouton extends Component {
                       <b className="w-50">
                         <FormattedMessage id="details_mouton_nom_eleveur"/>
                         <span className="text-secondary">
-                          {localStorage.getItem('lg')=='ar'?
+                        {localStorage.getItem('lg')=='ar'?
+                          this.state.eleveur.nom_ar||this.state.eleveur.prenom_ar?
                           " " +
-                          this.state.eleveur.nom_ar.toUpperCase() +
+                          this.state.eleveur.nom_ar +
                           " " +
                           this.state.eleveur.prenom_ar+" ":
                           " " +
                             this.state.eleveur.nom.toUpperCase() +
                             " " +
-                            this.state.eleveur.prenom+" "}
+                            this.state.eleveur.prenom+" ":
+                            " " +
+                              this.state.eleveur.nom.toUpperCase() +
+                              " " +
+                              this.state.eleveur.prenom+" "}
                         </span>
                       </b>
 
@@ -594,6 +599,8 @@ class DetailsMouton extends Component {
                           <span>
                             {localStorage.getItem("lg") == "ar"
                                           ? this.state.Espece.localisation_ar
+                                          ?this.state.Espece.localisation_ar
+                                          : this.state.Espece.localisation
                                             : this.state.Espece.localisation}
                             {/* {this.state.Espece.localisation}  */}
                             </span>
