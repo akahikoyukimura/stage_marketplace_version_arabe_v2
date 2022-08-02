@@ -306,7 +306,7 @@ class DetailsMouton extends Component {
                           id="roundB"
                           style={{ objectFit: "scale-down" }}
                         />
-                        <div className="heartchild">
+                        <div style={localStorage.getItem('lg')=='ar'?{left: "0",right: "auto"}:{}} className="heartchild">
                           <h4 className="d-inline">
                             {this.state.isFav ? (
                               <span className="text-left text-danger col-lg-4 col-md-4">
