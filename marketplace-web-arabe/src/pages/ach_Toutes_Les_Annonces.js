@@ -1598,10 +1598,12 @@ class HomeSheeps extends Component {
                                           >
                                             <FaShapes
                                               style={{ marginRight: "5px" }}
-                                            />
+                                            />{" "}
                                             {localStorage.getItem("lg") == "ar"
-                                              ? " " + Annonces.race_ar
-                                              : " " + Annonces.race}
+                                              ? Annonces.race_ar
+                                              ?Annonces.race_ar
+                                              :Annonces.race
+                                              :Annonces.race}
                                           </span>
                                         </div>
 

@@ -590,6 +590,8 @@ class DetailsMouton extends Component {
                           <span>
                           {localStorage.getItem("lg") == "ar"
                                               ? this.state.Espece.race_ar
+                                              ?this.state.Espece.race_ar
+                                              :this.state.Espece.race
                                               : this.state.Espece.race}
                             {/* {this.state.Espece.race} */}
                             </span>
