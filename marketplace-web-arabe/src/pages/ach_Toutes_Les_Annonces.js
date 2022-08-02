@@ -68,14 +68,40 @@ class HomeSheeps extends Component {
 
       selectedOptionSort: null,
       optionsSort: [
-        { value: "prix", label: <FormattedMessage id="tout_les_annonces_moins_cher_au_plus" /> },
-        { value: "prix_dec", label:<FormattedMessage id="tout_les_annonces_plus_cher_au_moins" /> },
+        {
+          value: "prix",
+          label: <FormattedMessage id="tout_les_annonces_moins_cher_au_plus" />,
+        },
+        {
+          value: "prix_dec",
+          label: <FormattedMessage id="tout_les_annonces_plus_cher_au_moins" />,
+        },
 
-        { value: "age", label: <FormattedMessage id="tout_les_annonces_plus_jeune_au_plus_age" /> },
-        { value: "age_dec", label:<FormattedMessage id="tout_les_annonces_plus_age_au_plus_jeune" /> },
+        {
+          value: "age",
+          label: (
+            <FormattedMessage id="tout_les_annonces_plus_jeune_au_plus_age" />
+          ),
+        },
+        {
+          value: "age_dec",
+          label: (
+            <FormattedMessage id="tout_les_annonces_plus_age_au_plus_jeune" />
+          ),
+        },
 
-        { value: "poids", label: <FormattedMessage id="tout_les_annonces_moins_lourd_au_plus_lourd" /> },
-        { value: "poids_dec", label:<FormattedMessage id="tout_les_annonces_plus_lourd_aumoins_lourd" /> },
+        {
+          value: "poids",
+          label: (
+            <FormattedMessage id="tout_les_annonces_moins_lourd_au_plus_lourd" />
+          ),
+        },
+        {
+          value: "poids_dec",
+          label: (
+            <FormattedMessage id="tout_les_annonces_plus_lourd_aumoins_lourd" />
+          ),
+        },
       ],
     };
 
@@ -123,15 +149,32 @@ class HomeSheeps extends Component {
     let annonce = this.state.AnnoncesN;
     let c = selectedOptionEspece.value;
     let races = [];
+    let races_ar = [];
 
     let r = [];
     this.groupBy(annonce, "espece")[c].map((m) => {
       races.push(m.race);
+      if (localStorage.getItem("lg") == "ar") {
+        races_ar.push(m.race_ar);
+      }
     });
     races = [...new Set(races)];
+    if (localStorage.getItem("lg") == "ar") {
+      races_ar = [...new Set(races_ar)];
+    }
     races.map((e) => {
       r.splice(0, 0, { value: e, label: e });
-    });console.log(races);
+    });
+
+    if (localStorage.getItem("lg") == "ar") {
+      for (
+        let index = 0, j = races_ar.length - 1;
+        index < r.length, j >= 0;
+        index++, j--
+      ) {
+        r[index].label = races_ar[j];
+      }
+    }
 
     this.setState({
       race: r,
@@ -140,7 +183,8 @@ class HomeSheeps extends Component {
         espece: c,
         race: null,
       }),
-    });console.log(r);
+    });
+    console.log(r);
   };
 
   handleChangeRace = (selectedOptionRace) => {
@@ -249,16 +293,28 @@ class HomeSheeps extends Component {
         let espece = [];
         Object.getOwnPropertyNames(this.groupBy(res.data, "espece")).map(
           (e) => {
-            localStorage.getItem('lg')=='ar'?e=="mouton"?
-            espece.splice(0, 0, { value: "mouton", label: "خروف" }):
-            espece.splice(0, 0, { value: "chevre", label: "ماعز" }):
-            espece.splice(0, 0, { value: e, label: e })
+            localStorage.getItem("lg") == "ar"
+              ? e == "mouton"
+                ? espece.splice(0, 0, { value: "mouton", label: "خروف" })
+                : espece.splice(0, 0, { value: "chevre", label: "ماعز" })
+              : espece.splice(0, 0, { value: e, label: e });
           }
         );
 
         //ville
         let ville = [];
         let villes = [];
+        let villes_ar = [
+          "الرشيدية",
+          "ميدلت",
+          "اسفي",
+          "جرادة",
+          "بن سليمان",
+          "المحمدية",
+          "تاوريرت",
+          "افران",
+          "خريبݣة"
+        ];
         res.data.map((e) => {
           villes.push(e.localisation);
         });
@@ -266,6 +322,18 @@ class HomeSheeps extends Component {
         villes.map((e) => {
           ville.splice(0, 0, { value: e, label: e });
         });
+
+        if (localStorage.getItem("lg") == "ar") {
+          for (
+            let index = 0, j = 0;
+            index < ville.length, j <villes_ar.length;
+            index++, j++
+          ) {
+            ville[index].label = villes_ar[j];
+          }
+        }
+        console.log(ville);
+
         this.setState({
           optionsEspece: espece,
           optionsVille: ville,
@@ -587,7 +655,9 @@ class HomeSheeps extends Component {
     }, 4000);
 
     return (
-      <div style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
+      <div
+        style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}
+      >
         <section className="search-header">
           {/*           <div>
             <button type="button" className="button" onClick={() => {this.setState({open:true})}}>
@@ -652,13 +722,24 @@ class HomeSheeps extends Component {
               <br></br>
               <center>
                 <h4>
-                  {"\u2728"} <FormattedMessage id="tout_les_annonces_popup_title"/>{" "}
+                  {"\u2728"}{" "}
+                  <FormattedMessage id="tout_les_annonces_popup_title" />{" "}
                   {"\u2728"}
                 </h4>
               </center>
               <br></br>
               <br></br>
-              <div style={localStorage.getItem('lg')=='ar'?{ display: "flex", flexDirection: "row",direction:"rtl" }:{ display: "flex", flexDirection: "row"}}>
+              <div
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "flex",
+                        flexDirection: "row",
+                        direction: "rtl",
+                      }
+                    : { display: "flex", flexDirection: "row" }
+                }
+              >
                 <div className="infoCards item" style={{ flexBasis: "70%" }}>
                   {" "}
                   <a href="https://qrco.de/bcHPx6">
@@ -692,13 +773,17 @@ class HomeSheeps extends Component {
                 </div>
               </div>
               <br />
-              <div style={localStorage.getItem('lg')=='ar'?{}:{ display: "flex" }}>
+              <div
+                style={
+                  localStorage.getItem("lg") == "ar" ? {} : { display: "flex" }
+                }
+              >
                 <button
                   className="fermer"
                   style={{ marginLeft: "auto" }}
                   onClick={this.closeModal}
                 >
-                  <FormattedMessage id="tout_les_annonces_popup_button_fermer"/>
+                  <FormattedMessage id="tout_les_annonces_popup_button_fermer" />
                 </button>
               </div>
             </Popup>
@@ -717,53 +802,58 @@ class HomeSheeps extends Component {
                 style={{ display: "table-cell", verticalAlign: "middle" }}
               >
                 <FormattedMessage id="tout_les_annonces_espece">
-                          {(placeholder) => (
-                            <Select
-                            value={selectedOptionEspece}
-                            onChange={this.handleChangeEspece}
-                            options={optionsEspece}
-                            placeholder={placeholder}
-                            required
-                          />
-                          )}
-                        </FormattedMessage>
-                
+                  {(placeholder) => (
+                    <Select
+                      value={selectedOptionEspece}
+                      onChange={this.handleChangeEspece}
+                      options={optionsEspece}
+                      placeholder={placeholder}
+                      required
+                    />
+                  )}
+                </FormattedMessage>
               </div>
 
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle",zIndex:2 }}
+                style={{
+                  display: "table-cell",
+                  verticalAlign: "middle",
+                  zIndex: 2,
+                }}
               >
                 <FormattedMessage id="home_item_race">
-                          {(placeholder) => (
-                            <Select
-                            id="recherchePlace"
-                            isDisabled={this.state.Disabled}
-                            value={selectedOptionRace}
-                            onChange={this.handleChangeRace}
-                            options={this.state.race}
-                            placeholder={placeholder}
-                            required
-                          />
-                          )}
-                        </FormattedMessage>
-                
+                  {(placeholder) => (
+                    <Select
+                      id="recherchePlace"
+                      isDisabled={this.state.Disabled}
+                      value={selectedOptionRace}
+                      onChange={this.handleChangeRace}
+                      options={this.state.race}
+                      placeholder={placeholder}
+                      required
+                    />
+                  )}
+                </FormattedMessage>
               </div>
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle",zIndex:2 }}
+                style={{
+                  display: "table-cell",
+                  verticalAlign: "middle",
+                  zIndex: 2,
+                }}
               >
                 <FormattedMessage id="tout_les_annonces_ville">
-                          {(placeholder) => (
-                            <Select
-                            value={selectedOptionVille}
-                            onChange={this.handleChangeVille}
-                            options={optionsVille}
-                            placeholder={placeholder}
-                          />
-                          )}
-                        </FormattedMessage>
-                
+                  {(placeholder) => (
+                    <Select
+                      value={selectedOptionVille}
+                      onChange={this.handleChangeVille}
+                      options={optionsVille}
+                      placeholder={placeholder}
+                    />
+                  )}
+                </FormattedMessage>
               </div>
               {/*             <div className="col-lg-3 col-md-3">
               <input
@@ -790,7 +880,11 @@ class HomeSheeps extends Component {
                 className="col-lg-2 col-md-3"
                 name="prix_max"
                 id="recherchePlace"
-                style={localStorage.getItem('lg')=='ar'?{ display: "table-cell",direction:"ltr" }:{ display: "table-cell" }}
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? { display: "table-cell", direction: "ltr" }
+                    : { display: "table-cell" }
+                }
               >
                 <RangeSlider
                   tooltip="auto"
@@ -815,9 +909,9 @@ class HomeSheeps extends Component {
                 <div style={{ color: "white" }}>
                   {" "}
                   <FormattedMessage
-   id = "tout_les_annonces_prix_max"
-   values = {{Mprix: valueprice}}
-/>
+                    id="tout_les_annonces_prix_max"
+                    values={{ Mprix: valueprice }}
+                  />
                   {/* Prix max : {valueprice} DH */}
                 </div>
                 <RangeSlider
@@ -842,9 +936,9 @@ class HomeSheeps extends Component {
                 <div style={{ color: "white" }}>
                   {" "}
                   <FormattedMessage
-   id = "tout_les_annonces_poids__max"
-   values = {{Mpoids: valuepoids}}
-/>
+                    id="tout_les_annonces_poids__max"
+                    values={{ Mpoids: valuepoids }}
+                  />
                   {/* Poids max : {valuepoids} KG */}
                 </div>
                 {/*   <input
@@ -887,7 +981,8 @@ class HomeSheeps extends Component {
                   className="newBtn site-btn"
                   onClick={this.handelChercher}
                 >
-                  <i className="fa fa-search "></i> <FormattedMessage id="tout_les_annonces_rechrcher"/>{" "}
+                  <i className="fa fa-search "></i>{" "}
+                  <FormattedMessage id="tout_les_annonces_rechrcher" />{" "}
                 </button>
               </div>
               <div
@@ -899,7 +994,8 @@ class HomeSheeps extends Component {
                   className="newBtn site-btn"
                   onClick={this.handelReinitialiser}
                 >
-                  <i className="fa fa-refresh"></i> <FormattedMessage id="tout_les_annonces_reinilialiser"/>{" "}
+                  <i className="fa fa-refresh"></i>{" "}
+                  <FormattedMessage id="tout_les_annonces_reinilialiser" />{" "}
                 </button>
               </div>
             </div>
@@ -916,7 +1012,14 @@ class HomeSheeps extends Component {
 
             <div className="container">
               <div className="row">
-                <div style={localStorage.getItem('lg')=='ar'?{textAlign:"right"}:{}} className="col-lg-3 col-md-4">
+                <div
+                  style={
+                    localStorage.getItem("lg") == "ar"
+                      ? { textAlign: "right" }
+                      : {}
+                  }
+                  className="col-lg-3 col-md-4"
+                >
                   <a className="lienapropos" href="./Apropos">
                     <div
                       style={{ cursor: "pointer" }}
@@ -931,11 +1034,13 @@ class HomeSheeps extends Component {
                       />
                       <br></br>
                       <p>
-                        <FormattedMessage id="tout_les_annonces_my_anoc_message"/>
+                        <FormattedMessage id="tout_les_annonces_my_anoc_message" />
                       </p>
                     </div>
                   </a>
-                  <h4 style={{ fontWeight: "900" }}><FormattedMessage id="tout_les_annonces_categorie"/></h4>
+                  <h4 style={{ fontWeight: "900" }}>
+                    <FormattedMessage id="tout_les_annonces_categorie" />
+                  </h4>
                   <br></br>
                   <div
                     id="gras"
@@ -953,8 +1058,15 @@ class HomeSheeps extends Component {
                     <div>
                       {" "}
                       <GiSheep className=" mr-1 fa-lg " />
-                      <FormattedMessage id="tout_les_annonces_moutons"/>
-                      <p style={{ margin: "0px" }}> {nbrmoutons} <FormattedMessage values={{ count: nbrmoutons }} id="panier_nbr_annonces" /> </p>
+                      <FormattedMessage id="tout_les_annonces_moutons" />
+                      <p style={{ margin: "0px" }}>
+                        {" "}
+                        {nbrmoutons}{" "}
+                        <FormattedMessage
+                          values={{ count: nbrmoutons }}
+                          id="panier_nbr_annonces"
+                        />{" "}
+                      </p>
                     </div>
                   </div>
                   <div
@@ -973,14 +1085,21 @@ class HomeSheeps extends Component {
                     <div style={{ verticalAlign: "middle", padding: "auto" }}>
                       {" "}
                       <GiGoat className=" mr-1 fa-lg " />
-                      <FormattedMessage id="tout_les_annonces_chevres"/>
-                      <p style={{ margin: "0px" }}> {nbrchevre} <FormattedMessage values={{ count: nbrchevre }} id="panier_nbr_annonces" /> </p>
+                      <FormattedMessage id="tout_les_annonces_chevres" />
+                      <p style={{ margin: "0px" }}>
+                        {" "}
+                        {nbrchevre}{" "}
+                        <FormattedMessage
+                          values={{ count: nbrchevre }}
+                          id="panier_nbr_annonces"
+                        />{" "}
+                      </p>
                     </div>
                   </div>
                   <div className="mymap">
                     {" "}
                     <h4 style={{ fontWeight: "900", marginTop: "25px" }}>
-                      <FormattedMessage id="tout_les_annonces_regions"/>
+                      <FormattedMessage id="tout_les_annonces_regions" />
                     </h4>
                     <br></br>
                     <center>
@@ -1103,7 +1222,7 @@ class HomeSheeps extends Component {
                       textAlign: "center",
                     }}
                   >
-                    <FormattedMessage id="tout_les_annonces_popup_title"/>!
+                    <FormattedMessage id="tout_les_annonces_popup_title" />!
                   </h4>
                   <a href="https://qrco.de/bcHPx6">
                     <div className="infoCards">
@@ -1130,112 +1249,112 @@ class HomeSheeps extends Component {
                       <div className="mobileSearch">
                         {" "}
                         <h6 id="gras" className="latest-product__item">
-                          <FormattedMessage id="tout_les_annonces_reference"/>
+                          <FormattedMessage id="tout_les_annonces_reference" />
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                          <FormattedMessage id="tout_les_annonces_reference_placeholder">
-                          {(placeholder) => (
-                            <input
-                            id="recherchePlace"
-                            type="text"
-                            className="form-control"
-                            placeholder={placeholder}
-                            name="reference"
-                            onChange={this.onChange}
-                          />
-                          )}
-                        </FormattedMessage>
+                            <FormattedMessage id="tout_les_annonces_reference_placeholder">
+                              {(placeholder) => (
+                                <input
+                                  id="recherchePlace"
+                                  type="text"
+                                  className="form-control"
+                                  placeholder={placeholder}
+                                  name="reference"
+                                  onChange={this.onChange}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </div>
                         <br />
                         <h6 id="gras" className="latest-product__item">
-                          <FormattedMessage id="home_item_price"/>
+                          <FormattedMessage id="home_item_price" />
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                          <FormattedMessage id="tout_les_annonces_min_budget">
-                          {(placeholder) => (
-                            <input
-                              id="recherchePlace"
-                              type="text"
-                              class="form-control"
-                              placeholder={placeholder}
-                              name="prix_min"
-                              onChange={this.onChange}
-                            />
-                          )}
-                        </FormattedMessage>
+                            <FormattedMessage id="tout_les_annonces_min_budget">
+                              {(placeholder) => (
+                                <input
+                                  id="recherchePlace"
+                                  type="text"
+                                  class="form-control"
+                                  placeholder={placeholder}
+                                  name="prix_min"
+                                  onChange={this.onChange}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </div>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                          <FormattedMessage id="tout_les_annonces_max_budget">
-                          {(placeholder) => (
-                            <input
-                              id="recherchePlace"
-                              type="text"
-                              class="form-control"
-                              placeholder={placeholder}
-                              name="prix_max"
-                              onChange={this.onChange}
-                            />
-                          )}
-                        </FormattedMessage>
+                            <FormattedMessage id="tout_les_annonces_max_budget">
+                              {(placeholder) => (
+                                <input
+                                  id="recherchePlace"
+                                  type="text"
+                                  class="form-control"
+                                  placeholder={placeholder}
+                                  name="prix_max"
+                                  onChange={this.onChange}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </div>
                         <br></br>
                         <h6 id="gras" className="latest-product__item">
-                          <FormattedMessage id="tout_les_annonces_poids"/>
+                          <FormattedMessage id="tout_les_annonces_poids" />
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                          <FormattedMessage id="tout_les_annonces_poids_min">
-                          {(placeholder) => (
-                            <input
-                              id="recherchePlace"
-                              type="text"
-                              class="form-control"
-                              placeholder={placeholder}
-                              name="poids_min"
-                              onChange={this.onChange}
-                            />
-                          )}
-                        </FormattedMessage>
+                            <FormattedMessage id="tout_les_annonces_poids_min">
+                              {(placeholder) => (
+                                <input
+                                  id="recherchePlace"
+                                  type="text"
+                                  class="form-control"
+                                  placeholder={placeholder}
+                                  name="poids_min"
+                                  onChange={this.onChange}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </div>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                          <FormattedMessage id="tout_les_annonces_poids_max">
-                          {(placeholder) => (
-                            <input
-                              id="recherchePlace"
-                              type="text"
-                              class="form-control"
-                              placeholder={placeholder}
-                              name="poids_max"
-                              onChange={this.onChange}
-                            />
-                          )}
-                        </FormattedMessage>
+                            <FormattedMessage id="tout_les_annonces_poids_max">
+                              {(placeholder) => (
+                                <input
+                                  id="recherchePlace"
+                                  type="text"
+                                  class="form-control"
+                                  placeholder={placeholder}
+                                  name="poids_max"
+                                  onChange={this.onChange}
+                                />
+                              )}
+                            </FormattedMessage>
                           </div>
                         </div>
                         <br></br>
                         <h6 id="gras" className="latest-product__item">
-                          <FormattedMessage id="tout_les_annonces_ville"/>
+                          <FormattedMessage id="tout_les_annonces_ville" />
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
-                          <FormattedMessage id="tout_les_annonces_ville">
-                          {(placeholder) => (
-                            <Select
-                              value={selectedOptionVille}
-                              onChange={this.handleChangeVille}
-                              options={optionsVille}
-                              placeholder={placeholder}
-                            />
-                          )}
-                        </FormattedMessage>
+                            <FormattedMessage id="tout_les_annonces_ville">
+                              {(placeholder) => (
+                                <Select
+                                  value={selectedOptionVille}
+                                  onChange={this.handleChangeVille}
+                                  options={optionsVille}
+                                  placeholder={placeholder}
+                                />
+                              )}
+                            </FormattedMessage>
                             <br></br>
                             <br></br>
                           </div>
@@ -1248,7 +1367,8 @@ class HomeSheeps extends Component {
                               className="newBtn site-btn"
                               onClick={this.handelChercher}
                             >
-                              <i className="fa fa-search "></i> <FormattedMessage id="tout_les_annonces_rechrcher"/>{" "}
+                              <i className="fa fa-search "></i>{" "}
+                              <FormattedMessage id="tout_les_annonces_rechrcher" />{" "}
                             </button>
                             <br></br>
                             <br></br>
@@ -1257,7 +1377,8 @@ class HomeSheeps extends Component {
                               className="newBtn site-btn"
                               onClick={this.handelReinitialiser}
                             >
-                              <i className="fa fa-refresh"></i> <FormattedMessage id="tout_les_annonces_reinilialiser"/>{" "}
+                              <i className="fa fa-refresh"></i>{" "}
+                              <FormattedMessage id="tout_les_annonces_reinilialiser" />{" "}
                             </button>
                             <br></br>
                             <br></br>
@@ -1274,26 +1395,35 @@ class HomeSheeps extends Component {
                   </div>
                 </div>
                 <div className="col-lg-9 col-md-7">
-                  <div style={localStorage.getItem('lg')=='ar'?{textAlign:"right"}:{}} className="filter__item">
+                  <div
+                    style={
+                      localStorage.getItem("lg") == "ar"
+                        ? { textAlign: "right" }
+                        : {}
+                    }
+                    className="filter__item"
+                  >
                     <div>
-                      <div style={{ zIndex:1 }} id="filterPlace" className="col-lg-5 col-md-8 fa ">
-                      <FormattedMessage
-                        id="tout_les_annonces_trier"
+                      <div
+                        style={{ zIndex: 1 }}
+                        id="filterPlace"
+                        className="col-lg-5 col-md-8 fa "
                       >
-                        {(placeholder) => (
-                          <Select
-                          id="filterPlace"
-                          value={this.state.selectedOptionSort}
-                          onChange={this.sortData}
-                          options={optionsSort}
-                          placeholder={
-                            this.state.selectedOptionSort
-                              ? this.state.selectedOptionSort
-                              : placeholder
-                          }
-                        />
-                        )}
-                      </FormattedMessage>
+                        <FormattedMessage id="tout_les_annonces_trier">
+                          {(placeholder) => (
+                            <Select
+                              id="filterPlace"
+                              value={this.state.selectedOptionSort}
+                              onChange={this.sortData}
+                              options={optionsSort}
+                              placeholder={
+                                this.state.selectedOptionSort
+                                  ? this.state.selectedOptionSort
+                                  : placeholder
+                              }
+                            />
+                          )}
+                        </FormattedMessage>
                       </div>
                     </div>
 
@@ -1301,12 +1431,18 @@ class HomeSheeps extends Component {
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
                         <div className="filter__found text-left">
-                          <h4 style={localStorage.getItem('lg')=='ar'?{textAlign:"right"}:{}}>
+                          <h4
+                            style={
+                              localStorage.getItem("lg") == "ar"
+                                ? { textAlign: "right" }
+                                : {}
+                            }
+                          >
                             <span id="nbEspece">
                               {" "}
                               {this.state.Annonces.length}
                             </span>{" "}
-                            <FormattedMessage id="tout_les_annonces_disponible"/>{" "}
+                            <FormattedMessage id="tout_les_annonces_disponible" />{" "}
                           </h4>
                         </div>
                       </div>
@@ -1343,7 +1479,7 @@ class HomeSheeps extends Component {
                             </p>
 
                             <h3 style={{ color: "#28a745" }}>
-                              <FormattedMessage id="tout_les_annonces_pas_disponible"/>
+                              <FormattedMessage id="tout_les_annonces_pas_disponible" />
                             </h3>
                           </div>
                         ) : (
@@ -1378,7 +1514,9 @@ class HomeSheeps extends Component {
                                         className=" badge badge-success py-1 w-100  "
                                       >
                                         <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                        <span><FormattedMessage id="panier_Labelise"/></span>{" "}
+                                        <span>
+                                          <FormattedMessage id="panier_Labelise" />
+                                        </span>{" "}
                                       </h1>
                                     ) : (
                                       <span className="badge pt-3 w-100  mt-1  ">
@@ -1399,7 +1537,9 @@ class HomeSheeps extends Component {
                                           className="fa fa-map-marker"
                                           style={{ marginRight: "0.5rem" }}
                                         ></i>{" "}
-                                        {Annonces.localisation}
+                                        {localStorage.getItem("lg") == "ar"
+                                              ? Annonces.localisation_ar?Annonces.localisation_ar:optionsVille.find(element => element.value==Annonces.localisation).label
+                                              : Annonces.localisation}
                                       </div>
                                       <div
                                         className="product__item__information"
@@ -1420,14 +1560,24 @@ class HomeSheeps extends Component {
                                             src="Images/sheep-head.png"
                                             alt=""
                                           />
-                                          {Annonces.espece == "chevre"
-                                            ? <FormattedMessage id="tout_les_annonces_chevre"/>
-                                            : <FormattedMessage id="tout_les_annonces_mouton"/>}
-                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}} >
+                                          {Annonces.espece == "chevre" ? (
+                                            <FormattedMessage id="tout_les_annonces_chevre" />
+                                          ) : (
+                                            <FormattedMessage id="tout_les_annonces_mouton" />
+                                          )}
+                                          <span
+                                            style={
+                                              localStorage.getItem("lg") == "ar"
+                                                ? { float: "left" }
+                                                : { float: "right" }
+                                            }
+                                          >
                                             <FaShapes
                                               style={{ marginRight: "5px" }}
                                             />
-                                            {" " + Annonces.race}
+                                            {localStorage.getItem("lg") == "ar"
+                                              ? " " + Annonces.race_ar
+                                              : " " + Annonces.race}
                                           </span>
                                         </div>
 
@@ -1438,39 +1588,69 @@ class HomeSheeps extends Component {
                                               marginRight: "5px",
                                             }}
                                           />
-                                          {Annonces.sexe}
-                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}}>
+                                          {localStorage.getItem("lg") == "ar"
+                                            ? Annonces.sexe == "Mâle"
+                                              ? "ذكر"
+                                              : "أنثى"
+                                            : Annonces.sexe}
+                                          <span
+                                            style={
+                                              localStorage.getItem("lg") == "ar"
+                                                ? { float: "left" }
+                                                : { float: "right" }
+                                            }
+                                          >
                                             <GiWeight
                                               className=" mr-1 fa-lg "
                                               style={{ marginRight: "5px" }}
                                             />
-                                            <FormattedMessage id="panier_mouton_poids_kg"
-                                            values={{ poids:Annonces.poids }} />
+                                            <FormattedMessage
+                                              id="panier_mouton_poids_kg"
+                                              values={{ poids: Annonces.poids }}
+                                            />
                                             {/* {Annonces.poids + " Kg"} */}
                                           </span>
                                         </div>
                                         <div>
-                                          <span style={localStorage.getItem('lg')=="ar"?{ float: "right"}:{float:"left"}}>
+                                          <span
+                                            style={
+                                              localStorage.getItem("lg") == "ar"
+                                                ? { float: "right" }
+                                                : { float: "left" }
+                                            }
+                                          >
                                             <MdCake
                                               className=" mr-1 fa-lg "
                                               style={{ marginRight: "5px" }}
                                             />
-                                            <FormattedMessage id="panier_mouton_age_mois"
-                                            values={{ age:Annonces.age }} />
+                                            <FormattedMessage
+                                              id="panier_mouton_age_mois"
+                                              values={{ age: Annonces.age }}
+                                            />
 
                                             {/* {Annonces.age + " mois"} */}
                                           </span>
                                         </div>
                                         <div
-                                          style={localStorage.getItem('lg')=="ar"?{ float: "left",color: "#fe6927",
-                                          fontSize: "18px",
-                                          fontWeight: "1000",
-                                          textDecoration: "bold",
-                                          alignContent: "center",}:{float:"right",color: "#fe6927",
-                                          fontSize: "18px",
-                                          fontWeight: "1000",
-                                          textDecoration: "bold",
-                                          alignContent: "center",}}
+                                          style={
+                                            localStorage.getItem("lg") == "ar"
+                                              ? {
+                                                  float: "left",
+                                                  color: "#fe6927",
+                                                  fontSize: "18px",
+                                                  fontWeight: "1000",
+                                                  textDecoration: "bold",
+                                                  alignContent: "center",
+                                                }
+                                              : {
+                                                  float: "right",
+                                                  color: "#fe6927",
+                                                  fontSize: "18px",
+                                                  fontWeight: "1000",
+                                                  textDecoration: "bold",
+                                                  alignContent: "center",
+                                                }
+                                          }
                                         >
                                           <img
                                             style={{ height: "30px" }}
@@ -1485,8 +1665,10 @@ class HomeSheeps extends Component {
                                               marginRight: "0.5rem",
                                             }}
                                           /> */}
-                                          <FormattedMessage id="panier_mouton_currency"
-                                            values={{ prix:Annonces.prix }} />
+                                          <FormattedMessage
+                                            id="panier_mouton_currency"
+                                            values={{ prix: Annonces.prix }}
+                                          />
                                           {/* {Annonces.prix + "  Dhs"} */}
                                         </div>
                                       </div>
@@ -1520,9 +1702,11 @@ class HomeSheeps extends Component {
                       <div className="kc-elm kc-css-856498 kc_col-sm-12 kc_column kc_col-sm-12">
                         <div className="kc-col-container">
                           <div className="af-title text-center">
-                            <h3 className="af-heading"><FormattedMessage id="tout_les_annonces_comment_ca_marche"/></h3>
+                            <h3 className="af-heading">
+                              <FormattedMessage id="tout_les_annonces_comment_ca_marche" />
+                            </h3>
                             <p>
-                              <FormattedMessage id="tout_les_annonces_comment_ca_marche_message"/>
+                              <FormattedMessage id="tout_les_annonces_comment_ca_marche_message" />
                             </p>
                           </div>
                           <div
@@ -1535,14 +1719,18 @@ class HomeSheeps extends Component {
                           ></div>
                           <div
                             className="hiw-wrapper hiw-wrapper-4  flex-start-v"
-                            style={localStorage.getItem('lg')=="ar"?{
-                              display: "inline-flex",
-                              flexWrap: "nowrap",
-                              textAlign:"right"
-                            }:{
-                              display: "inline-flex",
-                              flexWrap: "nowrap",
-                            }}
+                            style={
+                              localStorage.getItem("lg") == "ar"
+                                ? {
+                                    display: "inline-flex",
+                                    flexWrap: "nowrap",
+                                    textAlign: "right",
+                                  }
+                                : {
+                                    display: "inline-flex",
+                                    flexWrap: "nowrap",
+                                  }
+                            }
                           >
                             <div className="hiw-item service hiw-1627300637">
                               <div
@@ -1556,9 +1744,11 @@ class HomeSheeps extends Component {
                                 1{" "}
                               </div>
                               <div className="service-content">
-                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_1_title"/></h5>
+                                <h5>
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_1_title" />
+                                </h5>
                                 <p>
-                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_1_message"/>
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_1_message" />
                                 </p>
                               </div>
                             </div>
@@ -1574,9 +1764,11 @@ class HomeSheeps extends Component {
                                 2{" "}
                               </div>
                               <div className="service-content">
-                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_2_title"/></h5>
+                                <h5>
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_2_title" />
+                                </h5>
                                 <p>
-                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_2_message"/>
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_2_message" />
                                 </p>
                               </div>
                             </div>
@@ -1592,9 +1784,11 @@ class HomeSheeps extends Component {
                                 3{" "}
                               </div>
                               <div className="service-content">
-                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_3_title"/></h5>
+                                <h5>
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_3_title" />
+                                </h5>
                                 <p>
-                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_3_message"/>
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_3_message" />
                                 </p>
                               </div>
                             </div>
@@ -1610,8 +1804,12 @@ class HomeSheeps extends Component {
                                 4{" "}
                               </div>
                               <div className="service-content">
-                                <h5><FormattedMessage id="tout_les_annonces_comment_ca_marche_4_title"/></h5>
-                                <p><FormattedMessage id="tout_les_annonces_comment_ca_marche_4_message"/></p>
+                                <h5>
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_4_title" />
+                                </h5>
+                                <p>
+                                  <FormattedMessage id="tout_les_annonces_comment_ca_marche_4_message" />
+                                </p>
                               </div>
                             </div>
                           </div>
