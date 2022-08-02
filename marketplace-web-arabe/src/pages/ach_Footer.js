@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 
+import { FormattedMessage } from "react-intl";
+
+
+const intl = JSON.parse(localStorage.getItem("intl"));
+
 class Footer extends Component {
   render() {
     return (
-      <footer className="footer-distributed">
-        <div className="footer-left">
+      <footer className="footer-distributed" style={localStorage.getItem("lg") == "ar"? { direction: "rtl", textAlign: "right", width:"100%" }: {}}>
+        <div className="footer-left" >
           <img
             style={{ height: "40px" }}
             src={require("./Images/logo-text.png")}
@@ -17,7 +22,7 @@ class Footer extends Component {
           <div>
             <i className="fa fa-map-marker"></i>
             <p>
-              <span>Résidence Meriem, Avenue Hassan II</span> Rabat, Maroc
+              <span><FormattedMessage id="footer_mery" /></span><FormattedMessage id="footer_rabat" />
             </p>
           </div>
 
@@ -36,8 +41,8 @@ class Footer extends Component {
 
         <div className="footer-right">
           <p className="footer-company-about">
-            <span>A propos</span>
-            ASSOCIATION NATIONALE DES ÉLEVEURS OVINS ET CAPRINS
+            <span><FormattedMessage id="footer_propos" /></span>
+            <FormattedMessage id="footer_eleveur" />
           </p>
 
           <div className="footer-icons">

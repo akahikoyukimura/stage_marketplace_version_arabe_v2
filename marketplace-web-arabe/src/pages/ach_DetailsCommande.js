@@ -9,6 +9,9 @@ import { Modal } from "react-bootstrap";
 import { Redirect } from "react-router";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { FormattedMessage } from "react-intl";
+
+const intl=JSON.parse(localStorage.getItem('intl'))
 class DetailsCommande extends Component {
   constructor(props) {
     super(props);
@@ -196,7 +199,7 @@ class DetailsCommande extends Component {
                           window.sessionStorage.setItem("ids", []);
 
                           Swal.fire({
-                            title: "Votre commande a bien été changée ",
+                            title: intl.messages.details_cmd_change_success_popup,
                             icon: "success",
                             width: 400,
                             heightAuto: false,
@@ -259,7 +262,7 @@ class DetailsCommande extends Component {
                       this.setState({ cloture: true, ids: [] }, () => {
                         window.sessionStorage.setItem("ids", []);
                         Swal.fire({
-                          title: "Changer avec succès ",
+                          title: intl.messages.details_cmd_change_success,
                           icon: "success",
                           width: 400,
                           heightAuto: false,
@@ -284,7 +287,7 @@ class DetailsCommande extends Component {
       ) {
         this.setState({ ids: [] }, () => {
           Swal.fire({
-            title: "Changement annuler ",
+            title: intl.messages.cmd_changement_annuler,
             icon: "error",
             width: 400,
             heightAuto: false,
@@ -298,7 +301,7 @@ class DetailsCommande extends Component {
         if (this.state.ids.length > 0) {
           this.setState({ ids: [] }, () => {
             Swal.fire({
-              title: "Changement annuler ",
+              title: intl.messages.cmd_changement_annuler,
               icon: "error",
               width: 400,
               heightAuto: false,
@@ -315,15 +318,15 @@ class DetailsCommande extends Component {
     let valide = true;
 
     if (this.state.nom_prenom.length === 0 || this.state.nom_prenom === " ") {
-      errors["nom_prenom"] = "Ce champs est obligatoire ";
+      errors["nom_prenom"] = intl.messages.details_cmd_champs_obligatoire;
       valide = false;
     }
     if (this.state.rib.length === 0) {
-      errors["rib"] = "Ce champs est obligatoire ";
+      errors["rib"] = intl.messages.details_cmd_champs_obligatoire;
       valide = false;
     }
     if (this.state.rib.length !== 0 && this.state.rib.length !== 24) {
-      errors["rib"] = " Le rib doit contenir 24 caractères ";
+      errors["rib"] = intl.messages.details_cmd_champs_rib;
       valide = false;
     }
     this.setState({ errors: errors });
@@ -358,7 +361,7 @@ class DetailsCommande extends Component {
           },
           () => {
             Swal.fire({
-              title: "Changer avec succès ",
+              title: intl.messages.details_cmd_change_success,
               icon: "success",
               width: 400,
               heightAuto: false,
@@ -396,7 +399,7 @@ class DetailsCommande extends Component {
           },
           () => {
             Swal.fire({
-              title: "Changer avec succès ",
+              title: intl.messages.details_cmd_change_success,
               icon: "success",
               width: 400,
               heightAuto: false,
@@ -428,23 +431,23 @@ class DetailsCommande extends Component {
     let motif = "";
     switch (esp.motif_annulation) {
       case "Apparition d'un abcès":
-        motif = "Apparition d'un abcès";
+        motif = intl.messages.details_cmd_motif_abces;
         break;
       case "Jetage du nez":
-        motif = "Ecoulement nasales";
+        motif = intl.messages.details_cmd_motif_nasales;
         break;
       case "Conjonctivite":
-        motif = "Une inflammation de la conjonctive de l'œil";
+        motif = intl.messages.details_cmd_motif_oeil;
         break;
       case "Ictère":
         motif =
-          "Une coloration jaune de la peau, des conjonctives et d'autres tissus";
+          intl.messages.details_cmd_motif_peau;
         break;
       case "Fracture":
-        motif = "Fracture";
+        motif = intl.messages.details_cmd_fracture;
         break;
       case "Boitréé":
-        motif = "Boitréé";
+        motif = intl.messages.details_cmd_boitree;
         break;
       default:
         motif = esp.motif_annulation;
@@ -465,12 +468,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous annuler cette espece!",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.details_cmd_annuler_espece,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui!  ",
-        cancelButtonText: "  Non!  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -503,8 +506,8 @@ class DetailsCommande extends Component {
                   .then((res) => {
                     this.props.history.push("./commandesParStatut");
                     swalWithBootstrapButtons.fire(
-                      "Annulation !",
-                      "Votre espece a bien été annulée",
+                      intl.messages.alerte_cmd_annulation_success_title,
+                      intl.messages.details_cmd_annuler_espece_success,
                       "success"
                     );
                     window.location.reload();
@@ -551,8 +554,8 @@ class DetailsCommande extends Component {
                   },
                   () => {
                     swalWithBootstrapButtons.fire(
-                      "Annulation !",
-                      "Votre espece a bien été annulée",
+                      intl.messages.alerte_cmd_annulation_success_title,
+                      intl.messages.details_cmd_annuler_espece_success,
                       "success"
                     );
                   }
@@ -561,8 +564,8 @@ class DetailsCommande extends Component {
           }
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire(
-            "Annulation",
-            "Espece non annulée !",
+            intl.messages.alerte_cmd_annulation_failed_title,
+            intl.messages.details_cmd_annuler_espece_failed,
             "error"
           );
         }
@@ -583,12 +586,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous annuler votre commande!",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.alerte_cmd_annuler_popup_text,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui!  ",
-        cancelButtonText: "  Non!  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -622,16 +625,16 @@ class DetailsCommande extends Component {
               });
 
               swalWithBootstrapButtons.fire(
-                "Annulation !",
-                "Votre commande a bien été annulée",
+                intl.messages.alerte_cmd_annulation_success_title,
+                intl.messages.alerte_cmd_annulation_success_body,
                 "success"
               );
               this.props.history.push("./commandesParStatut");
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire(
-            "Annulation",
-            "Commande non annulée !",
+            intl.messages.alerte_cmd_annulation_failed_title,
+            intl.messages.alerte_cmd_annulation_failed_body,
             "error"
           );
         }
@@ -663,7 +666,7 @@ class DetailsCommande extends Component {
           .then((res) => {
             Swal.fire({
               text:
-                "Vous allez recevoir un email de validation de votre reçu sur votre email : " +
+                intl.messages.details_cmd_email_validation +
                 this.state.commandes.consommateur.email,
               icon: "success",
               width: 400,
@@ -693,7 +696,7 @@ class DetailsCommande extends Component {
           .then((res) => {
             Swal.fire({
               text:
-                "Vous allez recevoir un email de validation de votre reçu sur votre email : " +
+              intl.messages.details_cmd_email_validation +
                 this.state.commandes.consommateur.email,
               icon: "success",
               width: 400,
@@ -723,7 +726,7 @@ class DetailsCommande extends Component {
           .then((res) => {
             Swal.fire({
               text:
-                "Vous allez recevoir un email de validation de votre reçu sur votre email : " +
+              intl.messages.details_cmd_email_validation +
                 this.state.commandes.consommateur.email,
               icon: "success",
               width: 400,
@@ -763,8 +766,8 @@ class DetailsCommande extends Component {
         buttonsStyling: false,
       });
       swalWithBootstrapButtons.fire(
-        "Rappel !",
-        "Vous n'avez pas choisi une image !",
+        intl.messages.commander_error_message_title,
+        intl.messages.details_cmd_image_recu,
         "error"
       );
     }
@@ -808,12 +811,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous changer cette annonce !",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.details_cmd_changer_annonce,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui !  ",
-        cancelButtonText: "  Non !  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -883,7 +886,7 @@ class DetailsCommande extends Component {
             );
 
             Swal.fire({
-              title: "change avec succès ",
+              title: intl.messages.details_cmd_change_success,
               icon: "success",
               width: 400,
               heightAuto: false,
@@ -894,7 +897,7 @@ class DetailsCommande extends Component {
           }
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire({
-            title: "Annonce non changee ! ",
+            title: intl.messages.details_cmd_pas_changer_annonce,
             icon: "error",
             width: 400,
             heightAuto: false,
@@ -915,12 +918,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous refuser les produits de changements  !",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.details_cmd_refuser_produit,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui !  ",
-        cancelButtonText: "  Non !  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -948,7 +951,7 @@ class DetailsCommande extends Component {
                 //   window.sessionStorage.setItem("reponses", JSON.stringify(this.state.reponses))
 
                 Swal.fire({
-                  title: "Annule avec succès ",
+                  title: intl.messages.details_cmd_annuler_success,
                   icon: "success",
                   width: 400,
                   heightAuto: false,
@@ -987,7 +990,7 @@ class DetailsCommande extends Component {
           });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire({
-            title: "Non refuser ! ",
+            title: intl.messages.details_cmd_non_refuser,
             icon: "error",
             width: 400,
             heightAuto: false,
@@ -1138,7 +1141,7 @@ class DetailsCommande extends Component {
           },
           () => {
             Swal.fire({
-              title: "Changement annuler ",
+              title: intl.messages.cmd_changement_annuler,
               icon: "error",
               width: 400,
               heightAuto: false,
@@ -1295,12 +1298,12 @@ class DetailsCommande extends Component {
 
     swalWithBootstrapButtons
       .fire({
-        title: "Etes-vous sûr?",
-        text: "Voulez-vous annuler votre commande!",
+        title: intl.messages.panier_delete_item,
+        text: intl.messages.alerte_cmd_annuler_popup_text,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "  Oui!  ",
-        cancelButtonText: "  Non!  ",
+        confirmButtonText: intl.messages.panier_delete_oui,
+        cancelButtonText: intl.messages.panier_delete_non,
         reverseButtons: true,
       })
       .then((result) => {
@@ -1337,8 +1340,8 @@ class DetailsCommande extends Component {
                   this.setState({ redirect: true });
                 });
               swalWithBootstrapButtons.fire(
-                "Annulation !",
-                "Votre commande a bien été annulée",
+                intl.messages.alerte_cmd_annulation_success_title,
+                intl.messages.alerte_cmd_annulation_success_body,
                 "success"
               );
             });
@@ -1349,8 +1352,8 @@ class DetailsCommande extends Component {
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(
-            "Annulation",
-            "Commande non annulée !",
+            intl.messages.alerte_cmd_annulation_failed_title,
+            intl.messages.alerte_cmd_annulation_failed_body,
             "error"
           );
         }
@@ -1389,8 +1392,8 @@ class DetailsCommande extends Component {
         />
         <div>
           <style>{`.btn-link {  color:white} .btn-link:hover {color:white;} .card { background-color: #fafafa !important } .container {max-width: 90%;}  `}</style>
-          <div className="container">
-            <h3 style={{ marginTop: "1em" }}>Détails commande </h3>
+          <div style={localStorage.getItem('lg')=='ar'?{direction:"rtl",textAlign:"right"}:{}} className="container">
+            <h3 style={{ marginTop: "1em" }}><FormattedMessage id="details_cmd_title"/> </h3>
             <br></br>
             <div>
               <div id="accordion">
@@ -1408,8 +1411,8 @@ class DetailsCommande extends Component {
                           className="btn btn-link collapsed"
                         >
                           <h5 style={{ color: "white" }}>
-                            <FaClipboardCheck className="mb-2" /> Motif de
-                            l'annulation
+                            <FaClipboardCheck className="mb-2" />
+                            <FormattedMessage id="details_cmd_motif_annulation"/>
                           </h5>{" "}
                         </button>
                       </h5>
@@ -1470,7 +1473,7 @@ class DetailsCommande extends Component {
                                         className=" badge badge-success py-1 w-100  "
                                       >
                                         <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                        <span>Labélisé ANOC</span>{" "}
+                                        <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                                       </h1>
                                     ) : (
                                       <span className="badge pt-3 w-100  mt-1  ">
@@ -1479,26 +1482,26 @@ class DetailsCommande extends Component {
                                     )}
                                     <div className="product__item__text p-2 text-justify">
                                       <h6 className="">
-                                        <b>№ Boucle</b> : {Annonces.boucle}
+                                        <b><FormattedMessage id="details_mouton_numero_boucle"/></b> : {Annonces.boucle}
                                       </h6>
                                       <h6 className="">
-                                        <b>Espece</b> :{" "}
+                                        <b><FormattedMessage id="details_mouton_espece"/></b> :{" "}
                                         {Annonces.espece == "chevre"
-                                          ? "Chèvre"
-                                          : "Mouton"}
+                                          ? <FormattedMessage id="tout_les_annonces_chevre"/>
+                                          : <FormattedMessage id="tout_les_annonces_mouton"/>}
                                       </h6>
                                       <h6 className="">
-                                        <b>Race :</b> {Annonces.race}
+                                        <b><FormattedMessage id="home_item_race"/> :</b> {Annonces.race}
                                       </h6>
                                       <h6 className="">
-                                        <b>Poids : </b>
-                                        {Annonces.poids} Kg
+                                        <b><FormattedMessage id="home_item_poids"/> : </b>
+                                        {Annonces.poids} <FormattedMessage id="cmd_kg"/>
                                       </h6>
                                       <h6 className="">
-                                        <b>Age :</b> {Annonces.age} mois
+                                        <b><FormattedMessage id="cmd_age"/> :</b> {Annonces.age}{" "} <FormattedMessage id="cmd_mois"/>
                                       </h6>
                                       <h6 className="">
-                                        <b>Localisation :</b>{" "}
+                                        <b><FormattedMessage id="add_mouton_localisation"/> :</b>{" "}
                                         {Annonces.localisation}
                                       </h6>
                                       <h5 className=" text-danger  ">
@@ -1506,7 +1509,7 @@ class DetailsCommande extends Component {
                                           className="fa fa-usd"
                                           aria-hidden="true"
                                         ></i>{" "}
-                                        {Annonces.prix + "  Dhs"}
+                                        {Annonces.prix + " "+intl.messages.panier_currency}
                                       </h5>
                                       <div className="row mt-3">
                                         <div className="col-2"> </div>
@@ -1562,10 +1565,10 @@ class DetailsCommande extends Component {
                       >
                         <div
                           className="item"
-                          style={{ flexBasis: "95%", textAlign: "left" }}
+                          style={localStorage.getItem('lg')=='ar'?{ flexBasis: "95%", textAlign: "right" }:{ flexBasis: "95%", textAlign: "left" }}
                         >
                           {" "}
-                          <FaClipboardCheck className="mb-2" /> Détails produit{" "}
+                          <FaClipboardCheck className="mb-2" /> <FormattedMessage id="details_cmd_details_produit"/>{" "}
                         </div>{" "}
                         <div className="item" style={{ flexBasis: "5%" }}>
                           {" "}
@@ -1642,7 +1645,7 @@ class DetailsCommande extends Component {
                                       className=" badge badge-success py-1 w-100  "
                                     >
                                       <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                      <span>Labélisé ANOC</span>{" "}
+                                      <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                                     </h1>
                                   ) : (
                                     <span className="badge pt-3 w-100  mt-1  ">
@@ -1665,26 +1668,26 @@ class DetailsCommande extends Component {
                               >
                                 <div className="product__item__text p-2 text-justify">
                                   <h6 className="">
-                                    <b>№ Boucle</b> : {esp.boucle}
+                                    <b><FormattedMessage id="details_mouton_numero_boucle"/></b> : {esp.boucle}
                                   </h6>
                                   <h6 className="">
-                                    <b>Espece</b> :{" "}
+                                    <b><FormattedMessage id="details_mouton_espece"/></b> :{" "}
                                     {esp.espece == "chevre"
-                                      ? "Chèvre"
-                                      : "Mouton"}
+                                      ? <FormattedMessage id="tout_les_annonces_chevre"/>
+                                      : <FormattedMessage id="tout_les_annonces_mouton"/>}
                                   </h6>
                                   <h6 className="">
-                                    <b>Race :</b> {esp.race}
+                                    <b><FormattedMessage id="home_item_race"/> :</b> {esp.race}
                                   </h6>
                                   <h6 className="">
-                                    <b>Poids : </b>
-                                    {esp.poids} Kg
+                                    <b><FormattedMessage id="home_item_poids"/> : </b>
+                                    {esp.poids} {" "}<FormattedMessage id="cmd_kg"/>
                                   </h6>
                                   <h6 className="">
-                                    <b>Age :</b> {esp.age} mois
+                                    <b><FormattedMessage id="cmd_age"/> :</b> {esp.age} {" "}<FormattedMessage id="cmd_mois"/>
                                   </h6>
                                   <h6 className="">
-                                    <b>Ville :</b> {esp.localisation}
+                                    <b><FormattedMessage id="add_mouton_localisation"/> :</b> {esp.localisation}
                                   </h6>
 
                                   <h5 className=" text-danger mt-4">
@@ -1693,7 +1696,7 @@ class DetailsCommande extends Component {
                                       src={require("./Images/cash-payment.png")}
                                       alt=""
                                     />{" "}
-                                    {esp.prix + "  Dhs"}
+                                    {esp.prix + " "+intl.messages.panier_currency}
                                   </h5>
                                 </div>
                               </div>
@@ -1726,11 +1729,11 @@ class DetailsCommande extends Component {
                       >
                         <div
                           className="item"
-                          style={{ flexBasis: "95%", textAlign: "left" }}
+                          style={localStorage.getItem('lg')=='ar'?{ flexBasis: "95%", textAlign: "right" }:{ flexBasis: "95%", textAlign: "left" }}
                         >
                           {" "}
-                          <FaClipboardCheck className="mb-2" /> Détails
-                          livraison{" "}
+                          <FaClipboardCheck className="mb-2" />
+                          <FormattedMessage id="details_cmd_details_livraison"/>{" "}
                         </div>
                         <div className="item" style={{ flexBasis: "5%" }}>
                           {" "}
@@ -1751,7 +1754,7 @@ class DetailsCommande extends Component {
                                     className="fa fa-calendar-o"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  Date de livraison :
+                                  <FormattedMessage id="cmd_statut_date_livraison"/>
                                   <b style={{ fontWeight: "normal" }}>
                                     {" "}
                                     {commandes.date_de_livraison.replace(
@@ -1766,7 +1769,7 @@ class DetailsCommande extends Component {
                                   className="fa fa-map-o"
                                   aria-hidden="true"
                                 ></i>{" "}
-                                Ville de livraison :{" "}
+                                <FormattedMessage id="step1_ville_de_livraison"/> :{" "}
                                 <b>{" " + commandes.ville_livraison}</b>{" "}
                               </li>
                               <li>
@@ -1774,7 +1777,7 @@ class DetailsCommande extends Component {
                                   className="fa fa-map-marker"
                                   aria-hidden="true"
                                 ></i>{" "}
-                                Adresse de livraison :{" "}
+                                <FormattedMessage id="details_cmd_adresse_livraison"/> :{" "}
                                 <b>
                                   {commandes.adresse_domicile
                                     ? commandes.adresse_domicile
@@ -1792,10 +1795,8 @@ class DetailsCommande extends Component {
                                     className="fa fa-exclamation-circle"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  Votre commande sera livre 24h a 48h avant le
-                                  jour de l'aid. Nous vous contacterons par
-                                  telephone preciser vous informer du jour et de
-                                  l'heure exacte.{" "}
+                                  <FormattedMessage id="step1_message_livraison"/>
+                                  {" "}
                                 </h6>
                               )}
                             </ul>
@@ -1828,10 +1829,10 @@ class DetailsCommande extends Component {
                       >
                         <div
                           className="item"
-                          style={{ flexBasis: "95%", textAlign: "left" }}
+                          style={localStorage.getItem('lg')=='ar'?{ flexBasis: "95%", textAlign: "right" }:{ flexBasis: "95%", textAlign: "left" }}
                         >
                           {" "}
-                          <FaClipboardCheck className="mb-2" /> Détails prix{" "}
+                          <FaClipboardCheck className="mb-2" /> <FormattedMessage id="details_cmd_details_prix"/>{" "}
                         </div>{" "}
                         <div className="item" style={{ flexBasis: "5%" }}>
                           <i className="fa fa-angle-down fa-lg arrowicon"></i>
@@ -1846,13 +1847,10 @@ class DetailsCommande extends Component {
                           <div className="shoping__checkout mt-2 pb-0">
                             <ul>
                               <li>
-                                Prix net{" "}
-                                <span>
-                                  {" "}
-                                  {this.state.prix_total -
-                                    this.state.prix_transport}
-                                  Dhs
-                                </span>
+                                <FormattedMessage
+                                id="step2_prix_net"
+                                values={{ prix:this.state.prix_total - this.state.prix_transport,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
                               </li>
                               {
                                 <li
@@ -1861,14 +1859,18 @@ class DetailsCommande extends Component {
                                     borderColor: "black",
                                   }}
                                 >
-                                  Prix Transport{" "}
-                                  <span> {this.state.prix_transport} Dhs </span>
+                                  <FormattedMessage
+                                id="step2_prix_transport"
+                                values={{ prix:this.state.prix_transport,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
                                 </li>
                               }
 
                               <li>
-                                Prix Total{" "}
-                                <span> {this.state.prix_total}Dhs</span>
+                              <FormattedMessage
+                                id="step2_prix_totale"
+                                values={{ prix:this.state.prix_total,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
                               </li>
 
                               {commandes.statut ===
@@ -1881,15 +1883,19 @@ class DetailsCommande extends Component {
                                     className="fa fa-exclamation-circle"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  Avance à payer{" "}
-                                  <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage id="cmd_avance"/>{" "}
+                                  <span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}> {this.state.prix_avance}{" "}<FormattedMessage id="panier_currency"/></span>
                                 </li>
                               ) : null}
                               {commandes.statut ===
                               "en attente de validation avance" ? (
                                 <li>
-                                  Avance deja payee{" "}
-                                  <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
+                                  {/* Avance deja payee{" "}
+                                  <span> {this.state.prix_avance}Dhs</span> */}
                                 </li>
                               ) : null}
                               {commandes.statut ===
@@ -1899,16 +1905,24 @@ class DetailsCommande extends Component {
                                   "en attente de paiement du reste") ? (
                                 <>
                                   <li>
-                                    Avance deja payee{" "}
-                                    <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
+                                    {/* Avance deja payee{" "}
+                                    <span> {this.state.prix_avance}Dhs</span> */}
                                   </li>
                                   <li className="text-danger">
                                     <i
                                       className="fa fa-exclamation-circle"
                                       aria-hidden="true"
                                     ></i>{" "}
-                                    Reste à payer{" "}
-                                    <span> {this.state.prix_reste}Dhs</span>
+                                    <FormattedMessage
+                                id="details_cmd_reste_a_payee"
+                                values={{ prix:this.state.prix_reste,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
+                                    {/* Reste à payer{" "}
+                                    <span> {this.state.prix_reste}Dhs</span> */}
                                   </li>
                                 </>
                               ) : null}
@@ -1918,12 +1932,20 @@ class DetailsCommande extends Component {
                               commandes.statut === "validé" ? (
                                 <>
                                   <li>
-                                    Avance deja payee{" "}
-                                    <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
+                                    {/* Avance deja payee{" "}
+                                    <span> {this.state.prix_avance}Dhs</span> */}
                                   </li>
                                   <li>
-                                    Reste deja payee{" "}
-                                    <span> {this.state.prix_reste}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_reste_deja_payee"
+                                values={{ prix:this.state.prix_reste,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
+                                    {/* Reste deja payee{" "}
+                                    <span> {this.state.prix_reste}Dhs</span> */}
                                   </li>
                                 </>
                               ) : null}
@@ -1934,20 +1956,28 @@ class DetailsCommande extends Component {
                                   "en attente de paiement du complément") ? (
                                 <>
                                   <li>
-                                    Avance deja payee{" "}
-                                    <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
                                   </li>
                                   <li>
-                                    Reste deja payee{" "}
-                                    <span> {this.state.prix_reste}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_reste_deja_payee"
+                                values={{ prix:this.state.prix_reste,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
                                   </li>
                                   <li className="text-danger">
                                     <i
                                       className="fa fa-exclamation-circle"
                                       aria-hidden="true"
                                     ></i>{" "}
-                                    Complement à payer{" "}
-                                    <span> {commandes.complement}Dhs</span>
+                                    <FormattedMessage
+                                id="details_cmd_complement_a_payee"
+                                values={{ prix:commandes.complement,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
+                                    {/* Complement à payer{" "}
+                                    <span> {commandes.complement}Dhs</span> */}
                                   </li>
                                 </>
                               ) : null}
@@ -1955,19 +1985,27 @@ class DetailsCommande extends Component {
                               "en attente de validation du complément" ? (
                                 <>
                                   <li>
-                                    Avance deja payee{" "}
-                                    <span> {this.state.prix_avance}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_avance_deja_payee"
+                                values={{ prix:this.state.prix_avance,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
                                   </li>
                                   <li>
-                                    Reste deja payee{" "}
-                                    <span> {this.state.prix_reste}Dhs</span>
+                                  <FormattedMessage
+                                id="details_cmd_reste_deja_payee"
+                                values={{ prix:this.state.prix_reste,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
                                   </li>
                                   <li>
-                                    Complement deja payee{" "}
+                                  <FormattedMessage
+                                id="details_cmd_complement_deja_payee"
+                                values={{ prix:this.state.prix_complement,span:(word)=><span style={localStorage.getItem('lg')=='ar'?{"float":"left"}:{}}>{word}</span> }}
+                                />
+                                    {/* Complement deja payee{" "}
                                     <span>
                                       {" "}
                                       {this.state.prix_complement}Dhs
-                                    </span>
+                                    </span> */}
                                   </li>
                                 </>
                               ) : null}
@@ -1977,7 +2015,7 @@ class DetailsCommande extends Component {
                                     className="fa fa-exclamation-circle"
                                     aria-hidden="true"
                                   ></i>{" "}
-                                  Commande validee
+                                  <FormattedMessage id="details_cmd_cmd_validee"/>
                                 </li>
                               ) : null}
                             </ul>
@@ -2017,7 +2055,7 @@ class DetailsCommande extends Component {
                         >
                           <div
                             className="item"
-                            style={{ flexBasis: "95%", textAlign: "left" }}
+                            style={localStorage.getItem('lg')=='ar'?{ flexBasis: "95%", textAlign: "right" }:{ flexBasis: "95%", textAlign: "left" }}
                           >
                             {" "}
                             <FaClipboardCheck className="mb-2" />{" "}
@@ -2025,20 +2063,20 @@ class DetailsCommande extends Component {
                               "en attente de paiement avance" ||
                             commandes.statut ===
                               "en attente de validation avance"
-                              ? "Paiement des frais de resevation"
+                              ? <FormattedMessage id="details_cmd_frais_reservation_title"/>
                               : null}
                             {commandes.statut ===
                               "en attente de paiement du reste" ||
                             commandes.statut ===
                               "en attente de validation reste" ||
                             commandes.statut === "validé"
-                              ? "Paiement du reste du montant"
+                              ? <FormattedMessage id="details_cmd_reste_du_montant"/>
                               : null}
                             {commandes.statut ===
                               "en attente de paiement du complément" ||
                             commandes.statut ===
                               "en attente de validation du complément"
-                              ? "Paiement du complément du montant"
+                              ? <FormattedMessage id="details_cmd_complement_du_montant"/>
                               : null}
                           </div>
                           <div className="item" style={{ flexBasis: "5%" }}>
@@ -2059,9 +2097,9 @@ class DetailsCommande extends Component {
                             <div>
                               <h5>
                                 {" "}
-                                <b>Frais de reservation (non remboursable) </b>
+                                <b><FormattedMessage id="details_cmd_frais_reservation_message"/> </b>
                                 <small>
-                                  {commandes.avance} {" Dhs"}
+                                  {commandes.avance} {" "}<FormattedMessage id="panier_currency"/>
                                 </small>
                               </h5>
                               <br></br>
@@ -2079,16 +2117,15 @@ class DetailsCommande extends Component {
                                   value="virement"
                                 />
                                 <label
+                                style={localStorage.getItem('lg')=='ar'?{paddingRight:"1.25rem"}:{}}
                                   className="form-check-label"
                                   htmlFor="virement"
                                 >
-                                  <b> Virement bancaire</b>
+                                  <b> <FormattedMessage id="step2_virement_bancaire"/></b>
                                 </label>
                               </div>
                               <p>
-                                pour payer les frais de reservation, il vous
-                                suffit d'effectuer un virement sur le RIB
-                                suivant
+                                <FormattedMessage id="details_cmd_frais_reservation_message1"/>
                                 <span className="text-danger">
                                   {" " + this.state.cooperative_rib}
                                 </span>
@@ -2107,23 +2144,21 @@ class DetailsCommande extends Component {
                                   value="transfert"
                                 />
                                 <label
+                                style={localStorage.getItem('lg')=='ar'?{paddingRight:"1.25rem"}:{}}
                                   className="form-check-label"
                                   htmlFor="transfert"
                                 >
-                                  <b>Par agence de transfert d'argent (*)</b>
+                                  <b><FormattedMessage id="step3_par_agence"/></b>
                                 </label>
                               </div>
 
                               <span>
                                 <small>
-                                  * les frais de transfert sont a la charge de
-                                  l'achteur
+                                  <FormattedMessage id="step3_frais_transport"/>
                                 </small>
                               </span>
                               <p>
-                                pour payer les frais de reservation, il vous
-                                suffit d'effectuer un transfert d'argent à
-                                l'eleveur suivant
+                                <FormattedMessage id="details_cmd_frais_reservation_message1_eleveur"/>
                                 {
                                   <span className="text-danger">
                                     {" " + this.state.tech}
@@ -2132,26 +2167,29 @@ class DetailsCommande extends Component {
                               </p>
                               <br></br>
                               <p className="text-danger">
-                                <b>Attention :</b>
+                              <FormattedMessage
+                                id="details_cmd_attention_messages"
+                                values={{ deadline:commandes.deadline
+                                  ,b:(word)=><b>{word}</b>
+                                  ,br:()=><br></br> }}
+                                />
+                                {/* <b>Attention :</b>
                                 <br></br>
                                 Vous avez jusqu'au{" "}
                                 {" " + commandes.deadline + " "} pour nous
                                 transmettre la copie (scan / photo) de l'ordre
                                 de virement ou de transfert .Au-delà de ce
-                                delai, votre commande sera annulee.
+                                delai, votre commande sera annulee. */}
                               </p>
                             </div>
                           ) : null}
                           {commandes.statut ===
                           "en attente de validation avance" ? (
                             <div>
-                              <b>Validation en cours</b>{" "}
-                              {commandes.avance + " Dhs"}
+                              <b><FormattedMessage id="cmd_validation_en_cours"/></b>{" "}
+                              {commandes.avance + " "}<FormattedMessage id="panier_currency"/>
                               <p className="text-danger">
-                                Votre reçu a bien ete receptionne. Il sera
-                                verifie dans les plus brefs delais. Des
-                                reception du virement, votre produit sera
-                                reserve
+                                <FormattedMessage id="details_cmd_recu_bien_recu"/>
                               </p>
                               <br></br>
                               <br></br>
@@ -2179,7 +2217,8 @@ class DetailsCommande extends Component {
                           commandes.statut === "reçu reste refusé" ? (
                             <div>
                               <b>
-                                Reste du montant : {commandes.reste + "Dhs"}
+                                <FormattedMessage id="details_cmd_reste_montant"/> : 
+                                {" "+commandes.reste + " "}<FormattedMessage id="panier_currency"/>
                               </b>
                             </div>
                           ) : null}
@@ -2187,13 +2226,10 @@ class DetailsCommande extends Component {
                           {commandes.statut ===
                           "en attente de validation reste" ? (
                             <div>
-                              <b>Validation en cours</b>{" "}
-                              {commandes.reste + " Dhs"}
+                              <b><FormattedMessage id="cmd_validation_en_cours"/></b>{" "}
+                              {commandes.reste + " "}<FormattedMessage id="panier_currency"/>
                               <p className="text-danger">
-                                Votre reçu a bien ete receptionne. Il sera
-                                verifie dans les plus brefs delais. Des
-                                reception du virement, nous vous contacterons
-                                pour la livraison
+                                <FormattedMessage id="details_cmd_livraison_message"/>
                               </p>
                               <br></br>
                               <br></br>
@@ -2220,21 +2256,18 @@ class DetailsCommande extends Component {
                           "en attente de paiement du complément" ? (
                             <div>
                               <b>
-                                Complément du montant :{" "}
-                                {commandes.complement + "Dhs"}
+                                <FormattedMessage id="details_cmd_complement_montant"/> :{" "}
+                                {" "+commandes.complement + " "}<FormattedMessage id="panier_currency"/>
                               </b>
                             </div>
                           ) : null}
                           {commandes.statut ===
                           "en attente de validation du complément" ? (
                             <div>
-                              <b>Validation en cours</b>{" "}
-                              {commandes.complement + " Dhs"}
+                              <b><FormattedMessage id="cmd_validation_en_cours"/></b>{" "}
+                              {commandes.complement + " "}<FormattedMessage id="panier_currency"/>
                               <p className="text-danger">
-                                Votre reçu a bien ete receptionne. Il sera
-                                verifie dans les plus brefs delais. Des
-                                reception du virement, nous vous contacterons
-                                pour la livraison
+                                <FormattedMessage id="details_cmd_livraison_message"/>
                               </p>
                               <br></br>
                               <br></br>
@@ -2260,10 +2293,10 @@ class DetailsCommande extends Component {
                           {commandes.statut === "validé" ? (
                             <div>
                               <p className="text-danger">
-                                Votre virement est valide. la livraison est
-                                prevu le {commandes.date_de_livraison} . Nous
-                                vous contacterons par telephone pour preciser
-                                l'heure exacte
+                              <FormattedMessage
+                                id="details_cmd_virement_valide_message"
+                                values={{ date_de_livraison:commandes.date_de_livraison}}
+                                />
                               </p>
                               <br></br>
                               <br></br>
@@ -2324,8 +2357,8 @@ class DetailsCommande extends Component {
                           className="btn btn-link collapsed"
                         >
                           <h5 style={{ color: "white" }}>
-                            <FaClipboardCheck className="mb-2" /> Motif de
-                            l'annulation
+                            <FaClipboardCheck className="mb-2" /> 
+                            <FormattedMessage id="details_cmd_motif_annulation"/>
                           </h5>{" "}
                         </button>
                       </h5>
@@ -2340,9 +2373,8 @@ class DetailsCommande extends Component {
                             <p className="text-danger">{commandes.statut}</p>
                             <p>
                               <b>
-                                Pour toute reclamation, contactez le service
-                                client au 0601120156. Disponible de 9h à 19h
-                                sauf Samedi et Dimanche{" "}
+                                <FormattedMessage id="details_cmd_reclamation"/>
+                                {" "}
                               </b>
                             </p>
                           </div>
@@ -2356,7 +2388,7 @@ class DetailsCommande extends Component {
             <br></br>
             <br></br>
             <div className="my-5">
-              <div className="row">
+              <div style={localStorage.getItem('lg')=='ar'?{justifyContent:"left"}:{}} className="row">
                 <div className="col-md-4 offset-md-4">
                   {commandes.statut === "en attente de paiement avance" ||
                   commandes.statut === "reçu avance refusé" ? (
@@ -2366,7 +2398,7 @@ class DetailsCommande extends Component {
                       onClick={this.Modal.bind(this, "avance")}
                       className="btn-success py-1 px-4 mb-3 w-75"
                     >
-                      <BsFileEarmarkPlus className="fa-lg" /> Payer l'avance{" "}
+                      <BsFileEarmarkPlus className="fa-lg" /> <FormattedMessage id="details_cmd_payer_avance"/>{" "}
                     </button>
                   ) : null}
                   {commandes.statut === "en attente de paiement du reste" ||
@@ -2377,7 +2409,7 @@ class DetailsCommande extends Component {
                       onClick={this.Modal.bind(this, "reste")}
                       className="btn-success py-1 px-4 mb-3 w-75"
                     >
-                      <BsFileEarmarkPlus className="fa-lg" /> Payer le reste{" "}
+                      <BsFileEarmarkPlus className="fa-lg" /> <FormattedMessage id="details_cmd_payer_reste"/>{" "}
                     </button>
                   ) : null}
                   {commandes.statut ===
@@ -2389,14 +2421,13 @@ class DetailsCommande extends Component {
                       className="btn-success py-1 px-4 mb-3 w-75"
                     >
                       {" "}
-                      <BsFileEarmarkPlus className="fa-lg" /> Payer le
-                      complement{" "}
+                      <BsFileEarmarkPlus className="fa-lg" /> <FormattedMessage id="details_cmd_payer_complement"/>{" "}
                     </button>
                   ) : null}
                 </div>
                 <div className="col-md-3 offset-md-3"> </div>
               </div>
-              <div className="row mb-5">
+              <div style={localStorage.getItem('lg')=='ar'?{justifyContent:"left"}:{}} className="row mb-5">
                 {console.log(commandes.statut)}
                 {commandes.statut !== "commande annulée (deadline dépassé)" ? (
                   <>
@@ -2408,7 +2439,7 @@ class DetailsCommande extends Component {
                         onClick={this.handelDelete}
                       >
                         {" "}
-                        <BiTrash className="fa-lg" /> Annuler la commande{" "}
+                        <BiTrash className="fa-lg" /> <FormattedMessage id="alerte_cmd_annuler"/>{" "}
                       </button>
                     </div>
                   </>
@@ -2436,7 +2467,7 @@ class DetailsCommande extends Component {
           >
             <Modal.Header closeButton>
               <Modal.Title>
-                <h4>Solutions proposées</h4>
+                <h4><FormattedMessage id="details_cmd_solution_propose"/></h4>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body
@@ -2501,43 +2532,43 @@ class DetailsCommande extends Component {
                               className=" badge badge-success py-1 w-100  "
                             >
                               <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                              <span>Labélisé ANOC</span>{" "}
+                              <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                             </h1>
                           ) : (
                             <span className="badge pt-3 w-100  mt-1  ">
                               {"  "}
                             </span>
                           )}
-                          <div className="product__item__text p-2 text-justify">
+                          <div style={localStorage.getItem('lg')=='ar'?{ direction:"rtl" }:{}} className="product__item__text p-2 text-justify">
                             <h6 className="">
-                              <b>Espece</b> :{" "}
+                              <b><FormattedMessage id="details_mouton_espece"/></b> :{" "}
                               {Annonces.espece == "chevre"
-                                ? "Chèvre"
-                                : "Mouton"}
+                                ? <FormattedMessage id="tout_les_annonces_chevre"/>
+                                : <FormattedMessage id="tout_les_annonces_mouton"/>}
                             </h6>
                             <h6 className="">
-                              <b>Race :</b> {Annonces.race}
+                              <b><FormattedMessage id="home_item_race"/> :</b> {Annonces.race}
                             </h6>
                             <h6 className="">
-                              <b>Poids : </b>
-                              {Annonces.poids} Kg
+                              <b><FormattedMessage id="home_item_poids"/> : </b>
+                              {Annonces.poids} <FormattedMessage id="cmd_kg"/>
                             </h6>
                             <h6 className="">
-                              <b>Age :</b> {Annonces.age} mois
+                              <b><FormattedMessage id="cmd_age"/> :</b> {Annonces.age} <FormattedMessage id="cmd_mois"/>
                             </h6>
                             {this.state.Especes[0].prix - Annonces.prix > 0 ? (
                               <h5 className=" text-success text-center mt-4  ">
                                 -{" "}
                                 {this.state.Especes[0].prix -
                                   Annonces.prix +
-                                  "  Dhs"}
+                                  " "}<FormattedMessage id="panier_currency"/>
                               </h5>
                             ) : (
                               <h5 className=" text-danger text-center mt-4 ">
                                 +{" "}
                                 {Annonces.prix -
                                   this.state.Especes[0].prix +
-                                  "  Dhs"}
+                                  " "}<FormattedMessage id="panier_currency"/>
                               </h5>
                             )}
 
@@ -2552,7 +2583,7 @@ class DetailsCommande extends Component {
                                   )}
                                   className="col-6 py-1 btn btn-success"
                                 >
-                                  Accepter
+                                  <FormattedMessage id="details_cmd_accepter"/>
                                 </button>
                                 <div className="col-3"> </div>
                               </div>
@@ -2568,7 +2599,7 @@ class DetailsCommande extends Component {
                                   )}
                                   className="col-4 py-1 btn btn-success"
                                 >
-                                  Accepter
+                                  <FormattedMessage id="details_cmd_accepter"/>
                                 </button>
                                 <div className="col-1"> </div>
                                 <button
@@ -2576,7 +2607,7 @@ class DetailsCommande extends Component {
                                   type="button"
                                   className="col-4 py-1 btn btn-danger"
                                 >
-                                  Refuser
+                                  <FormattedMessage id="details_cmd_refuser"/>
                                 </button>
                                 <div className="col-2"> </div>
                               </div>
@@ -2594,7 +2625,7 @@ class DetailsCommande extends Component {
                         onClick={this.RefuseTSoutions}
                         className="col-4 py-1 btn btn-danger"
                       >
-                        Refuser les solutions proposées
+                        <FormattedMessage id="details_cmd_refuser_solution"/>
                       </button>
                       <div className="col-4"> </div>
                     </div>
@@ -2607,40 +2638,46 @@ class DetailsCommande extends Component {
                   )[0].produits_changement.length === 0 ? (
                     <h4 className="text-danger mb-5 mt-2">
                       {" "}
-                      Pas de produits de changements proposés.
+                      <FormattedMessage id="details_cmd_pas_de_produit_de_changement"/>
                     </h4>
                   ) : (
                     <h4 className="text-danger mb-5 mt-2">
                       {" "}
-                      Vous avez refuse tous les produits de changements
-                      proposés.
+                      <FormattedMessage id="details_cmd_pas_de_produit_de_changement_refuser"/>
                     </h4>
                   )}
                   {this.state.commandes.ancien_statut !==
                   "en attente de paiement avance" ? (
                     <>
                       <h5>
-                        Dans ce cas là, nous procederons à votre remboursement :{" "}
+                      <FormattedMessage id="details_cmd_proceder_au_remboursement"/>:{" "}
                         <span className="text-danger">
-                          {this.state.prixRemb} Dhs
+                          {this.state.prixRemb}{" "} <FormattedMessage id="panier_currency"/>
                         </span>
                       </h5>
                       <form className="my-5 ">
                         <div className="form-group">
                           <label htmlFor="nom_prenom">
-                            Votre nom et prenom
+                            <FormattedMessage id="details_cmd_nom_prenom"/>
                           </label>
                           {this.state.nom_prenom_valide === "" ? (
-                            <input
+                            <FormattedMessage id="details_cmd_nom_prenom">
+                            {(placeholder) => (
+                              <input
                               onChange={this.onChange}
                               type="text"
                               className="form-control"
                               id="nom_prenom"
                               name="nom_prenom"
-                              placeholder="Nom et prenom"
+                              placeholder={placeholder}
                             />
+                            )}
+                          </FormattedMessage>
+                            
                           ) : (
-                            <input
+                            <FormattedMessage id="details_cmd_nom_prenom">
+                            {(placeholder) => (
+                              <input
                               disabled
                               value={this.state.nom_prenom_valide}
                               onChange={this.onChange}
@@ -2648,15 +2685,18 @@ class DetailsCommande extends Component {
                               className="form-control"
                               id="nom_prenom"
                               name="nom_prenom"
-                              placeholder="Nom et prenom"
+                              placeholder={placeholder}
                             />
+                            )}
+                          </FormattedMessage>
+                            
                           )}
                           <span className="text-danger">
                             {this.state.errors["nom_prenom"]}
                           </span>
                         </div>
                         <div className="form-group">
-                          <label htmlFor="rib">Votre numero de RIB</label>
+                          <label htmlFor="rib"><FormattedMessage id="details_cmd_numero_rib"/></label>
                           {this.state.rib_valide === "" ? (
                             <input
                               onChange={this.onChange}
@@ -2692,7 +2732,7 @@ class DetailsCommande extends Component {
                           onClick={this.ModalS.bind(this, this.state.especeAv)}
                           className="btn btn-danger col-2"
                         >
-                          Annuler{" "}
+                          <FormattedMessage id="details_cmd_annuler"/>{" "}
                         </button>
                         <div className="col-2"> </div>
                         <button
@@ -2700,13 +2740,13 @@ class DetailsCommande extends Component {
                           onClick={this.handlPost}
                           className="btn btn-success col-2"
                         >
-                          Valider
+                          <FormattedMessage id="step3_valider"/>
                         </button>
                         <div className="col-3"> </div>
                       </div>
                     </>
                   ) : (
-                    <h5>Dans ce cas là, l'ennonce sera annulee </h5>
+                    <h5><FormattedMessage id="details_cmd_annuler_annonce"/> </h5>
                   )}
                 </div>
               ) : null}
@@ -2724,7 +2764,7 @@ class DetailsCommande extends Component {
           >
             <Modal.Header closeButton>
               <Modal.Title>
-                <h4>Solution choisi</h4>
+                <h4><FormattedMessage id="details_cmd_solution_choisi"/></h4>
               </Modal.Title>
             </Modal.Header>
             <Modal.Body
@@ -2741,7 +2781,7 @@ class DetailsCommande extends Component {
                       {" "}
                       <h4 className="text-danger mb-5 mt-2">
                         {" "}
-                        Vous avez choisi l'espece suivante :
+                        <FormattedMessage id="details_cmd_solution_choisi_espece"/>
                       </h4>
                       <div className="  mb-4">
                         <div className="row m-auto">
@@ -2813,7 +2853,7 @@ class DetailsCommande extends Component {
                                   className=" badge badge-success py-1 w-100  "
                                 >
                                   <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                  <span>Labélisé ANOC</span>{" "}
+                                  <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                                 </h1>
                               ) : (
                                 <span className="badge pt-3 w-100  mt-1  ">
@@ -2836,9 +2876,9 @@ class DetailsCommande extends Component {
                               backgroundSize: "cover",
                             }}
                           >
-                            <div className="product__item__text p-2 text-justify">
+                            <div style={localStorage.getItem('lg')=='ar'?{ direction:"rtl" }:{}} className="product__item__text p-2 text-justify">
                               <h6 className="">
-                                <b>№ Boucle</b> :{" "}
+                                <b><FormattedMessage id="details_mouton_numero_boucle"/></b> :{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
@@ -2846,7 +2886,7 @@ class DetailsCommande extends Component {
                                 }
                               </h6>
                               <h6 className="">
-                                <b>Espece</b> :{" "}
+                                <b><FormattedMessage id="details_mouton_espece"/></b> :{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
@@ -2854,7 +2894,7 @@ class DetailsCommande extends Component {
                                 }
                               </h6>
                               <h6 className="">
-                                <b>Race :</b>{" "}
+                                <b><FormattedMessage id="home_item_race"/> :</b>{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
@@ -2862,25 +2902,25 @@ class DetailsCommande extends Component {
                                 }
                               </h6>
                               <h6 className="">
-                                <b>Poids : </b>
+                                <b><FormattedMessage id="home_item_poids"/> : </b>
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
                                   ).poids
                                 }{" "}
-                                Kg
+                                <FormattedMessage id="cmd_kg"/>
                               </h6>
                               <h6 className="">
-                                <b>Age :</b>{" "}
+                                <b><FormattedMessage id="cmd_age"/> :</b>{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
                                   ).age
                                 }{" "}
-                                mois
+                                <FormattedMessage id="cmd_mois"/>
                               </h6>
                               <h6 className="">
-                                <b>Localisation :</b>{" "}
+                                <b><FormattedMessage id="add_mouton_localisation"/> :</b>{" "}
                                 {
                                   this.getChoix(
                                     this.getEspece(this.state.especeAv)
@@ -2892,7 +2932,7 @@ class DetailsCommande extends Component {
                                 <i className="fa fa-usd" aria-hidden="true"></i>{" "}
                                 {this.getChoix(
                                   this.getEspece(this.state.especeAv)
-                                ).prix + "  Dhs"}
+                                ).prix + " "}<FormattedMessage id="panier_currency"/>
                               </h5>
                             </div>
                           </div>
@@ -2902,8 +2942,7 @@ class DetailsCommande extends Component {
                   ) : (
                     <h4 className="text-danger mb-5 mt-2">
                       {" "}
-                      Vous avez refuse tous les produits de changements
-                      proposés.
+                      <FormattedMessage id="details_cmd_pas_de_produit_de_changement_refuser"/>
                     </h4>
                   )}
                 </div>
@@ -2923,13 +2962,13 @@ class DetailsCommande extends Component {
             <Modal.Header closeButton>
               <Modal.Title>
                 {this.state.payer === "avance" ? (
-                  <h4>Importer le reçu : paiement d'avance</h4>
+                  <h4><FormattedMessage id="details_cmd_recu_avance"/></h4>
                 ) : null}
                 {this.state.payer === "reste" ? (
-                  <h4>Importer le reçu : paiement du reste</h4>
+                  <h4><FormattedMessage id="details_cmd_recu_reste"/></h4>
                 ) : null}
                 {this.state.payer === "complement" ? (
-                  <h4>Importer le reçu : paiement du complement</h4>
+                  <h4><FormattedMessage id="details_cmd_recu_complement"/></h4>
                 ) : null}{" "}
               </Modal.Title>
             </Modal.Header>
@@ -2978,14 +3017,14 @@ class DetailsCommande extends Component {
                 onClick={this.Modal}
                 className="btn btn-danger"
               >
-                Annuler{" "}
+                <FormattedMessage id="details_cmd_annuler"/>{" "}
               </button>
               <button
                 type="button"
                 onClick={this.handlePut}
                 className="btn btn-success"
               >
-                Valider
+                <FormattedMessage id="step3_valider"/>
               </button>
             </Modal.Footer>
           </Modal>
