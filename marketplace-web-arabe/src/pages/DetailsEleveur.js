@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Form } from "react-bootstrap";
 
 class DetailsEleveur extends Component {
   constructor() {
@@ -36,7 +37,7 @@ class DetailsEleveur extends Component {
               </div>
               <div className="col-lg-6 col-md-6">
                 <div className="product__details__text">
-                  <h3>Details éleveur </h3>
+                  <h3><FormattedMessage id="eleveurs_details"/> </h3>
                   {/* <div className="product__details__rating">
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
@@ -60,28 +61,28 @@ class DetailsEleveur extends Component {
                         <a href="#" className="heart-icon"><span className="icon_heart_alt"></span></a> */}
                   <ul>
                     <li>
-                      <b>Nom</b> <span>{this.state.Eleveur.Nom}</span>
+                      <b><FormattedMessage id="eleveurs_nom_complet"/></b> <span>{this.state.Eleveur.Nom}</span>
                     </li>
                     <li>
-                      <b>Adresse</b> <span>{this.state.Eleveur.Adresse} </span>
+                      <b><FormattedMessage id="eleveurs_adresse"/></b> <span>{this.state.Eleveur.Adresse} </span>
                     </li>
                     <li>
-                      <b>Numéro de Téléphone</b>{" "}
+                      <b><FormattedMessage id="eleveurs_num_tel"/></b>{" "}
                       <span>{this.state.Eleveur.Tele}</span>
                     </li>
                     <li>
-                      <b>CIN</b>
+                      <b><FormattedMessage id="eleveurs_CIN"/></b>
                       <span>{this.state.Eleveur.CIN}</span>
                     </li>
                     <li>
-                      <b>Numéro de RIB</b>
+                      <b><FormattedMessage id="eleveurs_RIB"/></b>
                       <span>{this.state.Eleveur.RIB}</span>
                     </li>
                     <li className="text-center">
-                      <button className="btn btn-danger ">Supprimer</button>{" "}
+                      <button className="btn btn-danger "><FormattedMessage id="eleveurs_supprimer"/></button>{" "}
                       {"           "}{" "}
                       <button className="btn btn-success center">
-                        Modifier
+                      <FormattedMessage id="eleveurs_modifier"/>
                       </button>
                     </li>
                   </ul>

@@ -477,7 +477,7 @@ class AllOffers extends Component {
             <div className="searchheader">
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell"}}
+                style={{ display: "table-cell", verticalAlign:"middle"}}
               >
                 <FormattedMessage id="eleveurs_espece">
                   {(espece) => (
