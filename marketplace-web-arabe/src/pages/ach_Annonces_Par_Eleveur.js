@@ -195,18 +195,68 @@ class AllOffers extends Component {
             })
             .then((res) => {
               //espece
+              // let espece = [];
+              // Object.getOwnPropertyNames(
+              //   this.groupBy(
+              //     res.data.filter((f) => f.statut !== "produit avarié"),
+              //     "espece"
+              //   )
+              // ).map((e) => {
+              //   espece.splice(0, 0, { value: e, label: e });
+              // });
               let espece = [];
-              Object.getOwnPropertyNames(
-                this.groupBy(
-                  res.data.filter((f) => f.statut !== "produit avarié"),
-                  "espece"
-                )
-              ).map((e) => {
-                espece.splice(0, 0, { value: e, label: e });
+              Object.getOwnPropertyNames(this.groupBy(res.data, "espece")).map(
+               (e) => {
+                  localStorage.getItem("lg") == "ar"
+                    ? e == "mouton"
+                    ? espece.splice(0, 0, { value: "mouton", label: "خروف" })
+                    : espece.splice(0, 0, { value: "chevre", label: "ماعز" })
+                  : espece.splice(0, 0, { value: e, label: e });
+                }
+              );
+
+              //ville
+              let ville = [];
+              let villes = [];
+              let villes_ar = [
+                "الرشيدية",
+                "ميدلت",
+                "اسفي",
+                "جرادة",
+                "بن سليمان",
+                "المحمدية",
+                "تاوريرت",
+                "افران",
+                "خريبݣة",
+              ];
+              res.data.map((e) => {
+                villes.push(e.localisation);
               });
+              villes = [...new Set(villes)];
+              villes.map((e) => {
+                ville.splice(0, 0, { value: e, label: e });
+              });
+
+              if (localStorage.getItem("lg") == "ar") {
+                for (
+                  let index = 0, j = 0;
+                  index < ville.length, j < villes_ar.length;
+                  index++, j++
+                ) {
+                  ville[index].label = villes_ar[j];
+                }
+              }
+              console.log(ville);
+              
+              
+
+
+
 
               this.setState({
                 optionsEspece: espece,
+                optionsVille: ville,
+
                 AnnoncesN: res.data,
                 Annonces: res.data,
                 loading: false,
@@ -224,15 +274,32 @@ class AllOffers extends Component {
     let annonce = this.state.AnnoncesN;
     let c = selectedOptionEspece.value;
     let races = [];
+    let races_ar = [];
     //    let catg = [];
     let r = [];
     this.groupBy(annonce, "espece")[c].map((m) => {
       races.push(m.race);
+      if (localStorage.getItem("lg") == "ar"){
+        races_ar.push(m.race_ar);
+      }
     });
     races = [...new Set(races)];
+    if(localStorage.getItem("lg")=="ar"){
+      races_ar = [...new Set(races_ar)];
+    }
     races.map((e) => {
       r.splice(0, 0, { value: e, label: e });
     });
+
+    if (localStorage.getItem("lg") == "ar") {
+      for (
+        let index = 0, j = races_ar.length - 1;
+        index < r.length, j >= 0;
+        index++, j--
+      ) {
+        r[index].label = races_ar[j];
+      }
+    }
 
     this.setState({
       race: r,
@@ -469,7 +536,7 @@ class AllOffers extends Component {
               backgroundImage:
                 'url("https://i.ibb.co/G54gS3V/secondsection.jpg")',
               backgroundSize: "cover",
-              height: "120px",
+              height: "128px",
               paddingTop: "2%",
               textAlign: "center",
             }}
@@ -477,8 +544,16 @@ class AllOffers extends Component {
             <div className="searchheader">
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell", verticalAlign:"middle"}}
-              >
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "table-cell",
+                        verticalAlign: "middle",
+                        textAlign: "right",
+                      }
+                    : { display: "table-cell", verticalAlign: "middle" }
+                }
+                >
                 <FormattedMessage id="eleveurs_espece">
                   {(espece) => (
                     <Select
@@ -495,7 +570,16 @@ class AllOffers extends Component {
 
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell", verticalAlign:"middle" }}
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "table-cell",
+                        verticalAlign: "middle",
+                        zIndex: 2,
+                        textAlign: "right",
+                      }
+                    : { display: "table-cell", verticalAlign: "middle",zIndex: 2, }
+                }
               >
                 <FormattedMessage id="eleveurs_ville">
                   {(ville) => (
@@ -512,37 +596,45 @@ class AllOffers extends Component {
 
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell", verticalAlign:"middle" }}
-              >
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+                 >
                 <button
                   id="roundB"
                   className="newBtn site-btn"
                   onClick={this.handelChercher}
                 >
-                  <i className="fa fa-search "></i> <FormattedMessage id="eleveurs_rechercher"/>{" "}
+                  <i className="fa fa-search "></i> {" "}
+                  <FormattedMessage id="eleveurs_rechercher"/>{" "}
                 </button>
               </div>
               <div
                 className="col-lg-2 col-md-3"
-                style={{ display: "table-cell", verticalAlign:"middle" }}
-              >
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+                >
                 <button
                   id="roundB"
                   className="newBtn site-btn"
                   onClick={this.handelReinitialiser}
                 >
-                  <i className="fa fa-refresh"></i><FormattedMessage id="eleveurs_reinitialiser"/>{" "}
+                  <i className="fa fa-refresh"></i>{" "}
+                  <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
                 </button>
               </div>
             </div>
           </div>
         </section>
-        <div className="pageAnnonceEleveur" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
+        <div className="pageAnnonceEleveur" >
           <section className="">
             <br></br>
-            <div className="container" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
+            <div className="container" >
               <div className="row">
-                <div className="col-lg-3 col-md-4">
+                <div 
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? { textAlign: "right" }
+                    : {}
+                }
+                className="col-lg-3 col-md-4">
                   <a className="lienapropos" href="./Apropos">
                     <div
                       style={{ cursor: "pointer" }}
@@ -561,9 +653,11 @@ class AllOffers extends Component {
                     </div>
                   </a>
                   <div id="rechercher" className="col-lg-12" >
-                    <div className="mobileSearch" style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
+                    <div className="mobileSearch">
                       <div className="sidebar__item">
-                        <h4><FormattedMessage id="eleveurs_rechercher"/></h4>
+                        <h4 style={{ fontWeight: "900", marginTop: "25px" }}>
+                          <FormattedMessage id="eleveurs_rechercher"/>
+                        </h4>
 
                         <h6 id="gras" className="latest-product__item">
                           <FormattedMessage id="eleveurs_espece"/>
@@ -653,7 +747,8 @@ class AllOffers extends Component {
                               className="newBtn site-btn"
                               onClick={this.handelChercher}
                             >
-                              <i className="fa fa-search "></i> <FormattedMessage id="eleveurs_rechercher"/>{" "}
+                              <i className="fa fa-search "></i> {" "}
+                              <FormattedMessage id="eleveurs_rechercher"/>{" "}
                             </button>
                             <br></br>
                             <br></br>
@@ -662,7 +757,8 @@ class AllOffers extends Component {
                               className="newBtn site-btn"
                               onClick={this.handelReinitialiser}
                             >
-                              <i className="fa fa-refresh"></i> <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
+                              <i className="fa fa-refresh"></i>{" "}
+                              <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
                             </button>
                             <br></br>
                             <br></br>
@@ -826,9 +922,18 @@ class AllOffers extends Component {
                   <p>Insert text here</p>
                 </div> 
                 Fin Text Marketing */}
-                  <div className="filter__item">
+                  <div 
+                  style={
+                    localStorage.getItem("lg") == "ar"
+                      ? { textAlign: "right" }
+                      : {}
+                  }
+                  className="filter__item">
                     <div>
-                      <div id="filterPlace" className="col-lg-5 col-md-8 fa ">
+                      <div 
+                      style={{ zIndex: 1 }}
+                      id="filterPlace" 
+                      className="col-lg-5 col-md-8 fa ">
                         <FormattedMessage id="eleveurs_trie">
                           {(tri)=>(
                             <Select
@@ -852,10 +957,18 @@ class AllOffers extends Component {
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
                         <div className="filter__found text-left">
-                          <h4>
+                          <h4
+                          style={
+                            localStorage.getItem("lg") == "ar"
+                              ? { textAlign: "right" }
+                              : {}
+                          }
+                          >
+                            <span id="nbEspece"> 
                             {" "}
+                            {elv.length}
+                            </span>{" "}
                             <FormattedMessage id="eleveurs_nos_eleveurs"/>{" : "}
-                            <span id="nbEspece"> {elv.length}</span>{" "}
                           </h4>
                         </div>
                       </div>
@@ -898,7 +1011,7 @@ class AllOffers extends Component {
                         ) : (
                           <div className="row">
                             {currentEleveurs.map((Eleveurs) => (
-                              <div className="col-lg-4  col-sm-6">
+                              <div className="col-lg-4 col-sm-6">
                                 <div id="anonce" className="product__item">
                                   <div
                                     className="product__item__pic set-bg"

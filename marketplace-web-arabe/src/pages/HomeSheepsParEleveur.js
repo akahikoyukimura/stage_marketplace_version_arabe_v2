@@ -497,12 +497,28 @@ class HomeSheepsParEleveur extends Component {
             <div className="searchheader">
               <div
                 className="col-lg-1 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle" }}
-              ></div>
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "table-cell",
+                        verticalAlign: "middle",
+                        textAlign: "right",
+                      }
+                    : { display: "table-cell", verticalAlign: "middle" }
+                }      
+                ></div>
               <div
                 className="col-lg-1 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle" }}
-              >
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "table-cell",
+                        verticalAlign: "middle",
+                        textAlign: "right",
+                      }
+                    : { display: "table-cell", verticalAlign: "middle" }
+                }          
+                >
                 <FormattedMessage id="eleveurs_espece">
                   {(espece) => (
                     <Select
@@ -531,8 +547,16 @@ class HomeSheepsParEleveur extends Component {
 
               <div
                 className="col-lg-1 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle" }}
-              >
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "table-cell",
+                        verticalAlign: "middle",
+                        textAlign: "right",
+                      }
+                    : { display: "table-cell", verticalAlign: "middle" }
+                }
+                >
                 <FormattedMessage id="eleveurs_statut">
                   {(statut) => (
                     <Select
@@ -540,7 +564,7 @@ class HomeSheepsParEleveur extends Component {
                     value={this.selectedOptionStatut}
                     onChange={this.handleChangeStatut}
                     options={this.state.statut}
-                    placeholder="Statut"
+                    placeholder={statut}
                     required
                   />
                   )}
@@ -549,8 +573,16 @@ class HomeSheepsParEleveur extends Component {
               </div>
               <div
                 className="col-lg-1 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle" }}
-              >
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? {
+                        display: "table-cell",
+                        verticalAlign: "middle",
+                        textAlign: "right",
+                      }
+                    : { display: "table-cell", verticalAlign: "middle" }
+                }
+                >
                 <FormattedMessage id="eleveurs_race">
                   {(race) =>(
                     <Select
@@ -559,7 +591,7 @@ class HomeSheepsParEleveur extends Component {
                     value={selectedOptionRace}
                     onChange={this.handleChangeRace}
                     options={this.state.race}
-                    placeholder=" Race"
+                    placeholder={race}
                     required
                   />
                   )}
@@ -591,8 +623,12 @@ class HomeSheepsParEleveur extends Component {
                 className="col-lg-1 col-md-3"
                 name="prix_max"
                 id="recherchePlace"
-                style={{ display: "table-cell", verticalAlign: "middle" }}
-              >
+                style={
+                  localStorage.getItem("lg") == "ar"
+                    ? { display: "table-cell", direction: "ltr" }
+                    : { display: "table-cell" }
+                }
+                >
                 <RangeSlider
                   tooltip="auto"
                   name="prix_max"
@@ -615,7 +651,10 @@ class HomeSheepsParEleveur extends Component {
                 />
                 <div style={{ color: "white" }}>
                   {" "}
-                  <FormattedMessage id="eleveurs_prix_max"/> : {valueprice} <FormattedMessage id="eleveurs_DH"/>
+                  <FormattedMessage
+                    id="tout_les_annonces_prix_max"
+                    values={{ Mprix: valueprice }}
+                  />
                 </div>
 
                 <RangeSlider
@@ -635,7 +674,11 @@ class HomeSheepsParEleveur extends Component {
                 />
                 <div style={{ color: "white" }}>
                   {" "}
-                  <FormattedMessage id="eleveurs_poids_max"/> : {valuepoids} <FormattedMessage id="eleveurs_KG"/>
+                  <FormattedMessage
+                    id="tout_les_annonces_poids__max"
+                    values={{ Mpoids: valuepoids }}
+                  />
+                  {/* <FormattedMessage id="eleveurs_poids_max"/> : {valuepoids} <FormattedMessage id="eleveurs_KG"/> */}
                 </div>
                 {/*   <input
                   id="recherchePlace"
@@ -678,7 +721,8 @@ class HomeSheepsParEleveur extends Component {
                     className="newBtn site-btn"
                     onClick={this.handelChercher}
                   >
-                    <i className="fa fa-search "></i> <FormattedMessage id="eleveurs_rechercher"/>{" "}
+                    <i className="fa fa-search "></i> {" "}
+                    <FormattedMessage id="eleveurs_rechercher"/>{" "}
                   </button>
                 </div>
                 <div className="ReinButton">
@@ -687,7 +731,8 @@ class HomeSheepsParEleveur extends Component {
                     className="newBtn site-btn"
                     onClick={this.handelReinitialiser}
                   >
-                    <i className="fa fa-refresh"></i> <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
+                    <i className="fa fa-refresh"></i> {" "}
+                    <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
                   </button>
                 </div>
               </div>
@@ -1160,19 +1205,26 @@ class HomeSheepsParEleveur extends Component {
                         
 
                         <div id="filtre-div"
-                        style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
+                        style={
+                          localStorage.getItem("lg") == "ar"
+                            ? { textAlign: "right" }
+                            : {}
+                        }>
                           <h5 id="h5-ce-q" ><FormattedMessage id="eleveurs_propose"/></h5>
                           <h5 id="dispo-vendus" className="mt-3">
                             <b className="ml-3" id="nbEspece">
                               {dispo.length}{" "}
                             </b>{" "}
-                            <strong><FormattedMessage id="eleveurs_especes_disponibles"/></strong>
+                            <strong style {textAlign:"right"}><FormattedMessage id="eleveurs_especes_disponibles"/></strong>
                             <b className="ml-3" id="nbEspece">
                               {vendu.length}{" "}
                             </b>
                             <strong><FormattedMessage id="eleveurs_especes_vendus"/></strong>
                           </h5>
+                          <br></br>
+                          <br></br>
                           <div
+                            style={{zIndex: 1}}
                             id="filterPlace"
                             className="col-lg-5 col-md-5 fa "
                           >
