@@ -7,7 +7,7 @@ import { HiOutlineBadgeCheck } from "react-icons/hi";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Pagination from "react-js-pagination";
-import {FormattedMessage} from 'react-intl'
+import { FormattedMessage } from "react-intl";
 import { Form } from "react-bootstrap";
 //import RangeSlider from "react-bootstrap-range-slider";
 
@@ -39,7 +39,7 @@ class AllOffers extends Component {
         order_by: "espece",
         order_mode: "asc",
       },
-/*       valueprice: 3500,
+      /*       valueprice: 3500,
       poids_max: 80, */
       selectedOptionSort: null,
       optionsSort: [
@@ -48,7 +48,8 @@ class AllOffers extends Component {
           label: (
             <>
               {" "}
-              <i className="fa fa-star-o text-warning fa-sm"></i> <FormattedMessage id="eleveurs_etoile"/> [5{" "}
+              <i className="fa fa-star-o text-warning fa-sm"></i>{" "}
+              <FormattedMessage id="eleveurs_etoile" /> [5{" "}
               <i className="fa fa-long-arrow-right  "></i> 1]{" "}
             </>
           ),
@@ -66,7 +67,8 @@ class AllOffers extends Component {
             // </>
             <>
               {" "}
-              <i className="fa fa-star-o text-warning fa-sm"></i> <FormattedMessage id="eleveurs_etoile"/> [1{" "}
+              <i className="fa fa-star-o text-warning fa-sm"></i>{" "}
+              <FormattedMessage id="eleveurs_etoile" /> [1{" "}
               <i className="fa fa-long-arrow-right  "></i> 5]{" "}
             </>
           ),
@@ -97,7 +99,7 @@ class AllOffers extends Component {
   }
 
   componentDidMount() {
-/*     function appendLeadingZeroes(n) {
+    /*     function appendLeadingZeroes(n) {
 
       if (n <= 9) {
         return "0" + n;
@@ -153,13 +155,54 @@ class AllOffers extends Component {
 
           //region
           let regions = [];
+          let regions_ar = [
+            " طنجة - تطوان - الحسيمة",
+            "بني ملال خنيفرة",
+            "درعة - تافيلالت",
+            "الجهة الشرقية",
+            "درعة - تافيلالت",
+            "درعة - تافيلالت",
+            "درعة - تافيلالت",
+            "الدار البيضاء - سطات",
+            "مراكش - أسفي",
+            "فاس مكناس",
+          ];
           Object.getOwnPropertyNames(this.groupBy(res.data, "region")).map(
             (e) => {
               regions.splice(0, 0, { value: e, label: e });
             }
           );
+          if (localStorage.getItem("lg") == "ar") {
+            for (
+              let index = 0, j = 0;
+              index < regions.length, j < regions_ar.length;
+              index++, j++
+            ) {
+              regions[index].label = regions_ar[j];
+            }
+          }
+          console.log(regions);
+
           /**ville */
           let allville = [];
+          let villes_ar = [
+            "افران",
+            "ميدلت",
+            "زاݣورة",
+            "جرادة",
+            "ورزازات",
+            "تطوان",
+            "تاوريرت",
+            "الرشيدية",
+            "بن سليمان",
+            "مديونة",
+            "قلعة السراغنة",
+            "الجديدة",
+            "المحمدية",
+            "خريبݣة",
+            "اسفي",
+            "برشيد",
+          ];
           elv.map((e) => {
             allville.splice(0, 0, { value: e.ville, label: e.ville });
           });
@@ -172,6 +215,15 @@ class AllOffers extends Component {
               };
             }
           );
+          if (localStorage.getItem("lg") == "ar") {
+            for (
+              let index = 0, j = 0;
+              index < allville.length, j < villes_ar.length;
+              index++, j++
+            ) {
+              allville[index].label = villes_ar[j];
+            }
+          }
           this.setState({ optionsVille: allville, optionsRegions: regions });
           const pageNumbers = [];
           for (
@@ -433,11 +485,50 @@ class AllOffers extends Component {
             (Eleveurs) => Eleveurs.Especes !== undefined
           );
           let regions = [];
+          let regions_ar = [
+            " طنجة - تطوان - الحسيمة",
+            "بني ملال خنيفرة",
+            "درعة - تافيلالت",
+            "الجهة الشرقية",
+            "درعة - تافيلالت",
+            "درعة - تافيلالت",
+            "درعة - تافيلالت",
+            "الدار البيضاء - سطات",
+            "مراكش - أسفي",
+            "فاس مكناس",
+          ];
           Object.getOwnPropertyNames(this.groupBy(elv, "region")).map((e) => {
             regions.splice(0, 0, { value: e, label: e });
           });
+          if (localStorage.getItem("lg") == "ar") {
+            for (
+              let index = 0, j = 0;
+              index < regions.length, j < regions_ar.length;
+              index++, j++
+            ) {
+              regions[index].label = regions_ar[j];
+            }
+          }
 
           let allville = [];
+          let villes_ar = [
+            "افران",
+            "ميدلت",
+            "زاݣورة",
+            "جرادة",
+            "ورزازات",
+            "تطوان",
+            "تاوريرت",
+            "الرشيدية",
+            "بن سليمان",
+            "مديونة",
+            "قلعة السراغنة",
+            "الجديدة",
+            "المحمدية",
+            "خريبݣة",
+            "اسفي",
+            "برشيد",
+          ];
           elv.map((e) => {
             allville.splice(0, 0, { value: e.ville, label: e.ville });
           });
@@ -450,10 +541,21 @@ class AllOffers extends Component {
               };
             }
           );
+          if (localStorage.getItem("lg") == "ar") {
+            for (
+              let index = 0, j = 0;
+              index < allville.length, j < villes_ar.length;
+              index++, j++
+            ) {
+              allville[index].label = villes_ar[j];
+            }
+          }
+
           this.setState({
             optionsVille: allville,
             optionsRegions: regions,
           });
+
           const pageNumbers = [];
           for (
             let i = 1;
@@ -525,11 +627,14 @@ class AllOffers extends Component {
     const { optionsVille } = this.state;
     const { optionsRegions } = this.state;
     const { optionsSort } = this.state;
-/*     const { valueprice } = this.state;
+    /*     const { valueprice } = this.state;
     const { poids_max } = this.state;
  */
+
     return (
-      <div style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
+      <div
+        style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}
+      >
         <section className="search-header">
           <div
             style={{
@@ -558,12 +663,12 @@ class AllOffers extends Component {
                 <FormattedMessage id="eleveurs_espece">
                   {(espece) => (
                     <Select
-                    value={selectedOptionEspece}
-                    onChange={this.handleChangeEspece}
-                    options={optionsEspece}
-                    placeholder={espece}
-                    required
-                  />
+                      value={selectedOptionEspece}
+                      onChange={this.handleChangeEspece}
+                      options={optionsEspece}
+                      placeholder={espece}
+                      required
+                    />
                   )}
                 </FormattedMessage>
                 <br></br>
@@ -585,13 +690,12 @@ class AllOffers extends Component {
                 <FormattedMessage id="eleveurs_ville">
                   {(ville) => (
                     <Select
-                    value={selectedOptionVille}
-                    onChange={this.handleChangeVille}
-                    options={optionsVille}
-                    placeholder={ville}
-                  />
+                      value={selectedOptionVille}
+                      onChange={this.handleChangeVille}
+                      options={optionsVille}
+                      placeholder={ville}
+                    />
                   )}
-                
                 </FormattedMessage>
               </div>
 
@@ -648,8 +752,7 @@ class AllOffers extends Component {
                       />
                       <br></br>
                       <p>
-                      <FormattedMessage id="eleveurs_my_anoc_message"/>
-                        
+                        <FormattedMessage id="eleveurs_my_anoc_message" />
                       </p>
                     </div>
                   </a>
@@ -661,19 +764,19 @@ class AllOffers extends Component {
                         </h4>
 
                         <h6 id="gras" className="latest-product__item">
-                          <FormattedMessage id="eleveurs_espece"/>
+                          <FormattedMessage id="eleveurs_espece" />
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
                             <FormattedMessage id="eleveurs_espece">
-                              {(espece) =>(
+                              {(espece) => (
                                 <Select
-                                value={selectedOptionEspece}
-                                onChange={this.handleChangeEspece}
-                                options={optionsEspece}
-                                placeholder={espece}
-                                required
-                              />
+                                  value={selectedOptionEspece}
+                                  onChange={this.handleChangeEspece}
+                                  options={optionsEspece}
+                                  placeholder={espece}
+                                  required
+                                />
                               )}
                             </FormattedMessage>
                             <br></br>
@@ -681,61 +784,59 @@ class AllOffers extends Component {
                         </div>
 
                         <h6 id="gras" className="latest-product__item">
-                          <FormattedMessage id="eleveurs_race"/>
+                          <FormattedMessage id="eleveurs_race" />
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
                             <FormattedMessage id="eleveurs_race">
-                              {(race)=>(
+                              {(race) => (
                                 <Select
-                                id="recherchePlace"
-                                isDisabled={this.state.Disabled}
-                                value={selectedOptionRace}
-                                onChange={this.handleChangeRace}
-                                options={this.state.race}
-                                placeholder={race}
-                                required
-                              />
+                                  id="recherchePlace"
+                                  isDisabled={this.state.Disabled}
+                                  value={selectedOptionRace}
+                                  onChange={this.handleChangeRace}
+                                  options={this.state.race}
+                                  placeholder={race}
+                                  required
+                                />
                               )}
                             </FormattedMessage>
                           </div>
                         </div>
                         <br></br>
                         <h6 id="gras" className="latest-product__item">
-                          <FormattedMessage id="eleveurs_region"/>
+                          <FormattedMessage id="eleveurs_region" />
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
                             <FormattedMessage id="eleveurs_region">
-                              {(region)=>(
+                              {(region) => (
                                 <Select
-                                value={selectedOptionRegions}
-                                onChange={this.handleChangeRegion}
-                                options={optionsRegions}
-                                placeholder={region}
-                              />
+                                  value={selectedOptionRegions}
+                                  onChange={this.handleChangeRegion}
+                                  options={optionsRegions}
+                                  placeholder={region}
+                                />
                               )}
-                            
                             </FormattedMessage>
                             <br></br>
                           </div>
                         </div>
 
                         <h6 id="gras" className="latest-product__item">
-                          <FormattedMessage id="eleveurs_ville"/>
+                          <FormattedMessage id="eleveurs_ville" />
                         </h6>
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
                             <FormattedMessage id="eleveurs_ville">
-                              {(ville)=>(
+                              {(ville) => (
                                 <Select
-                                value={selectedOptionVille}
-                                onChange={this.handleChangeVille}
-                                options={optionsVille}
-                                placeholder={ville}
-                              />
+                                  value={selectedOptionVille}
+                                  onChange={this.handleChangeVille}
+                                  options={optionsVille}
+                                  placeholder={ville}
+                                />
                               )}
-                            
                             </FormattedMessage>
                             <br></br>
                             <br></br>
@@ -771,7 +872,7 @@ class AllOffers extends Component {
                   <div className="mymap">
                     {" "}
                     <h4 style={{ fontWeight: "900", marginTop: "25px" }}>
-                      <FormattedMessage id="eleveurs_regions"/>
+                      <FormattedMessage id="eleveurs_regions" />
                     </h4>
                     <center>
                       <svg
@@ -893,7 +994,7 @@ class AllOffers extends Component {
                       textAlign: "center",
                     }}
                   >
-                    <FormattedMessage id="eleveurs_msg_popup"/>
+                    <FormattedMessage id="eleveurs_msg_popup" />
                   </h4>
                   <a href="https://qrco.de/bcHPx6">
                     <div className="infoCards">
@@ -936,20 +1037,19 @@ class AllOffers extends Component {
                       id="filterPlace" 
                       className="col-lg-5 col-md-8 fa ">
                         <FormattedMessage id="eleveurs_trie">
-                          {(tri)=>(
+                          {(tri) => (
                             <Select
-                            id="filterPlace"
-                            // value={this.state.selectedOptionSort}
-                            onChange={this.sortData}
-                            options={optionsSort}
-                            placeholder={
-                              this.state.selectedOptionSort
-                                ? this.state.selectedOptionSort
-                                : tri
-                            }
-                          />
+                              id="filterPlace"
+                              // value={this.state.selectedOptionSort}
+                              onChange={this.sortData}
+                              options={optionsSort}
+                              placeholder={
+                                this.state.selectedOptionSort
+                                  ? this.state.selectedOptionSort
+                                  : tri
+                              }
+                            />
                           )}
-                        
                         </FormattedMessage>
                       </div>
                     </div>
@@ -1006,7 +1106,7 @@ class AllOffers extends Component {
                             </p>
 
                             <h3 style={{ color: "#28a745" }}>
-                              <FormattedMessage id="eleveurs_pas_eleveur"/>
+                              <FormattedMessage id="eleveurs_pas_eleveur" />
                             </h3>
                           </div>
                         ) : (
@@ -1112,12 +1212,39 @@ class AllOffers extends Component {
                                     </h6>
                                     <h6>
                                       {" "}
-                                      <i className="fa fa-map"></i>
-                                      {" " + Eleveurs.region}{" "}
+                                      <i className="fa fa-map"></i>{" "}
+                                      {localStorage.getItem("lg") == "ar"
+                                        ? Eleveurs.region_ar
+                                          ? Eleveurs.region_ar
+                                          : optionsRegions.find(
+                                              (element) =>
+                                                element.value == Eleveurs.region
+                                            ) == undefined
+                                          ? Eleveurs.region
+                                          : optionsRegions.find(
+                                              (element) =>
+                                                element.value == Eleveurs.region
+                                            ).label
+                                        : Eleveurs.region}
+                                      {/* {" " + Eleveurs.region} */}
+                                      {" "}
                                     </h6>
                                     <h6>
                                       <i className="fa fa-home"></i>{" "}
-                                      {Eleveurs.ville}
+                                      {localStorage.getItem("lg") == "ar"
+                                        ? Eleveurs.ville_ar
+                                          ? Eleveurs.ville_ar
+                                          : optionsVille.find(
+                                              (element) =>
+                                                element.value == Eleveurs.ville
+                                            ) == undefined
+                                          ? Eleveurs.ville
+                                          : optionsVille.find(
+                                              (element) =>
+                                                element.value == Eleveurs.ville
+                                            ).label
+                                        : Eleveurs.ville}
+                                      {/* {Eleveurs.ville} */}
                                     </h6>
                                     <h5>
                                       <Box
