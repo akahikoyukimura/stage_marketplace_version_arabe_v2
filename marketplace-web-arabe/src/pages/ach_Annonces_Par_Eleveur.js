@@ -550,8 +550,9 @@ class AllOffers extends Component {
                         display: "table-cell",
                         verticalAlign: "middle",
                         textAlign: "right",
+                        top:"13px"
                       }
-                    : { display: "table-cell", verticalAlign: "middle" }
+                    : { display: "table-cell", verticalAlign: "middle", top:"13px" }
                 }
                 >
                 <FormattedMessage id="eleveurs_espece">
@@ -1076,7 +1077,9 @@ class AllOffers extends Component {
                                       className=" badge badge-success pt-2 w-100  "
                                     >
                                       <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                      <span>Labélisé ANOC</span>{" "}
+                                      <span>
+                                        <FormattedMessage id="panier_Labelise" />    
+                                      </span>{" "}
                                     </h1>
                                   ) : (
                                     <span className="badge pt-3 w-100 mt-1   ">

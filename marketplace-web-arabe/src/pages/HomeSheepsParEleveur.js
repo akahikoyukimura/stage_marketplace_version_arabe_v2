@@ -88,6 +88,7 @@ class HomeSheepsParEleveur extends Component {
     let races = [];
 
     let r = [];
+
     this.groupBy(annonce, "espece")[c].map((m) => {
       races.push(m.race);
     });
@@ -495,7 +496,7 @@ class HomeSheepsParEleveur extends Component {
             }}
           >
             <div className="searchheader">
-              <div
+              {/* <div
                 className="col-lg-1 col-md-3"
                 style={
                   localStorage.getItem("lg") == "ar"
@@ -506,7 +507,9 @@ class HomeSheepsParEleveur extends Component {
                       }
                     : { display: "table-cell", verticalAlign: "middle" }
                 }      
-                ></div>
+
+                  hada li kan 9bel f l classname col-lg-1 col-md-3
+                ></div> */}
               <div
                 className="col-lg-1 col-md-3"
                 style={
@@ -532,6 +535,7 @@ class HomeSheepsParEleveur extends Component {
                 
                 </FormattedMessage>
               </div>
+              
 
               {/* <div
                 className="col-lg-1 col-md-3"
@@ -544,7 +548,7 @@ class HomeSheepsParEleveur extends Component {
                   placeholder=" Ville"
                 />
               </div> */}
-
+              
               <div
                 className="col-lg-1 col-md-3"
                 style={
@@ -1114,15 +1118,25 @@ class HomeSheepsParEleveur extends Component {
                                   <h6 className="my-2">
                                     {" "}
                                     <span className="icon">
-                                      <i className="fa fa-map"></i>
+                                      <i 
+                                      style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{}}
+                                      className="fa fa-map"></i>
                                     </span>
                                     <span className="key">
-                                      <b><FormattedMessage id ="eleveurs_region"></FormattedMessage></b>
+                                      <b
+                                      style={localStorage.getItem('lg')=='ar'?{
+                                        textAlign:"right",
+                                        marginLeft:"90px"}:{}}>
+                                        <FormattedMessage id ="eleveurs_region"></FormattedMessage></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
                                     </span>
-                                    <span className="value">
+                                    <span 
+                                    
+                                    style={localStorage.getItem('lg')=='ar'?{
+                                      marginLeft:"-195px"}:{}}
+                                      className="value">
                                       {" " + this.state.Eleveur.region}{" "}
                                     </span>
                                   </h6>
@@ -1130,15 +1144,25 @@ class HomeSheepsParEleveur extends Component {
                                 <li>
                                   <h6 className="mb-2">
                                     <span className="icon">
-                                      <i className="fa fa-home"></i>
+                                      <i 
+                                      style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{}}
+                                      className="fa fa-home"></i>
                                     </span>
                                     <span className="key">
-                                      <b><FormattedMessage id="eleveurs_ville"></FormattedMessage></b>
+                                      <b
+                                      style={localStorage.getItem('lg')=='ar'?{
+                                        textAlign:"right",
+                                        marginLeft:"90px"}:{}}
+                                      >
+                                        <FormattedMessage id="eleveurs_ville"></FormattedMessage></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
                                     </span>
-                                    <span className="value">
+                                    <span 
+                                    style={localStorage.getItem('lg')=='ar'?{
+                                      marginLeft:"-195px"}:{}}
+                                    className="value">
                                       {" " + this.state.Eleveur.ville}
                                     </span>
                                   </h6>
@@ -1147,17 +1171,26 @@ class HomeSheepsParEleveur extends Component {
                                   <h6 className="mb-2">
                                     <span className="icon">
                                       <i
+                                        style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{}}
                                         className="fa fa-phone"
                                         aria-hidden="true"
                                       ></i>
                                     </span>
                                     <span className="key">
-                                      <b><FormattedMessage id="eleveurs_tel"/></b>
+                                      <b
+                                      style={localStorage.getItem('lg')=='ar'?{
+                                        textAlign:"right",
+                                        marginLeft:"90px"}:{}}
+                                      >
+                                        <FormattedMessage id="eleveurs_tel"/></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
                                     </span>
-                                    <span className="value">
+                                    <span 
+                                    style={localStorage.getItem('lg')=='ar'?{
+                                      marginLeft:"-195px"}:{}}
+                                    className="value">
                                       {" " + this.state.Eleveur.tel}
                                     </span>
                                   </h6>
@@ -1167,30 +1200,46 @@ class HomeSheepsParEleveur extends Component {
                                     {" "}
                                     <span className="icon">
                                       <img
-                                        style={{
-                                          width: "16px",
-                                          height: "18px",
-                                          marginBottom: "5px",
+                                      style={localStorage.getItem('lg')=='ar'
+                                      ?{width: "16px",
+                                        height: "18px",
+                                        marginBottom: "5px",
+                                        marginLeft:"333px"}:{
+                                        width: "16px",
+                                        height: "18px",
+                                        marginBottom: "5px",
                                         }}
+                                        
+                                          
+                            
                                         data-imgbigurl="Images/sheep-head.png"
                                         src="Images/sheep-head.png"
                                         alt=""
                                       />
                                     </span>
-                                    <span className="key">
-                                      <b><FormattedMessage id="eleveurs_total_tetes"/></b>
+                                    <span  className="key">
+                                      <b
+                                      style={localStorage.getItem('lg')=='ar'?{
+                                        textAlign:"right",
+                                        marginLeft:"90px"}:{}}>
+                                        <FormattedMessage id="eleveurs_total_tetes"/></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
                                     </span>
-                                    <span id="nbEspece" className="value">
+                                    <span 
+                                    style={localStorage.getItem('lg')=='ar'?{
+                                      marginLeft:"-195px"}:{}}
+                                    id="nbEspece" className="value">
                                       <b>{this.state.Annonces.length}</b>
                                     </span>
                                   </h6>
                                 </li>
                               </ul>
                               {this.state.Eleveur.anoc ? (
-                                <span className=" text-success">
+                                <span 
+                                style={localStorage.getItem('lg')=='ar'?{marginLeft:"108px"}:{}}
+                                className=" text-success">
                                   <HiOutlineBadgeCheck className=" mr-1 fa-lg " />{" "}
                                   <FormattedMessage id="eleveurs_label"
                                   values={{anoc: "ANOC"}}/>
@@ -1211,11 +1260,11 @@ class HomeSheepsParEleveur extends Component {
                             : {}
                         }>
                           <h5 id="h5-ce-q" ><FormattedMessage id="eleveurs_propose"/></h5>
-                          <h5 id="dispo-vendus" className="mt-3">
+                          <h5 id="dispo-vendus" className="mt-3" style={{marginRight:"0px"}}>
                             <b className="ml-3" id="nbEspece">
                               {dispo.length}{" "}
                             </b>{" "}
-                            <strong style {textAlign:"right"}><FormattedMessage id="eleveurs_especes_disponibles"/></strong>
+                            <strong><FormattedMessage id="eleveurs_especes_disponibles"/></strong>
                             <b className="ml-3" id="nbEspece">
                               {vendu.length}{" "}
                             </b>
@@ -1352,7 +1401,7 @@ class HomeSheepsParEleveur extends Component {
                                       >
                                         <i
                                           className="fa fa-map-marker"
-                                          style={{ marginRight: "0.5rem" }}
+                                          style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{ marginRight: "0.5rem" }}
                                         ></i>{" "}
                                         {Annonces.localisation}
                                       </div>
