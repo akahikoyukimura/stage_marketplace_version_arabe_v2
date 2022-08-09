@@ -305,15 +305,15 @@ class HomeSheeps extends Component {
         let ville = [];
         let villes = [];
         let villes_ar = [
-          "الرشيدية",
-          "ميدلت",
-          "اسفي",
-          "جرادة",
-          "بن سليمان",
-          "المحمدية",
-          "تاوريرت",
-          "افران",
-          "خريبݣة",
+          {value:"ERRACHIDIA",label:"الرشيدية"},
+          {value:"Midelt",label:"ميدلت"},
+          {value:"Safi",label:"اسفي"},
+          {value:"Jerada",label:"جرادة"},
+          {value:"Benslimane",label:"بن سليمان"},
+          {value:"Mohammedia",label:"المحمدية"},
+          {value:"Taourirt",label:"تاوريرت"},
+          {value:"Ifrane",label:"افران"},
+          {value:"Khouribga",label:"خريبݣة"},
         ];
         res.data.map((e) => {
           villes.push(e.localisation);
@@ -324,12 +324,24 @@ class HomeSheeps extends Component {
         });
 
         if (localStorage.getItem("lg") == "ar") {
+          // for (
+          //   let index = 0, j = 0;
+          //   index < ville.length, j < villes_ar.length;
+          //   index++, j++
+          // ) {
+          //   ville[index].label = villes_ar[j];
+          // }
           for (
-            let index = 0, j = 0;
-            index < ville.length, j < villes_ar.length;
-            index++, j++
+            let index = 0;
+            index < ville.length;
+            index++
           ) {
-            ville[index].label = villes_ar[j];
+            for (let j = 0; j < villes_ar.length; j++) {
+              if(ville[index].value===villes_ar[j].value)
+              ville[index].label = villes_ar[j].label;
+              
+            }
+            
           }
         }
         console.log(ville);
