@@ -642,7 +642,7 @@ class DetailsMouton extends Component {
                               style={{ fontSize: "1rem", fontWeight: "900" }}
                             >
                               {this.state.Espece.prix}
-                              <span className="price-symbol"> <FormattedMessage id="panier_currency_abbreviation"/></span>
+                              <span className="price-symbol"> <FormattedMessage id="panier_currency"/></span>
                             </div>
                           </div>
                         </div>

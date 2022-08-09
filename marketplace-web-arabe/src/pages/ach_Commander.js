@@ -440,9 +440,10 @@ class Commander extends Component {
           this.state.cooperative.livraison.map((l) =>
             this.state.optionsVille.splice(0, 0, {
               value: l.ville_livraison,
-              label: l.ville_livraison,
+              label: localStorage.getItem('lg')=='ar'?l.ville_livraison_ar:l.ville_livraison,
             })
           );
+          console.log(this.state.optionsVille)
 
           ids.map((i) =>
             axios
@@ -512,7 +513,7 @@ class Commander extends Component {
   }
 
   render() {
-    //console.log(this.state);
+    console.log(this.state);
     const steps = [
       {
         name: "Etape",

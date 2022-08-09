@@ -128,6 +128,8 @@ class Commandes extends Component {
                     idc: c,
                     adresse: res.data.adresse,
                     ville: res.data.ville,
+                    adresse_ar: res.data.adresse_ar,
+                    ville_ar: res.data.ville_ar,
                     rib: res.data.rib,
                     techniciens: res.data.techniciens,
                     parametres: res.data.parametres,
@@ -153,6 +155,12 @@ class Commandes extends Component {
                       ville: coopn
                         .filter((f) => f.idc === c)
                         .map((m) => m.ville)[0],
+                      adresse_ar: coopn
+                        .filter((f) => f.idc === c)
+                        .map((m) => m.adresse_ar)[0],
+                      ville_ar: coopn
+                        .filter((f) => f.idc === c)
+                        .map((m) => m.ville_ar)[0],
                       rib: coopn
                         .filter((f) => f.idc === c)
                         .map((m) => m.rib)[0],
@@ -274,6 +282,12 @@ class Commandes extends Component {
                     ville: this.state.coopn
                       .filter((f) => f.idc === c)
                       .map((m) => m.ville)[0],
+                    adresse_ar: this.state.coopn
+                      .filter((f) => f.idc === c)
+                      .map((m) => m.adresse_ar)[0],
+                    ville_ar: this.state.coopn
+                      .filter((f) => f.idc === c)
+                      .map((m) => m.ville_ar)[0],
                     rib: this.state.coopn
                       .filter((f) => f.idc === c)
                       .map((m) => m.rib)[0],
