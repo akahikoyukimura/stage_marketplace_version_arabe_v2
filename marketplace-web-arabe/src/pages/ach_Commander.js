@@ -440,7 +440,7 @@ class Commander extends Component {
           this.state.cooperative.livraison.map((l) =>
             this.state.optionsVille.splice(0, 0, {
               value: l.ville_livraison,
-              label: localStorage.getItem('lg')=='ar'?l.ville_livraison_ar:l.ville_livraison,
+              label: localStorage.getItem('lg')=='ar'?l.ville_livraison_ar?l.ville_livraison_ar:l.ville_livraison:l.ville_livraison,
             })
           );
           console.log(this.state.optionsVille)
