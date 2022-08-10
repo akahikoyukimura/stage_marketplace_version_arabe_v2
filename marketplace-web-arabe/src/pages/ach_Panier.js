@@ -12,7 +12,7 @@ import { MdCake } from "react-icons/md";
 import Pagination from "react-js-pagination";
 import { FormattedMessage } from "react-intl";
 
-const intl=JSON.parse(localStorage.getItem('intl'));
+const intl = JSON.parse(localStorage.getItem("intl"));
 require("bootstrap-less/bootstrap/bootstrap.less");
 
 class Commandes extends Component {
@@ -31,8 +31,8 @@ class Commandes extends Component {
       coop: [],
       coopn: [],
     };
-/*     let done = false;
- */
+    /*     let done = false;
+     */
     // this.elv = this.elv.bind(this);
     this.handleDeleteFromPanier = this.handleDeleteFromPanier.bind(this);
   }
@@ -86,6 +86,7 @@ class Commandes extends Component {
             },
           })
           .then((res) => {
+            console.log(res.data);
             this.setState(
               {
                 Paniers: res.data,
@@ -120,11 +121,15 @@ class Commandes extends Component {
                   },
                 })
                 .then((res) => {
+                  console.log(res.data);
                   coopn.splice(0, 0, {
                     nom: res.data.nom,
+                    nom_ar: res.data.nom_ar,
                     idc: c,
                     adresse: res.data.adresse,
                     ville: res.data.ville,
+                    adresse_ar: res.data.adresse_ar,
+                    ville_ar: res.data.ville_ar,
                     rib: res.data.rib,
                     techniciens: res.data.techniciens,
                     parametres: res.data.parametres,
@@ -141,12 +146,21 @@ class Commandes extends Component {
                       nom: coopn
                         .filter((f) => f.idc === c)
                         .map((m) => m.nom)[0],
+                      nom_ar: coopn
+                        .filter((f) => f.idc === c)
+                        .map((m) => m.nom_ar)[0],
                       adresse: coopn
                         .filter((f) => f.idc === c)
                         .map((m) => m.adresse)[0],
                       ville: coopn
                         .filter((f) => f.idc === c)
                         .map((m) => m.ville)[0],
+                      adresse_ar: coopn
+                        .filter((f) => f.idc === c)
+                        .map((m) => m.adresse_ar)[0],
+                      ville_ar: coopn
+                        .filter((f) => f.idc === c)
+                        .map((m) => m.ville_ar)[0],
                       rib: coopn
                         .filter((f) => f.idc === c)
                         .map((m) => m.rib)[0],
@@ -181,6 +195,7 @@ class Commandes extends Component {
                       }, 0),
                     });
                   });
+                  //console.log(p)
                   this.setState({ panier: p });
                   const pageNumbers = [];
                   for (
@@ -258,12 +273,21 @@ class Commandes extends Component {
                     nom: this.state.coopn
                       .filter((f) => f.idc === c)
                       .map((m) => m.nom)[0],
+                    nom_ar: this.state.coopn
+                      .filter((f) => f.idc === c)
+                      .map((m) => m.nom_ar)[0],
                     adresse: this.state.coopn
                       .filter((f) => f.idc === c)
                       .map((m) => m.adresse)[0],
                     ville: this.state.coopn
                       .filter((f) => f.idc === c)
                       .map((m) => m.ville)[0],
+                    adresse_ar: this.state.coopn
+                      .filter((f) => f.idc === c)
+                      .map((m) => m.adresse_ar)[0],
+                    ville_ar: this.state.coopn
+                      .filter((f) => f.idc === c)
+                      .map((m) => m.ville_ar)[0],
                     rib: this.state.coopn
                       .filter((f) => f.idc === c)
                       .map((m) => m.rib)[0],
@@ -346,21 +370,30 @@ class Commandes extends Component {
     if (fav.length === 1 || fav.length === 0) {
       titre = (
         <h6>
-          <span>{fav.length}</span>  <FormattedMessage values={{ count: fav.length }} id="panier_nbr_annonces" />{" "}
+          <span>{fav.length}</span>{" "}
+          <FormattedMessage
+            values={{ count: fav.length }}
+            id="panier_nbr_annonces"
+          />{" "}
         </h6>
       );
-    } 
-    else if (fav.length === 2) {
+    } else if (fav.length === 2) {
       titre = (
         <h6>
-          <FormattedMessage values={{ count: fav.length }} id="panier_nbr_annonces" />{" "}
+          <FormattedMessage
+            values={{ count: fav.length }}
+            id="panier_nbr_annonces"
+          />{" "}
         </h6>
       );
-    }
-    else {
+    } else {
       titre = (
         <h6>
-          <span>{fav.length}</span>  <FormattedMessage values={{ count: fav.length }} id="panier_nbr_annonces" />{" "}
+          <span>{fav.length}</span>{" "}
+          <FormattedMessage
+            values={{ count: fav.length }}
+            id="panier_nbr_annonces"
+          />{" "}
         </h6>
       );
     }
@@ -371,17 +404,35 @@ class Commandes extends Component {
            <div className="loader"></div>
         </div>  */}
 
-        <section style={localStorage.getItem("lg")=='ar'?{"direction":"rtl"}:{}} className="">
+        <section
+          style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}
+          className=""
+        >
           <div className="container">
             <br></br>
-            <h3 style={localStorage.getItem("lg")=='ar'?{"textAlign":"justify"}:{}} className="latest-product__item">
-            <FormattedMessage id="panier_title" /> <i className="fa fa-shopping-cart"></i>
+            <h3
+              style={
+                localStorage.getItem("lg") == "ar"
+                  ? { textAlign: "justify" }
+                  : {}
+              }
+              className="latest-product__item"
+            >
+              <FormattedMessage id="panier_title" />{" "}
+              <i className="fa fa-shopping-cart"></i>
             </h3>
 
             <div className="row">
               <div className="col-lg-12 col-md-7">
                 {/*<!-- Sheeps Grid Section Begin --> */}
-                <div style={localStorage.getItem("lg")=='ar'?{"textAlignLast":"right"}:{}} className="filter__found text-left">
+                <div
+                  style={
+                    localStorage.getItem("lg") == "ar"
+                      ? { textAlignLast: "right" }
+                      : {}
+                  }
+                  className="filter__found text-left"
+                >
                   <h6>
                     <span>{titre}</span>
                   </h6>
@@ -420,7 +471,7 @@ class Commandes extends Component {
                             </p>
 
                             <h3 style={{ color: "#28a745" }}>
-                            <FormattedMessage id="panier_vide" />
+                              <FormattedMessage id="panier_vide" />
                             </h3>
                           </div>
                         ) : (
@@ -432,8 +483,32 @@ class Commandes extends Component {
                             .map((p) => (
                               <div className="row  mb-2">
                                 <div className=" col-lg-12 col-md-12 col-sm-12 mt-3">
-                                  <b style={localStorage.getItem("lg")=='ar'?{float:"right"}:{}} className="text-dark"><FormattedMessage id="panier_cooperative" /> : </b>
-                                  <b style={localStorage.getItem("lg")=='ar'?{float:"right"}:{}} className="text-primary">{p.nom}</b>
+                                  <b
+                                    style={
+                                      localStorage.getItem("lg") == "ar"
+                                        ? { float: "right" }
+                                        : {}
+                                    }
+                                    className="text-dark"
+                                  >
+                                    <FormattedMessage id="panier_cooperative" />{" "}
+                                    :
+                                  </b>
+                                  <b
+                                    style={
+                                      localStorage.getItem("lg") == "ar"
+                                        ? { float: "right" }
+                                        : {}
+                                    }
+                                    className="text-primary"
+                                  >
+                                    {" "}
+                                    {localStorage.getItem("lg") == "ar"
+                                      ? p.nom_ar
+                                        ? p.nom_ar
+                                        : p.nom
+                                      : p.nom}
+                                  </b>
                                   <Link
                                     to={{
                                       pathname: "/Commander",
@@ -447,21 +522,29 @@ class Commandes extends Component {
                                       <>
                                         {" "}
                                         <b
-                                          style={localStorage.getItem("lg")=='ar'?{
-                                          float:"left",color: "#fe6927",
-                                          fontWeight: "900",
-                                          fontSize: "18pt",}
-                                          :{float:"right",
-                                          color: "#fe6927",
-                                          fontWeight: "900",
-                                          fontSize: "18pt",}}
+                                          style={
+                                            localStorage.getItem("lg") == "ar"
+                                              ? {
+                                                  float: "left",
+                                                  color: "#fe6927",
+                                                  fontWeight: "900",
+                                                  fontSize: "18pt",
+                                                }
+                                              : {
+                                                  float: "right",
+                                                  color: "#fe6927",
+                                                  fontWeight: "900",
+                                                  fontSize: "18pt",
+                                                }
+                                          }
                                         >
-                                          {p.prix} <FormattedMessage id="panier_currency" />{" "}
+                                          {p.prix}{" "}
+                                          <FormattedMessage id="panier_currency" />{" "}
                                           <button
                                             id={p.id_espaces}
                                             className=" rounded text-white bg-success py-1 px-2 ml-3  "
                                             style={{
-                                              maxHeight:"50px",
+                                              maxHeight: "50px",
                                               minHeight: "45px",
                                               fontSize: "16px",
                                               border: "none",
@@ -471,7 +554,8 @@ class Commandes extends Component {
                                             //  }
                                             // }
                                           >
-                                            {""} <FormattedMessage id="panier_cmd_globale" />
+                                            {""}{" "}
+                                            <FormattedMessage id="panier_cmd_globale" />
                                           </button>
                                         </b>
                                       </>
@@ -536,7 +620,9 @@ class Commandes extends Component {
                                           className=" badge badge-success pt-2 w-100  "
                                         >
                                           <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                          <span><FormattedMessage id="panier_Labelise"/></span>{" "}
+                                          <span>
+                                            <FormattedMessage id="panier_Labelise" />
+                                          </span>{" "}
                                         </h1>
                                       ) : (
                                         <span className="badge pt-3 w-100 mb-2    ">
@@ -556,8 +642,13 @@ class Commandes extends Component {
                                           <i
                                             className="fa fa-map-marker"
                                             style={{ marginRight: "0.5rem" }}
-                                          ></i>
-                                          {Annonces.localisation}
+                                          ></i>{" "}
+                                          {/* {Annonces.localisation} */}
+                                          {localStorage.getItem("lg") == "ar"
+                                            ? Annonces.localisation_ar
+                                              ? Annonces.localisation_ar
+                                              : Annonces.localisation
+                                            : Annonces.localisation}
                                         </div>
                                         <div
                                           className="product__item__information"
@@ -578,14 +669,28 @@ class Commandes extends Component {
                                               src="Images/sheep-head.png"
                                               alt=""
                                             />
-                                            {Annonces.espece == "chevre"
-                                              ? <FormattedMessage id="tout_les_annonces_chevre"/>
-                                              : <FormattedMessage id="tout_les_annonces_mouton"/>}
-                                            <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}}>
+                                            {Annonces.espece == "chevre" ? (
+                                              <FormattedMessage id="tout_les_annonces_chevre" />
+                                            ) : (
+                                              <FormattedMessage id="tout_les_annonces_mouton" />
+                                            )}
+                                            <span
+                                              style={
+                                                localStorage.getItem("lg") ==
+                                                "ar"
+                                                  ? { float: "left" }
+                                                  : { float: "right" }
+                                              }
+                                            >
                                               <FaShapes
                                                 style={{ marginRight: "5px" }}
                                               />
-                                              {" " + Annonces.race}
+                                              {localStorage.getItem("lg") ==
+                                              "ar"
+                                                ? " " + Annonces.race_ar
+                                                  ? " " + Annonces.race_ar
+                                                  : " " + Annonces.race
+                                                : " " + Annonces.race}
                                             </span>
                                           </div>
                                           <div>
@@ -595,45 +700,81 @@ class Commandes extends Component {
                                                 marginRight: "5px",
                                               }}
                                             />
-                                            {Annonces.sexe}
-                                            <span style={localStorage.getItem('lg')=="ar"?{ float: "left"}:{float:"right"}}>
+                                            {localStorage.getItem("lg") == "ar"
+                                              ? Annonces.sexe == "Mâle"
+                                                ? "ذكر"
+                                                : "أنثى"
+                                              : Annonces.sexe}
+                                            <span
+                                              style={
+                                                localStorage.getItem("lg") ==
+                                                "ar"
+                                                  ? { float: "left" }
+                                                  : { float: "right" }
+                                              }
+                                            >
                                               <GiWeight
                                                 className=" mr-1 fa-lg "
                                                 style={{ marginRight: "5px" }}
                                               />
-                                              <FormattedMessage id="panier_mouton_poids_kg"
-                                            values={{ poids:Annonces.poids }} />
+                                              <FormattedMessage
+                                                id="panier_mouton_poids_kg"
+                                                values={{
+                                                  poids: Annonces.poids,
+                                                }}
+                                              />
                                             </span>
                                           </div>
                                           <div>
-                                            <span style={localStorage.getItem('lg')=="ar"?{ float: "right"}:{float:"left"}}>
+                                            <span
+                                              style={
+                                                localStorage.getItem("lg") ==
+                                                "ar"
+                                                  ? { float: "right" }
+                                                  : { float: "left" }
+                                              }
+                                            >
                                               <MdCake
                                                 className=" mr-1 fa-lg "
                                                 style={{ marginRight: "5px" }}
                                               />
 
-                                            <FormattedMessage id="panier_mouton_age_mois"
-                                            values={{ age:Annonces.age }} />
+                                              <FormattedMessage
+                                                id="panier_mouton_age_mois"
+                                                values={{ age: Annonces.age }}
+                                              />
                                             </span>
                                           </div>
                                           <div
-                                            style={localStorage.getItem('lg')=="ar"?{ float: "left",color: "#fe6927",
-                                            fontSize: "18px",
-                                            fontWeight: "1000",
-                                            textDecoration: "bold",
-                                            alignContent: "center",}:{float:"right",color: "#fe6927",
-                                            fontSize: "18px",
-                                            fontWeight: "1000",
-                                            textDecoration: "bold",
-                                            alignContent: "center",}}
+                                            style={
+                                              localStorage.getItem("lg") == "ar"
+                                                ? {
+                                                    float: "left",
+                                                    color: "#fe6927",
+                                                    fontSize: "18px",
+                                                    fontWeight: "1000",
+                                                    textDecoration: "bold",
+                                                    alignContent: "center",
+                                                  }
+                                                : {
+                                                    float: "right",
+                                                    color: "#fe6927",
+                                                    fontSize: "18px",
+                                                    fontWeight: "1000",
+                                                    textDecoration: "bold",
+                                                    alignContent: "center",
+                                                  }
+                                            }
                                           >
                                             <img
                                               style={{ height: "30px" }}
                                               src={require("./Images/cash-payment.png")}
                                               alt=""
                                             />
-                                            <FormattedMessage id="panier_mouton_currency"
-                                            values={{ prix:Annonces.prix }} />
+                                            <FormattedMessage
+                                              id="panier_mouton_currency"
+                                              values={{ prix: Annonces.prix }}
+                                            />
                                           </div>
                                           <br></br>
                                           {Annonces.statut === "disponible" ? (
@@ -663,7 +804,8 @@ class Commandes extends Component {
                                                   //  }
                                                   // }
                                                 >
-                                                  {""} <FormattedMessage id="panier_commander"/>
+                                                  {""}{" "}
+                                                  <FormattedMessage id="panier_commander" />
                                                 </button>
                                               </div>
                                             </Link>

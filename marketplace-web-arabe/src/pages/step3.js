@@ -18,15 +18,15 @@ class Commander3 extends Component {
     };
   }
   agences = [
-    { label: "Al Barid Bank", value: "Al Barid Bank" },
-    { label: "Attijari Wafa Bank", value: "Attijari Wafa Bank" },
-    { label: "Banque populaire", value: "Banque populaire" },
-    { label: "BMCI Bank", value: "BMCI Bank" },
-    { label: "BMCE Bank", value: "BMCE Bank" },
-    { label: "CIH Bank", value: "CIH Bank" },
-    { label: "CFG Bank", value: "CFG Bank" },
-    { label: "Crédit agricole", value: "Crédit agricole" },
-    { label: "Société Générale", value: "Société Générale" },
+    { label: <FormattedMessage id="step3_barid_bank"/>, value: "Al Barid Bank" },
+    { label: <FormattedMessage id="step3_attijari_wafa_bank"/>, value: "Attijari Wafa Bank" },
+    { label: <FormattedMessage id="step3_populaire_bank"/>, value: "Banque populaire" },
+    { label: <FormattedMessage id="step3_bmci_bank"/>, value: "BMCI Bank" },
+    { label: <FormattedMessage id="step3_bmce_bank"/>, value: "BMCE Bank" },
+    { label: <FormattedMessage id="step3_cih_bank"/>, value: "CIH Bank" },
+    { label: <FormattedMessage id="step3_cfg_bank"/>, value: "CFG Bank" },
+    { label: <FormattedMessage id="step3_credit_agricole"/>, value: "Crédit agricole" },
+    { label: <FormattedMessage id="step3_societe_generale"/>, value: "Société Générale" },
   ];
   handleChangeBank = (selectedOptionBank) => {
     this.setState({ selectedOptionBank }, () =>

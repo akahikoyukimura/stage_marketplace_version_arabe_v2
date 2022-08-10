@@ -537,6 +537,43 @@ class Header extends Component {
             <br></br>
            
 
+            <div
+                      className="header__top__right__language "
+                      
+                    >
+                      <i className="fa fa-globe mr-2" aria-hidden="true">
+                        {" "}
+                      </i>
+                      <div>
+                        {localStorage.getItem("lg") == "ar"
+                          ? "العربية"
+                          : "Français"}
+                      </div>
+                      <span className="arrow_carrot-down"></span>
+                      <ul style={localStorage.getItem('lg')=='ar'?{ zIndex:"10",color:"white",marginTop:"20rem",marginRight: "3rem" }:{ zIndex:"10",color:"white",marginTop:"20rem",marginLeft: "3rem" }}>
+                        <li>
+                          <a
+                            onClick={() => {
+                              localStorage.setItem("lg", "fr");
+                              window.location.reload(false);
+                            }}
+                          >
+                            Français
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            onClick={() => {
+                              localStorage.setItem("lg", "ar");
+                              window.location.reload(false);
+                            }}
+                          >
+                            {" "}
+                            العربية
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
             {/*}  <i className="fa fa-globe" aria-hidden="true"></i>      <div>Français</div>
               <span className="arrow_carrot-down"></span>
               <ul>

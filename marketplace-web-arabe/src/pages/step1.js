@@ -36,7 +36,7 @@ class Commander1 extends Component {
                     <div className="product__details__pic">
                       <div className="product__details__pic__item mb-0">
                         <h6 style={{ alignItems: "center" }}>
-                          {" "}
+                          {" "} 
                           <Switch
                             onChange={this.props.handleChange1}
                             checked={this.props.data.check1}
@@ -201,23 +201,40 @@ class Commander1 extends Component {
                                     <span> &nbsp;  &nbsp;</span>
 
                                     <b> <FormattedMessage id="step1_cooperative"/> </b>
-                                    {"   " + this.props.data.cooperative.nom}
+                                    {localStorage.getItem("lg") == "ar"
+                                              ?typeof this.props.data.cooperative.nom_ar=='undefined'
+                                              ?"   " + this.props.data.cooperative.nom
+                                              :"   " + this.props.data.cooperative.nom_ar
+                                              :"   " + this.props.data.cooperative.nom}
+                                    {/* {"   " + this.props.data.cooperative.nom} */}
                                   </h6>
                                   <h6 className="mb-2">
                                     <i className="fa fa-map-marker fa-lg"></i>{" "}
                                     <span> &nbsp;  &nbsp; &nbsp;</span>
 
                                     <b>  <FormattedMessage id="step1_adresse"/> :</b>
-                                    {"    " +
-                                      this.props.data.cooperative.adresse}{" "}
+                                    {"    "} 
+                                    {localStorage.getItem("lg") == "ar"
+                                              ?typeof this.props.data.cooperative.adresse_ar!="undefined"
+                                              ?"   " + this.props.data.cooperative.adresse_ar
+                                              :"   " + this.props.data.cooperative.adresse
+                                              :"   " + this.props.data.cooperative.adresse}
+                                      {/* {this.props.data.cooperative.adresse} */}
+                                      {" "}
                                   </h6>
 
                                   <h6 className="my-2" >
                                     {" "}
                                     <i className="fa fa-map"></i><span> &nbsp;  &nbsp; &nbsp;</span>
                                     <b><FormattedMessage id="step1_ville"/> :</b>
-                                    {" " +
-                                      this.props.data.cooperative.ville}{" "}
+                                    {" " }
+                                    {localStorage.getItem("lg") == "ar"
+                                              ?typeof this.props.data.cooperative.ville_ar!="undefined"
+                                              ?"   " + this.props.data.cooperative.ville_ar
+                                              :"   " + this.props.data.cooperative.ville
+                                              :"   " + this.props.data.cooperative.ville}
+                                      {/* {this.props.data.cooperative.ville} */}
+                                      {" "}
                              
                                   </h6>
                                 </>
