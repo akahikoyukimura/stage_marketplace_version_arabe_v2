@@ -1263,8 +1263,8 @@ class HomeSheeps extends Component {
                     />
                   </center>
                   <div id="rechercher" className="col-lg-12">
-                    <div className="sidebar__item">
-                      <div className="mobileSearch">
+                    <div className="mobileSearch">
+                      <div className="sidebar__item">
                         {" "}
                         <h6 id="gras" className="latest-product__item">
                           <FormattedMessage id="tout_les_annonces_reference" />

@@ -172,7 +172,7 @@ class AllOffers extends Component {
               regions.splice(0, 0, { value: e, label: e });
             }
           );
-          if (localStorage.getItem("lg") == "ar") {
+          if (localStorage.getItem("lg") === "ar") {
             for (
               let index = 0, j = 0;
               index < regions.length, j < regions_ar.length;
@@ -181,7 +181,7 @@ class AllOffers extends Component {
               regions[index].label = regions_ar[j];
             }
           }
-          console.log(regions);
+          // console.log(regions);
 
           /**ville */
           let allville = [];
@@ -215,7 +215,7 @@ class AllOffers extends Component {
               };
             }
           );
-          if (localStorage.getItem("lg") == "ar") {
+          if (localStorage.getItem("lg") === "ar") {
             for (
               let index = 0, j = 0;
               index < allville.length, j < villes_ar.length;
@@ -259,8 +259,8 @@ class AllOffers extends Component {
               let espece = [];
               Object.getOwnPropertyNames(this.groupBy(res.data, "espece")).map(
                (e) => {
-                  localStorage.getItem("lg") == "ar"
-                    ? e == "mouton"
+                  localStorage.getItem("lg") === "ar"
+                    ? e === "mouton"
                     ? espece.splice(0, 0, { value: "mouton", label: "خروف" })
                     : espece.splice(0, 0, { value: "chevre", label: "ماعز" })
                   : espece.splice(0, 0, { value: e, label: e });
@@ -289,7 +289,7 @@ class AllOffers extends Component {
                 ville.splice(0, 0, { value: e, label: e });
               });
 
-              if (localStorage.getItem("lg") == "ar") {
+              if (localStorage.getItem("lg") === "ar") {
                 for (
                   let index = 0, j = 0;
                   index < ville.length, j < villes_ar.length;
@@ -298,7 +298,7 @@ class AllOffers extends Component {
                   ville[index].label = villes_ar[j];
                 }
               }
-              console.log(ville);
+              // console.log(ville);
               
               
 
@@ -326,24 +326,35 @@ class AllOffers extends Component {
     let annonce = this.state.AnnoncesN;
     let c = selectedOptionEspece.value;
     let races = [];
-    let races_ar = [];
+    let races_ar = [
+      "الدمان",
+      "السردي",
+      "(البركي)تيمحضيت",
+      "بني كيل(الدغمة)"
+    ];
+    let races_chevre_ar = [
+      "برشا",
+      "الحمرا",
+      
+
+    ]
     //    let catg = [];
     let r = [];
     this.groupBy(annonce, "espece")[c].map((m) => {
       races.push(m.race);
-      if (localStorage.getItem("lg") == "ar"){
+      if (localStorage.getItem("lg") === "ar"){
         races_ar.push(m.race_ar);
       }
     });
     races = [...new Set(races)];
-    if(localStorage.getItem("lg")=="ar"){
+    if(localStorage.getItem("lg")==="ar"){
       races_ar = [...new Set(races_ar)];
     }
     races.map((e) => {
       r.splice(0, 0, { value: e, label: e });
     });
 
-    if (localStorage.getItem("lg") == "ar") {
+    if (localStorage.getItem("lg") === "ar") {
       for (
         let index = 0, j = races_ar.length - 1;
         index < r.length, j >= 0;
@@ -500,7 +511,7 @@ class AllOffers extends Component {
           Object.getOwnPropertyNames(this.groupBy(elv, "region")).map((e) => {
             regions.splice(0, 0, { value: e, label: e });
           });
-          if (localStorage.getItem("lg") == "ar") {
+          if (localStorage.getItem("lg") === "ar") {
             for (
               let index = 0, j = 0;
               index < regions.length, j < regions_ar.length;
@@ -541,7 +552,7 @@ class AllOffers extends Component {
               };
             }
           );
-          if (localStorage.getItem("lg") == "ar") {
+          if (localStorage.getItem("lg") === "ar") {
             for (
               let index = 0, j = 0;
               index < allville.length, j < villes_ar.length;
@@ -549,7 +560,9 @@ class AllOffers extends Component {
             ) {
               allville[index].label = villes_ar[j];
             }
-          }
+          };
+           console.log(allville);
+           console.log(villes_ar)
 
           this.setState({
             optionsVille: allville,
@@ -633,7 +646,7 @@ class AllOffers extends Component {
 
     return (
       <div
-        style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}
+        style={localStorage.getItem("lg") === "ar" ? { direction: "rtl" } : {}}
       >
         <section className="search-header">
           <div
@@ -650,7 +663,7 @@ class AllOffers extends Component {
               <div
                 className="col-lg-2 col-md-3"
                 style={
-                  localStorage.getItem("lg") == "ar"
+                  localStorage.getItem("lg") === "ar"
                     ? {
                         display: "table-cell",
                         verticalAlign: "middle",
@@ -677,7 +690,7 @@ class AllOffers extends Component {
               <div
                 className="col-lg-2 col-md-3"
                 style={
-                  localStorage.getItem("lg") == "ar"
+                  localStorage.getItem("lg") === "ar"
                     ? {
                         display: "table-cell",
                         verticalAlign: "middle",
@@ -735,7 +748,7 @@ class AllOffers extends Component {
               <div className="row">
                 <div 
                 style={
-                  localStorage.getItem("lg") == "ar"
+                  localStorage.getItem("lg") === "ar"
                     ? { textAlign: "right" }
                     : {}
                 }
@@ -1026,7 +1039,7 @@ class AllOffers extends Component {
                 Fin Text Marketing */}
                   <div 
                   style={
-                    localStorage.getItem("lg") == "ar"
+                    localStorage.getItem("lg") === "ar"
                       ? { textAlign: "right" }
                       : {}
                   }
@@ -1060,7 +1073,7 @@ class AllOffers extends Component {
                         <div className="filter__found text-left">
                           <h4
                           style={
-                            localStorage.getItem("lg") == "ar"
+                            localStorage.getItem("lg") === "ar"
                               ? { textAlign: "right" }
                               : {}
                           }
@@ -1188,11 +1201,24 @@ class AllOffers extends Component {
                                   )}
                                   <div className="product__item__text p-2 text-justify">
                                     <h6>
-                                      <i className="fa fa-user-circle-o"></i>
-                                      {" " +
+                                      <i className="fa fa-user-circle-o"></i>{" "}
+                                      {localStorage.getItem("lg")=="ar"
+                                      ? 
+                                        " " +
+                                        Eleveurs.prenom_ar +
+                                        "         " +
+                                        Eleveurs.nom_ar
+                                      :
+                                      
+                                        " " +
                                         Eleveurs.prenom +
                                         "         " +
-                                        Eleveurs.nom}
+                                        Eleveurs.nom
+                                      
+                                      }
+                                       
+                                    
+                                      
                                       <span className="float-right rounded  border-dark border pr-1">
                                         {" "}
                                         <img
@@ -1213,17 +1239,17 @@ class AllOffers extends Component {
                                     <h6>
                                       {" "}
                                       <i className="fa fa-map"></i>{" "}
-                                      {localStorage.getItem("lg") == "ar"
+                                      {localStorage.getItem("lg") === "ar"
                                         ? Eleveurs.region_ar
                                           ? Eleveurs.region_ar
                                           : optionsRegions.find(
                                               (element) =>
-                                                element.value == Eleveurs.region
-                                            ) == undefined
+                                                element.value === Eleveurs.region
+                                            ) === undefined
                                           ? Eleveurs.region
                                           : optionsRegions.find(
                                               (element) =>
-                                                element.value == Eleveurs.region
+                                                element.value === Eleveurs.region
                                             ).label
                                         : Eleveurs.region}
                                       {/* {" " + Eleveurs.region} */}
@@ -1231,17 +1257,17 @@ class AllOffers extends Component {
                                     </h6>
                                     <h6>
                                       <i className="fa fa-home"></i>{" "}
-                                      {localStorage.getItem("lg") == "ar"
+                                      {localStorage.getItem("lg") === "ar"
                                         ? Eleveurs.ville_ar
                                           ? Eleveurs.ville_ar
                                           : optionsVille.find(
                                               (element) =>
-                                                element.value == Eleveurs.ville
-                                            ) == undefined
+                                                element.value === Eleveurs.ville
+                                            ) === undefined
                                           ? Eleveurs.ville
                                           : optionsVille.find(
                                               (element) =>
-                                                element.value == Eleveurs.ville
+                                                element.value === Eleveurs.ville
                                             ).label
                                         : Eleveurs.ville}
                                       {/* {Eleveurs.ville} */}
