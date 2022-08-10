@@ -202,9 +202,9 @@ class Commander1 extends Component {
 
                                     <b> <FormattedMessage id="step1_cooperative"/> </b>
                                     {localStorage.getItem("lg") == "ar"
-                                              ? "   " + this.props.data.cooperative.nom_ar
-                                              ?"   " + this.props.data.cooperative.nom_ar
-                                              :"   " + this.props.data.cooperative.nom
+                                              ?typeof this.props.data.cooperative.nom_ar=='undefined'
+                                              ?"   " + this.props.data.cooperative.nom
+                                              :"   " + this.props.data.cooperative.nom_ar
                                               :"   " + this.props.data.cooperative.nom}
                                     {/* {"   " + this.props.data.cooperative.nom} */}
                                   </h6>
@@ -215,7 +215,7 @@ class Commander1 extends Component {
                                     <b>  <FormattedMessage id="step1_adresse"/> :</b>
                                     {"    "} 
                                     {localStorage.getItem("lg") == "ar"
-                                              ? "   " + this.props.data.cooperative.adresse_ar
+                                              ?typeof this.props.data.cooperative.adresse_ar!="undefined"
                                               ?"   " + this.props.data.cooperative.adresse_ar
                                               :"   " + this.props.data.cooperative.adresse
                                               :"   " + this.props.data.cooperative.adresse}
@@ -229,7 +229,7 @@ class Commander1 extends Component {
                                     <b><FormattedMessage id="step1_ville"/> :</b>
                                     {" " }
                                     {localStorage.getItem("lg") == "ar"
-                                              ? "   " + this.props.data.cooperative.ville_ar
+                                              ?typeof this.props.data.cooperative.ville_ar!="undefined"
                                               ?"   " + this.props.data.cooperative.ville_ar
                                               :"   " + this.props.data.cooperative.ville
                                               :"   " + this.props.data.cooperative.ville}

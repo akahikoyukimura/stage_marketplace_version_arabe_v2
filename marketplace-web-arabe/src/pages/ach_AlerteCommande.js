@@ -257,7 +257,7 @@ class AlerteCommande extends Component {
                             maxHeight: "400px",
                             minWidth: "100%",
                           }}
-                          src="/Images/11p.jpg"
+                          src={localStorage.getItem('lg')=='ar'?"/Images/11p_ar.jpg":"/Images/11p.jpg"}
                         />
                       </Carousel.Item>
                     )}
@@ -279,7 +279,7 @@ class AlerteCommande extends Component {
                           maxHeight: "400px",
                           minWidth: "100%",
                         }}
-                        src="/Images/3p.png"
+                        src={localStorage.getItem('lg')=='ar'?"/Images/3p_ar.png":"/Images/3p.png"}
                       />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -290,7 +290,7 @@ class AlerteCommande extends Component {
                           maxHeight: "400px",
                           minWidth: "100%",
                         }}
-                        src="/Images/4p.png"
+                        src={localStorage.getItem('lg')=='ar'?"/Images/4p_ar.png":"/Images/4p.png"}
                       />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -301,7 +301,7 @@ class AlerteCommande extends Component {
                           maxHeight: "400px",
                           minWidth: "100%",
                         }}
-                        src="/Images/5p.png"
+                        src={localStorage.getItem('lg')=='ar'?"/Images/5p_ar.png":"/Images/5p.png"}
                       />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -312,7 +312,7 @@ class AlerteCommande extends Component {
                           maxHeight: "400px",
                           minWidth: "100%",
                         }}
-                        src="/Images/6p.png"
+                        src={localStorage.getItem('lg')=='ar'?"/Images/6p_ar.png":"/Images/6p.png"}
                       />
                     </Carousel.Item>
                     <Carousel.Item>
@@ -323,7 +323,7 @@ class AlerteCommande extends Component {
                           maxHeight: "400px",
                           minWidth: "100%",
                         }}
-                        src="/Images/7p.jpg"
+                        src={localStorage.getItem('lg')=='ar'?"/Images/7p_ar.jpg":"/Images/7p.jpg"}
                       />
                     </Carousel.Item>
                   </Carousel>
