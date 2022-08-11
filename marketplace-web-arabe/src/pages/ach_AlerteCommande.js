@@ -62,7 +62,11 @@ class AlerteCommande extends Component {
         this.setState(
           {
             cooperative: res.data,
-            tech: res.data.tech[0].prenom + " " + res.data.tech[0].nom,
+            tech: localStorage.getItem('lg')=='ar'
+            ?typeof res.data.tech[0].prenom_ar!=='undefined' && typeof res.data.tech[0].nom_ar!=='undefined'
+            ?res.data.tech[0].prenom_ar + " " + res.data.tech[0].nom_ar
+            :res.data.tech[0].prenom + " " + res.data.tech[0].nom
+            :res.data.tech[0].prenom + " " + res.data.tech[0].nom,
             rib: res.data.rib,
           },
           () => {

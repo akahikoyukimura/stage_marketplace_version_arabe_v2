@@ -1338,7 +1338,12 @@ class Commandes extends Component {
                                       <FaShapes
                                         style={{ marginRight: "5px" }}
                                       />
-                                      {" " + Annonces.espece[0].race}
+                                      {" " }
+                                      {localStorage.getItem('lg')=='ar'
+                                      ?typeof Annonces.espece[0].race_ar!=='undefined'
+                                      ?Annonces.espece[0].race_ar
+                                      :Annonces.espece[0].race
+                                      :Annonces.espece[0].race}
                                     </span>
                                   </div>
                                 ) : null}
@@ -1621,11 +1626,15 @@ class Commandes extends Component {
                                   ) : null
                                 ) : null}
                                 {/* motif */}
-                                <div className="icon-vendus">
+                                <div style={localStorage.getItem('lg')=='ar'?{left: "0",right: "auto",marginLeft: "25px"}:{}} className="icon-vendus">
                                   {Annonces.statut ===
                                   "commande annulée (deadline dépassé)" ? (
                                     <h1
-                                      style={{
+                                      style={localStorage.getItem('lg')=='ar'
+                                      ?{
+                                        borderRadius: "0% 0% 40% 0%",
+                                        fontSize: "14px",
+                                      }:{
                                         borderRadius: "0% 0% 0% 40%",
                                         fontSize: "14px",
                                       }}
@@ -1638,10 +1647,14 @@ class Commandes extends Component {
 
                                   {Annonces.statut === "avarié" ? (
                                     <h1
-                                      style={{
-                                        borderRadius: "0% 0% 0% 40%",
-                                        fontSize: "14px",
-                                      }}
+                                    style={localStorage.getItem('lg')=='ar'
+                                    ?{
+                                      borderRadius: "0% 0% 40% 0%",
+                                      fontSize: "14px",
+                                    }:{
+                                      borderRadius: "0% 0% 0% 40%",
+                                      fontSize: "14px",
+                                    }}
                                       className=" badge badge-danger  pt-1 w-100  "
                                     >
                                       <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
@@ -1653,10 +1666,14 @@ class Commandes extends Component {
                                   Annonces.statut ===
                                     "en attente de validation complément" ? (
                                     <h1
-                                      style={{
-                                        borderRadius: "0% 0% 0% 40%",
-                                        fontSize: "14px",
-                                      }}
+                                    style={localStorage.getItem('lg')=='ar'
+                                    ?{
+                                      borderRadius: "0% 0% 40% 0%",
+                                      fontSize: "14px",
+                                    }:{
+                                      borderRadius: "0% 0% 0% 40%",
+                                      fontSize: "14px",
+                                    }}
                                       className=" badge badge-success  pt-1 w-100  "
                                     >
                                       <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
@@ -1665,10 +1682,14 @@ class Commandes extends Component {
                                   ) : null}
                                   {Annonces.statut === "validé" ? (
                                     <h1
-                                      style={{
-                                        borderRadius: "0% 0% 0% 40%",
-                                        fontSize: "14px",
-                                      }}
+                                    style={localStorage.getItem('lg')=='ar'
+                                    ?{
+                                      borderRadius: "0% 0% 40% 0%",
+                                      fontSize: "14px",
+                                    }:{
+                                      borderRadius: "0% 0% 0% 40%",
+                                      fontSize: "14px",
+                                    }}
                                       className=" badge badge-success  pt-1 w-100  "
                                     >
                                       <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
