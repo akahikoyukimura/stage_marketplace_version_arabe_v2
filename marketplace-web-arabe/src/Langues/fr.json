@@ -461,7 +461,25 @@
     "apropos_objectif4": "Organiser et améliorer la technicité des éleveurs;",
     "apropos_objectif5": " Améliorer la productivité des races ovines et caprines au Maroc;",
     "apropos_objectif6": "Contribuer à la valorisation marchande des produits et sous-produits de l’élevage;",
-    "apropos_objectif7": "Diffuser les bonnes pratiques en matière de conduite de troupeau (santé animale, alimentation, reproduction, hygiène des bâtiments,…);"
+    "apropos_objectif7": "Diffuser les bonnes pratiques en matière de conduite de troupeau (santé animale, alimentation, reproduction, hygiène des bâtiments,…);",
+
+    "_comment34": "this is ach_confirme_commande page",
+    "confirme_cmd_title":"Confirmation et évaluation",
+    "confirme_cmd_reception_livraison":"Réception de la livraison",
+    "confirme_cmd_recu_et_conforme":"Reçue et conforme",
+    "confirme_cmd_rejet_non_conforme":"Rejetee car non conforme",
+    "confirme_cmd_motif_de_rejet":"Motif de rejet",
+    "confirme_cmd_a_choisir":"A choisir",
+    "confirme_cmd_declaration":"Pour toute réclamation, contactez le service client au 0601120156. Disponible de 9h à 19h sauf Samedi et Dimanche.",
+    "confirme_cmd_evaluation":"Evaluation",
+    "confirme_cmd_livraison":"Livraison",
+    "confirme_cmd_produit":"Produit",
+    "confirme_cmd_numero_boucle_non_conforme":"Numéro de boucle non conforme",
+    "confirme_cmd_produit_avarie":"Produit avarié",
+    "confirme_cmd_confirme_evaluation":"Voulez-vous confirmer votre evaluation !",
+    "confirme_cmd_confirme_annule":"Votre confirmation et evalution ont bien été annulées",
+    "confirme_cmd_confirme_valide":"confirmation et evalution validées!",
+    "confirme_cmd_confirme_enregistre":"Votre confirmation et evalution ont bien été enregistrés"
 
 
 
