@@ -10,7 +10,11 @@ import { IoMdMale } from "react-icons/io";
 import { FaShapes } from "react-icons/fa";
 import { MdCake } from "react-icons/md";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
+import { FormattedMessage } from "react-intl";
 require("bootstrap-less/bootstrap/bootstrap.less");
+
+
+const intl = JSON.parse(localStorage.getItem("intl"));
 
 class Commandes extends Component {
   constructor() {
@@ -187,8 +191,8 @@ class Commandes extends Component {
 
       swalWithBootstrapButtons
         .fire({
-          title: "Etes-vous sûr?",
-          text: "Voulez-vous supprimer cette annonce !",
+          title: intl.messages.panier_delete_item,
+          text: intl.messages.panier_delete_message,
           icon: "warning",
           showCancelButton: true,
           confirmButtonText: "  Oui !  ",
@@ -221,7 +225,7 @@ class Commandes extends Component {
                 this.props.history.push("/Favoris");
               });
             Swal.fire({
-              title: "Supprimé avec succès ",
+              title: intl.messages.panier_delete_succes,
               icon: "success",
               width: 400,
               heightAuto: false,
@@ -240,7 +244,7 @@ class Commandes extends Component {
             this.setState({ nombrePages: pageNumbers });
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire({
-              title: "Annonce non supprimée ! ",
+              title: intl.messages.panier_delete_failed,
               icon: "error",
               width: 400,
               heightAuto: false,
@@ -274,13 +278,13 @@ class Commandes extends Component {
     if (fav.length == 1 || fav.length == 0) {
       titre = (
         <h6>
-          <span>{fav.length}</span> Annonce{" "}
+          <span>{fav.length}</span> <FormattedMessage id="annonce"/>{" "}
         </h6>
       );
     } else {
       titre = (
         <h6>
-          <span>{fav.length}</span> Annonces{" "}
+          <span>{fav.length}</span> <FormattedMessage id="annonce"/>{" "}
         </h6>
       );
     }
@@ -291,22 +295,22 @@ class Commandes extends Component {
         {/* <div id="preloder">
            <div className="loader"></div>
         </div>  */}
-        <section className="">
-          <div className="container">
+        <section className="" style={localStorage.getItem("lg") == "ar"? { direction: "rtl", textAlign: "right", marginTop:"50px"}: {}}>
+          <div className="container" style={localStorage.getItem("lg") == "ar"? { direction: "rtl", textAlign: "right", marginTop:"50px"}: {}}>
             <br></br>
             <h3 className="latest-product__item">
-              Mes favoris{" "}
+              <FormattedMessage  id="header_favori" />{" "}
               <span className="text-left text-danger ">
                 {" "}
                 <i className="fa fa-heart"></i>
               </span>
             </h3>
-            <div className="row">
+            <div className="row" >
               <div className="col-lg-12 col-md-7">
                 {/*<!-- Sheeps Grid Section Begin --> */}
                 <div className="filter__found text-left">
                   <h6>
-                    <span>{titre}</span>
+                    <span style={localStorage.getItem("lg") == "ar"? { direction: "rtl", textAlign: "right"}: {}}>{titre}</span>
                   </h6>
                 </div>
                 {loading ? (
@@ -341,7 +345,7 @@ class Commandes extends Component {
                         </p>
 
                         <h3 style={{ color: "#28a745" }}>
-                          Liste des favoris vide !
+                          <FormattedMessage id="favoris_vide" />
                         </h3>
                       </div>
                     ) : (
@@ -396,7 +400,7 @@ class Commandes extends Component {
                                   className=" badge badge-success pt-2 w-100  "
                                 >
                                   <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                  <span>Labélisé ANOC</span>{" "}
+                                  <span><FormattedMessage id="panier_Labelise"/></span>{" "}
                                 </h1>
                               ) : (
                                 <span className="badge pt-3 w-100 mb-2    ">
@@ -520,7 +524,7 @@ class Commandes extends Component {
                                         >
                                           <i className="fa fa-shopping-cart ">
                                             {" "}
-                                            {""} ajouter au Panier
+                                            {""} <FormattedMessage id="favoris_ajoute_au_panier" />
                                           </i>
                                         </button>
                                       ) : (
