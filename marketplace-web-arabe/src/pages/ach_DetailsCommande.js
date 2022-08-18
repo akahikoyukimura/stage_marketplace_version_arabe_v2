@@ -1369,6 +1369,7 @@ class DetailsCommande extends Component {
       : [];
 
     const commandes = this.state.commandes;
+    console.log(this.state.commandes)
     let prix = this.state.commandes.espece.reduce(function (prev, cur) {
       return prev - -cur.prix;
     }, 0);
@@ -1491,7 +1492,12 @@ class DetailsCommande extends Component {
                                           : <FormattedMessage id="tout_les_annonces_mouton"/>}
                                       </h6>
                                       <h6 className="">
-                                        <b><FormattedMessage id="home_item_race"/> :</b> {Annonces.race}
+                                        <b><FormattedMessage id="home_item_race"/> :</b>
+                                        {localStorage.getItem("lg") == "ar"
+                                              ? Annonces.race_ar
+                                              ?Annonces.race_ar
+                                              :Annonces.race
+                                              :Annonces.race}
                                       </h6>
                                       <h6 className="">
                                         <b><FormattedMessage id="home_item_poids"/> : </b>
@@ -1677,7 +1683,12 @@ class DetailsCommande extends Component {
                                       : <FormattedMessage id="tout_les_annonces_mouton"/>}
                                   </h6>
                                   <h6 className="">
-                                    <b><FormattedMessage id="home_item_race"/> :</b> {esp.race}
+                                    <b><FormattedMessage id="home_item_race"/> :</b>{" "}
+                                    {localStorage.getItem("lg") == "ar"
+                                              ? esp.race_ar
+                                              ?esp.race_ar
+                                              :esp.race
+                                              :esp.race}
                                   </h6>
                                   <h6 className="">
                                     <b><FormattedMessage id="home_item_poids"/> : </b>
@@ -1687,7 +1698,12 @@ class DetailsCommande extends Component {
                                     <b><FormattedMessage id="cmd_age"/> :</b> {esp.age} {" "}<FormattedMessage id="cmd_mois"/>
                                   </h6>
                                   <h6 className="">
-                                    <b><FormattedMessage id="add_mouton_localisation"/> :</b> {esp.localisation}
+                                    <b><FormattedMessage id="add_mouton_localisation"/> :</b>{" "}
+                                    {localStorage.getItem("lg") == "ar"
+                                              ? esp.localisation_ar
+                                              ?esp.localisation_ar
+                                              :esp.localisation
+                                              :esp.localisation}
                                   </h6>
 
                                   <h5 className=" text-danger mt-4">
@@ -1770,7 +1786,14 @@ class DetailsCommande extends Component {
                                   aria-hidden="true"
                                 ></i>{" "}
                                 <FormattedMessage id="step1_ville_de_livraison"/> :{" "}
-                                <b>{" " + commandes.ville_livraison}</b>{" "}
+                                <b>{" "}
+                                  {localStorage.getItem('lg')=='ar'
+                                  ?commandes.ville_livraison=="Récupérer à la coopérative"
+                                  ?"اخذه من التعاونية"
+                                  :commandes.ville_livraison
+                                  :commandes.ville_livraison}
+                                  {/* {commandes.ville_livraison} */}
+                                  </b>{" "}
                               </li>
                               <li>
                                 <i
