@@ -1259,10 +1259,20 @@ class DetailsCommande extends Component {
                   : prixT,
             },
             () => {
+              console.log(this.state.cooperative)
               this.setState({
                 cooperative_rib: this.state.cooperative.rib,
                 tech:
-                  this.state.cooperative.tech[0].prenom +
+                  localStorage.getItem('lg')=='ar'
+                  ?typeof this.state.cooperative.tech[0].prenom_ar!='undefined'&&
+                  typeof this.state.cooperative.tech[0].nom_ar!='undefined'
+                  ?this.state.cooperative.tech[0].prenom_ar +
+                  " " +
+                  this.state.cooperative.tech[0].nom_ar
+                  :this.state.cooperative.tech[0].prenom +
+                  " " +
+                  this.state.cooperative.tech[0].nom
+                  :this.state.cooperative.tech[0].prenom +
                   " " +
                   this.state.cooperative.tech[0].nom,
               });
@@ -1804,7 +1814,13 @@ class DetailsCommande extends Component {
                                 <b>
                                   {commandes.adresse_domicile
                                     ? commandes.adresse_domicile
-                                    : commandes.point_relais}
+                                    :localStorage.getItem('lg')=='ar'
+                                    ? commandes.point_relais=="entrée de la ville"
+                                    ?"مدخل المدينة"
+                                    :commandes.point_relais=="Récupérer à la coopérative"
+                                    ?"اخذه من التعاونية"
+                                    :commandes.point_relais
+                                    :commandes.point_relais}
                                 </b>{" "}
                               </li>
                               {commandes.date_de_livraison ? null : (
