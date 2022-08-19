@@ -1790,7 +1790,7 @@ class DetailsCommande extends Component {
                                   {localStorage.getItem('lg')=='ar'
                                   ?commandes.ville_livraison=="Récupérer à la coopérative"
                                   ?"اخذه من التعاونية"
-                                  :commandes.ville_livraison
+                                  :commandes.ville_livraison_ar
                                   :commandes.ville_livraison}
                                   {/* {commandes.ville_livraison} */}
                                   </b>{" "}
