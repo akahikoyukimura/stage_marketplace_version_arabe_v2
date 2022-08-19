@@ -421,7 +421,11 @@ class Commandes extends Component {
                                     className="fa fa-map-marker"
                                     style={{ marginRight: "0.5rem" }}
                                   ></i>
-                                  {Annonces.localisation}
+                                  {localStorage.getItem("lg") == "ar"
+                                          ? typeof Annonces.localisation_ar!='undefined'
+                                            ? Annonces.localisation_ar
+                                            :Annonces.localisation
+                                          : Annonces.localisation}
                                 </div>
                                 <div
                                   className="product__item__information"
@@ -442,14 +446,24 @@ class Commandes extends Component {
                                       src="Images/sheep-head.png"
                                       alt=""
                                     />
-                                    {Annonces.espece == "chevre"
-                                      ? "Chèvre"
-                                      : "Mouton"}
-                                    <span className="float-right">
+                                    {Annonces.espece == "chevre" ? (
+                                            <FormattedMessage id="tout_les_annonces_chevre" />
+                                          ) : (
+                                            <FormattedMessage id="tout_les_annonces_mouton" />
+                                          )}
+                                    <span style={
+                                              localStorage.getItem("lg") == "ar"
+                                                ? { float: "left" }
+                                                : { float: "right" }
+                                            }>
                                       <FaShapes
                                         style={{ marginRight: "5px" }}
-                                      />
-                                      {" " + Annonces.race}
+                                      />{" "}
+                                      {localStorage.getItem("lg") == "ar"
+                                              ? Annonces.race_ar
+                                              ?Annonces.race_ar
+                                              :Annonces.race
+                                              :Annonces.race}
                                     </span>
                                   </div>
                                   <div>
@@ -459,34 +473,62 @@ class Commandes extends Component {
                                         marginRight: "5px",
                                       }}
                                     />
-                                    {Annonces.sexe}
-                                    <span className="float-right ">
+                                    {localStorage.getItem("lg") == "ar"
+                                            ? Annonces.sexe == "Mâle"
+                                              ? "ذكر"
+                                              : "أنثى"
+                                            : Annonces.sexe}
+                                    <span style={
+                                              localStorage.getItem("lg") == "ar"
+                                                ? { float: "left" }
+                                                : { float: "right" }
+                                            }>
                                       <GiWeight
                                         className=" mr-1 fa-lg "
                                         style={{ marginRight: "5px" }}
                                       />
-                                      {Annonces.poids + " Kg"}
+                                      <FormattedMessage
+                                              id="panier_mouton_poids_kg"
+                                              values={{ poids: Annonces.poids }}
+                                            />
                                     </span>
                                   </div>
                                   <div>
-                                    <span className="float-left ">
+                                    <span style={
+                                              localStorage.getItem("lg") == "ar"
+                                                ? { float: "right" }
+                                                : { float: "left" }
+                                            }>
                                       <MdCake
                                         className=" mr-1 fa-lg "
                                         style={{ marginRight: "5px" }}
                                       />
-
-                                      {Annonces.age + " mois"}
+                                      <FormattedMessage
+                                              id="panier_mouton_age_mois"
+                                              values={{ age: Annonces.age }}
+                                            />
                                     </span>
                                   </div>
                                   <div
-                                    className="float-right "
-                                    style={{
-                                      color: "#fe6927",
-                                      fontSize: "18px",
-                                      fontWeight: "1000",
-                                      textDecoration: "bold",
-                                      alignContent: "center",
-                                    }}
+                                    style={
+                                      localStorage.getItem("lg") == "ar"
+                                        ? {
+                                            float: "left",
+                                            color: "#fe6927",
+                                            fontSize: "18px",
+                                            fontWeight: "1000",
+                                            textDecoration: "bold",
+                                            alignContent: "center",
+                                          }
+                                        : {
+                                            float: "right",
+                                            color: "#fe6927",
+                                            fontSize: "18px",
+                                            fontWeight: "1000",
+                                            textDecoration: "bold",
+                                            alignContent: "center",
+                                          }
+                                    }
                                   >
                                     <img
                                       style={{ height: "30px" }}
@@ -501,7 +543,10 @@ class Commandes extends Component {
                                         marginRight: "0.5rem",
                                       }}
                                     /> */}
-                                    {Annonces.prix + "  Dhs"}
+                                    <FormattedMessage
+                                            id="panier_mouton_currency"
+                                            values={{ prix: Annonces.prix }}
+                                          />
                                   </div>
                                   <br></br>
                                   {Annonces.statut == "disponible" ? (
