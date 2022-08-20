@@ -37,12 +37,16 @@ class HomeSheepsParEleveur extends Component {
       currentPage: 1,
       annoncesPerPage: 6,
       selectedOptionRace: null,
+      optionsRace:[],
       selectedOptionStatut: "",
       Eleveur: {},
       selectedOptionEspece: null,
       optionsEspece: [],
       selectedOptionVille: null,
       optionsVille: [],
+      selectedOptionRegions:null,
+      optionsRegions:[],
+
       conditions: {
         order_by: "race",
         order_mode: "asc",
@@ -61,9 +65,10 @@ class HomeSheepsParEleveur extends Component {
       ],
       showSearchModal: false,
       statut: [
-        { value: "vendu", label: "Vendu" },
-        { value: "disponible", label: "Disponible" },
+        { value: "vendu", label: <FormattedMessage id="homeSheep_vendu"/> },
+        { value: "disponible", label:<FormattedMessage id="homeSheep_dispo"/> },
       ],
+      
     };
     this.onChange = this.onChange.bind(this);
     this.handelChercher = this.handelChercher.bind(this);
@@ -73,133 +78,7 @@ class HomeSheepsParEleveur extends Component {
 
     this.paginate = this.paginate.bind(this);
   }
-  showSearch = () => {
-    this.setState({
-      showSearchModal: !this.state.showSearchModal,
-    });
-  };
-  handleChangeEspece = (selectedOptionEspece) => {
-    this.setState({
-      selectedOptionRace: null,
-      selectedOptionEspece: selectedOptionEspece,
-    });
-    let annonce = this.state.AnnoncesN;
-    let c = selectedOptionEspece.value;
-    let races = [];
 
-    let r = [];
-
-    this.groupBy(annonce, "espece")[c].map((m) => {
-      races.push(m.race);
-    });
-
-    races = [...new Set(races)];
-    races.map((e) => {
-      r.splice(0, 0, { value: e, label: e });
-    });
-    this.setState({
-      race: r,
-
-      Disabled: false,
-      conditions: Object.assign(this.state.conditions, {
-        espece: c,
-        race: null,
-      }),
-    });
-  };
-
-  handleChangeRace = (selectedOptionRace) => {
-    this.setState({ selectedOptionRace }, () =>
-      this.setState({
-        conditions: Object.assign(this.state.conditions, {
-          race: this.state.selectedOptionRace.value,
-        }),
-      })
-    );
-  };
-  handleChangeStatut = (Statut) => {
-    this.setState({ Statut }, () =>
-      this.setState({
-        conditions: Object.assign(this.state.conditions, {
-          statut: this.state.Statut.value,
-        }),
-      })
-    );
-  };
-
-  handleChangeSort = (selectedOptionSort) => {
-    this.setState({ selectedOptionSort }, () =>
-      this.setState({
-        selectedOptionSort: selectedOptionSort,
-      })
-    );
-  };
-
-  handleChangeVille = (selectedOptionVille) => {
-    this.setState({ selectedOptionVille }, () =>
-      this.setState({
-        conditions: Object.assign(this.state.conditions, {
-          localisation: this.state.selectedOptionVille.value,
-        }),
-      })
-    );
-  };
-  handelReinitialiser() {
-    this.setState({ loading: true }, () => {
-      axios
-        .get("http://127.0.0.1:8000/api/Espece", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          params: {
-            order_by: "espece",
-            order_mode: "asc",
-          },
-        })
-        .then((res) => {
-          this.setState({
-            Annonces: res.data
-              .filter((data) => data.id_eleveur === this.state.Eleveur._id)
-              .filter((f) => f.statut !== "produit avarié"),
-            loading: false,
-            conditions: {
-              order_by: "espece",
-              order_mode: "asc",
-            },
-            selectedOptionEspece: null,
-            selectedOptionRace: null,
-            Disabled: true,
-            selectedOptionVille: null,
-          });
-          var all = document.querySelectorAll(
-            'input[name="reference"],input[name="prix_min"],input[name="prix_max"],input[name="poids_min"],input[name="poids_max"]'
-          );
-          Array.from(all).map((a) => (a.value = null));
-
-          const pageNumbers = [];
-          for (
-            let i = 1;
-            i <=
-            Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage);
-            i++
-          ) {
-            pageNumbers.push(i);
-          }
-          this.setState({ nombrePages: pageNumbers, showSearchModal: false });
-        });
-    });
-  }
-
-  groupBy(objectArray, property) {
-    return objectArray.reduce((acc, obj) => {
-      const key = obj[property];
-      if (!acc[key]) {
-        acc[key] = [];
-      }
-      acc[key].push(obj);
-      return acc;
-    }, {});
-  }
   componentDidMount() {
     function appendLeadingZeroes(n) {
       if (n <= 9) {
@@ -266,11 +145,65 @@ class HomeSheepsParEleveur extends Component {
                       res.data.filter((f) => f.statut !== "produit avarié"),
                       "espece"
                     )
-                  ).map((e) => {
-                    espece.splice(0, 0, { value: e, label: e });
-                  });
+                  ).map(
+                  //   (e) => {
+                  //   espece.splice(0, 0, { value: e, label: e });
+                  // }
+                  (e) => {
+                    localStorage.getItem("lg") == "ar"
+                      ? e == "mouton"
+                        ? espece.splice(0, 0, { value: "mouton", label: "خروف" })
+                        : espece.splice(0, 0, { value: "chevre", label: "ماعز" })
+                      : espece.splice(0, 0, { value: e, label: e });
+                  }
+                  );
 
+                  let race1=[];
+                  let races=[];
+                  let races_ar=[
+                    {value:"Béni-Guil (Daghma)", label:"بني جيل (دغمة)"},
+                    {value:"Timahdite (Bergui)", label:"تمحضيت (بركي)"},
+                    {value:"Sardi", label:"سردي"},
+                    {value:"D’man (Daman)", label:"دمان"},
+                    {value:"Boujâad", label:"بوجعد"},
+                    {value:"El Hamra", label:"الحمرا"},
+
+                  ];
+
+
+                  
+                  //ville
                   let ville = [];
+                  let villes=[]
+                  let villes_ar = [
+                    {value:"ERRACHIDIA",label:"الرشيدية"},
+                    {value:"Midelt",label:"ميدلت"},
+                    {value:"Safi",label:"اسفي"},
+                    {value:"Jerada",label:"جرادة"},
+                    {value:"Benslimane",label:"بن سليمان"},
+                    {value:"Mohammedia",label:"المحمدية"},
+                    {value:"Taourirt",label:"تاوريرت"},
+                    {value:"Ifrane",label:"افران"},
+                    {value:"Khouribga",label:"خريبݣة"},
+                    {value:"OUARZAZATE",label:"ورزازات"},
+                    {value:"El Kelaâ des Sraghna",label:"قلعة السراغنة"},
+                  ];
+                  let region1=[];
+                  let regions=[];
+                  let regions_ar = 
+                  [
+                    {value:"Tanger-Tétouan-Al Hoceïma",label:" طنجة - تطوان - الحسيمة"},
+                    {value:"Béni Mella-Khénifra",label:"بني ملال خنيفرة"},
+                    {value:"Draa tafilalt",label:"درعة - تافيلالت"},
+                    {value:"l'Oriental",label:"الجهة الشرقية"},
+                    {value:"Benslimane",label: "درعة - تافيلالت"},
+                    {value:"Mohammedia",label: "درعة - تافيلالت"},
+                    {value:"DARAA TAFILALTE",label: "درعة - تافيلالت"},
+                    {value:"casablanca-settat",label:"الدار البيضاء - سطات"},
+                    {value:"Marrakech-Safi",label:"مراكش - أسفي"},
+                    {value:"Fès-Meknès", label:"فاس مكناس"}, 
+                    {value:"Mohammedia",label: "درعة - تافيلالت"},
+                  ]
                   let minP = 100000;
                   let maxP = 1;
                   let minW = 100000;
@@ -289,36 +222,104 @@ class HomeSheepsParEleveur extends Component {
                     if (e.poids < minW) {
                       minW = e.poids;
                     }
-                    ville.splice(0, 0, {
-                      value: e.localisation,
-                      label: e.localisation,
-                    });
+                    
+                    villes.push(e.localisation);
+                    regions.push(e.region);
+                    races.push(e.race);
                   });
+
+                  
                   this.setState({
                     prix_max: maxP,
                     prix_min: minP,
                     poids_min: minW,
                     poids_max: maxW,
                   });
-                  ville = Array.from(new Set(ville.map((s) => s.value))).map(
-                    (value) => {
-                      return {
-                        value: value,
-                        label: ville.find((s) => s.value === value).label,
-                      };
+                  //ville
+                  villes.push("Ifrane")
+                  villes=[...new Set(villes)];
+                  villes.map((e) => {
+                    ville.splice(0, 0, {value: e, label: e})
+                  })
+                 
+                  if (localStorage.getItem("lg") === "ar") {
+                
+                    for (
+                      let index = 0;
+                      index < ville.length;
+                      index++
+                    ) {
+                      for (let j = 0; j < villes_ar.length; j++) {
+                        if(ville[index].value===villes_ar[j].value)
+                        ville[index].label = villes_ar[j].label;
+                        
+                      }
+                      
                     }
-                  );
-                  this.setState({
-                    optionsEspece: espece,
-                    AnnoncesN: res.data.filter(
-                      (f) => f.statut !== "produit avarié"
-                    ),
-                    Annonces: res.data.filter(
-                      (f) => f.statut !== "produit avarié"
-                    ),
-                    loading: false,
-                    optionsVille: [...new Set(ville)],
-                  });
+      
+                  }
+                //region
+                regions.push("Fès-Meknès");
+                regions=[...new Set(regions)];
+                  regions.map((e) => {
+                    region1.splice(0, 0, {value: e, label: e})
+                  })
+                 
+                  if (localStorage.getItem("lg") === "ar") {
+                
+                  for (
+                    let index = 0;
+                    index < region1.length;
+                    index++
+                  ) {
+                    for (let j = 0; j < regions_ar.length; j++) {
+                      if(region1[index].value===regions_ar[j].value)
+                      region1[index].label = regions_ar[j].label;
+                      
+                    }
+                    
+                  }
+      
+                }
+                //race
+                  races=[...new Set(races)];
+                  races.map((e) => {
+                    race1.splice(0, 0, {value: e, label: e})
+                  })
+                 
+                  if (localStorage.getItem("lg") === "ar") {
+                
+                    for (
+                      let index = 0;
+                      index < race1.length;
+                      index++
+                    ) {
+                      for (let j = 0; j < races_ar.length; j++) {
+                        if(race1[index].value===races_ar[j].value)
+                        race1[index].label = races_ar[j].label;
+                        
+                      }
+                      
+                    }
+      
+                  }
+          
+
+            this.setState({
+              optionsVille: ville,
+               optionsRegions: region1,
+              optionsEspece: espece,
+              optionsRace:race1,
+              AnnoncesN: res.data.filter(
+                (f) => f.statut !== "produit avarié"
+              ),
+              Annonces: res.data.filter(
+                (f) => f.statut !== "produit avarié"
+              ),
+              loading: false,
+                    // optionsVille: [...new Set(ville)],
+               
+              });
                   const pageNumbers = [];
                   for (
                     let i = 1;
@@ -354,6 +355,189 @@ class HomeSheepsParEleveur extends Component {
 
     //}
   }
+  showSearch = () => {
+    this.setState({
+      showSearchModal: !this.state.showSearchModal,
+    });
+  };
+  handleChangeEspece = (selectedOptionEspece) => {
+    this.setState({
+      selectedOptionRace: null,
+      selectedOptionEspece: selectedOptionEspece,
+    });
+    let annonce = this.state.AnnoncesN;
+    let c = selectedOptionEspece.value;
+    let races = [];
+
+    let r = [];
+    let r_ar=[
+      {value:"",label:""},
+      {value:"",label:""},
+      {value:"",label:""},
+      {value:"",label:""},
+      {value:"",label:""},
+    ];
+
+    this.groupBy(annonce, "espece")[c].map((m) => {
+      races.push(m.race);
+    });
+
+    races = [...new Set(races)];
+    races.map((e) => {
+      r.splice(0, 0, { value: e, label: e });
+    });
+
+    this.setState({
+      race: r,
+
+      Disabled: false,
+      conditions: Object.assign(this.state.conditions, {
+        espece: c,
+        race: null,
+      }),
+    });
+  };
+
+  handleChangeRace = (selectedOptionRace) => {
+    this.setState({ selectedOptionRace }, () =>
+      this.setState({
+        conditions: Object.assign(this.state.conditions, {
+          race: this.state.selectedOptionRace.value,
+        }),
+      })
+    );
+  };
+  handleChangeStatut = (Statut) => {
+    this.setState({ Statut }, () =>
+      this.setState({
+        conditions: Object.assign(this.state.conditions, {
+          statut: this.state.Statut.value,
+        }),
+      })
+    );
+  };
+
+  handleChangeSort = (selectedOptionSort) => {
+    this.setState({ selectedOptionSort }, () =>
+      this.setState({
+        selectedOptionSort: selectedOptionSort,
+      })
+    );
+  };
+
+  handleChangeVille = (selectedOptionVille) => {
+    this.setState({ selectedOptionVille }, () =>
+      this.setState({
+        conditions: Object.assign(this.state.conditions, {
+          localisation: this.state.selectedOptionVille.value,
+        }),
+      })
+    );
+  };
+
+  handleChangeRegion(selectedOptionRegions) {
+    this.setState(
+      {
+        loading: true,
+        conditions: {
+          statut: "disponible",
+          order_by: "espece",
+          order_mode: "asc",
+          region: selectedOptionRegions,
+        },
+      },
+      () => {
+        axios
+          .get("http://127.0.0.1:8000/api/eleveur", {
+            headers: {
+              // "x-access-token": token, // the token is a variable which holds the token
+              "Content-Type": "application/json",
+            },
+            params: this.state.conditions,
+          })
+          .then((res) => {
+            console.log(this.state.conditions);
+
+
+            this.setState({
+              Eleveurs: res.data,
+              loading: false,
+            });
+            const pageNumbers = [];
+            for (
+              let i = 1;
+              i <=
+              Math.ceil(
+                this.state.Eleveurs.length / this.state.eleveursPerPage
+              );
+              i++
+            ) {
+              pageNumbers.push(i);
+            }
+            this.setState({ nombrePages: pageNumbers });
+          });
+      }
+    );
+  }
+
+  handelReinitialiser() {
+    this.setState({ loading: true }, () => {
+      axios
+        .get("http://127.0.0.1:8000/api/Espece", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          params: {
+            order_by: "espece",
+            order_mode: "asc",
+          },
+        })
+        .then((res) => {
+          this.setState({
+            Annonces: res.data
+              .filter((data) => data.id_eleveur === this.state.Eleveur._id)
+              .filter((f) => f.statut !== "produit avarié"),
+            loading: false,
+            conditions: {
+              order_by: "espece",
+              order_mode: "asc",
+            },
+            selectedOptionEspece: null,
+            selectedOptionRace: null,
+            Disabled: true,
+            selectedOptionVille: null,
+            selectedOptionRegions:null,
+          });
+          var all = document.querySelectorAll(
+            'input[name="reference"],input[name="prix_min"],input[name="prix_max"],input[name="poids_min"],input[name="poids_max"]'
+          );
+          Array.from(all).map((a) => (a.value = null));
+
+          const pageNumbers = [];
+          for (
+            let i = 1;
+            i <=
+            Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage);
+            i++
+          ) {
+            pageNumbers.push(i);
+          }
+          this.setState({ nombrePages: pageNumbers, showSearchModal: false });
+        });
+    });
+  }
+
+  groupBy(objectArray, property) {
+    return objectArray.reduce((acc, obj) => {
+      const key = obj[property];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(obj);
+      return acc;
+    }, {});
+  }
+  
 
   sortData(e) {
     const sortProperty = Object.values(e)[0];
@@ -466,7 +650,9 @@ class HomeSheepsParEleveur extends Component {
     const { selectedOptionRace } = this.state;
     const { selectedOptionVille } = this.state;
     const { optionsVille } = this.state;
+    const { optionsRegions } = this.state;
     const { optionsSort } = this.state;
+    const { optionsRace } = this.state;
     const { loading } = this.state;
     const { valueprice } = this.state;
     const { valuepoids } = this.state;
@@ -496,20 +682,7 @@ class HomeSheepsParEleveur extends Component {
             }}
           >
             <div className="searchheader">
-              {/* <div
-                className="col-lg-1 col-md-3"
-                style={
-                  localStorage.getItem("lg") == "ar"
-                    ? {
-                        display: "table-cell",
-                        verticalAlign: "middle",
-                        textAlign: "right",
-                      }
-                    : { display: "table-cell", verticalAlign: "middle" }
-                }      
-
-                  hada li kan 9bel f l classname col-lg-1 col-md-3
-                ></div> */}
+              
               <div
                 className="col-lg-1 col-md-3"
                 style={
@@ -537,17 +710,7 @@ class HomeSheepsParEleveur extends Component {
               </div>
               
 
-              {/* <div
-                className="col-lg-1 col-md-3"
-                style={{ display: "table-cell", verticalAlign: "middle" }}
-              >
-                <Select
-                  value={selectedOptionVille}
-                  onChange={this.handleChangeVille}
-                  options={optionsVille}
-                  placeholder=" Ville"
-                />
-              </div> */}
+              
               
               <div
                 className="col-lg-1 col-md-3"
@@ -594,7 +757,7 @@ class HomeSheepsParEleveur extends Component {
                     isDisabled={this.state.Disabled}
                     value={selectedOptionRace}
                     onChange={this.handleChangeRace}
-                    options={this.state.race}
+                    options={optionsRace}
                     placeholder={race}
                     required
                   />
@@ -772,13 +935,13 @@ class HomeSheepsParEleveur extends Component {
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <FormattedMessage>
+                        <FormattedMessage id="eleveurs_espece">
                           {(espece) => (
                             <Select
                             value={selectedOptionEspece}
                             onChange={this.handleChangeEspece}
                             options={optionsEspece}
-                            placeholder="Espece"
+                            placeholder={espece}
                             required
                             // className="Select"
                           />
@@ -1098,17 +1261,27 @@ class HomeSheepsParEleveur extends Component {
                                   component="fieldset"
                                   mb={3}
                                   borderColor="transparent"
+                                  style={localStorage.getItem('lg')==="ar"?{marginLeft:"108px"}:{}}
                                 >
-                                  <FormattedMessage id="eleveurs_eleveur"/> :{" "}
-                                  {this.state.Eleveur.nom +
+                                  <FormattedMessage id="eleveurs_eleveur"/> : {" "}{localStorage.getItem('lg')==="ar"
+                                  ?
+                                  this.state.Eleveur.nom_ar +
                                     " " +
-                                    this.state.Eleveur.prenom}{" "}
+                                    this.state.Eleveur.prenom_ar
+                                  
+                                  :
+                                  this.state.Eleveur.nom +
+                                    " " +
+                                    this.state.Eleveur.prenom} {" "}
+                                  
                                   <br></br>
-                                  <div id="rating-eleveur">
+                                  <div id="rating-eleveur"
+                                  style={localStorage.getItem('lg')==="ar"?{}:{left:"10px"}}>
                                     <Rating
                                       name="read-only"
                                       value={this.state.Eleveur.rating}
                                       readOnly
+                                      
                                     />
                                   </div>
                                 </Box>
@@ -1137,7 +1310,20 @@ class HomeSheepsParEleveur extends Component {
                                     style={localStorage.getItem('lg')=='ar'?{
                                       marginLeft:"-195px"}:{}}
                                       className="value">
-                                      {" " + this.state.Eleveur.region}{" "}
+                                      {/* {" " + this.state.Eleveur.region}{" "} */}
+                                      {localStorage.getItem("lg") === "ar"
+                                        ? this.state.Eleveur.region_ar
+                                          ? this.state.Eleveur.region_ar
+                                          : optionsRegions.find(
+                                              (element) =>
+                                                element.value === this.state.Eleveur.region
+                                            ) === undefined
+                                          ? this.state.Eleveur.region
+                                          : optionsRegions.find(
+                                              (element) =>
+                                                element.value === this.state.Eleveur.region
+                                            ).label
+                                        : this.state.Eleveur.region}
                                     </span>
                                   </h6>
                                 </li>
@@ -1163,7 +1349,20 @@ class HomeSheepsParEleveur extends Component {
                                     style={localStorage.getItem('lg')=='ar'?{
                                       marginLeft:"-195px"}:{}}
                                     className="value">
-                                      {" " + this.state.Eleveur.ville}
+                                      {localStorage.getItem("lg") === "ar"
+                                        ? this.state.Eleveur.ville_ar
+                                          ? this.state.Eleveur.ville_ar
+                                          : optionsVille.find(
+                                              (element) =>
+                                                element.value === this.state.Eleveur.ville
+                                            ) === undefined
+                                          ? this.state.Eleveur.ville
+                                          : optionsVille.find(
+                                              (element) =>
+                                                element.value === this.state.Eleveur.ville
+                                            ).label
+                                        : this.state.Eleveur.ville}
+                                      {/* {" " + this.state.Eleveur.ville} */}
                                     </span>
                                   </h6>
                                 </li>
@@ -1397,13 +1596,30 @@ class HomeSheepsParEleveur extends Component {
                                           color: "#aaa",
                                           fontSize: "15px",
                                           textAlign: "center",
+                                          // localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{ marginRight: "0.5rem" }
                                         }}
                                       >
                                         <i
                                           className="fa fa-map-marker"
-                                          style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{ marginRight: "0.5rem" }}
-                                        ></i>{" "}
-                                        {Annonces.localisation}
+                                          
+                                        ></i>
+                                        {/* {" "}
+
+                                        {Annonces.localisation} */}
+
+                                      {localStorage.getItem("lg") === "ar"
+                                        ? this.state.Eleveur.ville_ar
+                                          ? this.state.Eleveur.ville_ar
+                                          : optionsVille.find(
+                                              (element) =>
+                                                element.value === this.state.Eleveur.ville
+                                            ) === undefined
+                                          ? this.state.Eleveur.ville
+                                          : optionsVille.find(
+                                              (element) =>
+                                                element.value === this.state.Eleveur.ville
+                                            ).label
+                                        : this.state.Eleveur.ville}
                                       </div>
                                       <div
                                         className="product__item__information"

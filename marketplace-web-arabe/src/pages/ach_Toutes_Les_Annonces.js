@@ -160,21 +160,21 @@ class HomeSheeps extends Component {
     });
     races = [...new Set(races)];
     if (localStorage.getItem("lg") == "ar") {
-      races_ar = [...new Set(races_ar)];
+      races = [...new Set(races_ar)];
     }
     races.map((e) => {
       r.splice(0, 0, { value: e, label: e });
     });
 
-    if (localStorage.getItem("lg") == "ar") {
-      for (
-        let index = 0, j = races_ar.length - 1;
-        index < r.length, j >= 0;
-        index++, j--
-      ) {
-        r[index].label = races_ar[j];
-      }
-    }
+    // if (localStorage.getItem("lg") == "ar") {
+    //   for (
+    //     let index = 0, j = races_ar.length - 1;
+    //     index < r.length, j >= 0;
+    //     index++, j--
+    //   ) {
+    //     r[index].label = races_ar[j];
+    //   }
+    // }
 
     this.setState({
       race: r,

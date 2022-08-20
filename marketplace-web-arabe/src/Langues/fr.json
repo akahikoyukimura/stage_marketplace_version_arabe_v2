@@ -220,6 +220,9 @@
     "eleveurs_supprimer":"Supprimer",
     "eleveur_details":"Détails éleveur",
 
+    "homeSheep_vendu":"Vendu",
+    "homeSheep_dispo":"Disponible",
+
     "_comment10": "A propos",
     "Apropos_text": "L’ANOC (Association Nationale Ovine et Caprine) est une association à but non lucratif qui a pour mission principale l’amélioration du revenu de l’éleveur ovin et caprin ainsi que la valorisation de son métier, notamment dans des conditions assez difficiles du milieu rural. Ainsi que la contribution au développement économique et rural par le développement de l’élevage des petits ruminants et la promotion de ses produits.",
     "Apropos_nous": "Qui sommes nous?",

@@ -57,14 +57,6 @@ class AllOffers extends Component {
         {
           value: "rating_dec",
           label: (
-            // <>
-            //   {" "}
-            //   <i
-            //     className="fa fa-star-o text-warning fa-sm"
-            //     style={{ color: "#ebebeb" }}
-            //   ></i>{" "}
-            //   <FormattedMessage id="eleveurs_etoile"/> [1 <i className="fa fa-long-arrow-right  "> 5]</i>{" "}
-            // </>
             <>
               {" "}
               <i className="fa fa-star-o text-warning fa-sm"></i>{" "}
@@ -154,77 +146,45 @@ class AllOffers extends Component {
           );
 
           //region
+          
           let regions = [];
-          let regions_ar = [
-            " طنجة - تطوان - الحسيمة",
-            "بني ملال خنيفرة",
-            "درعة - تافيلالت",
-            "الجهة الشرقية",
-            "درعة - تافيلالت",
-            "درعة - تافيلالت",
-            "درعة - تافيلالت",
-            "الدار البيضاء - سطات",
-            "مراكش - أسفي",
-            "فاس مكناس",
-          ];
-          Object.getOwnPropertyNames(this.groupBy(res.data, "region")).map(
-            (e) => {
-              regions.splice(0, 0, { value: e, label: e });
-            }
-          );
-          if (localStorage.getItem("lg") === "ar") {
-            for (
-              let index = 0, j = 0;
-              index < regions.length, j < regions_ar.length;
-              index++, j++
-            ) {
-              regions[index].label = regions_ar[j];
-            }
-          }
-          // console.log(regions);
+            let regions_ar = 
+            [
+              {value:"Tanger-Tétouan-Al Hoceïma",label:" طنجة - تطوان - الحسيمة"},
+              {value:"Draa tafilalt",label:"درعة - تافيلالت"},
+              {value:"l'Oriental",label:"الجهة الشرقية"},
+              {value:"DRAA TAFILALET",label: "درعة - تافيلالت"},
+              {value:"DARAA TAFILALTE",label: "درعة - تافيلالت"},
+              {value:"casablanca-settat",label:"الدار البيضاء - سطات"},
+              {value:"Marrakech-Safi",label:"مراكش - أسفي"},
+              {value:"Fès-Meknès",label:"فاس مكناس"},
+              {value:"Derâa-Tafilalet",label:"درعة - تافيلالت"},      
+              {value:"Béni Mellal-Khénifra",label:"بني ملال خنيفرة"},
 
-          /**ville */
-          let allville = [];
-          let villes_ar = [
-            "افران",
-            "ميدلت",
-            "زاݣورة",
-            "جرادة",
-            "ورزازات",
-            "تطوان",
-            "تاوريرت",
-            "الرشيدية",
-            "بن سليمان",
-            "مديونة",
-            "قلعة السراغنة",
-            "الجديدة",
-            "المحمدية",
-            "خريبݣة",
-            "اسفي",
-            "برشيد",
-          ];
-          elv.map((e) => {
-            allville.splice(0, 0, { value: e.ville, label: e.ville });
-          });
+            ]
+            Object.getOwnPropertyNames(this.groupBy(res.data, "region")).map(
+              (e) => {
+                regions.splice(0, 0, { value: e, label: e });
+              }
+            );
+            if (localStorage.getItem("lg") === "ar") {
+              for (
+                let index = 0;
+                index < regions.length;
+                index++
+              ) {
+                for (let j = 0; j < regions_ar.length; j++) {
+                  if(regions[index].value===regions_ar[j].value)
+                  regions[index].label = regions_ar[j].label;
+                  
+                }
+                
+              }
+            }
 
-          allville = Array.from(new Set(allville.map((s) => s.value))).map(
-            (value) => {
-              return {
-                value: value,
-                label: allville.find((s) => s.value === value).label,
-              };
-            }
-          );
-          if (localStorage.getItem("lg") === "ar") {
-            for (
-              let index = 0, j = 0;
-              index < allville.length, j < villes_ar.length;
-              index++, j++
-            ) {
-              allville[index].label = villes_ar[j];
-            }
-          }
-          this.setState({ optionsVille: allville, optionsRegions: regions });
+          
+          this.setState({
+              optionsRegions: regions });
           const pageNumbers = [];
           for (
             let i = 1;
@@ -256,7 +216,9 @@ class AllOffers extends Component {
               // ).map((e) => {
               //   espece.splice(0, 0, { value: e, label: e });
               // });
+             
               let espece = [];
+              
               Object.getOwnPropertyNames(this.groupBy(res.data, "espece")).map(
                (e) => {
                   localStorage.getItem("lg") === "ar"
@@ -266,39 +228,55 @@ class AllOffers extends Component {
                   : espece.splice(0, 0, { value: e, label: e });
                 }
               );
+               
+             //ville
+                let ville = [];
+                let villes = [];
+                let villes_ar = [
+                  {value:"ERRACHIDIA",label:"الرشيدية"},
+                  {value:"Midelt",label:"ميدلت"},
+                  {value:"Safi",label:"اسفي"},
+                  {value:"Jerada",label:"جرادة"},
+                  {value:"Benslimane",label:"بن سليمان"},
+                  {value:"Mohammedia",label:"المحمدية"},
+                  {value:"Taourirt",label:"تاوريرت"},
+                  {value:"Ifrane",label:"افران"},
+                  {value:"Khouribga",label:"خريبݣة"},
+                  {value:"El Kelaâ des Sraghna",label:"قلعة السراغنة "},
+                  {value:"Zagora",label:"زاكورة  "},
+                  {value:"OUARZAZATE",label:"ورزازات"},
+                  {value:"Médiouna",label:"مديونة"},
+                  {value:"Berrechid",label:"برشيد"},
+                  {value:"Tétouan",label:"تطوان"},
 
-              //ville
-              let ville = [];
-              let villes = [];
-              let villes_ar = [
-                "الرشيدية",
-                "ميدلت",
-                "اسفي",
-                "جرادة",
-                "بن سليمان",
-                "المحمدية",
-                "تاوريرت",
-                "افران",
-                "خريبݣة",
-              ];
-              res.data.map((e) => {
-                villes.push(e.localisation);
-              });
-              villes = [...new Set(villes)];
-              villes.map((e) => {
-                ville.splice(0, 0, { value: e, label: e });
-              });
+                ];
+                res.data.map((e) => {
+                  villes.push(e.localisation);
+                });
+                villes.push("OUARZAZATE");
+                villes.push("Tétouan");
+                villes.push("Médiouna");
+                villes.push("Berrechid");
+                villes = [...new Set(villes)];
+                villes.map((e) => {
+                  ville.splice(0, 0, { value: e, label: e });
+                });
 
-              if (localStorage.getItem("lg") === "ar") {
-                for (
-                  let index = 0, j = 0;
-                  index < ville.length, j < villes_ar.length;
-                  index++, j++
-                ) {
-                  ville[index].label = villes_ar[j];
+                if (localStorage.getItem("lg") == "ar") {
+                
+                  for (
+                    let index = 0;
+                    index < ville.length;
+                    index++
+                  ) {
+                    for (let j = 0; j < villes_ar.length; j++) {
+                      if(ville[index].value===villes_ar[j].value)
+                      ville[index].label = villes_ar[j].label;
+                      
+                    }
+                    
+                  }
                 }
-              }
-              // console.log(ville);
               
               
 
@@ -308,7 +286,6 @@ class AllOffers extends Component {
               this.setState({
                 optionsEspece: espece,
                 optionsVille: ville,
-
                 AnnoncesN: res.data,
                 Annonces: res.data,
                 loading: false,
@@ -317,6 +294,8 @@ class AllOffers extends Component {
         });
     });
     //   }
+
+    
   }
   handleChangeEspece = (selectedOptionEspece) => {
     this.setState({
@@ -326,43 +305,23 @@ class AllOffers extends Component {
     let annonce = this.state.AnnoncesN;
     let c = selectedOptionEspece.value;
     let races = [];
-    let races_ar = [
-      "الدمان",
-      "السردي",
-      "(البركي)تيمحضيت",
-      "بني كيل(الدغمة)"
-    ];
-    let races_chevre_ar = [
-      "برشا",
-      "الحمرا",
-      
+    let races_ar = [];
 
-    ]
-    //    let catg = [];
     let r = [];
     this.groupBy(annonce, "espece")[c].map((m) => {
       races.push(m.race);
-      if (localStorage.getItem("lg") === "ar"){
+      if (localStorage.getItem("lg") == "ar") {
         races_ar.push(m.race_ar);
       }
     });
     races = [...new Set(races)];
-    if(localStorage.getItem("lg")==="ar"){
-      races_ar = [...new Set(races_ar)];
+    if (localStorage.getItem("lg") == "ar") {
+      races = [...new Set(races_ar)];  // modifier
     }
     races.map((e) => {
       r.splice(0, 0, { value: e, label: e });
     });
 
-    if (localStorage.getItem("lg") === "ar") {
-      for (
-        let index = 0, j = races_ar.length - 1;
-        index < r.length, j >= 0;
-        index++, j--
-      ) {
-        r[index].label = races_ar[j];
-      }
-    }
 
     this.setState({
       race: r,
@@ -382,6 +341,7 @@ class AllOffers extends Component {
         }),
       })
     );
+    
   };
 
   handleChangeVille = (selectedOptionVille) => {
@@ -495,80 +455,7 @@ class AllOffers extends Component {
           const elv = this.state.Eleveurs.filter(
             (Eleveurs) => Eleveurs.Especes !== undefined
           );
-          let regions = [];
-          let regions_ar = [
-            " طنجة - تطوان - الحسيمة",
-            "بني ملال خنيفرة",
-            "درعة - تافيلالت",
-            "الجهة الشرقية",
-            "درعة - تافيلالت",
-            "درعة - تافيلالت",
-            "درعة - تافيلالت",
-            "الدار البيضاء - سطات",
-            "مراكش - أسفي",
-            "فاس مكناس",
-          ];
-          Object.getOwnPropertyNames(this.groupBy(elv, "region")).map((e) => {
-            regions.splice(0, 0, { value: e, label: e });
-          });
-          if (localStorage.getItem("lg") === "ar") {
-            for (
-              let index = 0, j = 0;
-              index < regions.length, j < regions_ar.length;
-              index++, j++
-            ) {
-              regions[index].label = regions_ar[j];
-            }
-          }
-
-          let allville = [];
-          let villes_ar = [
-            "افران",
-            "ميدلت",
-            "زاݣورة",
-            "جرادة",
-            "ورزازات",
-            "تطوان",
-            "تاوريرت",
-            "الرشيدية",
-            "بن سليمان",
-            "مديونة",
-            "قلعة السراغنة",
-            "الجديدة",
-            "المحمدية",
-            "خريبݣة",
-            "اسفي",
-            "برشيد",
-          ];
-          elv.map((e) => {
-            allville.splice(0, 0, { value: e.ville, label: e.ville });
-          });
-
-          allville = Array.from(new Set(allville.map((s) => s.value))).map(
-            (value) => {
-              return {
-                value: value,
-                label: allville.find((s) => s.value === value).label,
-              };
-            }
-          );
-          if (localStorage.getItem("lg") === "ar") {
-            for (
-              let index = 0, j = 0;
-              index < allville.length, j < villes_ar.length;
-              index++, j++
-            ) {
-              allville[index].label = villes_ar[j];
-            }
-          };
-           console.log(allville);
-           console.log(villes_ar)
-
-          this.setState({
-            optionsVille: allville,
-            optionsRegions: regions,
-          });
-
+          
           const pageNumbers = [];
           for (
             let i = 1;
@@ -1202,7 +1089,7 @@ class AllOffers extends Component {
                                   <div className="product__item__text p-2 text-justify">
                                     <h6>
                                       <i className="fa fa-user-circle-o"></i>{" "}
-                                      {localStorage.getItem("lg")=="ar"
+                                      {/* {localStorage.getItem("lg")=="ar"
                                       ? 
                                         " " +
                                         Eleveurs.prenom_ar +
@@ -1215,7 +1102,21 @@ class AllOffers extends Component {
                                         "         " +
                                         Eleveurs.nom
                                       
-                                      }
+                                      } */}
+                                      {localStorage.getItem('lg')=='ar'?
+                                        Eleveurs.nom_ar||Eleveurs.prenom_ar?
+                                        " " +
+                                        Eleveurs.nom_ar +
+                                        " " +
+                                        Eleveurs.prenom_ar+" ":
+                                        " " +
+                                        Eleveurs.nom.toUpperCase() +
+                                        " " +
+                                        Eleveurs.prenom+" ":
+                                        " " +
+                                        Eleveurs.nom.toUpperCase() +
+                                        " " +
+                                        Eleveurs.prenom+" "}
                                        
                                     
                                       
@@ -1271,6 +1172,7 @@ class AllOffers extends Component {
                                             ).label
                                         : Eleveurs.ville}
                                       {/* {Eleveurs.ville} */}
+                                      
                                     </h6>
                                     <h5>
                                       <Box

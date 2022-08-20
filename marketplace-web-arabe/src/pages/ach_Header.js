@@ -81,10 +81,11 @@ class Header extends Component {
 
         .then((res) => {
           this.setState({
-            connectedUser: res.data.nom.toUpperCase() + " " + res.data.prenom,
+            connectedUser: res.data.nom.toUpperCase()+ " " + res.data.prenom,
             connectedUserEmail: res.data.email,
           });
         });
+        
 
       // get panier length
       axios
