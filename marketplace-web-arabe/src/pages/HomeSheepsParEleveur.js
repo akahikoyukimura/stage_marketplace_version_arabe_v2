@@ -79,6 +79,121 @@ class HomeSheepsParEleveur extends Component {
     this.paginate = this.paginate.bind(this);
   }
 
+<<<<<<< HEAD
+=======
+    let r = [];
+    this.groupBy(annonce, "espece")[c].map((m) => {
+      races.push(m.race);
+    });
+
+    races = [...new Set(races)];
+    races.map((e) => {
+      r.splice(0, 0, { value: e, label: e });
+    });
+    this.setState({
+      race: r,
+
+      Disabled: false,
+      conditions: Object.assign(this.state.conditions, {
+        espece: c,
+        race: null,
+      }),
+    });
+  };
+
+  handleChangeRace = (selectedOptionRace) => {
+    this.setState({ selectedOptionRace }, () =>
+      this.setState({
+        conditions: Object.assign(this.state.conditions, {
+          race: this.state.selectedOptionRace.value,
+        }),
+      })
+    );
+  };
+  handleChangeStatut = (Statut) => {
+    this.setState({ Statut }, () =>
+      this.setState({
+        conditions: Object.assign(this.state.conditions, {
+          statut: this.state.Statut.value,
+        }),
+      })
+    );
+  };
+
+  handleChangeSort = (selectedOptionSort) => {
+    this.setState({ selectedOptionSort }, () =>
+      this.setState({
+        selectedOptionSort: selectedOptionSort,
+      })
+    );
+  };
+
+  handleChangeVille = (selectedOptionVille) => {
+    this.setState({ selectedOptionVille }, () =>
+      this.setState({
+        conditions: Object.assign(this.state.conditions, {
+          localisation: this.state.selectedOptionVille.value,
+        }),
+      })
+    );
+  };
+  handelReinitialiser() {
+    this.setState({ loading: true }, () => {
+      axios
+        .get("http://127.0.0.1:8000/api/Espece", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          params: {
+            order_by: "espece",
+            order_mode: "asc",
+          },
+        })
+        .then((res) => {
+          this.setState({
+            Annonces: res.data
+              .filter((data) => data.id_eleveur === this.state.Eleveur._id)
+              .filter((f) => f.statut !== "produit avarié"),
+            loading: false,
+            conditions: {
+              order_by: "espece",
+              order_mode: "asc",
+            },
+            selectedOptionEspece: null,
+            selectedOptionRace: null,
+            Disabled: true,
+            selectedOptionVille: null,
+          });
+          var all = document.querySelectorAll(
+            'input[name="reference"],input[name="prix_min"],input[name="prix_max"],input[name="poids_min"],input[name="poids_max"]'
+          );
+          Array.from(all).map((a) => (a.value = null));
+
+          const pageNumbers = [];
+          for (
+            let i = 1;
+            i <=
+            Math.ceil(this.state.Annonces.length / this.state.annoncesPerPage);
+            i++
+          ) {
+            pageNumbers.push(i);
+          }
+          this.setState({ nombrePages: pageNumbers, showSearchModal: false });
+        });
+    });
+  }
+
+  groupBy(objectArray, property) {
+    return objectArray.reduce((acc, obj) => {
+      const key = obj[property];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(obj);
+      return acc;
+    }, {});
+  }
+>>>>>>> f4c7de4a8f2b01f8f224ebcaa3c5f3963701f3fb
   componentDidMount() {
     function appendLeadingZeroes(n) {
       if (n <= 9) {
@@ -670,7 +785,7 @@ class HomeSheepsParEleveur extends Component {
     );
 
     return (
-      <div style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
+      <div style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" , textAlign:"right"} : {}}>
         {/**modal de recherche */}
         <section className="search-header">
           <div
@@ -682,19 +797,18 @@ class HomeSheepsParEleveur extends Component {
             }}
           >
             <div className="searchheader">
+<<<<<<< HEAD
               
+=======
+>>>>>>> f4c7de4a8f2b01f8f224ebcaa3c5f3963701f3fb
               <div
                 className="col-lg-1 col-md-3"
-                style={
-                  localStorage.getItem("lg") == "ar"
-                    ? {
-                        display: "table-cell",
-                        verticalAlign: "middle",
-                        textAlign: "right",
-                      }
-                    : { display: "table-cell", verticalAlign: "middle" }
-                }          
-                >
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              ></div>
+              <div
+                className="col-lg-1 col-md-3"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
                 <FormattedMessage id="eleveurs_espece">
                   {(espece) => (
                     <Select
@@ -708,22 +822,28 @@ class HomeSheepsParEleveur extends Component {
                 
                 </FormattedMessage>
               </div>
-              
 
+<<<<<<< HEAD
               
               
+=======
+              {/* <div
+                className="col-lg-1 col-md-3"
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
+                <Select
+                  value={selectedOptionVille}
+                  onChange={this.handleChangeVille}
+                  options={optionsVille}
+                  placeholder=" Ville"
+                />
+              </div> */}
+
+>>>>>>> f4c7de4a8f2b01f8f224ebcaa3c5f3963701f3fb
               <div
                 className="col-lg-1 col-md-3"
-                style={
-                  localStorage.getItem("lg") == "ar"
-                    ? {
-                        display: "table-cell",
-                        verticalAlign: "middle",
-                        textAlign: "right",
-                      }
-                    : { display: "table-cell", verticalAlign: "middle" }
-                }
-                >
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
                 <FormattedMessage id="eleveurs_statut">
                   {(statut) => (
                     <Select
@@ -731,7 +851,7 @@ class HomeSheepsParEleveur extends Component {
                     value={this.selectedOptionStatut}
                     onChange={this.handleChangeStatut}
                     options={this.state.statut}
-                    placeholder={statut}
+                    placeholder="Statut"
                     required
                   />
                   )}
@@ -740,16 +860,8 @@ class HomeSheepsParEleveur extends Component {
               </div>
               <div
                 className="col-lg-1 col-md-3"
-                style={
-                  localStorage.getItem("lg") == "ar"
-                    ? {
-                        display: "table-cell",
-                        verticalAlign: "middle",
-                        textAlign: "right",
-                      }
-                    : { display: "table-cell", verticalAlign: "middle" }
-                }
-                >
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
                 <FormattedMessage id="eleveurs_race">
                   {(race) =>(
                     <Select
@@ -757,8 +869,13 @@ class HomeSheepsParEleveur extends Component {
                     isDisabled={this.state.Disabled}
                     value={selectedOptionRace}
                     onChange={this.handleChangeRace}
+<<<<<<< HEAD
                     options={optionsRace}
                     placeholder={race}
+=======
+                    options={this.state.race}
+                    placeholder=" Race"
+>>>>>>> f4c7de4a8f2b01f8f224ebcaa3c5f3963701f3fb
                     required
                   />
                   )}
@@ -790,12 +907,8 @@ class HomeSheepsParEleveur extends Component {
                 className="col-lg-1 col-md-3"
                 name="prix_max"
                 id="recherchePlace"
-                style={
-                  localStorage.getItem("lg") == "ar"
-                    ? { display: "table-cell", direction: "ltr" }
-                    : { display: "table-cell" }
-                }
-                >
+                style={{ display: "table-cell", verticalAlign: "middle" }}
+              >
                 <RangeSlider
                   tooltip="auto"
                   name="prix_max"
@@ -818,10 +931,7 @@ class HomeSheepsParEleveur extends Component {
                 />
                 <div style={{ color: "white" }}>
                   {" "}
-                  <FormattedMessage
-                    id="tout_les_annonces_prix_max"
-                    values={{ Mprix: valueprice }}
-                  />
+                  <FormattedMessage id="eleveurs_prix_max"/> : {valueprice} <FormattedMessage id="eleveurs_DH"/>
                 </div>
 
                 <RangeSlider
@@ -841,11 +951,7 @@ class HomeSheepsParEleveur extends Component {
                 />
                 <div style={{ color: "white" }}>
                   {" "}
-                  <FormattedMessage
-                    id="tout_les_annonces_poids__max"
-                    values={{ Mpoids: valuepoids }}
-                  />
-                  {/* <FormattedMessage id="eleveurs_poids_max"/> : {valuepoids} <FormattedMessage id="eleveurs_KG"/> */}
+                  <FormattedMessage id="eleveurs_poids_max"/> : {valuepoids} <FormattedMessage id="eleveurs_KG"/>
                 </div>
                 {/*   <input
                   id="recherchePlace"
@@ -888,8 +994,7 @@ class HomeSheepsParEleveur extends Component {
                     className="newBtn site-btn"
                     onClick={this.handelChercher}
                   >
-                    <i className="fa fa-search "></i> {" "}
-                    <FormattedMessage id="eleveurs_rechercher"/>{" "}
+                    <i className="fa fa-search "></i> <FormattedMessage id="eleveurs_rechercher"/>{" "}
                   </button>
                 </div>
                 <div className="ReinButton">
@@ -898,8 +1003,7 @@ class HomeSheepsParEleveur extends Component {
                     className="newBtn site-btn"
                     onClick={this.handelReinitialiser}
                   >
-                    <i className="fa fa-refresh"></i> {" "}
-                    <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
+                    <i className="fa fa-refresh"></i> <FormattedMessage id="eleveurs_reinitialiser"/>{" "}
                   </button>
                 </div>
               </div>
@@ -933,7 +1037,7 @@ class HomeSheepsParEleveur extends Component {
                     <h6 id="gras" className="latest-product__item">
                       <FormattedMessage id="eleveurs_espece"/>
                     </h6>
-                    <div className="row">
+                    <div className="row" style={localStorage.getItem("lg") == "ar"? { direction: "rtl", textAlign: "right"}: {}}>
                       <div className="col-lg-12 col-md-12">
                         <FormattedMessage id="eleveurs_espece">
                           {(espece) => (
@@ -1130,7 +1234,7 @@ class HomeSheepsParEleveur extends Component {
 
         {/**modal de recherche */}
         <section className=""
-          style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}                            >
+                                    >
           <div className="container">
             <div className="row">
               <div className="col-lg-3 col-md-6" id="parElvrHidden">
@@ -1256,7 +1360,7 @@ class HomeSheepsParEleveur extends Component {
                           >
                             <div id="centrer" className="container col-md-12">
                               <br></br>
-                              <h3 className="mt-1">
+                              <h3 className="mt-1" >
                                 <Box
                                   component="fieldset"
                                   mb={3}
@@ -1286,25 +1390,20 @@ class HomeSheepsParEleveur extends Component {
                                   </div>
                                 </Box>
                               </h3>{" "}
-                              <ul id="data-eleveur" className="pt-4">
+                              <ul id="data-eleveur" className="pt-4"  >
                                 <li>
-                                  <h6 className="my-2">
+                                  <h6 className="my-2" >
                                     {" "}
                                     <span className="icon">
-                                      <i 
-                                      style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{}}
-                                      className="fa fa-map"></i>
+                                      <i className="fa fa-map" ></i>
                                     </span>
                                     <span className="key">
-                                      <b
-                                      style={localStorage.getItem('lg')=='ar'?{
-                                        textAlign:"right",
-                                        marginLeft:"90px"}:{}}>
-                                        <FormattedMessage id ="eleveurs_region"></FormattedMessage></b>
+                                      <b><FormattedMessage id ="eleveurs_region"></FormattedMessage></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
                                     </span>
+<<<<<<< HEAD
                                     <span 
                                     
                                     style={localStorage.getItem('lg')=='ar'?{
@@ -1324,27 +1423,25 @@ class HomeSheepsParEleveur extends Component {
                                                 element.value === this.state.Eleveur.region
                                             ).label
                                         : this.state.Eleveur.region}
+=======
+                                    <span className="value">
+                                      {" " + this.state.Eleveur.region}{" "}
+>>>>>>> f4c7de4a8f2b01f8f224ebcaa3c5f3963701f3fb
                                     </span>
                                   </h6>
                                 </li>
                                 <li>
                                   <h6 className="mb-2">
                                     <span className="icon">
-                                      <i 
-                                      style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{}}
-                                      className="fa fa-home"></i>
+                                      <i className="fa fa-home"></i>
                                     </span>
                                     <span className="key">
-                                      <b
-                                      style={localStorage.getItem('lg')=='ar'?{
-                                        textAlign:"right",
-                                        marginLeft:"90px"}:{}}
-                                      >
-                                        <FormattedMessage id="eleveurs_ville"></FormattedMessage></b>
+                                      <b><FormattedMessage id="eleveurs_ville"></FormattedMessage></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
                                     </span>
+<<<<<<< HEAD
                                     <span 
                                     style={localStorage.getItem('lg')=='ar'?{
                                       marginLeft:"-195px"}:{}}
@@ -1363,6 +1460,10 @@ class HomeSheepsParEleveur extends Component {
                                             ).label
                                         : this.state.Eleveur.ville}
                                       {/* {" " + this.state.Eleveur.ville} */}
+=======
+                                    <span className="value">
+                                      {" " + this.state.Eleveur.ville}
+>>>>>>> f4c7de4a8f2b01f8f224ebcaa3c5f3963701f3fb
                                     </span>
                                   </h6>
                                 </li>
@@ -1370,26 +1471,17 @@ class HomeSheepsParEleveur extends Component {
                                   <h6 className="mb-2">
                                     <span className="icon">
                                       <i
-                                        style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{}}
                                         className="fa fa-phone"
                                         aria-hidden="true"
                                       ></i>
                                     </span>
                                     <span className="key">
-                                      <b
-                                      style={localStorage.getItem('lg')=='ar'?{
-                                        textAlign:"right",
-                                        marginLeft:"90px"}:{}}
-                                      >
-                                        <FormattedMessage id="eleveurs_tel"/></b>
+                                      <b><FormattedMessage id="eleveurs_tel"/></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
                                     </span>
-                                    <span 
-                                    style={localStorage.getItem('lg')=='ar'?{
-                                      marginLeft:"-195px"}:{}}
-                                    className="value">
+                                    <span className="value">
                                       {" " + this.state.Eleveur.tel}
                                     </span>
                                   </h6>
@@ -1399,46 +1491,30 @@ class HomeSheepsParEleveur extends Component {
                                     {" "}
                                     <span className="icon">
                                       <img
-                                      style={localStorage.getItem('lg')=='ar'
-                                      ?{width: "16px",
-                                        height: "18px",
-                                        marginBottom: "5px",
-                                        marginLeft:"333px"}:{
-                                        width: "16px",
-                                        height: "18px",
-                                        marginBottom: "5px",
+                                        style={{
+                                          width: "16px",
+                                          height: "18px",
+                                          marginBottom: "5px",
                                         }}
-                                        
-                                          
-                            
                                         data-imgbigurl="Images/sheep-head.png"
                                         src="Images/sheep-head.png"
                                         alt=""
                                       />
                                     </span>
-                                    <span  className="key">
-                                      <b
-                                      style={localStorage.getItem('lg')=='ar'?{
-                                        textAlign:"right",
-                                        marginLeft:"90px"}:{}}>
-                                        <FormattedMessage id="eleveurs_total_tetes"/></b>
+                                    <span className="key">
+                                      <b><FormattedMessage id="eleveurs_total_tetes"/></b>
                                     </span>
                                     <span className="colon">
                                       <b> :</b>
                                     </span>
-                                    <span 
-                                    style={localStorage.getItem('lg')=='ar'?{
-                                      marginLeft:"-195px"}:{}}
-                                    id="nbEspece" className="value">
+                                    <span id="nbEspece" className="value">
                                       <b>{this.state.Annonces.length}</b>
                                     </span>
                                   </h6>
                                 </li>
                               </ul>
                               {this.state.Eleveur.anoc ? (
-                                <span 
-                                style={localStorage.getItem('lg')=='ar'?{marginLeft:"108px"}:{}}
-                                className=" text-success">
+                                <span className=" text-success">
                                   <HiOutlineBadgeCheck className=" mr-1 fa-lg " />{" "}
                                   <FormattedMessage id="eleveurs_label"
                                   values={{anoc: "ANOC"}}/>
@@ -1453,13 +1529,9 @@ class HomeSheepsParEleveur extends Component {
                         
 
                         <div id="filtre-div"
-                        style={
-                          localStorage.getItem("lg") == "ar"
-                            ? { textAlign: "right" }
-                            : {}
-                        }>
+                        style={localStorage.getItem("lg") == "ar" ? { direction: "rtl" } : {}}>
                           <h5 id="h5-ce-q" ><FormattedMessage id="eleveurs_propose"/></h5>
-                          <h5 id="dispo-vendus" className="mt-3" style={{marginRight:"0px"}}>
+                          <h5 id="dispo-vendus" className="mt-3">
                             <b className="ml-3" id="nbEspece">
                               {dispo.length}{" "}
                             </b>{" "}
@@ -1469,10 +1541,7 @@ class HomeSheepsParEleveur extends Component {
                             </b>
                             <strong><FormattedMessage id="eleveurs_especes_vendus"/></strong>
                           </h5>
-                          <br></br>
-                          <br></br>
                           <div
-                            style={{zIndex: 1}}
                             id="filterPlace"
                             className="col-lg-5 col-md-5 fa "
                           >
@@ -1601,6 +1670,7 @@ class HomeSheepsParEleveur extends Component {
                                       >
                                         <i
                                           className="fa fa-map-marker"
+<<<<<<< HEAD
                                           
                                         ></i>
                                         {/* {" "}
@@ -1620,6 +1690,11 @@ class HomeSheepsParEleveur extends Component {
                                                 element.value === this.state.Eleveur.ville
                                             ).label
                                         : this.state.Eleveur.ville}
+=======
+                                          style={{ marginRight: "0.5rem" }}
+                                        ></i>{" "}
+                                        {Annonces.localisation}
+>>>>>>> f4c7de4a8f2b01f8f224ebcaa3c5f3963701f3fb
                                       </div>
                                       <div
                                         className="product__item__information"

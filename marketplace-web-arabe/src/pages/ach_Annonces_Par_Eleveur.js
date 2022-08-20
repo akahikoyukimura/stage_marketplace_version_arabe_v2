@@ -305,6 +305,7 @@ class AllOffers extends Component {
     let annonce = this.state.AnnoncesN;
     let c = selectedOptionEspece.value;
     let races = [];
+
     let races_ar = [];
 
     let r = [];

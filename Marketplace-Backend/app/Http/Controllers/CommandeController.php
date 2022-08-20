@@ -341,6 +341,7 @@ class CommandeController extends Controller
         'date_de_livraison',
         'type_livraison',
         'ville_livraison',
+        'ville_livraison_ar',
         'adresse_domicile',
         'point_relais',
         'isDelivered',

@@ -149,23 +149,30 @@ class HomeSheeps extends Component {
     let annonce = this.state.AnnoncesN;
     let c = selectedOptionEspece.value;
     let races = [];
-    let races_ar = [];
+    let races_ar = [
+      {value:"Boujâad",label:"أبي الجعد"},
+      {value:"D’man (Daman)",label:"دمان"},
+      {value:"Sardi",label:"سردي"},
+      {value:"Timahdite (Bergui)",label:"تمحضيت"},
+      {value:"Béni-Guil (Daghma)",label:"بني جيل (دغمة)"},
+    ];
 
     let r = [];
     this.groupBy(annonce, "espece")[c].map((m) => {
       races.push(m.race);
-      if (localStorage.getItem("lg") == "ar") {
-        races_ar.push(m.race_ar);
-      }
     });
     races = [...new Set(races)];
+<<<<<<< HEAD
     if (localStorage.getItem("lg") == "ar") {
       races = [...new Set(races_ar)];
     }
+=======
+>>>>>>> f4c7de4a8f2b01f8f224ebcaa3c5f3963701f3fb
     races.map((e) => {
       r.splice(0, 0, { value: e, label: e });
     });
 
+<<<<<<< HEAD
     // if (localStorage.getItem("lg") == "ar") {
     //   for (
     //     let index = 0, j = races_ar.length - 1;
@@ -175,6 +182,22 @@ class HomeSheeps extends Component {
     //     r[index].label = races_ar[j];
     //   }
     // }
+=======
+    if (localStorage.getItem("lg") == "ar") {
+      for (
+        let index = 0;
+        index < r.length;
+        index++
+      ) {
+        for (let j = 0; j < races_ar.length; j++) {
+          if(r[index].value===races_ar[j].value)
+          r[index].label = races_ar[j].label;
+          
+        }
+        
+      }
+    }
+>>>>>>> f4c7de4a8f2b01f8f224ebcaa3c5f3963701f3fb
 
     this.setState({
       race: r,

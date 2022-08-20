@@ -298,6 +298,9 @@ class Commander extends Component {
         ville_livraison: this.state.check1
           ? "Récupérer à la coopérative"
           : this.state.selectedOptionVille.value,
+        ville_livraison_ar: this.state.check1
+          ? "Récupérer à la coopérative"
+          : this.state.selectedOptionVille.label,
         especes: this.state.especes,
 
         id_cooperative: this.state.id_cooperative,

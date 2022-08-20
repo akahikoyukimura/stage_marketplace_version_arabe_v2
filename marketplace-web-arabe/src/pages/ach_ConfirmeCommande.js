@@ -11,6 +11,9 @@ import { HiOutlineBadgeCheck } from "react-icons/hi";
 import { Redirect } from "react-router";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { FormattedMessage } from "react-intl";
+
+const intl=JSON.parse(localStorage.getItem('intl'))
 class ConfirmeCommande extends Component {
   constructor(props) {
     super(props);
@@ -30,9 +33,9 @@ class ConfirmeCommande extends Component {
       optionsMotifs: [
         {
           value: "Numéro de boucle non conforme",
-          label: "Numéro de boucle non conforme",
+          label: <FormattedMessage id="confirme_cmd_numero_boucle_non_conforme"/>,
         },
-        { value: "Produit avarié", label: "Produit avarié" },
+        { value: "Produit avarié", label: <FormattedMessage id="confirme_cmd_produit_avarie"/> },
       ],
 
       selectedOptionMotif: "",
@@ -109,12 +112,12 @@ class ConfirmeCommande extends Component {
     ) {
       swalWithBootstrapButtons
         .fire({
-          title: "Etes-vous sûr?",
-          text: "Voulez-vous confirmer votre evaluation !",
+          title: intl.messages.panier_delete_item,
+          text: intl.messages.confirme_cmd_confirme_evaluation,
           icon: "warning",
           showCancelButton: true,
-          confirmButtonText: "  Oui!  ",
-          cancelButtonText: "  Non!  ",
+          confirmButtonText: intl.messages.panier_delete_oui,
+          cancelButtonText: intl.messages.panier_delete_non,
           reverseButtons: true,
         })
         .then((result) => {
@@ -145,8 +148,8 @@ class ConfirmeCommande extends Component {
                   },
                   () => {
                     swalWithBootstrapButtons.fire(
-                      "confirmation et evalution validées!",
-                      "Votre confirmation et evalution ont bien été enregistrés",
+                      intl.messages.confirme_cmd_confirme_valide,
+                      intl.messages.confirme_cmd_confirme_enregistre,
                       "success"
                     );
                     this.props.history.push("./commandesParStatut");
@@ -155,8 +158,8 @@ class ConfirmeCommande extends Component {
               });
           } else {
             swalWithBootstrapButtons.fire(
-              "Annulation !",
-              "Votre confirmation et evalution ont bien été annulées",
+              intl.messages.alerte_cmd_annulation_success_title,
+              intl.messages.confirme_cmd_confirme_annule,
               "error"
             );
           }
@@ -182,8 +185,8 @@ class ConfirmeCommande extends Component {
     return (
       <div>
         <style>{`.btn-link {  color:white} .btn-link:hover {color:white;} .card { background-color: #fafafa !important } .container {max-width: 90%;}  `}</style>
-        <div className="container">
-          <h3>Confirmation et évaluation </h3>
+        <div style={localStorage.getItem('lg')=='ar'?{direction:"rtl",textAlign:"right"}:{}} className="container">
+          <h3><FormattedMessage id="confirme_cmd_title"/> </h3>
           <br></br>
           <div>
             <div id="accordion">
@@ -196,8 +199,8 @@ class ConfirmeCommande extends Component {
                   <h5 className="mb-0">
                     <button className="btn btn-link collapsed">
                       <h5 style={{ color: "white" }}>
-                        <FaClipboardCheck className="mb-2" /> Réception de la
-                        livraison{" "}
+                        <FaClipboardCheck className="mb-2" /> 
+                        <FormattedMessage id="confirme_cmd_reception_livraison"/>{" "}
                       </h5>{" "}
                     </button>
                   </h5>
@@ -209,7 +212,7 @@ class ConfirmeCommande extends Component {
                         <div className="shoping__checkout mt-2 pb-0">
                           <h6>
                             {" "}
-                            Reçue et conforme{" "}
+                            <FormattedMessage id="confirme_cmd_recu_et_conforme"/>{" "}
                             <Switch
                               onChange={this.handleChangeEtat.bind(
                                 this,
@@ -223,7 +226,7 @@ class ConfirmeCommande extends Component {
                           <br></br>
                           <h6>
                             {" "}
-                            Rejetee car non conforme{" "}
+                            <FormattedMessage id="confirme_cmd_rejet_non_conforme"/>{" "}
                             <Switch
                               onChange={this.handleChangeEtat.bind(
                                 this,
@@ -239,28 +242,38 @@ class ConfirmeCommande extends Component {
                           {this.state.rejete === true ? (
                             <>
                               <div className=" font-weight-bold mt-2">
-                                <FaShapes /> motif de rejet
+                                <FaShapes /> <FormattedMessage id="confirme_cmd_motif_de_rejet"/>
                               </div>
                               <br></br>
                               <div className="w-75">
-                                <Select
-                                  value={this.state.selectedOptionMotifs}
-                                  onChange={this.handleChangeMotifs}
-                                  options={this.state.optionsMotifs}
-                                  placeholder="A choisir"
-                                  name="selectedOptionMotif"
-                                />
+                              <FormattedMessage id="confirme_cmd_a_choisir">
+                          {(placeholder) => (
+                            <Select
+                            value={this.state.selectedOptionMotifs}
+                            onChange={this.handleChangeMotifs}
+                            options={this.state.optionsMotifs}
+                            placeholder={placeholder}
+                            name="selectedOptionMotif"
+                          />
+                          )}
+                        </FormattedMessage>
+                                
                               </div>{" "}
                               <div className="w-75">
                                 {this.state.showMotif ? (
-                                  <Select
+                                  <FormattedMessage id="confirme_cmd_motif_de_rejet">
+                                  {(placeholder) => (
+                                    <Select
                                     value={this.state.selectedOptionMotif}
                                     onChange={this.handleChangeMotif}
                                     options={this.state.optionsMotif}
-                                    placeholder="Motif de rejet"
+                                    placeholder={placeholder}
                                     name="selectedOptionMotif"
                                     className="mt-2"
                                   />
+                                  )}
+                                </FormattedMessage>
+                                  
                                 ) : null}{" "}
                               </div>{" "}
                             </>
@@ -276,9 +289,7 @@ class ConfirmeCommande extends Component {
                           }}
                         >
                           <b>
-                            Pour toute réclamation, contactez le service client
-                            au 0601120156. Disponible de 9h à 19h sauf Samedi et
-                            Dimanche.
+                            <FormattedMessage id="confirme_cmd_declaration"/>
                           </b>
                         </h6>
                       </div>
@@ -295,7 +306,7 @@ class ConfirmeCommande extends Component {
                   <h5 className="mb-0">
                     <button className="btn btn-link collapsed">
                       <h5 style={{ color: "white" }}>
-                        <FaClipboardCheck className="mb-2" /> Evaluation
+                        <FaClipboardCheck className="mb-2" /> <FormattedMessage id="confirme_cmd_evaluation"/>
                       </h5>{" "}
                     </button>
                   </h5>
@@ -310,8 +321,8 @@ class ConfirmeCommande extends Component {
                           borderColor="transparent"
                         >
                           <div>
-                            <b style={{ fontSize: "20px" }} className="mr-3">
-                              Livraison
+                            <b style={localStorage.getItem('lg')=='ar'?{ fontSize: "20px",marginLeft:"1rem"}:{ fontSize: "20px" }} className={localStorage.getItem('lg')=='ar'?"":"mr-3"}>
+                              <FormattedMessage id="confirme_cmd_livraison"/>
                             </b>
                             <Rating
                               name="livraison"
@@ -327,8 +338,8 @@ class ConfirmeCommande extends Component {
                           mb={3}
                           borderColor="transparent"
                         >
-                          <b style={{ fontSize: "20px" }} className="mr-3">
-                            Produit
+                          <b style={localStorage.getItem('lg')=='ar'?{ fontSize: "20px",marginLeft:"1rem" }:{ fontSize: "20px" }} className={localStorage.getItem('lg')=='ar'?"":"mr-3"}>
+                            <FormattedMessage id="confirme_cmd_produit"/>
                           </b>
                           <Rating
                             name="produit"
@@ -345,7 +356,7 @@ class ConfirmeCommande extends Component {
               </div>
 
               <div className="my-5">
-                <div className="row">
+                <div style={localStorage.getItem('lg')=='ar'?{justifyContent:"left"}:{}} className="row">
                   <div className="col-md-4 offset-md-4">
                     <button
                       style={{ fontSize: "19px" }}
@@ -354,7 +365,7 @@ class ConfirmeCommande extends Component {
                       className="btn-success py-1 px-4 mb-3 w-75"
                     >
                       {" "}
-                      Valider{" "}
+                      <FormattedMessage id="step3_valider"/>{" "}
                     </button>{" "}
                   </div>
                 </div>
