@@ -969,13 +969,13 @@ class HomeSheepsParEleveur extends Component {
                     </h6>
                     <div className="row">
                       <div className="col-lg-12 col-md-12">
-                        <FormattedMessage>
+                        <FormattedMessage id="eleveurs_espece">
                           {(espece) => (
                             <Select
                             value={selectedOptionEspece}
                             onChange={this.handleChangeEspece}
                             options={optionsEspece}
-                            placeholder="Espece"
+                            placeholder={espece}
                             required
                             // className="Select"
                           />
@@ -1275,7 +1275,9 @@ class HomeSheepsParEleveur extends Component {
                                 className=" badge badge-success  pt-1 w-100  "
                               >
                                 <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                <span><FormattedMessage id="eleveurs_labelise"/> ANOC</span>{" "}
+                                <span>
+                                  <FormattedMessage id="panier_Labelise"/>
+                                </span>{" "}
                               </h1>
                             ) : (
                             
@@ -1619,7 +1621,9 @@ class HomeSheepsParEleveur extends Component {
                                   className=" badge badge-success  pt-1 w-100  "
                                 >
                                   <HiOutlineBadgeCheck className=" mr-1 fa-lg " />
-                                  <span>Labélisé ANOC</span>{" "}
+                                  <span>
+                                  <FormattedMessage id="panier_Labelise" />  
+                                  </span>{" "}
                                 </h1>
                               ) : (
                                 <h1
@@ -1643,7 +1647,8 @@ class HomeSheepsParEleveur extends Component {
                                       >
                                         <i
                                           className="fa fa-map-marker"
-                                          style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{ marginRight: "0.5rem" }}
+                                          // style={localStorage.getItem('lg')=='ar'?{marginLeft:"333px"}:{ marginRight: "0.5rem" }}
+                                          style={{ marginRight: "0.5rem" }}
                                         ></i>{" "}
                                         {/* {Annonces.localisation} */}
                                         {localStorage.getItem("lg") === "ar"

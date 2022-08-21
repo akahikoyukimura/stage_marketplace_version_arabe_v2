@@ -1142,8 +1142,12 @@ class AllOffers extends Component {
                                         Eleveurs.prenom+" "}
                                        
                                     
-                                      
-                                      <span className="float-right rounded  border-dark border pr-1">
+                                      <br></br>
+                                      <span className="float-right rounded  border-dark border pr-1"
+                                        style={localStorage.getItem("lg")==='ar'?
+                                        {}:{position:"absolute"}
+                                      }
+                                          >
                                         {" "}
                                         <img
                                           style={{
@@ -1160,6 +1164,7 @@ class AllOffers extends Component {
                                           " "}
                                       </span>
                                     </h6>
+                                    <br></br>
                                     <h6>
                                       {" "}
                                       <i className="fa fa-map"></i>{" "}
