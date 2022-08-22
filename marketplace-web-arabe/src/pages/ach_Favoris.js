@@ -163,7 +163,7 @@ class Commandes extends Component {
         );
 
       Swal.fire({
-        title: "Ajouté dans Pannier",
+        title: intl.messages.favoris_ajoute_au_panier_succes,
         icon: "success",
         width: 400,
         heightAuto: false,
@@ -195,8 +195,8 @@ class Commandes extends Component {
           text: intl.messages.panier_delete_message,
           icon: "warning",
           showCancelButton: true,
-          confirmButtonText: "  Oui !  ",
-          cancelButtonText: "  Non !  ",
+          confirmButtonText: intl.messages.panier_delete_oui,
+          cancelButtonText: intl.messages.panier_delete_non,
           reverseButtons: true,
         })
         .then((result) => {
