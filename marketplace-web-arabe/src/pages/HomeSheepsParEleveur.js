@@ -1305,13 +1305,13 @@ class HomeSheepsParEleveur extends Component {
                                 >
                                   <FormattedMessage id="eleveurs_eleveur"/> :{" "}
                                   {localStorage.getItem('lg')=='ar'?
-                                        this.state.Eleveur.nom_ar||this.state.Eleveur.prenom_ar?
+                                        typeof this.state.Eleveur.nom_ar!="undefined"&& typeof this.state.Eleveur.prenom_ar!="undefined"?
                                         " " +
                                         this.state.Eleveur.nom_ar +
                                         " " +
                                         this.state.Eleveur.prenom_ar+" ":
                                         " " +
-                                        this.state.Eleveur.toUpperCase() +
+                                        this.state.Eleveur.nom.toUpperCase() +
                                         " " +
                                         this.state.Eleveur.prenom+" ":
                                         " " +
