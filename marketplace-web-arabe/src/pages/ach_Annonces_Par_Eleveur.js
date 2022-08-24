@@ -313,6 +313,9 @@ class AllOffers extends Component {
       {value:"Sardi",label:"سردي"},
       {value:"Timahdite (Bergui)",label:"تمحضيت"},
       {value:"Béni-Guil (Daghma)",label:"بني جيل (دغمة)"},
+      {value:"El Hamra",label:"الحمرا"},
+      {value:"Barcha",label: "البرشاء"},
+      {value:"Noire", label:"الأسود"}
     ];
 
 

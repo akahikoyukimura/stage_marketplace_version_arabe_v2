@@ -86,6 +86,7 @@ class HomeSheepsParEleveur extends Component {
     });
     let annonce = this.state.AnnoncesN;
     let c = selectedOptionEspece.value;
+    console.log(c)
     let races = [];
     // let races_ar = [];
     let races_ar = [
@@ -94,6 +95,9 @@ class HomeSheepsParEleveur extends Component {
       {value:"Sardi",label:"سردي"},
       {value:"Timahdite (Bergui)",label:"تمحضيت"},
       {value:"Béni-Guil (Daghma)",label:"بني جيل (دغمة)"},
+      {value:"El Hamra",label:"الحمرا"},
+      {value:"Barcha",label: "البرشاء"},
+      {value:"Noire", label:"الأسود"}
     ];
 
 
